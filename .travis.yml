@@ -8,6 +8,7 @@ env:
   - RAILS_ENV=test PG_HOST=localhost PG_USERNAME=postgres
 
 before_script:
+  - cp config/database.yml.example config/database.yml
   - bundle exec rake db:create db:migrate
 
 notifications:
