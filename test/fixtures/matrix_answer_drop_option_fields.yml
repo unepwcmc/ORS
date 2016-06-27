@@ -1,0 +1,26 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+one:
+  matrix_answer_drop_option_id: 1
+  language: MyString
+  is_default_language: false
+  option_text: MyString
+
+two:
+  matrix_answer_drop_option_id: 1
+  language: MyString
+  is_default_language: false
+  option_text: MyString
+
+# == Schema Information
+#
+# Table name: matrix_answer_drop_option_fields
+#
+#  id                           :integer          not null, primary key
+#  matrix_answer_drop_option_id :integer
+#  language                     :string(255)
+#  is_default_language          :boolean
+#  option_text                  :string(255)
+#  created_at                   :datetime
+#  updated_at                   :datetime
+#

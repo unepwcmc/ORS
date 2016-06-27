@@ -1,0 +1,9 @@
+<p><%=I18n.t('generic.hi')%>,</p>
+
+<p><%=I18n.t('user_mailer.new_delegate.first_line')%> <%=ApplicationProfile.title%></p>
+<p><%=I18n.t('user_mailer.access')%> <a href='<%=@url%>'><%=@url%></a>.</p>
+<p><%=I18n.t('user_mailer.login')%><br />
+  <strong><%=I18n.t('generic.email')%>:</strong> <%=h @user.email%><br />
+  <strong><%=I18n.t('generic.password')%>:</strong> <%=h @password%>
+</p>
+<p><%=I18n.t('user_mailer.greetings')%><br /><%=ApplicationProfile.title%></p>

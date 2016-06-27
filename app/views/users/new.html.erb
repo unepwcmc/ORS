@@ -1,0 +1,61 @@
+<div class="span-24 last">
+  <% if current_user %>
+    <%= render :partial => "users/options" %>
+  <% end %>
+  <h1><% if current_user %><%= t("user_new.add_delegate")%><% else %><%= t("user_new.sign_up") %>
+    <% end %></h1>
+
+  <%= form_for @user do |f| %>
+      <% if @user.errors.any? %>
+        <div id="errorExplanation">
+          <ul id='error_messages'>
+            <% @user.errors.full_messages.each do |msg| %>
+              <li><%= msg %></li>
+            <% end %>
+          </ul>
+        </div>
+      <% end %>
+      <%= hidden_field_tag :lang, params[:lang] || "en" %>
+      <p>
+        <%= f.label :first_name, t("user_new.first_n") %><br />
+        <%= f.text_field :first_name %>
+      </p>
+      <p>
+        <%= f.label :last_name, t("user_new.last_n") %><br />
+        <%= f.text_field :last_name %>
+      </p>
+      <p>
+        <%= f.label :language, t("generic.language") %>
+        <%= select :user, :language, [[t("languages.english"),"en"], [t("languages.french"),"fr"], [t("languages.spanish"),"es"]], {:selected => "en"}  %>
+      </p>
+      <p>
+      <%= f.label :category, t("generic.category")%> <br />
+        <label id="radio">
+          <%= f.radio_button :category, "Management Authority" %>
+          <%= t("generic.management")%>
+        </label>
+        <label id="radio">
+          <%= f.radio_button :category, "Scientific Authority" %>
+          <%= t("generic.scientific")%>
+        </label>
+        <label id="radio">
+          <%= f.radio_button :category, "Other" %>
+          <%= t("generic.other")%>
+        </label>
+      </p>
+      <p>
+        <%= f.label :email, t("generic.email") %><br />
+        <%= f.text_field :email %>
+      </p>
+      <p>
+        <%= f.label :password, t("generic.password") %><br />
+        <%= f.password_field :password %>
+      </p>
+      <p>
+        <%= f.label :password_confirmation, t("generic.password_c") %><br />
+        <%= f.password_field :password_confirmation %>
+      </p>
+      <p><%= f.submit t("user_new.sign_up") %></p>
+  <% end %>
+  <%= render :partial => "layouts/institutions" %>
+</div>

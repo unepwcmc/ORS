@@ -1,0 +1,68 @@
+<div class="span-15 colborder" id="show_section">
+  <div id="show_pages">
+    <% @section.section_fields.sort_by{ |a| a.is_default_language? ? 0 : 1 }.each do |field| -%>
+        <div class="span-15 last info_header" style="border-bottom-width: <%= field.is_default_language? ? "0" : "1px" %>">
+          <div class="span-10">
+            <h4><%= raw Sanitize.clean(field.tab_title.present? ? field.tab_title : ( field.title.present? ? field.title : "#Not specified#" )) %></h4>
+          </div>
+          <div class="span-5 last">
+            <p><!-- floats right -->
+              <strong><%=h field.language_english_name %> / <%=h field.language_full_name %></strong> |
+              <a href="#" class="show_info" style="display:<%= field.is_default_language? ? "none" : "inline" %>">Show info</a>
+              <a href="#" class="hide_info" style="display:<%= field.is_default_language? ? "inline" : "none" %>">Hide info</a>
+            </p>
+          </div>
+        </div><!-- /info_header -->
+        <div class="span-15 last info <%= field.is_default_language? ? "" : "hide" %>">
+          <div class="span-6 colborder">
+            <p><strong>Title:</strong></p>
+            <div><%= raw Sanitize.clean((field.title.present? ? field.title : "#Not specified#" ), OrtSanitize::Config::ORT) -%></div>
+            <p><strong>Description:</strong></p>
+            <div><%= raw Sanitize.clean(field.description.present? ? field.description : "#Not specified#", OrtSanitize::Config::ORT) -%></div>
+            <p> <strong>Section Type:</strong> <%= @section.section_type_humanize %></p>
+            <p><strong>Submission view:</strong> Section is <%= @section.starts_collapsed? ? "collapsed" : "expanded" %></p>
+            <% if @section.is_hidden? -%>
+                <p><strong>Hidden section</strong><%= info_tip "Hidden Section", "The section title and description will not be displayed in the submission view because the section is set to be hidden." %></p>
+            <% end -%>
+            <div id="dependency">
+              <% if @section.depends_on_option -%>
+                  <p>
+                    <strong>Dependent Section</strong><%= info_tip "Dependent Section", "This section <strong>depends</strong> on the option
+                    <strong>#{h @section.depends_on_option.multi_answer_option_fields.find_by_is_default_language(true).option_text}</strong> being
+                    <strong>#{@section.depends_on_option_value? ? "selected" : "not selected"}</strong>, for question
+                    <strong>#{link_to h(@section.depends_on_question.title), question_path(@section.depends_on_question), :class => :get}</strong> of
+                    section <strong>#{link_to h(@section.depends_on_question.section.title), section_path(@section.depends_on_question.section)} </strong>." %>
+                    (<%= link_to "Delete", unset_dependency_section_path(@section), :method => :delete, :confirm => "Are you sure you want to delete the dependency relation of this section?"%>)
+                  </p>
+              <% end -%>
+            </div><!-- /dependency -->
+          </div><!-- /main_info -->
+          <div class="span-8 last">
+            <% if @section.section_type == 1 -%>
+                <h5>
+                  <%=h @section.answer_type_type.titleize %>
+                </h5>
+                <div id="show_answer_type">
+                  <h4>Answer Type Details</h4>
+                  <%= render :partial => "#{@section.answer_type_type.underscore}s/show", :locals => {:answer_type => @section.answer_type, :language => field.language} -%>
+                </div><!-- /show_answer_type -->
+            <% elsif @section.looping? && @section.loop_source-%>
+                <p>
+                  <strong>Looping Source:</strong> <%= link_to h(@section.loop_source.name), loop_source_path(@section.loop_source) %>
+                </p>
+                <% if @section.loop_item_type && @section.loop_item_type.is_filtering_field? -%>
+                    <p><strong>Filtering by:</strong>
+                    <%= link_to h(@section.loop_item_type.name), loop_item_type_path(@section.loop_item_type) %>
+                    as
+                    <%= link_to h(@section.loop_item_type.filtering_field.name), questionnaire_filtering_field_path(@section.questionnaire, @section.loop_item_type.filtering_field) %></p>
+                <% else -%>
+                    <p><strong>Looping through:</strong> <%= link_to h(@section.loop_item_type.name), loop_item_type_path(@section.loop_item_type) %></p>
+                <% end -%>
+            <% end -%>
+          </div><!-- /extra_details -->
+        </div><!-- /info -->
+    <% end  -%>
+  </div> <!-- /show pages -->
+  <div id="add_section" class="span-15 colborder hide"></div><!-- /add_section -->
+  <div id="add_question" class="span-15 colborder hide"></div><!-- /add_question -->
+</div><!-- /show_section -->

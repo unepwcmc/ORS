@@ -1,0 +1,29 @@
+$(function(){
+    var $myTable = $("#myTable");
+    <% if @group %>
+        <% if @users.empty? %>
+          alert("Please select one or more users!");
+        <% else %>
+            <% @users.each do |user| %>
+                $("#groups_<%=user.id.to_s%>").html("<%= 
+                    escape_javascript( 
+                        user.group_list.sort.map{ |name| 
+                            "<span id='g_#{h(name)+ "_" + user.id.to_s}'>
+                              #{h(name)} #{link_to "x", remove_group_user_path(
+                                :id => user.id, 
+                                :group_name => name), :class => "put"}
+                            </span>"}.join(" ").html_safe) %>");
+            <% end %>
+            <% if @questionnaire %>
+                $myTable.trigger("update")
+                        .trigger("sorton", [[]]);
+            <% else %>
+                $("#users_index").trigger("update")
+                                 .trigger("sorton", [[]]);
+            <% end %>
+            $("#options").remove();
+            $("#menu").append("<%= escape_javascript(render :partial => "users/manage_users")%>");
+            enableSearch();
+        <% end %>
+    <% end %>
+});

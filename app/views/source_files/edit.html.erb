@@ -1,0 +1,57 @@
+<div class="span-24 last" id="content">
+
+  <div id="content_header">
+    <% info_tip_text = ""%>
+    <%= render :partial => "administration/menu", :locals => {:header => "Source file " + info_tip("Source file", info_tip_text), :include_options => "questionnaires"} -%>
+  </div>
+  <div class="clear" id="q_dashboard" style="margin-bottom: 25px">
+    <p><strong>Questionnaire</strong><%= link_to @source_file.loop_source.questionnaire.title, dashboard_questionnaire_path(@source_file.loop_source.questionnaire) %> (<%= link_to "Questionnaire's loop sources", questionnaire_loop_sources_path(@source_file.loop_source.questionnaire) %>)</p>
+    <p><strong>Source name</strong><%= link_to h(@source_file.loop_source.name), @source_file.loop_source %></p>
+  </div>
+  <p>The following errors occurred when parsing this source file:</p>
+  <table>
+    <thead>
+    <tr>
+      <th>Details</th>
+      <th>User</th>
+      <th>Occurred at</th>
+      <th>User IP</th>
+    </tr>
+    </thead>
+    <tbody>
+    <% @source_file.persistent_errors.each do |error| -%>
+        <tr>
+          <td><%=h error.details %></td>
+          <td><%=h error.user.full_name %></td>
+          <td><%= error.timestamp.strftime("%H:%M:%S %B %d, %Y")%></td>
+          <td><%= error.user_ip %></td>
+        </tr>
+    <% end -%>
+    </tbody>
+  </table>
+  <p>
+    <%= link_to "Remove source file", source_file_path(@source_file), :method => :delete, :confirm => "Are you sure you want to delete this source file?" %>
+    <a href="#" id="update_source">Upload new source file</a>
+  </p>
+  <div id="edit_source" class="hide">
+    <%= form_for @source_file, :html => { :multipart => true, :class => "formtastic"}  do |f| -%>
+        <fieldset>
+          <legend>Upload new source file</legend>
+          <ol>
+            <%= f.hidden_field :parse_status, :value => ParseFileStatus::TO_PARSE %>
+            <li>
+              <%= f.label :source, "Please select a file" %>
+              <%= f.file_field :source %>
+            </li>
+          </ol>
+          <p><%= f.submit "Update"  %></p>
+        </fieldset>
+    <% end -%>
+  </div>
+</div>
+<script type="text/javascript">
+    $("#update_source").click(function(e){
+        e.preventDefault();
+        $("#edit_source").toggle('slow');
+    })
+</script>

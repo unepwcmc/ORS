@@ -1,0 +1,16 @@
+<!-- Div to display the tree structure of a questionnaire -->
+<div class="span-8 last hide" id="tree_col">
+ <% info_tip_text = "<p>The questionnaire structure is presented in ths side of the page as a tree of folders and files. The root of the tree is the questionnaire itself and the folders that
+                    follow it represent sections, sections can contain other sections and questions, which are represented as documents, in the tree.</p>
+                    <p>You can expand and collapse sections or use the small arrow in the right to expand and collapse the whole structure.</p>
+                    <p>The tree allows you to navigate to a section or a question just by clicking on the corresponding icon in the tree. And then from there you are
+                    able to make changes to it or to add more elements to the report.</p>" -%>
+  <h3 style="float:left">Questionnaire Structure <%= info_tip('Questionnaire structure', info_tip_text) %></h3>
+  <div id="tree_options" class="hide" style="float:right; margin-right: 5px;">
+    <p>
+      <a href="#" id="collapseAll" class="hide"><%= image_tag 'icons/collapse.png', :title =>"Collapse all", :alt => "Collapse all"%></a>
+      <a href="#" id="expandAll"><%= image_tag 'icons/expand.png', :title => "Expand all",  :alt => "Expand all"%></a>
+    </p>
+  </div><!-- /tree_options -->
+  <div id="tree" class="clear"></div>
+</div><!-- /tree_col -->

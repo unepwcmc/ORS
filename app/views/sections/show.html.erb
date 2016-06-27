@@ -1,0 +1,40 @@
+<div class="span-24 last">
+  <%= render :partial => "administration/breadcrumbs" -%>
+  <div id="content_header">
+    <%= render :partial => "administration/menu", :locals => {:header => "Section", :include_options => "sections", :building => true} -%>
+  </div>
+  <div class="span-15 colborder">
+    <div id="direct_actions">
+      <%= render :partial => "sections/actions" %>
+    </div>
+    <div id="content">
+      <%= render :partial => 'sections/show' %>
+    </div>
+  </div><!-- /content -->
+  <%= render :partial => 'layouts/tree' %>
+</div>
+<script type="text/javascript">
+    $(window).load(function(){
+        loadTreeAndActivateNode("<%= escape_javascript(@section.questionnaire.title) %>","<%= @section.questionnaire.id %>","<%=@section.id%>");
+        handleSectionOptions("<%= @section.questionnaire.id %>", "<%= @section.questionnaire_part.id.to_s %>");
+        //breadcrumb update
+        $(function(){
+            var $bcul = $("#bcul");
+            $bcul.find("#bchome").nextAll().remove();
+            $bcul.append('<li id="bcquestionnaire"><%= escape_javascript(link_to h(@section.questionnaire.title.size > 20 ? @section.questionnaire.title[0,20] + "..." : @section.questionnaire.title), questionnaire_path(@section.questionnaire.id),:class => "get") %></li>');
+        <% unless @section.questionnaire_part.ancestors.empty? %>
+            <% @section.questionnaire_part.ancestors.reverse.each do |a| %>
+                <% the_section = a.part %>
+                <% the_title = the_section.tab_title.present? ? the_section.tab_title : the_section.title -%>
+                <% the_title = Sanitize.clean(the_title).strip.gsub("\n\n","") -%>
+                $("#bcquestionnaire").after('<li id="bc<%=h the_section.id%>"><%= escape_javascript(link_to (the_title.size > 15 ? the_title[0,15] + "..." : the_title), section_path(the_section),:class => "get")%></li>');
+            <%end%>
+        <% end %>
+        <% the_title = @section.tab_title.present? ? @section.tab_title : @section.title -%>
+        <% the_title = Sanitize.clean(the_title).strip.gsub("\n\n","") -%>
+            $bcul.append('<li id="bc<%=h @section.id%>"><%= escape_javascript(link_to (the_title.size > 20 ? the_title[0,20]+ "..." : the_title), section_path(@section),:class => "get")%></li>');
+        });
+        myLib.generator_side_generic.init();
+        myLib.text_areas.init();
+    })
+</script>

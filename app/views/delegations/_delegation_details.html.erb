@@ -1,0 +1,27 @@
+<div class="span-24 last clear">
+  <div class="hide" id="delegation_details">
+    <% if @delegation.delegation_sections.present? -%>
+        <p><%= t('delegation_details.header_p') %></p>
+        <table>
+          <thead>
+          <tr>
+            <th><%= t('generic.section') %></th>
+            <th><%= t('delegation_details.root_section_th')%></th>
+            <th><%= t('delegation_details.loop_th') %></th>
+          </tr>
+          </thead>
+          <tbody>
+          <% @delegation.delegation_sections.each do |delegation_section| %>
+              <tr>
+                <td><%= OrtSanitize.white_space_cleanse(delegation_section.section.value_in((delegation_section.section.root? ? :tab_title : :title), @authorization[:language])) %></td>
+                <td><%= OrtSanitize.white_space_cleanse(delegation_section.section.root.value_in(:tab_title, @authorization[:language])) %></td>
+                <td><%= delegation_section.loop_item_names.map{|loop_item_name| h(loop_item_name.item_name(@authorization[:language]))}.join(', ') %></td>
+              </tr>
+          <% end -%>
+          </tbody>
+        </table>
+    <% else -%>
+        <p><%= t('delegation_details.whole_q') %></p>
+    <% end -%>
+  </div>
+</div>

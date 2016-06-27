@@ -1,0 +1,5 @@
+$(function(){
+    $("#answer_type").empty()
+            .append("<%= escape_javascript(render(:partial => "rank_answers/form", :locals => {:type => @rank_answer}))%>")
+            .show("slow");
+});

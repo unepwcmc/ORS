@@ -1,0 +1,9 @@
+<div class="span-24 last" id="content">
+  <%= render :partial => "administration/menu", :locals => {:header => "Delete question", :include_options => "questions"} -%>  
+  <h2><%= raw @question.title %></h2>
+  <h3>Are you sure you want to delete this Question?</h3>
+  <%= form_for @question, :html => {:method => 'delete'} do |f|  %>
+    <%= submit_tag "Yes"  %>
+    <%= submit_tag "No", :name => "cancel"  %>
+  <% end  %>
+</div>

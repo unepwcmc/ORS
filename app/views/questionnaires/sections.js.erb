@@ -1,0 +1,10 @@
+$(function(){
+  $("#search_section").find('option').remove();
+  $("#search_section").append("<option value=\"\">Choose a section</option>");
+  $("#search_question").find('option').remove();
+  $("#search_question").append("<option value=\"\">Choose a question</option>");
+  $("#search_section").append("<%= escape_javascript(
+    options_for_select(@sections.collect{ |i| 
+      ["#{'-'*i.level} #{OrtSanitize.
+        white_space_cleanse((i.root? && i.tab_title ? i.tab_title : i.title))[0,65]}", i.id ] })) %>");
+});

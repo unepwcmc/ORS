@@ -1,0 +1,82 @@
+$(function(){
+    /**
+     * This js file will display the available Loop Item Types for a select "Loop Source"
+     * It starts by empting the div where the Item Types are going to be displayed
+     * and then it initializes the handlers for clicking(choosing) the item types.
+     * it also calls ruby functions to define the boundaries for the Item Types for the section that is being created or edited.
+     * These boundaries will help maintain the hierarchy between the item types.
+     * The boundaries are defined based on the @parent_section when creating a new section and in @section when editing a section
+     * A descendant section can't have an item type that is higher in the item types's hierarchy than any of its' ancestors item types (upper_boundary).
+     * When editing a section it can't get an item type that has already been taken by one of its' descendants (bottom_boundary)
+     */
+    var $looping_categories = $("#looping_categories");
+    $looping_categories.empty();
+    //Define the boundaries as explained before. Boundaries are used both for displaying the item types but also for the click behaviour
+    // If there is a @section it means that we are editing. ANd the @section is used to define the boundaries
+    // IF @section is null it means that a new section is being created and there are two different situations:
+    //      1- Either there is a @parent_section and so there's the need to define an upper_boundary
+    //      2- Or there is no @parent_section and so there are no boundaries
+    <% if @section
+        upper_boundary = @item_types.get_upper_boundary_when_editing(@section)
+        bottom_boundary = @item_types.get_bottom_boundary(@section)
+     else
+        upper_boundary = @parent_section ? @item_types.get_upper_boundary(@parent_section)  : nil
+        bottom_boundary = nil
+     end %>
+        //after calculating the boundaries the item_types will be rendered and displayed
+        $looping_categories.append("<%=escape_javascript(render :partial => "loop_sources/item_types", :locals =>{ :upper_boundary => upper_boundary, :bottom_boundary => (bottom_boundary ? bottom_boundary : nil)})%>")
+        .show("slow");
+        $("#include_extras_container").empty().append("<%= escape_javascript(render :partial => "extras/include_extras", :locals => { :base_section => (@section || @parent_section), :ignore_self => false, :check_extras => @section||"section" }) %>").show('slow');
+        //It is then necessary to start the handlers for selecting the item_types
+        <% if @item_types %>
+            <% @item_types.self_and_descendants.each do |item_type| %>
+                $("#part_loop_item_type_id_<%=item_type.id%>").change(function(e){
+                    if($(this).is(":checked")){
+                        //The item_type can be selected if it is inside the calculated boundaries.
+                        // Meaning that the hierarchy is preserved
+                        <% if ((!@parent_section && !@section) || ( @section ? item_type.in_bounds_when_editing?(bottom_boundary, upper_boundary) : item_type.in_bounds?(upper_boundary) ) ) %>
+                            //Change the section name to contain the Item Type Tag (in the  submission view the TAg will be replaced by the different
+                            //loop_items!
+                            addOrReplaceLoopTagToTextFields("section_title", "<%= h item_type.name %>");
+                            $no_tag.attr('checked',false); //reset the checkbox that allows the "Tag" to be hidden.
+                            $("#include_extras_container").empty().append("<%= escape_javascript(render :partial => "extras/include_extras", :locals => {:base_section => (@section || @parent_section), :selected_item_type => item_type, :ignore_self => true, :check_extras => @section||"section" }) %>").show('slow');
+                        <% else %>
+                            $(this).attr("checked", false);
+                            removeLoopTagFromTextFields("section_title");
+                            alert("That item type is not available at the moment. Check if it is not being used by an ancestor or descendant section." +
+                                  "The hierarchy must be respected when defining the questionnaire.");
+                        <% end %>
+                    }
+                });
+            <% end %>
+        //The creator of the questionnaire might not want the tag to be displayed. It can prevent that
+        // by ticking the "no_tag" checkbox.
+        var $no_tag = $("#no_tag");
+        $no_tag.change(function(){
+            if($no_tag.is(':checked'))
+            {
+                //if checked remove the tag
+                removeLoopTagFromTextFields("section_title");
+            }
+            else
+            {
+                //if unchecked fetch the value of the Tag to place it back in the section_name field
+                if($("input[@name='part[loop_item_type_id]']:checked").val()!= null)
+                {
+                    var the_id = $("input[@name='part[loop_item_type_id]']:checked").val().toString();
+                    var tag = $("#label_for_"+the_id).text();
+                    if(tag.search(/ \(\*\)/)!= -1)
+                        tag = tag.replace(/ \(\*\)$/,"");                        
+                    addOrReplaceLoopTagToTextFields("section_title",tag);
+                }
+            }
+        });
+        $("#clear_loop_types").livequery('click', function(e){
+            e.preventDefault();
+            removeLoopTagFromTextFields("section_title");
+            $("input[@name='part[loop_item_type_id]']:checked").attr('checked', false);
+            //if it is editing or creating a new section, you'll want to ignore self.
+            $("#include_extras_container").hide('slow').empty().append("<%= escape_javascript(render :partial => "extras/include_extras", :locals => {:base_section => (@section || @parent_section), :selected_item_type => nil, :ignore_self => true, :check_extras => @section})%>");
+        });
+      <% end %>
+});

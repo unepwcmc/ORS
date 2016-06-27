@@ -1,0 +1,24 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+one:
+  user_id: 1
+  delegate_id: 1
+  details: MyString
+
+two:
+  user_id: 1
+  delegate_id: 1
+  details: MyString
+
+
+# == Schema Information
+#
+# Table name: user_delegates
+#
+#  id          :integer          not null, primary key
+#  user_id     :integer
+#  delegate_id :integer
+#  created_at  :datetime
+#  updated_at  :datetime
+#  state       :integer          default(0)
+#

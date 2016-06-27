@@ -1,0 +1,38 @@
+$(function(){
+    $("#content").empty();
+    $("#content").append("<%=escape_javascript(render :partial => "authorized_submitters/index")%>");
+
+    //Activate user_dialog to use the JQuery.UI Dialog
+    $("#user_dialog").dialog({autoOpen:false, resizable:false, modal:true, width: 500 });
+
+    //Clicing on the "add_new_user" link it will open the Dialog with the New User Form.
+    $("#add_new_user").click(function(e){
+        e.preventDefault();
+        $("#user_dialog").dialog("open");
+    });
+
+    //Set the "tableSorter" for the table "MyTable"
+    // Starts with the sorting on the "Authorizated" Column and the Name Column
+    // Sorting is disabled for the first column (the checkboxes)
+    $("#myTable").tablesorter({
+        sortList: [[1,1], [2,0]], widthFixed: false,/* widgets: ['zebra'] */
+        headers: { 0: { sorter: false }}
+    });
+
+    //Enable the search field and the "Select Group" filter/search.
+    enableSearch();
+
+    //Enable the "x" links that show up by each group's name per user. Clicking on the link
+    // will remove that user from the group.
+    handleRemoveFromGroup();
+
+    //Enable the functions of the buttons "Authorize", "De-Authorize" and "Create!"(groups)
+    //These functions will apply to the selected users.
+    authorizationFunctionsHandlers();
+
+    //Enables the "Select" links: all, none, authorized and unauthorized.
+    checkboxesSelectionHandlers();
+
+    //Enable the Ajaxification of the links. =)
+    //ajaxLinks();
+});

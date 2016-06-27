@@ -1,0 +1,21 @@
+<%= form_for [@loop_item_type, @extra], :html => { :class => "formtastic normal", :id => "generator_form" } do |f| %>
+    <div id="user_errors"></div><!-- /user_errors -->
+    <fieldset>
+      <legend>Add extra field to <strong>(<%=h @loop_item_type.name %>)</strong></legend>
+      <ol>
+        <li>
+          <%= f.label :name %> <%= f.text_field :name %>
+        </li>
+        <li>
+          <%= f.label :field_type, "Type" %> <%= select :extra, :field_type, ExtraFieldType.to_a, {:include_blank => true }  %>
+        </li>
+      </ol>
+    </fieldset>
+    <p><%= f.submit "Create" %> <a id="cancel_add">Cancel</a></p>
+<% end -%>
+<script type="text/javascript">
+  $("#cancel_add").click(function(e){
+      e.preventDefault();
+      $("#add_extra").hide('slow').empty();
+  })
+</script>

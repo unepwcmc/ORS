@@ -1,0 +1,174 @@
+<% @fields[:loop_item] ||= nil -%>
+<% load_lazy ||= false -%>
+<% if root -%>
+  <% section_field = @fields[:sections_field][@section.id.to_s] -%>
+  <% section_field_default = @fields[:sections_field_default][@section.id.to_s] -%>
+  <%= form_tag( {:controller => "sections", :action=>"save_answers"}, :id => "form_#{@section.id.to_s}", :class => "sectionSubmission") do %>
+    <%= hidden_field_tag :section, @section.id -%>
+    <% if @fields[:loop_item]  -%>
+      <%= hidden_field_tag :root_loop_item, @fields[:loop_item].id %>
+      <%= hidden_field_tag "section_loop_items_#{@section.id.to_s}[#{@fields[:loop_item].id}]" %>
+    <% end -%>
+    <% if @section.depends_on_option.present? -%>
+      <% section_visible = @section.dependency_condition_met?(@authorization[:user], @fields[:loop_item].id ? @fields[:loop_item].id : nil )  -%>
+      <%= hidden_field_tag "hidden[#{append_identifier(@section, @fields[:loop_item].try(:id))}]", section_visible ? "0" : "1" -%>
+    <% else -%>
+      <% section_visible = true -%>
+    <% end -%>
+    <div id="section_<%= append_identifier(@section, @fields[:loop_item].try(:id))%>" class="root_submit_section <%= section_visible ? "" : "hide" %>">
+      <div class="info_header" style="border-bottom-width: 0">
+        <% if !@section.is_hidden? %>
+          <div class="span-15 submission_section_title">
+            <% field_to_use = (section_field && section_field.title.present? ) ? section_field : section_field_default %>
+            <%= ( @section.looping? && @fields[:loop_item] ) ? Sanitize.clean(field_to_use.loop_title(nil, @fields[:loop_item]).html_safe, OrtSanitize::Config::ORT) : Sanitize.clean(field_to_use.title, OrtSanitize::Config::ORT).html_safe %>
+          </div>
+          <div class="span-3 last options">
+            <p><!-- floats right -->
+            <% if current_user.role?(:respondent) && @authorization[:delegation_enabled] && current_user == @authorization[:user] -%>
+              <%= link_to t('tab_details.delegate_section'), new_delegation_section_path(:section_id => @section.id, :loop_item_name_id => @fields[:loop_item].try(:loop_item_name_id)), :class => "obj_tooltip get", :title => t('tab_details.delegate_section_tooltip') %>
+              <%
+                section_delegates = current_user.delegates_for_section @section, @fields[:loop_item_name].try(:loop_item_name_id)
+                questionnaire_delegates = current_user.delegates_for_questionnaire @section.questionnaire
+              %>
+              <span id="delegates_for_<%= @section.id%>_<%= @fields[:loop_item] ? @fields[:loop_item].loop_item_name_id.to_s : "0" %>" class="delegates_for_<%=@section.id%>">
+                <% if section_delegates.any? || questionnaire_delegates.any? -%>
+                  <%
+                    delegates_title = ""
+                    if questionnaire_delegates.any?
+                      delegates_title += "#{t('delegate_section.delegates_whole')} - <ul>#{questionnaire_delegates.sort.map{|u| "<li>#{h(u.delegate.full_name)}</li>" }.join("")}</ul>"
+                    end
+                    if section_delegates.any?
+                      delegates_title += delegates_title.blank? ? t('delegate_section.existing_t') + " - " : "<h3>#{t('delegate_section.existing_t')}</h3>"
+                      delegates_title += "<ul>#{section_delegates.sort.map{|u| "<li>#{h(u.delegate.full_name)}</li>" }.join("")}</ul>"
+                    end
+                  %>
+                  <%= image_tag('icons/delegates.png', :size => "15x15",
+                                :title => delegates_title, :class => 'obj_tooltip', :alt => 'Info')%>
+                <% end -%>
+              </span>
+              <br />
+            <% end -%>
+            <!--- <a href="#" class="show_info" style="display: none;color:red"><#%= t "s_details.expand" %></a>-->
+            <%= link_to raw(t('s_details.expand') + " " + image_tag('icons/down_expand.png'))  ,"#",:class=>"show_info", :style => "display:none;color:blue;font-weight:600"%>
+            <a href="#" class="hide_info" style="display: inline"><%= t "s_details.collapse" %></a>
+            <%= submit_tag t("s_details.save"), :class => "save_button obj_tooltip", :title => t("s_details.save_tip")%>
+            </p>
+          </div>
+        <% end -%>
+      </div><!-- /.questionnaire_info_header -->
+      <%= render :partial => 'sections/submission_content', :locals => { :section => @section, :loop_item => @fields[:loop_item], :loop_sources => loop_sources, :section_field => section_field, :section_field_default => section_field_default, :section_visible => section_visible, :root => true, :disabled => disabled, :looping_identifier => @fields[:loop_item].try(:id) }, :inline => true%>
+      <!-- <p class="clear"><strong>Questions marked with <span style="color:red">*</span> are mandatory.</strong></p>-->
+      <div class="clear">
+        <p><%= submit_tag t("s_details.save"), :class => "save_button obj_tooltip", :title => t("s_details.save_tip") %></p>
+      </div>
+    <% end -%>
+  </div><!-- /section_gen_root_section_id -->
+<% else -%>
+  <% looping_identifier ||= nil %>
+  <% if looping_identifier  -%>
+    <%= hidden_field_tag "section_loop_items_#{section.id.to_s}[#{looping_identifier}]" %>
+  <% end -%>
+  <% if section.depends_on_option.present? -%>
+    <% section_visible = section.dependency_condition_met?(@authorization[:user], looping_identifier )  -%>
+  <% else -%>
+    <% section_visible = true -%>
+  <% end -%>
+  <%= hidden_field_tag "hidden[#{append_identifier(section, looping_identifier)}]", section_visible ? "0" : "1" -%>
+  <div id="section_<%=append_identifier(section, looping_identifier)%>" class="section_holder section_level<%= section.level > 3 ? "3" : section.level.to_s %> <%= section_visible ? "" : "hide" %>">
+    <div class="info_header" style="border-bottom-width: 0">
+      <% if !section.is_hidden? %>
+        <div class="span-1<%= section.level > 2 ? "4" : "5"  %> submission_section_title">
+          <% field_to_use = (section_field && section_field.title.present?) ? section_field : section_field_default %>
+          <%= section.looping? && loop_item.present? ? Sanitize.clean(field_to_use.loop_title(nil, loop_item), OrtSanitize::Config::ORT).html_safe : Sanitize.clean(field_to_use.title, OrtSanitize::Config::ORT).html_safe %>
+        </div>
+        <div class="span-3 last options">
+          <p><!-- floats right -->
+          <% if current_user.role?(:respondent) && @authorization[:delegation_enabled] && current_user == @authorization[:user] -%>
+            <%= link_to t('tab_details.delegate_section'), new_delegation_section_path(:section_id => section.id, :loop_item_name_id => loop_item.try(:loop_item_name_id)), :class => "get" %>
+            <%
+              section_delegates = current_user.delegates_for_section section, loop_item.try(:loop_item_name_id)
+              questionnaire_delegates = current_user.delegates_for_questionnaire section.questionnaire
+            %>
+            <span id="delegates_for_<%=section.id%>_<%= loop_item ? "#{loop_item.loop_item_name.id}" : "0" %>" class="delegates_for_<%= section.id%>">
+              <%
+                if section_delegates.any? || questionnaire_delegates.any?
+                    delegates_title = ""
+                    if questionnaire_delegates.any?
+                      delegates_title += "#{t('delegate_section.delegates_whole')} - <ul>#{questionnaire_delegates.sort.map{|u| "<li>#{h(u.delegate.full_name)}</li>" }.join("")}</ul>"
+                    end
+                    if section_delegates.any?
+                      delegates_title += delegates_title.blank? ? t('delegate_section.existing_t') + " - " : "<h3>#{t('delegate_section.existing_t')}</h3>"
+                      delegates_title += "<ul>#{section_delegates.sort.map{|u| "<li>#{h(u.delegate.full_name)}</li>" }.join("")}</ul>"
+                    end
+              %>
+                <%= image_tag('icons/delegates.png', :size => "15x15", :title => delegates_title, :class => 'obj_tooltip', :alt => 'Info')%>
+              <% end -%>
+            </span>
+            <br />
+          <% end -%>
+          <% if load_lazy || section.starts_collapsed? -%>
+            <%#= link_to t('s_details.expand') + " " + image_tag('icons/down_expand.png')  ,"#",:id=>"load_lazy_" + append_identifier(section, loop_item.try(:id)), :class=>"show_info", :style => "display:none;color:blue;font-weight:600"%>
+            <a href="#" id="load_lazy_<%=append_identifier(section, looping_identifier) %>" style="display: inline;color:blue;font-weight:600"><%= t('s_details.expand')%> <%= image_tag('icons/down_expand.png') %>
+          <% else -%>
+            <!---  <a href="#" class="show_info" style="display: none"><#%= t "s_details.expand" %></a>-->
+            <%= link_to (t('s_details.expand') + " " + image_tag('icons/down_expand.png')).html_safe  ,"#",:class=>"show_info", :style => "display:none;color:blue;font-weight:600"%>
+          <% end -%>
+          <a href="#" class="hide_info" style="display: <%= (load_lazy || section.starts_collapsed?) ? "none" : "inline" %>"><%= t "s_details.collapse" %></a>
+          <%= submit_tag t("s_details.save"), :class => "save_button obj_tooltip", :title => "Save - Clicking this button will save all the answers on the current page.", :style => (load_lazy || section.starts_collapsed? ? "display:none" : "display:inline") %>
+          </p>
+        </div>
+      <% end -%>
+    </div><!-- /.questionnaire_info_header -->
+    <% if section.is_hidden? || !( load_lazy || section.starts_collapsed? ) -%>
+      <%= render :partial => 'sections/submission_content', :locals => { :section => section, :loop_item => loop_item ? loop_item : nil, :loop_sources => loop_sources, :section_field => @fields[:sections_field][section.id.to_s], :section_field_default => @fields[:sections_field_default][section.id.to_s], :section_visible => section_visible, :root => false, :disabled => disabled, :looping_identifier => looping_identifier }, :inline => true%>
+    <% end -%>
+  </div><!-- /section_gen_section_id -->
+<% end -%>
+<script type="text/javascript">
+    <% if !root && !section.is_hidden? && ( load_lazy || section.starts_collapsed? ) -%>
+        $("#load_lazy_<%= append_identifier(section, looping_identifier) %>").click(function(e){
+            e.preventDefault();
+            if($("#section_<%= append_identifier(section, looping_identifier) %> > div").size() == 1)
+            {
+                $.ajax({url: RAILS_ROOT+"/sections/<%= section.id.to_s %>/load_lazy", type: 'get', dataType: 'script',
+                    data: {
+                        loop_item_id: "<%= loop_item.present? ? loop_item.id : -1%>",
+                        loop_sources: {
+                            <% if loop_sources.present? -%>
+                                <% sources = loop_sources.to_a %>
+                                <% sources.each_index do |i| %>
+                                    "<%= sources[i][0] %>": "<%= sources[i][1].id %>"
+                                    <%= if (i + 1) != sources.size then "," end %>
+                                <% end -%>
+                            <% end -%>
+                        },
+                        preloaded: true,
+                        disabled: "<%= disabled %>",
+                        section_visible: "<%= section_visible %>",
+                        looping_identifier: "<%= looping_identifier %>"
+                    }
+                });
+                $(this).addClass("show_info");
+            }
+            else{
+                $(this).parents('div.info_header').next('div').slideDown("2000");
+            }
+            $(this).parents('div.info_header').css("border-bottom-width", "0");
+            $(this).siblings(".hide_info").show();
+            $(this).siblings(".save_button").show();
+            $(this).hide();
+        });
+    <% end -%>
+    <% if root %>
+      $(function(){
+          $("#timed_save, #auto_save, #save_from_button").val("0");
+          $("#active_section").val("<%=@section.id%>");
+          $("form.sectionSubmission").unbind('submit');
+          $("form.sectionSubmission").submit(function(){
+            saveDirtyAnswers();
+            return false;
+          });
+          dirtyFlagging();
+      });
+    <% end %>
+</script>

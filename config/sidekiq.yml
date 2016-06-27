@@ -1,0 +1,14 @@
+# Sample configuration file for Sidekiq.
+# Options here can still be overridden by cmd line args.
+#   sidekiq -C config.yml
+---
+:verbose: false
+staging:
+  :concurrency: 2
+production:
+  :concurrency: 10
+:queues:
+  - [critical, 15]
+  - [high, 10]
+  - [default, 5]
+  - [low, 0]

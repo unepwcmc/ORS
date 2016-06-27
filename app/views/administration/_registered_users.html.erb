@@ -1,0 +1,21 @@
+<table class="dashboard_table">
+  <thead>
+  <tr>
+    <th>Full name</th>
+    <th>E-mail</th>
+    <th>Registered by</th>
+  </tr>
+  </thead>
+  <tbody>
+  <% @users.each do |user| -%>
+      <tr>
+        <td><%= link_to h(user.full_name), user_path(user) %></td>
+        <td><%= mail_to h(user.email) %></td>
+        <td><%= raw user.creator ? "#{link_to h(user.creator.full_name), user_path(user.creator)}" : "None" %></td>
+      </tr>
+  <% end -%>
+  </tbody>
+</table>
+<p style="text-align: right; padding-right: 5px">
+  <%= link_to "See all", users_path %>
+</p>

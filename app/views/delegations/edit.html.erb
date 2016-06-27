@@ -1,0 +1,33 @@
+<div class="span-24 last">
+  <%= render :partial => "user_delegates/options"%>
+  <%= form_for @delegation do |f| %>
+    <ul>
+      <li>
+        <%= f.label :delegator %>
+        <%= @delegator.full_name %>
+      </li>
+
+      <li>
+        <%= f.label :delegate %>
+        <%= @user_delegate.delegate.full_name %>
+      </li>
+
+      <li>
+        <%= f.label :remarks %>
+        <%= f.text_area :remarks, :cols => 50, :rows => 5, :class => "grow" %>
+      </li>
+
+      <li>
+        <%= f.label :questionnaire_id, t('manage_delegates.available_q') %>
+        <%= select "delegation", :questionnaire_id, @available_questionnaires.collect{|p| [h(p.title(I18n.locale.to_s)[0,50])+"...", p.id] }, { :include_blank => t('manage_delegates.select_a_q') } %>
+      </li>
+
+      <li>
+        <%= f.label :can_view_all_questionnaire, 'Delegate can view the entire questionnaire but edit only delegated sections' %>
+        <%= f.check_box :can_view_all_questionnaire %>
+      </li>
+    </ul>
+
+    <%= f.submit %>
+  <% end %>
+</div>

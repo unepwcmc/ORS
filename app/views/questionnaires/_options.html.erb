@@ -1,0 +1,40 @@
+<% questionnaire ||= @questionnaire %>
+<% if questionnaire && !questionnaire.new_record? -%>
+    <li><a href="#">Manage Questionnaire</a>
+      <ul>
+        <% info_tip_text = "<p>Takes you to the page where you can see this questionnaire information and structure, where you can edit it, add new sections to it and navigate in its structure.</p>"-%>
+        <li class="li_tooltip" title="<%= "Questionnaire - " +info_tip_text %>"><%= link_to "Edit", questionnaire_path(questionnaire) -%></li>
+        <li class="li_tooltip" title="<%= "Questionnaire - " +info_tip_text %>"><%= link_to "Edit communication details", communication_details_questionnaire_path(questionnaire) -%></li>
+          <% if questionnaire.inactive? %>
+              <% if can? :destroy, questionnaire -%>
+                  <% info_tip_text = "<p>Allows you to delete a questionnaire and all its structure.</p>"-%>
+                <li class="li_tooltip" title="<%= "Delete questionnaire - " +info_tip_text %>"><%= link_to "Delete", delete_questionnaire_path(questionnaire) %></li>
+            <% end %>
+            <% info_tip_text = "<p>This page allows you to re-organize the structure of a questionnaire by dragging and dropping sections and questions from one place to another.</p>"-%>
+            <li class="li_tooltip" title="<%= "Questionnaire structure ordering - " +info_tip_text %>"><%= link_to "Structure ordering", structure_ordering_questionnaire_path(questionnaire) %></li>
+        <% end %>
+        <li><a href="#">Manage</a>
+          <ul>
+            <% if questionnaire.inactive? -%>
+                <% info_tip_text = "<p>Page where you can manage the languages of the questionnaire. Allowing you to add or remove languages and change the default language of the questionnaire.</p>"-%>
+                <li class="li_tooltip" title="<%= "Manage languages - " +info_tip_text %>"><%= link_to "Languages", manage_languages_questionnaire_path(questionnaire) %></li>
+                <% if questionnaire.loop_sources.any? %>
+                  <% info_tip_text = "<p>Page where you can manage the filtering fields of the questionnaire.</p>"-%>
+                  <li class="li_tooltip" title="<%= "Manage filtering fields - " +info_tip_text %>"><%= link_to "Filtering fields", questionnaire_filtering_fields_path(questionnaire) %></li>
+                <% end %>
+                <% info_tip_text = "<p>Takes you this questionnaire's loop sources management page.</p>"-%>
+                <li class="li_tooltip" title="<%= "Manage loop sources - " +info_tip_text %>"><%= link_to "Loop sources", questionnaire_loop_sources_path(questionnaire) %></li>
+            <% end -%>
+            <% info_tip_text = "<p>In this page you will be able to authorise and de-authorise respondents from this questionnaire.</p>"-%>
+            <li class="li_tooltip" title="<%= "Manage respondents - " +info_tip_text %>"><%= link_to "Respondents", questionnaire_authorized_submitters_path(questionnaire) %></li>
+           <% info_tip_text = "<p></p>"-%>
+            <li class="li_tooltip" title="<%= "Manage deadlines - " +info_tip_text %>"><%= link_to "Deadlines", questionnaire_deadlines_path(questionnaire) %></li>
+          </ul>
+        </li>
+        <% info_tip_text = "<p>Allows you to download a preview version of the questionnaire in PDF.</p>"-%>
+        <li class="li_tooltip" title="<%= "Download in PDF - " +info_tip_text %>"><%= link_to "PDF Preview", to_pdf_questionnaire_path(questionnaire, :params => {:preview => true}) %></li>
+      </ul>
+    </li>
+    <% info_tip_text = "<p>In the questionnaire dashboard you can see the detailed information of a questionnaire.</p>"-%>
+    <li class="li_tooltip" title="<%= "Questionnaire Dashboard - " +info_tip_text %>"><%= link_to "Questionnaire Dashboard", dashboard_questionnaire_path(questionnaire) %></li>
+<% end -%>

@@ -1,0 +1,39 @@
+$(function(){//Clear the contents of main Column and add the partial with the selected section.
+
+    $("#content_header").empty()
+                        .append("<%= escape_javascript( render :partial => "administration/menu", :locals => {:header => "Section", :include_options => "sections", :building => true} ) %>");
+    $("#content").empty()
+                 .append("<%= escape_javascript(render(:partial => "sections/show"))%>");
+    $("#direct_actions").empty().append("<%= escape_javascript( render :partial => "sections/actions") %>");
+    handleSectionOptions("<%= @section.questionnaire.id %>", "<%= @section.questionnaire_part.id.to_s %>");
+    //breadcrumb update
+    $(function(){
+        //If this section is not in the breadcrumb
+        if($("#bcul").find("#bc<%= @section.id%>").empty())
+        {
+            var $bcquestionnaire = $("#bcquestionnaire");
+            //clear the breadcrum from the questionnaire point
+            $bcquestionnaire.nextAll().remove();
+            <% the_title = @section.tab_title.present? ? @section.tab_title : @section.title -%>
+            <% the_title = Sanitize.clean(the_title).strip.gsub("\n\n","") -%>
+            //add this section after the questionnaire
+            $bcquestionnaire.after('<li id="bc<%=h @section.id%>"><%= escape_javascript(link_to (the_title.size > 20 ? the_title[0,20]+"..." : the_title), section_path(@section),:class => "get")%></li>');
+            //add the ancestors one at the time. (Array reversed to show in the correct order)
+            <% unless @section.ancestors.empty? %>
+                <% @section.ancestors.reverse.each do |a| %>
+                    <% the_title = a.tab_title.present? ? a.tab_title : a.title %>
+                    <% the_title = Sanitize.clean(the_title).strip.gsub("\n\n","") -%>
+                    $bcquestionnaire.after('<li id="bc<%=h a.id%>"><%= escape_javascript(link_to (the_title.size > 20 ? the_title[0,20] + "..." : the_title), section_path(a),:class => "get")%></li>');
+                <%end%>
+            <% end %>
+        }
+        else //simply remove everything from the section onwards.
+            $("#bc<%= @section.id%>").nextAll().remove();
+
+        var node = $("#tree").dynatree("getTree").getNodeByKey("<%= @section.id %>");
+        if(!node.isActive())
+            node.activate();
+    });
+});
+
+        

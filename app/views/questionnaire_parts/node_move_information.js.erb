@@ -1,0 +1,26 @@
+$(function(){
+    var $node_info_container = $("#node_info_container");
+    $node_info_container.empty()
+            .append("<p><strong>Node type</strong><%= escape_javascript(@part.class.to_s) %></p>"+
+                    "<p><strong>Title</strong><%= escape_javascript(Sanitize.clean(@part.is_a?(Section) ? (@part.tab_title.present? ? @part.tab_title : @part.title) : @part.title ))%></p>");
+    $node_info_container.append("<ul>");
+    <% if @part.is_a?(Section) -%>
+        <% if @part.looping? -%>
+            $node_info_container.append("<li style='color:red'>Section is a looping Section.</li>");
+        <% end -%>
+        <% if @part.display_in_tab? -%>
+            $node_info_container.append("<li style='color:red'>Section is set to be displayed in the tab menu</li>");
+        <% end -%>
+        <% if @part.section_extras.present? -%>
+            $node_info_container.append("<li style='color:red'>Section has extra information regarding loop items associated with it.</li>");
+        <% end -%>
+    <% else -%>
+        <% if @part.loop_item_types.present? %>
+            $node_info_container.append("<li style='color:red'>Question has loop item types associated with it.</li>");
+        <% end -%>
+        <% if @part.question_extras.present? -%>
+            $node_info_container.append("<li style='color:red'>Question has extra information regarding loop items associated with it.</li>");
+        <% end -%>
+    <% end -%>
+    $node_info_container.append("</ul>");
+});

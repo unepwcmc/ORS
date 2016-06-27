@@ -1,0 +1,18 @@
+<%= form_for @questionnaire_part, :html => { :class=>"formtastic", :id => "generator_form" } do |f| %>
+    <div id="error_container" class="error_container">
+      <h5>There are some errors in your form submission, please see details below</h5>
+      <ul id="error_messages"></ul>
+    </div>
+    <%= f.hidden_field :questionnaire_id, :value => @questionnaire_part.questionnaire_id %>
+    <%= f.hidden_field :parent_id, :value => @questionnaire_part.parent_id %>
+    <%= f.hidden_field :part_type, :value => @questionnaire_part.part_type %>
+      <% if @questionnaire_part.part.is_a?(Section) %>
+          <%= render :partial => "sections/new", :locals => { :f => f } %>
+      <% else %>
+          <%= render :partial => "questions/new", :locals => { :f => f } %>
+      <% end %>
+      <p><%= f.submit "Create" %></p>
+    <div class="error_container">
+      <h5>There are errors in your form submission, please see details above the form!</h5>
+    </div>
+<% end %>

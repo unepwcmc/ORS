@@ -1,0 +1,22 @@
+<% if answer_type.display_type == 1 %>
+    <select <%= answer_type.single ? "" : "multiple=\"multiple\""%>>
+      <% answer_type.multi_answer_options.sort.each do |option| %>
+          <% option_lang = option.multi_answer_option_fields.find_by_is_default_language(true) %>
+          <option value="<%=h option_lang.option_text.downcase %>"><%=h option_lang.option_text %></option>
+      <% end %>
+    </select>
+<% else %>
+    <ul class="multi_options_answer">
+      <% answer_type.multi_answer_options.sort.each do |option| %>
+          <li><input type="<%= answer_type.single ? "radio" : "checkbox"%>" name="answer<%=h answer_type.id%>" value="<%=h option.option_text.downcase %>"/><%=h option.option_text %></li>
+      <% end %>
+    </ul>
+<% end %>
+<% if answer_type.other_required %>
+    <p> Other:
+    <input type="text" name="other" />
+    </p>
+<% end %>
+<p>
+  <strong>Help Text:</strong> <%= raw answer_type.help_text %><br />
+</p>

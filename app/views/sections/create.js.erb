@@ -1,0 +1,44 @@
+$(function(){
+
+    <%- flash.each do |name, msg| -%>
+        flash_message("<%=h name%>", "<%=h msg %>");
+        <%- flash.delete(name) -%>
+    <%- end -%>
+    <% @section = @part %>
+    <% if @section.id %> // if the section was successfully added it will have an id
+        <% the_title = @section.tab_title.present? ? @section.tab_title : @section.title -%>
+        <% the_title = Sanitize.clean(the_title).strip.gsub("\n\n","") -%>
+        //clear the maindiv and add the section info
+        $("#content_header").empty().append("<%= escape_javascript( render :partial => "administration/menu", :locals => {:header => "Section", :include_options => "sections", :building => true} ) %>");
+        $("#content").empty().append("<%= escape_javascript(render(:partial => "sections/show"))%>");
+        $("#direct_actions").empty().append("<%= escape_javascript( render :partial => "sections/actions") %>");
+        //Add this section to the tree
+        addNodeToTree("<%= escape_javascript(the_title)%>", "<%= @section.id %>", "<%= @section.questionnaire_part.root? ? 0 : 1%>");
+        //set handlers for section options
+        handleSectionOptions("<%= @section.questionnaire.id %>", "<%= @section.questionnaire_part.id.to_s %>");
+        //update the breadcrumb
+        $(function(){
+        <% if @questionnaire_part.parent != nil %>
+            $("#bc<%=h @section.questionnaire_part.parent.part_id %>").after('<li id="bc<%=h @section.id%>"><%= escape_javascript(link_to (the_title.size > 20 ? the_title[0,20] + "..." : the_title), section_path(@section),:class => "get") %></li>');
+        <% else %>
+            $("#bcquestionnaire").after('<li id="bc<%=h @section.id%>"><%= escape_javascript(link_to (the_title.size > 20 ? the_title[0,20] + "..." : the_title), section_path(@section),:class => "get")%></li>');
+        <% end %>
+        });
+    <% else %>
+        $("#add_section").empty().append("<%= escape_javascript(render(:partial => "sections/new"))%>");
+        <% parent_section = @parent ? @parent.part.id.to_s : "0" %>
+        $("#part_loop_source_id").change(function(){
+            var selectVal = $(this).val();
+            if(selectVal != "")
+                $.ajax({url: RAILS_ROOT+'/loop_sources/'+selectVal+'/item_types/<%= parent_section  %>', type: 'get', dataType: 'script'});
+            else
+            {
+                $("#looping_categories").empty();
+                removeLoopTagFromTextFields("section_title");
+                $("#part_loop_source_id").val("");
+                $("#part_loop_item_type").val("");
+            }
+        });
+        handleSectionDetailsOptions();
+    <% end %>
+});

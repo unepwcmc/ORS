@@ -1,0 +1,4 @@
+<%= render :partial => "answer_type_fields/show", :locals => { :answer_type_field => answer_type.answer_type_fields.find_by_language(language) } %>
+<h5>Details:</h5>
+<p><strong>Maximum value:</strong> <%= answer_type.max_value %></p>
+<p><strong>Minimum value:</strong> <%= answer_type.min_value %></p>

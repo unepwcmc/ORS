@@ -1,0 +1,20 @@
+<%
+  selected_item_type ||= nil
+  ignore_self ||= false
+  extra_fields = base_section ? available_extras(base_section, selected_item_type, ignore_self) : []
+  unless extra_fields.empty?
+-%>
+<hr/>
+    <% obj_var = check_extras.is_a?(String) ? check_extras : (check_extras.is_a?(Section) ? "section" : "question") %>
+    <% builder_var = "part" %>
+    <%= hidden_field_tag "#{builder_var}[#{obj_var}_extras_ids][]", "" %>
+    <li>Extra fields available: <%= info_tip("Extra fields", "This is a list of extra fields compiled from looping sections that are ancestors of this #{obj_var}. - Select one or more extra fields to include it in your #{obj_var} description. Deselect to remove it.") -%></li>
+    <% extra_fields.each do |extra| -%>
+      <li style="float:left; margin-right:3px">
+      <%= hidden_field_tag builder_var+"_extras_ids_[#{extra.id}]", "" %>
+      <%= check_box_tag "#{builder_var}[#{obj_var}_extras_ids][]", extra.id, !check_extras.is_a?(String) && !check_extras.nil? && check_extras.extras.include?(extra), :class => "extras" %>
+      <span class="val"><%=h extra.loop_item_type.name + "::" + extra.name  %></span>
+      </li>
+    <% end -%>
+<% end -%>
+<p class="clear"/> 

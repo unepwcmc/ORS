@@ -1,0 +1,12 @@
+<p><%=I18n.t('generic.hi')%> <%=h @user.full_name%>,</p>
+
+<p><%= I18n.t('user_mailer.csv_file_generated.first_line',
+:section => (@section ? (I18n.t('generic.section').downcase + " (" + Sanitize.clean(@section.title(@user.language), {}) + ") " + I18n.t('generic.of') + " ") : ""),
+:questionnaire => @questionnaire.title(@user.language))%></p>
+
+<p><%= I18n.t('user_mailer.csv_file_generated.download') %></p>
+
+<p><%=I18n.t('user_mailer.greetings')%></p>
+<p><%=ApplicationProfile.title%></p>
+
+<p><%=h @questionnaire.email_footer(@user.language)%></p>

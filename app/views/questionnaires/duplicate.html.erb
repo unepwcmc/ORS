@@ -1,0 +1,60 @@
+<div class="span-24 last">
+  <div id="content_header">
+    <%= render :partial => "administration/breadcrumbs" -%>
+  <% info_tip_text = "<p>This page allows you to create new questionnaires from existing questionnaires. There is an option to copy not only the structure of the questionnaire, but its answers as well.</p>"-%>
+    <%= render :partial => "administration/menu", :locals => {
+      :header => ("Duplicate Questionnaire " + info_tip("Duplicate questionnaire", info_tip_text)).html_safe, 
+      :include_options => nil} -%>
+  </div>
+  <div class="span-15 colborder" id="duplicate_questionnaire">
+    <%= form_for( @questionnaire, :html => { :class => "formtastic normal", :id => "generator_form" }) do |f| -%>
+        <fieldset>
+          <legend>Available Questionnaires</legend>
+          <ol>
+            <li>
+              <%= label_tag :questionnaire_source, "Questionnaire source #{info_tip("Questionnaire duplication", "Select a questionnaire to duplicate. Information about the selected questionnaire is displayed on the right.")}".html_safe %>
+              <%= select "questionnaire", "original_id", @questionnaires.sort{|a,b| a.title <=> b.title}.collect{|p| [p.title[0,50]+"...", p.id] }, { :include_blank => "Please select a questionnaire" } %>
+            </li>
+            <li>
+              <%= label_tag :copy_answers, "Copy answers?" %>
+              <%= check_box_tag :copy_answers, 1, false %>
+            </li>
+          </ol>
+        </fieldset>
+        <p><%= f.submit "Duplicate" -%></p>
+    <% end -%>
+  </div><!-- /content -->
+  <div class="span-7" id="show_pages">
+    <h3>Questionnaires Details</h3>
+    <% @questionnaires.each do |questionnaire| -%>
+        <div id="questionnaire_<%= questionnaire.id %>" class="hide questionnaires_info">
+          <p><strong>Title:</strong> <%=h questionnaire.title %></p>
+          <p><strong>Creator:</strong> <%= link_to h(questionnaire.user.full_name), user_path(questionnaire.user) %></p>
+          <p><strong>Date:</strong> <%= questionnaire.questionnaire_date.mon.to_s + "/" + questionnaire.questionnaire_date.year.to_s%></p>
+          <p><strong>Total sections:</strong> <%= pluralize(questionnaire.sections_count, 'section') %></p>
+          <p><strong>Total questions:</strong> <%= pluralize( questionnaire.questions_count, 'question') %></p>
+          <p><strong>Total respondents:</strong> <%=h questionnaire.authorized_submitters.count %> <%= link_to "view", respondents_questionnaire_path(questionnaire.id) %></p>
+          <p><strong>Administrator remarks:</strong></p><%= raw Sanitize.clean(questionnaire.administrator_remarks, OrtSanitize::Config::ORT) -%>
+        </div>
+    <% end -%>
+  </div>
+</div>
+<script type="text/javascript">
+    $(function(){
+        $("#questionnaire_original_id").change(function(){
+            var val = $(this).val();
+            var closedAny = false;
+            $(".questionnaires_info").each(function(){
+                if($(this).is(":visible"))
+                {
+                    $(this).slideUp("slow", function(){
+                        $("#questionnaire_"+val).slideDown("slow");
+                    });
+                    closedAny = true;
+                }
+            });
+            if(!closedAny)
+                $("#questionnaire_"+val).slideDown("slow");
+        })
+    })
+</script>

@@ -1,0 +1,9 @@
+<div class="span-24 last" id="content">
+
+  <div id="content_header">
+    <%= render :partial => "administration/menu", :locals => {:header => "Questionnaire deadlines", :include_options => "questionnaires"} -%>
+  </div>
+  <%= form_for @deadline, :html => { :id => "generator_form", :class => "normal formtastic" } do |f| -%>
+      <%= render :partial => 'deadlines/form', :locals => {:f => f}%>
+  <% end -%>
+</div>

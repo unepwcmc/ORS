@@ -1,0 +1,7 @@
+$(function(){
+    <%- flash.each do |name, msg| -%>
+        flash_message("<%=name%>", "<%= msg %>");
+    <%- flash.delete(name) -%>
+    <%- end -%>
+
+});

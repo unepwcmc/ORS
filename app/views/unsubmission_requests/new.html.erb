@@ -1,0 +1,17 @@
+<%= render :partial => "users/options" %>
+<h1><%= t('generic.unsubmit') %></h1>
+<%= form_tag questionnaire_unsubmission_requests_path(@questionnaire) do %>
+  <fieldset>
+    <legend><%= t('unsubmission_request.legend') %></legend>
+    <%= hidden_field_tag :questionnaire_id, @questionnaire.id %>
+    <p>
+      <%= label_tag :subject, t('generic.subject') %><br />
+      <%= text_area_tag :subject, "[Unsubmission Request] #{@questionnaire.title}", :rows => 2, :cols => 45, :disabled => true %>
+    </p>
+    <p>
+      <%= label_tag :body, t('generic.body') %><br />
+      <%= text_area_tag :body, nil, :rows => 10, :cols => 45 %>
+    </p>
+    <p><%= submit_tag t('generic.send') %></p>
+  </fieldset>
+<% end %>

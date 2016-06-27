@@ -1,0 +1,15 @@
+$(function(){
+
+    <%- flash.each do |name, msg| -%>
+        flash_message("<%=h name%>", "<%=h msg %>");
+        <%- flash.delete(name) -%>
+    <%- end -%>
+    <% if @users %> //if any users have been de-authorize
+        <% @users.each do |user| %>
+            $("#auth_<%=user.id.to_s%>").html("No");//change the "Authorized" to "Yes"
+            $("#auth_<%=user.id.to_s%>").effect("highlight", {color: "red"}, 1000);//highlight the row with color red
+        <% end %>
+        $("#myTable").trigger("update") //"tell" the table that it has been updated
+                     .trigger("sorton", [[]]); //remove the sorting.
+    <% end %>
+});

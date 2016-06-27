@@ -1,0 +1,62 @@
+<% if @existing_delegations.any? -%>
+  <h4><%= t('delegate_section.existing_t')%></h4>
+  <ul>
+    <% @existing_delegations.each do |delegation_section| -%>
+      <li id="delegation<%=delegation_section.id%>">
+      <%= link_to h(delegation_section.delegation.user_delegate.delegate.full_name), user_path(delegation_section.delegation.delegate) %> (<%= link_to t('delegate_section.remove_section'), delegation_section_path(delegation_section, :loop_item_name_id => @loop_item_name.try(:id)), :confirm => "Are you sure?", :class => "delete"%>)
+      </li>
+    <% end %>
+  </ul>    
+<% end -%>
+<% if @delegations_whole_questionnaire.any? %>
+  <h4><%= t('delegate_section.users_whole_q') %></h4>
+  <ul>
+    <% @delegations_whole_questionnaire.each do |delegation| %>
+      <li id="delegationwhole<%=delegation.id%>"><%=link_to h(delegation.user_delegate.delegate.full_name), user_path(delegation.delegate) %> (<%= link_to t('delegate_section.remove_delegation'), delegation_path(delegation, :section_id => @section.id, :loop_item_name_id => @loop_item_name.try(:id)), :confirm => "Are you sure?", :class => "delete obj_tooltip", :title => t('delegate_section.help_remove_delegation')%>)</li>
+    <% end %>
+  </ul>
+<% end %>
+<% if @available_delegates.empty? -%>
+  <% if @existing_delegations.any? -%>
+    <p><%= t('delegate_section.all_delegated')%> <%= link_to t('delegate_section.your_dashboard'), user_user_delegates_path(current_user) %>.</p> 
+  <% elsif !current_user.delegates.any? -%>
+    <p><%= t('delegate_section.no_delegates') %> <%= link_to t('delegate_section.your_dashboard'), user_user_delegates_path(current_user) %>. </p>
+  <% end -%>
+<% else -%>
+  <%= form_for @delegation_section, :html => { :class => "formtastic", :id => "generator_form" } do |f| -%>
+    <div id="error_container" class="error_container">
+      <h5>There are some errors in your form submission, please see details below</h5>
+      <ul id="error_messages"></ul>
+    </div>
+    <%= hidden_field_tag :loop_item_name_id, params[:loop_item_name_id] %>
+    <fieldset>
+      <legend><%= t('tab_details.delegate_section')%></legend>
+      <ol>
+        <li>
+        <%= label_tag t('generic.section') %>
+        <%= OrtSanitize.white_space_cleanse((@section.root? ? @section.tab_title : @section.title)) %>
+        <%= hidden_field_tag "delegation_section[section_id]", @section.id %>
+        </li>
+        <% if @section.loop_item_type.present? -%>
+          <li>
+            <p style="color:blue"><%=t('delegate_section.looping_section_w')%></p>
+            <%= label_tag t('delegation_details.loop_th') %>
+            <% loop_item_names = @section.loop_item_type.loop_items.sort.map{|l| l.loop_item_name}.uniq%>
+            <%= select_tag "loop_item_names", options_for_select(loop_item_names.collect{|i| [i.item_name, i.id]}, @loop_item_name.try(:id)), :multiple => true, :size => loop_item_names.size > 10 ? 10 : loop_item_names.size  %>
+            <p class="clear"><a href="#" id="select_all_items">All</a> | <a href="#" id="clear_selection_items">Clear</a></p>
+            </li>
+        <% else %>
+          <%= hidden_field_tag "loop_item_names", @loop_item_name.try(:id) %>
+        <% end -%>
+        <li>
+          <%= label_tag t('delegate_section.delegate_to') %>
+          <%= select "delegation", "user_delegate_id", @available_delegates.sort{|a,b| a.delegate.full_name <=> b.delegate.full_name}.collect{|i| [i.delegate.full_name, i.id]}, :validate => "{required:true}" %>
+        </li>
+        <p id="submit_p"><%= f.submit t('generic.delegate') %></p>
+      </ol>
+    </fieldset>
+    <div class="error_container">
+      <h5>There are errors in your form submission, please see details above the form!</h5>
+    </div>
+  <% end -%>
+<% end %>

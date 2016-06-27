@@ -1,0 +1,10 @@
+<div class="span-24 last" id="content">
+  <%= render :partial => "administration/menu", :locals => {:header => "Delete Section", :include_options => "sections"} -%>  
+  <h2><%= raw @section.title %></h2>
+  <h3>Are you sure you want to delete this Section?</h3>
+  <p>All sub-sections and questions will also be lost!</p>
+  <%= form_for @section, :html => {:method => 'delete'} do |f|  %>
+    <%= submit_tag "Yes"  %>
+    <%= submit_tag "No", :name => "cancel"  %>
+  <% end  %>
+</div>

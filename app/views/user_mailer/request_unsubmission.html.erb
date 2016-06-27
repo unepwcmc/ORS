@@ -1,0 +1,18 @@
+<p><%=I18n.t('generic.hi')%> <%=h @questionnaire.user.full_name %>,</p>
+
+<p><%= I18n.t('user_mailer.unsubmission_request.first_line', :user => h(@user.full_name), :questionnaire => h(@questionnaire.title(@questionnaire.user.language))) %></p>
+
+<p><%= I18n.t('user_mailer.unsubmission_request.start_message')%></p>
+
+<%= @msg %>
+
+<p>- <%= I18n.t('user_mailer.unsubmission_request.end_message')%></p>
+
+<p><%= I18n.t('user_mailer.unsubmission_request.guidance', :link => "#{@url}/questionnaires/#{@questionnaire.id}/respondents")%><p>
+
+<p><%= I18n.t('user_mailer.unsubmission_request.user_details')%><br />
+<strong><%= I18n.t('generic.name') %>:</strong> <%=h @user.full_name %><br />
+<strong><%= I18n.t('generic.email') %>:</strong> <%=h @user.email %></p>
+
+<p>------------<br />
+<%= I18n.t('user_mailer.unsubmission_request.administrator_footer') %></p>

@@ -1,0 +1,18 @@
+$(function(){
+    var $section_depends_on_option = $("#section_depends_on_option");
+    $section_depends_on_option.find('option').remove();
+    <% if !@questions.empty? %>
+        $("#question").empty().append("<%= escape_javascript(render :partial => "sections/questions") %>");
+        $("#section_depends_on_question").change(function(){
+            var selectedVal = $(this).val();
+            if(selectedVal != ""){
+              $.ajax({url:RAILS_ROOT+"/questions/"+selectedVal+"/dependency_options", type:"get", dataType:"script"});
+            } else{
+                $section_depends_on_option.val("");
+            }
+            $("#section_depends_on_option_value").val("");
+        });
+    <% else  %>
+        $("#section_depends_on_question").find('option').remove();
+    <% end  %>
+})

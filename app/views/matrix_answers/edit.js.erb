@@ -1,0 +1,5 @@
+$(function(){
+    $("#answer_type").empty()
+            .append("<%= escape_javascript(render(:partial => "matrix_answers/form", :locals => {:type => @matrix_answer}))%>")
+            .show("slow");
+});

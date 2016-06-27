@@ -1,0 +1,14 @@
+<% answer_type.text_answer_fields.each do |field| %>
+    <p>
+      <% if field.rows.nil? || field.rows <= 1 %>
+          <input type="text" name="answer<%= answer_type.id %>" size="45"/>
+      <% else %>
+          <textarea name="answer<%= answer_type.id %> "cols="<%= field.width ? ( field.width.to_i / 7.5 ) : 45 %>" rows="<%= field.rows %>">
+          </textarea>
+          <br />
+      <% end %>
+    </p>
+<% end %>
+<p>
+  <strong>Help Text:</strong><%= raw answer_type.help_text %>
+</p>

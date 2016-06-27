@@ -1,0 +1,7 @@
+$(function(){
+    $("#content_header").empty()
+                        .append("<%= escape_javascript( render :partial => "administration/menu", :locals => {:header => "Edit Questionnaire", :include_options => "questionnaires"} ) %>");
+    $("#content").empty()
+                 .append("<%= escape_javascript(render(:partial => "edit"))%>");
+    myLib.questionnaire_edit.init();
+});

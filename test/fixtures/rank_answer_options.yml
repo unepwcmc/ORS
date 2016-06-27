@@ -1,0 +1,18 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+one:
+  rank_answer_id: 1
+
+two:
+  rank_answer_id: 1
+
+# == Schema Information
+#
+# Table name: rank_answer_options
+#
+#  id             :integer          not null, primary key
+#  rank_answer_id :integer
+#  created_at     :datetime
+#  updated_at     :datetime
+#  original_id    :integer
+#

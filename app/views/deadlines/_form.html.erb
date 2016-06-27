@@ -1,0 +1,21 @@
+<fieldset>
+  <legend><%= @deadline.new_record? ? "Add new deadline" : "Edit existing deadline" %></legend>
+  <ol>
+    <li>
+      <%= f.label :title %>
+      <%= f.text_field :title %>
+    </li>
+    <li>
+      <%= f.label :soft_deadline, "Soft deadline?" %>
+      <%= f.check_box :soft_deadline %>
+    </li>
+    <li>
+      <%= f.label :due_date %>
+      <%= date_select :deadline, :due_date, :default => Date.today, :start_year => Date.today.year, :order => [ :day, :month, :year ], :prompt => true -%>
+    </li>
+    <%= f.submit %>
+  </ol>
+</fieldset>
+<script type="text/javascript">
+    formValidation();
+</script>

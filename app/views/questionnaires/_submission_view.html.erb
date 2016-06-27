@@ -1,0 +1,52 @@
+<div id="questionnaire_details">
+  <div class="span-10">
+    <p>
+      <strong><%= t 's_details.default_lang' %>:</strong> <%=h @questionnaire.language_full_name %><br />
+      <strong><%= t 's_details.available_lang' %>:</strong> <%= @questionnaire.questionnaire_fields.sort!{|a,b| a.language <=> b.language}.map{|a| a.language_full_name}.join(', ') %><br />
+      <strong><%= t 's_details.year' %>:</strong> <%= @questionnaire.questionnaire_date.strftime('%Y') %>
+    </p>
+    <p><%= t 's_details.q_displayed_in' %>: <strong><%= @questionnaire.questionnaire_fields.map(&:language).sort!.include?(@authorization[:language]) ? @authorization[:language_full_name] : @questionnaire.language_full_name %></strong>
+    <% if @questionnaire.questionnaire_fields.size > 1 -%>
+      <%= info_tip(t('s_help.lang_change_title'), t('s_help.lang_change_text')) %><br />
+      <a href="#" id="change_lang">
+        <% @questionnaire.questionnaire_fields.sort{|a,b| a.language <=> b.language}.map{|q| q.language}.each do |lang| %>
+          <%= t('s_details.change_lang', {:locale => lang}) %><br />
+        <% end %>
+      </a>
+    <% end -%>
+    </p>
+    <% if @questionnaire.questionnaire_fields.size > 1 -%>
+        <div id="language_selection" class="clear hide">
+          <%= form_tag({ :controller => :authorized_submitters, :action => :change_language }, :class => "formtastic" ) do -%>
+              <%= hidden_field_tag :questionnaire_id, @questionnaire.id %>
+              <p>
+                <%= select 'language', nil, options_for_select(@questionnaire.questionnaire_fields.sort!{|a,b| a.language <=> b.language}.collect{ |i| [i.language_full_name, i.language ] } ), { :include_blank => false }, { :validate => "{required:true}"} %>
+                <%= submit_tag t("s_details.change_button") %>
+              </p>
+          <% end -%>
+        </div>
+    <% end -%>
+  </div>
+  <div class="span-6 last">
+    <p>
+      <% if @authorization[:status] == 2 -%>
+          <span style="color: red"><%= t 's_details.been_submitted' %></span>
+      <% else -%>
+        <div class="buttons">
+          <% submit_help = @questionnaire.submit_info_tip(@authorization[:language]).present? ? @questionnaire.submit_info_tip(@authorization[:language]) : t("s_help.submit_text") %>
+          <%= link_to image_tag('icons/user_go.png') + ' ' + t('s_details.submit_q') + ' ' + info_tip(t('s_help.submit_title'), submit_help), submit_questionnaire_path(@questionnaire), :method => :put, :confirm => t('s_details.confirm_submission') %>
+      </div>
+      <% end -%>
+      <br />
+    </p>
+    <p><%= t 's_details.download_pdf' %> <%= link_to t('tab_details.dashboard'), root_url %></p>
+    <p style="color:green"><%= t 's_details.fill_instructions' %><%= info_tip(t('s_help.s_guidance_title'), t('s_help.s_guidance_text')) %></p>
+  </div>
+  <div class="clear">
+    <fieldset>
+    <%= Sanitize.clean(@questionnaire.value_in(:introductory_remarks, @authorization[:language]) , OrtSanitize::Config::ORT).html_safe -%>
+    </fieldset>
+  </div>
+</div>
+
+

@@ -1,0 +1,14 @@
+<% #the auxiliar builder corresponds to the answer, which in this case is a matrix_answer. And contains 1..* matrix_answer_option
+   # In this partial those matrix_answer_options are being added along with the necessary matrix_answer_option_fields (each of which
+   # will have the option title in the languages supported by the questionnaire (matched here through
+   # the answer_type_fields from the AnswerType (which are built in the matrix_answers_controller).
+   aux_builder.object.answer_type_fields.each do |answer_type_field| %>
+    <%= f.fields_for :range_answer_option_fields, get_field_object_in(answer_type_field.language, :range_answer_option_fields ,f)  do |builder| %>
+        <%= builder.hidden_field :language, :value => answer_type_field.language %>
+        <%= builder.hidden_field :is_default_language, :value => answer_type_field.is_default_language %>
+        <%= builder.hidden_field :option_text %>
+    <% end %>
+<% end -%>
+<%= f.hidden_field :sort_index  %>
+<%= f.hidden_field :_destroy, :value => 0 %>
+

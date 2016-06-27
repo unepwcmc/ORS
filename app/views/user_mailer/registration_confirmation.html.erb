@@ -1,0 +1,8 @@
+<p><%=I18n.t('generic.hi')%> <%=h @user.full_name%>,</p>
+
+<p><%=I18n.t('user_mailer.user_registration.first_line')%> <%=ApplicationProfile.title%></p>
+
+<p>
+  <%=I18n.t('user_mailer.greetings')%><br />
+  <%=ApplicationProfile.title%>, <a href="<%=@url%>"><%=@url%></a>
+</p>

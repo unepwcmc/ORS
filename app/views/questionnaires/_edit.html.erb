@@ -1,0 +1,13 @@
+<div class="span-15" id="edit_questionnaire">
+  <%= form_for( @questionnaire, :html => { :multipart => true, :class => "formtastic normal", :id => "generator_form" }) do |f| %>
+      <div id="error_container" class="error_container">
+        <h5>There are some errors in your form submission, please see details below</h5>
+        <ul id="error_messages"></ul>
+      </div>
+      <%= render :partial => "form_edit", :locals => {:f => f}%>
+      <p><%= f.submit "Update" %></p>
+      <div class="error_container">
+        <h5>There are errors in your form submission, please see details above the form!</h5>
+      </div>
+  <% end %>
+</div><!-- /edit_questionnaire -->

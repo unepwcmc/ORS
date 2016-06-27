@@ -1,0 +1,21 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+one:
+  delegation_id: 1
+  section: 1
+
+two:
+  delegation_id: 1
+  section: 1
+
+# == Schema Information
+#
+# Table name: delegation_sections
+#
+#  id            :integer          not null, primary key
+#  delegation_id :integer
+#  section_id    :integer
+#  created_at    :datetime
+#  updated_at    :datetime
+#  original_id   :integer
+#

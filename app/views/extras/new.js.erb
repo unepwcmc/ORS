@@ -1,0 +1,6 @@
+$(function(){
+    $("#add_loop_item_names_source").hide('slow');
+    $("#add_extra_source").hide('slow').empty();
+    $("#add_extra").empty().append("<%= escape_javascript(render :partial => "extras/new") %>");
+    $("#add_extra").show('slow');
+});

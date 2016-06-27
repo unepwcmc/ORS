@@ -1,0 +1,12 @@
+<div class="span-24 last" id="content">
+
+  <div id="content_header">
+    <%= render :partial => "administration/menu", :locals => {
+      :header => "Questionnaire loop sources", 
+      :include_options => "questionnaires"} -%>
+  </div>
+  <%= render :partial => 'loop_sources/form'%>
+</div>
+<script type="text/javascript">
+    myLib.generator_side_generic.init();
+</script>

@@ -1,0 +1,63 @@
+<% is_root_section = (@questionnaire_part && @questionnaire_part.root?) || (@section && @section.questionnaire_part.root? ) %>
+<li>Add section fields information in the following languages (click to display the fields):</li>
+<li>
+  <%= f.object.section_fields.sort_by{ |a| a.is_default_language? ? 0 : 1 }.
+    map{|field| "<a href='#' class='display_lang' id='sect_#{field.language}'>#{field.language_english_name} #{field.is_default_language? ? "-" : "+" }</a> " }.
+    join(" | ").html_safe %>
+  |
+  <a href="#" class="show_all_lang_fields">Expand all</a>
+  /
+  <a href="#" class="hide_all_lang_fields">Collapse all</a>
+</li>
+<li>
+  <%= f.fields_for :section_fields, f.object.section_fields.sort_by{ |a| a.is_default_language? ? 0 : 1 } do |builder| %>
+      <div class="<%= builder.object.is_default_language? ? "" : "hide"%> lang_fields" id="fields_for_sect_<%= builder.object.language %>">
+        <fieldset>
+          <legend>
+            <%=h builder.object.language_english_name %>
+          </legend>
+          <%= builder.hidden_field :language, :value => builder.object.language %>
+          <%= builder.hidden_field :is_default_language, :value => builder.object.is_default_language  %>
+          <ol>
+            <% if is_root_section -%>
+                <li>
+                  <%= builder.label :tab_title, "Tab title #{builder.object.is_default_language? ? "*": ""}" %>
+                  <%= builder.text_area :tab_title, :rows => 2, :cols => 55, :dir => builder.object.language == "ar" ? "rtl" : "ltr", :class => "grow section_title tab-title", :minlength => "2", :validate => "#{builder.object.is_default_language? ? "{required:true, messages:{required:'The tab title in #{builder.object.language_english_name} is required'}}":"" }" %>
+                </li>
+            <% end -%>
+            <li>
+              <%= builder.label :title, "Title #{builder.object.is_default_language? ? "*": ""}" %>
+              <br>
+              <% if is_root_section -%>
+                <input type="checkbox" class="use-tab-title"> Use tab title
+              <% end -%>
+              <%= builder.text_area :title, :rows => 2, :cols => 55, :dir => builder.object.language == "ar" ? "rtl" : "ltr", :class => "section_title tinymce copy", :minlength => "2", :validate => "#{builder.object.is_default_language? ? "{required:true, messages:{required:'The title in #{builder.object.language_english_name} is required'}}":"" }"%>
+            </li>
+            <li>
+              <%= builder.label :description, "Description" %>
+              <%= builder.text_area :description, :rows => 2, :cols => 55, :dir => builder.object.language == "ar" ? "rtl" : "ltr", :class => "tinymce object_description" %>
+            </li>
+          </ol>
+        </fieldset>
+      </div>
+  <% end %>
+</li>
+<li>
+  <%= f.label :is_hidden %>
+  <%= f.check_box :is_hidden %>
+</li>
+<li>
+  <%= f.label :starts_collapsed %>
+  <%= f.check_box :starts_collapsed %>
+</li>
+<li>
+  <%= f.label :display_in_tab, ("Display in tab " + info_tip("Display in tab", "<p>On the submission page of a questionnaire the root sections of the questionnaire are displayed in a tab menu on the left side of the page.
+                                This options allows you to have sub sections being displayed in that menu as well, as long as they are not looping sections, are not descendants of looping sections and the maximum level defined is respected.</p>
+                                <p>The maximum level is defined when you create or edit your questionnaire. And it represents the level of nesting up to which a section can be set to be displayed in the tab menu.</p>")).html_safe %>
+  <% the_object = is_root_section ? nil : (@questionnaire_part.present? ? @questionnaire_part.parent.part : @section)%>
+  <%= f.check_box :display_in_tab, :disabled => (the_object.present? ? !the_object.children_can_be_displayed_in_tab? : true), :checked => (is_root_section || f.object.display_in_tab?) %>
+</li>
+<li>
+  <%= f.label :section_type, "Section Type *" %>
+  <%= f.collection_select :section_type, SectionType.to_a, :last, :first, {:prompt => true, :selected => f.object.section_type || SectionType::REGULAR}, :validate => "{required:true, messages:{required:'Please select a section type'}}"%>
+</li>

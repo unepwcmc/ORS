@@ -1,0 +1,13 @@
+<% item_type.children.each do |descendant|%>
+    <li>
+      <%=h descendant.name%>
+      <ul>
+        <% descendant.loop_items.each do |loop_item| %>
+            <li>
+              <%=h loop_item.item_name %>
+            </li>
+        <% end %>
+      </ul>
+    </li>
+    <%= render :partial => 'loop_item_types/show', :locals => { :item_type => descendant} %>
+<% end %>

@@ -1,0 +1,15 @@
+$(function(){
+    //Add the flash notice message
+    <%- flash.each do |name, msg| -%>
+        flash_message("<%=h name%>", "<%=h msg %>");
+        <%- flash.delete(name) -%>
+    <%- end -%>
+    $.ajax({ url: RAILS_ROOT+"/questionnaires/"+"<%= @questionnaire.id %>", type: 'get', dataType: 'script'});
+    //update tree entry:
+    $(function(){
+        var tree = $("#tree").dynatree("getTree");
+        var node = tree.getActiveNode();
+        node.data.title="<%= escape_javascript( h(@questionnaire.title.size > 20 ? @questionnaire.title[0,20] + "..." : @questionnaire.title) )%>";
+        node.render(false);
+    });
+});

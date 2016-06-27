@@ -1,0 +1,23 @@
+<div class="span-24 last" id="content">
+  <div id="content_header">
+    <% info_tip_text = "<p>From this page one can upload a list of users to be added to the system. <br />This list of users must be a CSV file with a user definition per line with the different attributes of the user separated by commas.<br /><br /> <strong>The file should not have a header row i.e. the file should start with the values.</strong><br /><br />Each line should have the following attributes in <strong>exactly the following order</strong>: <br/><br />First name, Last name, email, password, language (for example 'en' for English), group (a group the users belongs to). If you don't provide a password the default password is 'new_user_password'.</p>" %>
+    <%= render :partial => "administration/menu", :locals => {:header => "Add list of users " + info_tip("Add List of Users", info_tip_text), :include_options => nil} -%>
+  </div>
+  <%= form_tag upload_list_users_path, :multipart => true do %>
+      <p>Users will be added with the role of respondent.</p>
+      <div>
+        A file of user details need to be uploaded. There should not be any header information in the file.<br />
+        The file should be of the following format, separated by commas (CSV format):
+      </div>
+      <div>&gt; First Name, LastName, Email, Password, Language, Category, Group</div>
+      <div>&gt; e.g. Joe, Bloggs, joe.bloggs@home.com, aPassword, en, Scientific Authority, unknown </div><br />
+        <p>The <strong><em>Language</em></strong> needs to be the speaking language of the user e.g. en for English, fr for French. The <strong><em>Group</em></strong> value can be blank.</p>
+      <fieldset>
+        <legend>Please choose a file</legend>
+        <ol>
+          <%= file_field_tag "list_of_users" %>
+        </ol>
+      </fieldset>
+      <p><%= submit_tag "Upload" %></p>
+  <% end -%>
+</div>

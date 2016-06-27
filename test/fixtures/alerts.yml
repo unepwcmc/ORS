@@ -1,0 +1,20 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+one:
+  deadline_id: 1
+  reminder_id: 1
+
+two:
+  deadline_id: 1
+  reminder_id: 1
+
+# == Schema Information
+#
+# Table name: alerts
+#
+#  id          :integer          not null, primary key
+#  deadline_id :integer          not null
+#  reminder_id :integer          not null
+#  created_at  :datetime
+#  updated_at  :datetime
+#

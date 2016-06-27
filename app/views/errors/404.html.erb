@@ -1,0 +1,78 @@
+<%
+   begin
+       logged_in_user = current_user
+   rescue
+       logged_in_user = nil
+   end
+%>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html>
+<head>
+  <title><%= ApplicationProfile.title -%></title>
+
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+
+  <%= stylesheet_link_tag 'blueprint/screen.css', :media => "screen, projection" %>
+  <%= stylesheet_link_tag 'blueprint/print.css', :media => "print" %>
+  <!--[if lt IE 8]><%= stylesheet_link_tag "blueprint/ie.css", :media =>"screen, projection" %><![endif]-->
+  <%= stylesheet_link_tag 'application' -%>
+
+  <!-- Google Analytics Code -->
+  <script type="text/javascript">
+
+      var _gaq = _gaq || [];
+      _gaq.push(['_setAccount', 'UA-17315729-1']);
+      _gaq.push(['_trackPageview']);
+
+      (function() {
+          var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+          ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+          var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+      })();
+
+  </script>
+
+  <%= yield(:head) -%>
+</head>
+<body>
+
+<div class="container" id="main_wrapper">  <!--  id="container" -->
+  <div id="header" class="span-24 last">
+    <div id="user_nav">
+      <%#= render :partial => "layouts/authentication", :locals => {:current_user => logged_in_user }-%>
+    </div><!-- /user_nav -->
+    <div id ="title_div">
+      <h1><%= link_to h(ApplicationProfile.title), root_url -%></h1>
+    </div><!-- /titlediv -->
+  </div><!-- /header -->
+</div><!-- /main_wrapper -->
+<div class="wrap">
+  <div class="container">
+    <div class="inner_container span-24 last">
+      <h1>404 - Page not found</h1>
+      <p>The page you were looking for doesn't exist. You may have mistyped the address or the page may have moved.</p>
+      <p>To go to <%= logged_in_user ? "your dashboard" : "the home page" %> please <%= link_to "click here", root_path %>.</p>
+      <% if logged_in_user && logged_in_user && logged_in_user.role?( :admin) -%>
+          <p>To go to the administration dashboard please <%= link_to "click here", administration_path %>.</p>
+      <% end -%>
+    </div>
+  </div>
+</div>
+<hr class="space"/>
+<div class="footer" >
+  <hr />
+  <div class="container">
+    <div class="span-24 last">
+      <div style="float:right">
+        <label style="font-size:smaller;float:left;"> developed and maintained by &copy;UNEP-WCMC <%= Date.today.year %> &nbsp;</label>
+        <%= image_tag 'UNEP WCMC_blue3.jpg'%>
+      </div>
+    </div>
+  </div>
+</div><!-- /footer -->
+</body>
+</html>
+
+
+

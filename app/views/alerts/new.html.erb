@@ -1,0 +1,22 @@
+<div class="span-24 last" id="content">
+
+  <div id="content_header">
+    <%= render :partial => "administration/menu", :locals => {:header => "Deadline reminders", :include_options => "questionnaires"} -%>
+  </div>
+  <% if @reminders -%>
+  <%= form_for [@deadline, @alert], :html => { :id => "generator_form", :class => "normal formtastic" } do |f| -%>
+      <fieldset>
+        <legend>Associate a reminder to this deadline</legend>
+        <ol>
+          <li>
+            <%= f.label :reminder_id, "Reminder" -%>
+            <%= select :alert, :reminder_id, options_for_select(@reminders.collect{|reminder| ["#{h(reminder.title)}", reminder.id]}) %>
+          </li>
+        </ol>
+        <%= f.submit "Associate" %>
+      </fieldset>
+  <% end -%>
+  <% else -%>
+    <p>There are no reminders to associate with this questionnaire. Please visit <%= link_to "this page", new_reminder_path %> to add new reminders.</p>
+  <% end -%>
+</div>

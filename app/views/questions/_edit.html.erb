@@ -1,0 +1,44 @@
+<div class="span-15" id="edit_question" >
+  <%= form_for @question, :as => :part, :url => { :action => "update" }, :html =>  { :method => :put, :class => "formtastic", :id => "generator_form" } do |f|   -%>
+      <div id="error_container" class="error_container">
+        <h5>There are some errors in your form submission, please see details below</h5>
+        <ul id="error_messages"></ul>
+      </div>
+      <fieldset>
+        <legend>Details</legend>
+        <% if @question.answers.present? -%>
+            <p style="color: red">Changing this question's answer type will cause any existing answers to be deleted.</p>
+        <% end -%>
+        <ol>
+          <%= render :partial => "questions/variables", :locals => {:base_section => @question.section, :question => @question, :builder_var => "part" } %>
+          <%= render :partial => "extras/include_extras", :locals => { :base_section => @question.section, :check_extras => @question }-%>
+          <li>
+            <%= render :partial => "questions/form", :locals => {:f => f} -%>
+          </li>
+          <% if !@question.section.answer_type_id.present?  -%>
+              <li>
+                <%= f.label :answer_type_type, "Answer type" %>
+                <% list_of_options = {"Matrix" => "MatrixAnswer", "Multiple Options" => "MultiAnswer", "Numeric" => "NumericAnswer","Rank" => "RankAnswer", "Text" => "TextAnswer", "Range" =>"RangeAnswer" }  %>
+                <%= f.collection_select :answer_type_type, list_of_options, :last, :first, {:prompt => true}, :validate => "{required:true, messages:{required:'Please select an answer type'}}"%>
+              </li>
+              <div id="answer_type">
+                <%= render :partial => "#{@question.answer_type_type.underscore}s/form", :locals => {:type => @question.answer_type}%>
+              </div>
+          <% else -%>
+              <li>
+                <%= f.label :answer_type %>
+                <p>Inherited from section</p>
+              </li>
+          <% end -%>
+        </ol>
+        <p style="clear:left; padding-top:16px">
+          <%= f.submit "Update Question"%>
+          <% info_tip_text = "<p>do not save edits and go back to question.</p>"-%>
+          <%= link_to "Cancel", question_path(@question), :class => 'get li_tooltip', :title => "Cancel - " +info_tip_text %>
+        </p>
+      </fieldset>
+      <div class="error_container">
+        <h5>There are errors in your form submission, please see details above the form!</h5>
+      </div>
+  <% end -%>
+</div><!-- /edit_question -->

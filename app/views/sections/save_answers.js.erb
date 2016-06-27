@@ -1,0 +1,42 @@
+$(function(){
+    <% if params[:auto_save] != "1" %>
+        $("#save_from_button").val("0");
+        $("#timed_save").val("0");
+        $("#auto_save").val("0");
+        <% if @result[:result] -%>
+            <% @result[:fields_to_clear].each do |field| -%>
+                $("#<%= field %>").val("");
+            <% end -%>
+            <% if @authorization[:user].id == current_user.id -%>
+                <% @result[:questions_saved].each do |question_saved| -%>
+                if($("#edited_by_<%= question_saved %>").length > 0){
+                  question_div = $("#question_div_<%= question_saved %>")
+                  if(question_div.hasClass("old-answer")){
+                    question_div.removeClass("old-answer")
+                  }
+                  $("#edited_by_<%= question_saved %>").html("<%= escape_javascript(link_to h(current_user.full_name)[0,30], user_path(current_user), :title => h(current_user.full_name)) -%>");
+                }
+              <% end -%>
+            <% end -%>
+          <% end -%>
+    <% end -%>
+    if($(".dirty").length == 0){
+      $("#top_submission").show();
+      $("#top_submission_disabled").hide();
+    }
+    <% if @result[:result] -%>
+      <% state = UserSectionSubmissionState.submission_state_of(@authorization[:user].id, @result[:section].id, @result[:root_loop_item] ? @result[:root_loop_item].id : nil) %>
+        set_state_identifier("<%=@result[:section].id.to_s + (@result[:root_loop_item] ? "_#{@result[:root_loop_item].id}" : "")%>","<%=state%>", "<%= escape_javascript( t("questionnaire_feedback.state#{state}") )%>");
+        //var value = "<%#= @section.root.questionnaire.percentage_of_completion_for( current_user ) %>";
+        //$("#progressbar").progressbar("option", "value", value);
+    <% end -%>
+    <% if params[:timed_save] == "1" -%>
+        $("#timed_saving").hide('slow');
+        $("#questionnaire").removeClass("no_dialog");
+    <% end -%>
+    //Add the flash notice message
+    <%- flash.each do |name, msg| -%>
+        flash_message("<%=h name%>", "<%=h msg %>");
+        <%- flash.delete(name) -%>
+    <%- end -%>
+});

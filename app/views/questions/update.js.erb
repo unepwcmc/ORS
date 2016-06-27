@@ -1,0 +1,17 @@
+$(function(){
+    //Add the flash notice message
+    <%- flash.each do |name, msg| -%>
+        flash_message("<%=h name%>", "<%=h msg %>");
+        <%- flash.delete(name) -%>
+    <%- end -%>
+    $.ajax({ url: RAILS_ROOT+"/questions/"+"<%=h @question.id%>", type: 'get', dataType: 'script'});
+    //update tree entry:
+    $(function(){
+        var tree = $("#tree").dynatree("getTree");
+        var node = tree.getActiveNode();
+        <% the_title = Sanitize.clean(@question.title).strip.gsub("\n\n", "") -%>
+        node.data.title= "<%= escape_javascript( (the_title.size > 25 ? the_title[0,25]+ "..." : the_title)) %>",
+        node.data.tooltip= "<%=escape_javascript( the_title) %>",
+        node.render(false);
+    });
+});

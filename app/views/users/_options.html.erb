@@ -1,0 +1,15 @@
+<% @user ||= (current_user || nil) %>
+<div id="secondary_menu">
+  <ul class="sf-menu">
+    <% if @user && can?( :update, @user) %>
+      <li><%= link_to t("user_dashboard.edit_u"), edit_user_path(@user.id)%></li>
+    <% end %>
+    <% if @user && ( @user.role?(:admin) || @user.role?(:respondent) ) %>
+      <li><%= link_to t("user_dashboard.manage_d"), user_user_delegates_path(@user.id) %></li>
+    <% end %>
+    <li><%= link_to t("user_dashboard.submission_d"), root_path %></li>
+    <% if current_user.role?(:admin) -%>
+      <li><%= link_to "Administration dashboard", administration_path %></li>
+    <% end -%>
+  </ul>
+</div>

@@ -1,0 +1,26 @@
+$(function(){
+  $("#search_question").find('option').remove();
+  $("#search_question").append("<option value=\"\">Choose a question</option>");
+  $("#search_question").append("<%= escape_javascript(
+    options_for_select(@questions.collect{ |i| 
+      [OrtSanitize.white_space_cleanse(i.title).size > 65 ? OrtSanitize.
+        white_space_cleanse(i.title)[0,65] + "..." : OrtSanitize.white_space_cleanse(i.title), i.id ]  })) %>");
+  $("#responses_loop_items ul li").remove();
+  <% loop_item_pos = 0 %> 
+  <% @section.self_and_ancestors.each do |section| %>
+    <% if section.looping? %>
+        $("#responses_loop_items ul").append("<%= escape_javascript(
+          render :partial => "questionnaires/search_loop_items", :locals => {
+            :item_type_label => "[#{section.loop_item_type.root.loop_source.name}] #{section.loop_item_type.name}",
+            :loop_item_position => loop_item_pos, :loop_item_type => section.loop_item_type }
+        ) %>");
+        <% loop_item_pos += 1 %>
+    <% end %>
+  <% end %>
+  if($("#responses_loop_items ul li").length > 0){
+    $("#responses_loop_items").show("slow");
+  } else {
+    $("#responses_loop_items").hide("slow");
+  }
+});
+

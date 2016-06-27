@@ -1,0 +1,30 @@
+<li>Add <strong>help text</strong> for this answer type in the following languages (click to display the fields):</li>
+<li>
+  <%= f.object.answer_type_fields.sort_by{ |a| a.is_default_language? ? 0 : 1 }.
+    map{|field| "<a href='#' class='display_lang' id='atype_#{field.language}'>#{field.language_english_name}#{field.is_default_language? ? "-":"+"}</a> " }.
+    join(" | ").html_safe %>
+  |
+  <a href="#" class="show_all_lang_fields">Expand all</a>
+  /
+  <a href="#" class="hide_all_lang_fields">Collapse all</a>
+</li>
+<li>
+  <%= f.fields_for :answer_type_fields do |builder| %>
+      <div class="<%= builder.object.is_default_language? ? "":"hide" %> lang_fields" id="fields_for_atype_<%= builder.object.language %>">
+        <fieldset>
+          <legend>
+            <%=h builder.object.language_english_name %>
+          </legend>
+          <%= builder.hidden_field :language, :value => builder.object.language %>
+          <%= builder.hidden_field :is_default_language, :value => builder.object.is_default_language %>
+          <ol>
+            <li>
+              <%= builder.label :help_text, "Help text" %>
+              <%= builder.text_area :help_text, :rows => 2, :cols => 55, :dir => builder.object.language == "ar" ? "rtl" : "ltr", :class => "grow" %>
+              <p class="inline-hints">You can format your help text by using HTML tags: p, br, em, strong.</p>
+            </li>
+          </ol>
+        </fieldset>
+      </div>
+  <% end  %>
+</li>

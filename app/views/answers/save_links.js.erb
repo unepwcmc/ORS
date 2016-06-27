@@ -1,0 +1,28 @@
+$(function(){
+    <%- flash.each do |name, msg| -%>
+        flash_message("<%=h name%>", "<%=h msg %>");
+        <%- flash.delete(name) -%>
+    <%- end -%>
+    $("#add_links").dialog("close");
+    <% if @success -%>
+        var $this_doc_list = $("#links_list_<%= @answer.question.id.to_s + (@answer.looping_identifier ? "_#{@answer.looping_identifier}" : "")%>");
+        if($this_doc_list.length == 0)
+        {
+            $("#answer_links_<%= @answer.question.id.to_s + (@answer.looping_identifier ? "_#{@answer.looping_identifier}" : "")%>").prepend("<div id='links_list_<%= @answer.question.id.to_s + (@answer.looping_identifier ? "_#{@answer.looping_identifier}" : "")%>'><p><%= t('submission_pages.links_you_have') %></p>" +
+                                                            "<ul></ul></div>");
+            $this_doc_list = $("#links_list_<%= @answer.question.id.to_s + (@answer.looping_identifier ? "_#{@answer.looping_identifier}" : "")%>");
+        }
+        var el = $("#links_list_<%= @answer.question.id.to_s + (@answer.looping_identifier ? "_#{@answer.looping_identifier}" : "")%>").find("ul");
+        el.children().remove();
+        <% @answer.answer_links.each do |answer_link| -%>
+            <% if !answer_link.marked_for_destruction? %>
+                <%# target=>_blank was specifically requested.. seriously =(%>
+                el.prepend("<li><%= escape_javascript( (link_to h(answer_link.title.present? ? answer_link.title : answer_link.url), answer_link.url, :target => "_blank")+ "#{if answer_link.description? then ": "+h(answer_link.description)end}") %></li>");
+            <% end -%>
+        <% end -%>
+        if(el.children().length == 0)
+            $this_doc_list.remove();
+        else
+            el.effect("highlight",{}, 2000);
+    <% end -%>
+});

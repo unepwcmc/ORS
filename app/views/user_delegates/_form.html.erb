@@ -1,0 +1,32 @@
+<%= form_for @user_delegate do |f| %>
+  <% if @user_delegate.errors.any? %>
+    <div id="errorExplanation">
+      <ul id='error_messages'>
+        <% @user_delegate.errors.full_messages.each do |msg| %>
+          <li><%= msg %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <fieldset>
+    <p>
+      <%= label_tag :delegate_email, t("generic.email") %><br />
+      <%= text_field_tag :delegate_email, @user_delegate.new_record? ? "" : @user_delegate.delegate.email, :size => "40"   %>
+    </p>
+    <p>
+      <%= label_tag :delegate_first_name %><br />
+      <%= text_field_tag :delegate_first_name, @user_delegate.new_record? ? "" : @user_delegate.delegate.first_name %><br />
+      <%= label_tag :delegate_last_name %><br />
+      <%= text_field_tag :delegate_last_name, @user_delegate.new_record? ? "" : @user_delegate.delegate.last_name %><br />    
+    </p>
+    <p>
+      <%= label_tag :language, t("generic.language") %><br />
+      <%= select :delegate, :language, [[t("languages.english"),"en"], [t("languages.french"),"fr"], [t("languages.spanish"),"es"]], {:selected => "en"}  %>
+    </p>
+    <p>
+      <%= f.submit (@user_delegate.new_record? ? t('user_new.add_delegate') : t('generic.update')) %>
+    </p>
+  </fieldset>
+<% end %>
+

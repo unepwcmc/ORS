@@ -1,0 +1,9 @@
+<%=I18n.t('generic.hi')%> <%=h @user.full_name%>,
+
+<%= I18n.t('user_mailer.csv_generation_failed.first_line', :section => (@section ? "section ("+Sanitize.clean(@section.title(@user.language), {})+") of " : "" ), :questionnaire => h(@questionnaire.title(@user.language))) %>
+
+<%= h @error.message %>
+
+<%=I18n.t('user_mailer.greetings')%>
+
+<%=ApplicationProfile.title%>

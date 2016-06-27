@@ -1,0 +1,26 @@
+<h1> EDIT YOUR PROFILE </h1>
+
+<%= form_for @application_profile, :url => { :action => :update } , :html => { :multipart => true } do |f| %>
+
+  <fieldset>
+    <ul>
+      <li>
+        <%= f.label :title %>
+        <%= f.text_field :title %>
+      </li>
+      <li>
+        <%= f.label :short_title %>
+        <%= f.text_field :short_title %>
+      </li>
+      <li>
+        <%= f.label :logo_url %>
+        <%= f.text_field :logo_url %>
+      </li>
+      <li>
+        <%= f.label :logo %>
+        <%= f.file_field :logo %>
+      </li>
+    </ul>
+  </fieldset>
+  <%= f.submit %>
+<% end %>

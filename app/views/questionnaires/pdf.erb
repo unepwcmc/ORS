@@ -1,0 +1,13 @@
+<div style="border: 1px solid; padding: 5px;">
+  <h2>Questionnaire Details</h2>
+  <p>
+    <strong>Name:</strong> <%=h @questionnaire.title%> <br />
+    <strong>Language:</strong> <%=h @questionnaire.language%><br />
+    <strong>Date:</strong> <%=h @questionnaire.questionnaire_date%>
+  </p>
+  <% number = 1
+     @questionnaire.sections.each do |section| %>
+      <%= render :partial => "sections/preview", :locals => {:section => section, :root => false, :number => number, :loop_item => nil} %>
+      <% number += 1 %>
+  <%end%>
+</div><!-- /questionnaire_preview_details -->

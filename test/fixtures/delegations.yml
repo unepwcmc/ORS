@@ -1,0 +1,23 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+one:
+  user_id: 1
+
+two:
+  user_id: 1
+
+
+
+# == Schema Information
+#
+# Table name: delegations
+#
+#  id               :integer          not null, primary key
+#  created_at       :datetime
+#  updated_at       :datetime
+#  remarks          :text
+#  questionnaire_id :integer
+#  user_delegate_id :integer
+#  from_submission  :boolean
+#  original_id      :integer
+#

@@ -1,0 +1,39 @@
+<div class="span-24 last" id="content">
+  <div id="content_header">
+    <% info_tip_text = "" %>
+    <%= render :partial => "administration/menu", :locals => {:header => "Added users " + info_tip("Manage Users", info_tip_text), :include_options => nil} -%>
+  </div>
+  <% if @status[:errors].present? -%>
+      <p>It was not possible to add all the records present in the file that you provided. <%= pluralize(@status[:errors].size, "record") + (@status[:errors].size > 1 ? " are" : " is") %> not correctly defined.</p>
+      <p><%= @status[:errors].map{|a| h(a)}.join('<br />') %>.</p>
+  <% end -%>
+  <% if @status[:users].present? -%>
+      <p>The following <%= pluralize(@status[:users].size, "user") + (@status[:users].size > 1 ? " were" : " was")  %> successfully added.</p>
+      <table id="users_index" class="tablesorter">
+        <thead>
+        <tr>
+          <th>Name</th>
+          <th>E-mail</th>
+          <th>Created At</th>
+          <th>Created By</th>
+          <th>Roles</th>
+          <th>Category</th>
+          <th>Groups</th>
+        </tr>
+        </thead>
+        <tbody>
+        <% @status[:users].each do |user| %>
+            <tr>
+              <td><%= user.full_name %></td>
+              <td><%= mail_to h(user.email), h(user.email)  %></td>
+              <td><%= user.created_at ? user.created_at.to_formatted_s(:long_ordinal) : "-" %></td>
+              <td><%= raw user.creator ? "#{link_to h(user.creator.full_name), user_path(user.creator)}" : "None" %></td>
+              <td><%= user.roles.map(&:name).join(', ') if user.roles.present? %></td>
+              <td><%= user.category.presence || "Other" %></td>
+              <td><%=h user.group_list.sort %></td>
+            </tr>
+        <% end -%>
+        </tbody>
+      </table>
+  <% end -%>
+</div>

@@ -1,0 +1,4 @@
+$(function(){
+  $("#users_answers").html("");
+  $("#users_answers").append("<%= escape_javascript(render(:partial => 'questions/user_answers', :locals => {:answers => @answers, :users => @users}))%>");
+});

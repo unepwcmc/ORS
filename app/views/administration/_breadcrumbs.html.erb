@@ -1,0 +1,8 @@
+<div id="bread_crumb" class="breadCrumb module">
+  <ul id="bcul">
+    <li id="bchome" title="Administration dashboard">
+      <%= link_to "Administration dashboard", ( current_user && current_user.role?(:admin) ) ? administration_path : root_url %>
+    </li>
+    <li></li>
+  </ul>
+</div><!-- /breadcrumb -->

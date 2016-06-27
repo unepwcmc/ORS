@@ -1,0 +1,6 @@
+$(function(){
+  var range_form = "<div id='partial_new_answer_type'><%= escape_javascript(render(:partial => "range_answers/form", :locals => {:type => @range_answer}).html_safe)%></div>"
+  $("#answer_type").empty()
+    .append(range_form)
+    .show("slow");
+});

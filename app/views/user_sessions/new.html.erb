@@ -1,0 +1,25 @@
+
+<h1><%= t("user_session_new.title")%></h1>
+<p><%= t("user_session_new.no_account")%> <%= link_to t("user_session_new.signup"), signup_path(:lang => (params[:lang] || "en")) %></p>
+
+<%= form_for @user_session do |f| %>
+  <% if @user_session.errors.any? %>
+    <div id="errorExplanation">
+      <ul id='error_messages'>
+        <% @user_session.errors.full_messages.each do |msg| %>
+          <li><%= msg %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+    <p>
+      <%= f.label :email, t("generic.email") %><br />
+      <%= f.text_field :email %>
+    </p>
+    <p>
+      <%= f.label :password, t("generic.password") %><br />
+      <%= f.password_field :password %>
+    </p>
+    <p><%= f.submit t("user_session_new.login") %></p>
+<% end %>
+<%= render :partial => "layouts/institutions" %>

@@ -1,0 +1,21 @@
+<div>
+  <hr />
+  <h3><%= (Sanitize.clean(section.title , OrtSanitize::Config::ORT)).html_safe %></h3>
+  <%#=h( ((number == 0 ? "" : number.to_s) + "- " + ( loop_item.nil? ? section.title : section.title.gsub(" #[#{loop_item.item_type}]"," "+loop_item.item_name)))) %>
+  <p>
+    <%= (Sanitize.clean(section.description , OrtSanitize::Config::ORT)).html_safe %>
+  </p>
+  <% if section.looping? -%>
+      <p>
+        Section Looping through file: <strong><%=h section.loop_source.try(:name) %></strong><br />
+        Looping over: <strong><%=h section.loop_item_type.try(:name) %></strong><br />
+        Number of items: <strong><%= count_all_loop_items(section) %></strong>
+      </p>
+  <% end -%>
+  <% section.questions.each do |question| -%>
+      <%= render :partial => "questions/preview", :locals => {:question => question, :root => false} %>
+  <% end -%>
+  <% section.children.each do |child| -%>
+      <%= render :partial => "sections/preview", :locals => {:section => child } %>
+  <% end -%>
+</div><!-- /section_preview_div -->

@@ -1,0 +1,21 @@
+<p><%=I18n.t('generic.hi')%> <%=@delegation_section.delegation.delegate.full_name %>,</p>
+<p><%= I18n.t('user_mailer.section_delegated.intro') %></p>
+<p>
+ <strong><%=I18n.t('generic.questionnaire')%> :</strong> <%=@delegation_section.section.questionnaire.title(@delegation_section.delegation.delegate.language) %><br />
+ <strong><%=I18n.t('generic.section')%> :</strong> <%= Sanitize.clean(@delegation_section.section.title(@delegation_section.delegation.delegate.language)).html_safe %>
+</p>
+<% if @delegation_section.loop_item_names.present? %>
+  <p><%= I18n.t('user_mailer.section_delegated.looping') %></p>
+  <ul>
+    <% @delegation_section.loop_item_names.each do |item_name| %>
+        <li><%=item_name.item_name %></li>
+    <% end  %>
+  </ul>
+<% end %>
+<p><%= I18n.t('user_mailer.section_delegated.access') %> <a href='<%= @url %>/questionnaires/<%= @delegation_section.section.questionnaire.id %>/submission'><%= @url %>/questionnaires/<%= @delegation_section.section.questionnaire.id %>/submission</a>.</p>
+<p><%= I18n.t('user_mailer.section_delegated.dashboard') %></p>
+<p><%= I18n.t('user_mailer.greetings')%><br />
+  <%= ApplicationProfile.title %></p>
+<p>
+<%=@delegation_section.section.questionnaire.email_footer(@delegation_section.delegation.delegate.language)%>
+</p>"

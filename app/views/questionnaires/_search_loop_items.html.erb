@@ -1,0 +1,6 @@
+<li style="list-style: none">
+  <%= label_tag item_type_label, item_type_label %>:<br />
+  <%= select :search, "loop_item_positions_#{loop_item_position}",
+    options_from_collection_for_select(loop_item_type.loop_item_names.sort, :id, :item_name),
+      {}, { :validate => "{required:true}", :class => "loop_item_positions"} %>
+</li>

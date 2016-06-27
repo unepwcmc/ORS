@@ -1,0 +1,37 @@
+<div class="span-24 last" id="admin_menu">
+  <ul>
+    <li class="span-3 li_tooltip" title="<%= t('administration_help.dashboard') %>">
+      <%= link_to "Dashboard", administration_path %>
+    </li>
+    <li class="span-4 li_tooltip" title="<%= t('administration_help.new_q') %>">
+      <%= link_to "New Questionnaire", new_questionnaire_path %>
+    </li>
+    <li class="span-5 li_tooltip" title="<%= t('administration_help.duplicate_q') %>">
+      <%= link_to "Duplicate Questionnaire", duplicate_questionnaires_path %>
+    </li>
+    <li class="span-5 li_tooltip" title="<%= t('administration_help.manage_q')%>">
+      <%= link_to "Manage Questionnaires", questionnaires_path %>
+    </li>
+    <li class="span-4 li_tooltip" title="<%= t('administration_help.manage_u') %>">
+      <%= link_to "Manage Users", users_path %>
+    </li>
+    <li class="span-3 last li_tooltip" title="<%= t('administration_help.q_answers')%>">
+      <%= link_to "Responses", search_questionnaires_path %>
+    </li>
+  </ul>
+</div><!-- /admin_sidebar -->
+<div class="span-24 last" id="welcome">
+  <% if include_options %>
+      <div id="secondary_menu">
+        <ul class="sf-menu">
+          <%= render :partial => "#{include_options}/options"  -%>
+        </ul>
+      </div>
+  <% end %>
+  <h1>
+    <%= header.html_safe %>
+    <div style="font-size:40%;">
+      <%=link_to "Submission dashboard", root_url %>
+    </div>
+  </h1>
+</div><!-- /welcome -->

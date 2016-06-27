@@ -1,0 +1,11 @@
+<p><%=I18n.t('generic.hi')%> <%=h @user.full_name%>,</p>
+<p><%=I18n.t('user_mailer.authorisation_granted.first_line')%></p>
+<p>
+  <strong> <%=I18n.t('generic.title')%></strong> <%=h @questionnaire.title(@user.language)%><br />
+  <strong><%=I18n.t('s_details.default_lang')%></strong> <%=t("languages.#{@questionnaire.language_english_name.downcase}")%><br />
+  <strong><%=I18n.t('s_details.available_lang')%></strong> <%=@questionnaire.questionnaire_fields.map{|a| t("languages.#{a.language_english_name.downcase}")}.join(", ")%>
+</p>
+<p><%=I18n.t('user_mailer.authorisation_granted.start_filling')%> <a href='<%=@url%>/questionnaires/<%=@questionnaire.id%>/submission'><%=@url%>/questionnaires/<%=@questionnaire.id%>/submission</a>.</p>
+<p><%=I18n.t('user_mailer.authorisation_granted.available_from_dashboard')%></p>
+<p><%=I18n.t('user_mailer.greetings')%><br /><%=ApplicationProfile.title%></p>
+<p><%=h @questionnaire.email_footer(@user.language)%></p>

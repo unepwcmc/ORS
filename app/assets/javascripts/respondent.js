@@ -1,0 +1,16 @@
+//= require jquery
+//= require jquery_ujs
+//= require jquery.ui.all
+//= require jquery.form
+//= require jquery.jaxy
+//= require livequery.min
+//= require validation/jquery.metadata
+//= require validation/jquery.validate
+//= require jquery.tooltipster.min.js
+//= require autogrow/jquery.autosize.min
+//= require superfish
+//= require hoverIntent
+//= require jqgrid-jquery-rails
+//= require gritter
+//= require shared
+//= require_tree ./respondent

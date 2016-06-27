@@ -1,0 +1,9 @@
+<p><%=I18n.t('user_mailer.user_registration.admin_first_line', :title => ApplicationProfile.title) %></p>
+
+<p><strong><%=I18n.t('user_new.first_n')%></strong> <%=@user.first_name%><br/>
+<strong><%=I18n.t('user_new.last_n')%></strong> <%=@user.last_name%><br/>
+<strong><%=I18n.t('generic.email')%></strong> <%=@user.email%><br/>
+<strong><%=I18n.t('generic.language')%></strong> <%=I18n.t("languages.#{@user.language_english_name.downcase}")%></p>
+
+<p>--------<br /><%=I18n.t('user_mailer.admin_footer')%></p>
+

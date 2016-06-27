@@ -1,0 +1,10 @@
+<div id="secondary_menu">
+  <ul class="sf-menu">
+    <li><%= link_to t('user_new.add_delegate'), new_user_user_delegate_path(current_user)  %></li>
+    <li><%= link_to t('user_dashboard.manage_d'), user_user_delegates_path(current_user) %></li>
+    <li><%= link_to t('user_dashboard.submission_d'), root_path %></li>
+    <% if current_user.role?(:admin) -%>
+      <li><%= link_to "Administration dashboard", administration_path %></li>
+    <% end -%>
+  </ul>
+</div>

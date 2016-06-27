@@ -1,0 +1,19 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+one:
+  display_reply: 1
+
+two:
+  display_reply: 1
+
+# == Schema Information
+#
+# Table name: matrix_answers
+#
+#  id                 :integer          not null, primary key
+#  display_reply      :integer
+#  created_at         :datetime
+#  updated_at         :datetime
+#  matrix_orientation :integer
+#  original_id        :integer
+#

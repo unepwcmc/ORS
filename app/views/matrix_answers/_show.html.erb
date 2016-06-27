@@ -1,0 +1,35 @@
+<%= render :partial => "answer_type_fields/show", :locals => { :answer_type_field => answer_type.answer_type_fields.find_by_language(language) } %>
+<p>
+  <strong>Matrix Orientation:</strong>
+  <%= answer_type.matrix_orientation.to_i == 0 ?  "Queries (h) x Options (v)"  : "Options (h) x Queries (v)" %>
+</p>
+<p>
+  <strong>Display reply as:</strong>
+  <%= answer_type.display_reply_humanize %>
+</p>
+<p>Queries</p>
+<ul>
+  <% answer_type.matrix_answer_queries.each do |query| %>
+      <li>
+        <%= h query.title(language) %>
+      </li>
+  <% end %>
+</ul>
+<p>Options</p>
+<ul>
+  <% answer_type.matrix_answer_options.each do |option| %>
+      <li>
+        <%= h option.title(language) %>
+      </li>
+  <% end %>
+</ul>
+<% if answer_type.display_reply == 3 -%>
+    <p>Drop down options</p>
+    <ul>
+      <% answer_type.matrix_answer_drop_options.each do |drop_option| -%>
+      <li>
+        <%=h drop_option.option_text(language) %>
+      </li>
+      <% end -%>
+    </ul>
+<% end -%>

@@ -1,0 +1,60 @@
+<% queries_as_rows = answer_type.matrix_orientation == 0 %>
+<% columns = queries_as_rows ? answer_type.matrix_answer_options : answer_type.matrix_answer_queries  -%>
+<% rows = queries_as_rows ? answer_type.matrix_answer_queries : answer_type.matrix_answer_options  -%>
+<% the_id = "matrix_answer_#{answer_type.id}"-%>
+<table class="submission_matrix" style="width: 550px">
+  <thead>
+  <tr>
+    <th></th>
+    <% columns.each do |column| -%>
+        <th>
+          <%=h column.title %>
+        </th>
+    <% end -%>
+  </tr>
+  </thead>
+  <tbody>
+  <% rows.each do |row| %>
+      <tr>
+        <td class="matrix_queries"><%=h row.title %></td>
+        <% columns.each do |column| %>
+            <% the_id_for_col = the_id + ( queries_as_rows ? "[#{row.id}]" : "[#{column.id}]") -%>
+            <% id = queries_as_rows ? column.id : row.id %>
+            <td>
+              <% if answer_type.check_box? -%>
+                  <%= check_box_tag the_id_for_col+"[#{id}]", id, nil %>
+              <% elsif answer_type.radio_button? -%>
+                  <%= radio_button_tag the_id_for_col, id, nil %>
+              <% elsif answer_type.text_field? -%>
+                  <%= text_field_tag the_id_for_col+"[#{id}]", "" %>
+              <% elsif answer_type.drop_down_list? -%>
+                <%
+                   options = [[t("submission_pages.select_option"), ""]]
+                   answer_type.matrix_answer_drop_options.each do |mado|
+                       options += [[h(mado.option_text), mado.id]]
+                   end
+                -%>
+                  <%= select_tag the_id_for_col+id.to_s, options_for_select(options, ([t("submission_pages.select_option")]) ) %>
+              <% end -%>
+            </td>
+        <% end -%>
+      </tr>
+  <% end -%>
+  </tbody>
+</table>
+<% if answer_type.display_reply == 1 -%>
+    <p><a href="#" id="<%= the_id %>_clear_choices"><%= t "s_details.clear_answer" %></a></p>
+<% end -%>
+<% if answer_type.display_reply == 1 -%>
+    <script type="text/javascript">
+        $(function(){
+            $("#<%= the_id %>_clear_choices").click(function(e){
+                e.preventDefault();
+                $(this).parent().prev().find("input").attr('checked', false);
+            });
+        });
+    </script>
+<% end -%>
+<p>
+  <strong>Help Text:</strong> <%= raw answer_type.help_text %><br />
+</p>

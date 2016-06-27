@@ -1,0 +1,49 @@
+<div class="span-24 last" id="content">
+  <div id="content_header">
+    <% filtering_field_help = "<p>In this page you can see and manage the existing filtering fields of this questionnaire.</p>
+                        <p>A filtering field allows you to define a field with which you can characterize your users and, based on that characteristic, filter out some parts of the questionnaire,
+                        that are not relevant for the user.</p>
+                        <p>This is achieved in conjugation with the loop sources that you add to the questionnaire and the different columns of those loop sources. Each filtering field can be connected
+                        to one or more loop item types (the columns of the loop sources), but <span style='color:green'>only one loop item type per loop source</span>. So when you use one of those loop item types in one of your looping
+                        sections, instead of looping through all of the items in that column for every user, it will only be presented once for each user and for the item of the column that matches the user's
+                        defined value for the specific filtering field.</p>
+                        <p>The values available for a specific filtering field are a collection of all of the associated loop items' column  headers. So for some users a looping section with a filtering field will
+                        not be displayed at all, if their value doesn't match any of that loop item's column header.</p>" %>
+    
+    <% info_tip_text = filtering_field_help %>
+    
+    <%= render :partial => "administration/menu", :locals => {:header => "Filtering fields " + info_tip("Questionnaire's filtering fields", info_tip_text), :include_options => "questionnaires"} -%>
+  </div>
+  <div class="clear" id="q_dashboard">   
+      <strong>Questionnaire:</strong>
+      <%= link_to @questionnaire.title, dashboard_questionnaire_path(@questionnaire) %>
+  </div>
+  <div>
+    <h3><a href="#" id="toggle_help">How does the filtering field work?</a></h3>
+    <div id="help_div" style="display: none">
+      <p><%= filtering_field_help %></p>
+    </div>
+  </div>
+  <p><%= link_to "Add New filtering field", new_questionnaire_filtering_field_path(@questionnaire) %></p>
+  <table id="filtering_field_index" class="tablesorter">
+    <thead>
+    <tr>
+      <th>Name</th>
+      <th>Associated loop item types</th>
+      <th></th>
+    </tr>
+    </thead>
+    <tbody>
+    <% for filtering_field in @filtering_fields %>
+        <tr>
+          <td><%=h(filtering_field.name) %></td>
+          <td><%= filtering_field.loop_item_types.sort{|a,b| a.name <=> b.name}.map{|a| (link_to h(a.name), a)}.join(', ').html_safe %></td>
+          <td>
+            <%= link_to "Show", [@questionnaire,filtering_field] %> |
+            <%= link_to "Remove", questionnaire_filtering_field_path(@questionnaire, filtering_field), :method => :delete, :confirm => "Are you sure?" %>
+          </td>
+        </tr>
+    <% end %>
+    </tbody>
+  </table>
+</div>

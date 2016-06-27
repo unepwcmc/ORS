@@ -1,0 +1,60 @@
+<fieldset>
+  <legend>Basic Info</legend>
+  <ol><!-- commented the .each -->
+    <%= f.fields_for :questionnaire_fields, f.object.questionnaire_fields.sort_by{ |a| a.is_default_language? ? 0 : 1 } do |field| -%>
+      <li id="field_<%= field.object.language %>" class="extra_langs">
+        <%= field.label :title, "Title in #{h(field.object.language_english_name)}"%>
+        <%= field.hidden_field :language, :value => field.object.language %>
+        <%= field.text_area :title, :rows => 2, :cols => 55, :dir => field.object.language == "ar" ? "rtl" : "ltr", :validate => "required:\"#include_#{field.object.language}:checked\"", :class => "grow" %>
+        <p class="inline-hints">Give a title to this questionnaire.</p>
+      </li>
+      <li>
+        <%= field.label :introductory_remarks, "Introductory remarks" %>
+        <%= field.text_area :introductory_remarks, :rows => 5, :cols => 55, :class => "tinymce" %>
+      <p class="inline-hints">Introductory information to help respondents understand the questionnaire purpose.</p>
+      </li>
+    <% end -%>
+  </ol>
+</fieldset>
+<fieldset>
+  <legend>Extra Info</legend>
+  <ol>
+    <li>
+      <%= f.label :questionnaire_date %>
+      <%= date_select :questionnaire, :questionnaire_date, :default => Date.today, :start_year => 1995, :order => [ :month, :year ], :prompt => true -%>
+    </li>
+    <li>
+      <%= f.label :administrator_remarks, "Administrator Remarks" %>
+      <%= text_area :questionnaire, :administrator_remarks, { :rows => 5, :cols => 55, :class => "tinymce" } %>
+    </li>
+    <p>
+    <strong>Current header</strong> <br />
+    <%= image_tag @questionnaire.header.url(:thumb) %><br />
+    <a href="#" id="change_banner">Change</a>
+    </p>
+    <li id="li_banner" style="display: none">
+      <%= f.label :header, "Header #{info_tip("Header", "The header banner dimensions should be 940px per 90px. The format should be either JPEG or PNG, and the file should not be more than five megabytes.")}".html_safe %>
+      <%= f.file_field :header %>
+    </li>
+    <li>
+      <%= f.label :display_in_tab_max_level, ("Section maximum tab display level #{info_tip("Section maximum tab display level", "specifies the level of nesting up to which a section can be set to be displayed in the left tab menu of the submission side, together with the root sections. Default is 3.")}").html_safe %>
+      <%= f.text_field :display_in_tab_max_level, :validate => 'number:true'%>
+    </li>
+    <li>
+      <%= f.label :delegation_enabled, ("Questionnaire delegation feature enabled? #{info_tip("Delegation", "If this is enabled then the respondents will have the ability to assign respondents to sections for this questionnaire.")}").html_safe %>
+      <%= f.check_box :delegation_enabled %>
+    </li>
+    <li>
+      <%= f.label :translator_visible, ("Display translator for text type answers #{info_tip("Translation","If this is enabled then the respondents will have the ability to translate text-type answers in the questionnaire into the default language of the questionnaire.")}").html_safe %>
+      <%= f.check_box :translator_visible %>
+    </li>
+    <li>
+      <%= f.label :private_documents, ("Documents attached to answers are private?  #{info_tip("Attached documents","If this is enabled then the PDFs that are generated will not allow documents to be downloadable by users that are not registered in the system. If you want documents that are part of the questionnaire to be downloaded, then leave this unticked.")}").html_safe %>
+      <%= f.check_box :private_documents %>
+    </li>
+    <li>
+      <%= f.label :help_pages, "Name of the help page" %>
+      <%= f.text_field :help_pages %>
+    </li>
+  </ol>
+</fieldset>

@@ -1,0 +1,30 @@
+<%= form_for( [@questionnaire, @filtering_field], :html => { :id => "generator_form", :class => "normal formtastic"}) do |f| %>
+    <%= hidden_field_tag :questionnaire_id, @questionnaire.id %>
+    <div id="error_container" class="error_container clear">
+      <h5>There are some errors in your form submission, please see details below</h5>
+      <ul id="error_messages"></ul>
+    </div>
+    <fieldset>
+      <legend>Add new filtering field</legend>
+      <ol>
+        <li>
+          <%= f.label :name %>
+          <%= f.text_field :name, { :validate => "{required:true}" }%>
+        </li>
+        <fieldset>
+          <legend>Associate loop item types</legend>
+          <ol>
+            <% for loop_source in @questionnaire.loop_sources -%>
+              <% if loop_source.loop_item_type -%>
+                <li>
+                  <label><%=h loop_source.name %></label>
+                  <%= select "filtering_field[loop_item_types]", "#{loop_source.id}", options_for_select(loop_source.loop_item_type.self_and_descendants.sort{|a,b| a.lft <=> b.lft}.collect{ |i| ["#{'-'*i.level} #{i.name}", i.id ] }, :selected => check_loop_source_item_type(@filtering_field, loop_source)), { :include_blank => "Choose one" } %>
+                </li>
+              <% end -%>
+            <% end -%>
+          </ol>
+        </fieldset>
+        <li><%= submit_tag "Submit" %></li>
+      </ol>
+    </fieldset>
+<% end %>

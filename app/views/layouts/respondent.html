@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title><%= h(yield(:title) || t('title')) -%></title>
+
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+
+  <link href='http://fonts.googleapis.com/css?family=Open+Sans&v2' rel='stylesheet' type='text/css'>
+
+  <%= stylesheet_link_tag 'blueprint/screen.css', :media => "screen, projection" %>
+  <%= stylesheet_link_tag 'blueprint/print.css', :media => "print" %>
+  <!--[if lt IE 8]><%= stylesheet_link_tag "blueprint/ie.css", :media =>"screen, projection" %><![endif]-->
+
+  <%= stylesheet_link_tag "respondent" %>
+  <%= javascript_include_tag "respondent" %>
+  <%= javascript_tag "var RAILS_ROOT = '#{ActionController::Base.relative_url_root}';" -%>
+
+  <%= render partial: 'layouts/ga' %>
+
+  <%= yield(:head) -%>
+</head>
+<body>
+<%= render partial: 'layouts/header' %>
+<div class="wrap">
+  <div class="container">
+    <div class="inner_container span-24 last">
+      <%= yield -%>
+    </div>
+  </div>
+</div>
+<%= render partial: 'layouts/footer' %>
+<div id="requests_dialog">
+  <p><%= t("welcome_page.please_wait")%></p>
+  <p style="text-align: center"><%= image_tag('loader.gif') %></p>
+</div>
+</body>
+</html>

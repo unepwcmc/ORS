@@ -1,0 +1,70 @@
+<div class="span-24 last">
+  <div id="content_header">
+    <% info_tip_text = "<p>In this dashboard you can see the a questionnaire's detailed information, you can navigate to the page where you can modify the questionnaire and you can also navigate to the pages
+                    that allow you to manage its authorized respondents and its loop sources. Here you can also get a CSV file with its answers and you can activate or deactivate it.</p>"-%>
+    <%= render :partial => "administration/menu", :locals => {:header => ("Questionnaire Dashboard " + info_tip("Questionnaire dashboard", info_tip_text)).html_safe, :include_options => "questionnaires"} -%>
+  </div>
+  <div id="q_dashboard" class="span-24 last">
+    <div class="span-11 colborder">
+      <p><strong>Title</strong> <%=h @questionnaire.title %> (<%= link_to "Modify", questionnaire_path(@questionnaire) %>)</p>
+      <p><strong>Creator</strong> <%= link_to h(@questionnaire.user.full_name), user_path(@questionnaire.user) %></p>
+      <p><strong>Date</strong> <%= @questionnaire.questionnaire_date.mon.to_s + "/" + @questionnaire.questionnaire_date.year.to_s%></p>
+      <% if @questionnaire.source_questionnaire -%>
+          <p><strong>Copy of <%= info_tip("Copy of", "This questionnaire was built from an existing questionnaire.") %></strong> <%= link_to h(@questionnaire.source_questionnaire.title), dashboard_questionnaire_path(@questionnaire.source_questionnaire) %></p>
+      <% end -%>
+      <% if @questionnaire.copies.present? -%>
+          <p><strong>Duplicates <%= info_tip('Duplicates', 'Lists the questionnaires that were created as copies of this.') %></strong><%= raw @questionnaire.copies.sort{|a, b| a.title <=> b.title }.map{|a| (link_to h(a.title), dashboard_questionnaire_path(a))}.join(", ") %></p>
+      <% end -%>
+      <p><strong><%= t 's_details.default_lang' %></strong> <%=h @questionnaire.language_full_name %></p>
+      <p><strong><%= t 's_details.available_lang' %></strong> <%= @questionnaire.questionnaire_fields.sort!{|a,b| a.language <=> b.language}.map{|a| a.language_full_name}.join(', ') %></p>
+      <p><strong>Help pages</strong> <%= @questionnaire.help_pages.present? ? link_to('Go to', "#{Rails.application.secrets.instiki_url}/#{@questionnaire.help_pages}") : "Not defined" %></p>
+      <p><strong>Delegation feature</strong> <%= @questionnaire.delegation_enabled? ? "Enabled" : "Disabled" %></p>
+      <p><strong>Text answers translator</strong> <%= @questionnaire.translator_visible? ? "Enabled" : "Disabled" %></p>
+      <p><strong>Answer documents</strong> <%= @questionnaire.private_documents? ? "Private" : "Public" %></p>
+    </div>
+    <div class="span-10 last">
+      <p><strong>Associated deadlines</strong><%= @questionnaire.deadlines.count %> (<%= link_to "Manage", questionnaire_deadlines_path(@questionnaire) %>)</p>
+      <p><strong>Respondents</strong> <%=h @questionnaire.submitters.count %> (<%= link_to "Summary", respondents_questionnaire_path(@questionnaire) %> | <%= link_to "Manage", questionnaire_authorized_submitters_path(@questionnaire) %>)</p>
+      <p><strong>Sections</strong> <%= pluralize(@questionnaire.sections_count, 'section') %></p>
+      <p><strong>Questions</strong> <%= pluralize( @questionnaire.questions_count, 'question') %></p>
+      <p><strong>Loop sources</strong> <%= @questionnaire.loop_sources.count %> (<%= link_to "Manage", questionnaire_loop_sources_path(@questionnaire) %>)</p>
+      <p><strong>Filtering fields</strong> <%= @questionnaire.filtering_fields.present? ? @questionnaire.filtering_fields.map{|a| a.name }.join(', ') : " - " %> <% if @questionnaire.loop_sources.any? %>(<%= link_to "Manage", questionnaire_filtering_fields_path(@questionnaire) %>)<% else %>(Before defining a filtering field you will need to upload a loop source to this questionnaire)<% end %></p>
+      <p>
+        <% info_tip_text = "<p>This engine allows you to obtain a CSV file with all the answers of a questionnaire, by its different respondents. Before being able to download  the file it will have to be generated. To do so you should click on 'Generate'.
+                        The generation of the CSV file takes place in the background and once it is finished you will be notified by e-mail.</p>
+                        <p>After being generated the file will then be available for download in this same page and you will be able to do so by clicking the 'Get file'.</p><p>The file can be
+                        re-generated to include your most recent changes, you can do so by clicking on the 'Regenerate' link. The date displayed refers to the last time the file was generated. Regeneration of a PDF will
+                        erase the previously generated file.</p>"-%>
+        <strong>CSV <%= info_tip("CSV File", info_tip_text) %></strong>
+
+        <% if @questionnaire.csv_file.present? && File.file?(@questionnaire.csv_file.location) -%>
+            <%= link_to "Get file", download_csv_questionnaire_path(@questionnaire) %>
+            (Last generated on: <%= File.mtime(@questionnaire.csv_file.location).strftime('%H:%M %b %d, %Y') %>)<br>
+            Regenerate:<br>
+            <%= link_to "comma separated", to_csv_questionnaire_path(@questionnaire, :separator => ','), :class => "get" %><br>
+            <%= link_to "semicolon separated", to_csv_questionnaire_path(@questionnaire, :separator => ';'), :class => "get" %>
+        <% else -%>
+            Generate:<br>
+            <%= link_to "comma separated", to_csv_questionnaire_path(@questionnaire, :separator => ','), :class => "get" %><br>
+            <%= link_to "semicolon separated", to_csv_questionnaire_path(@questionnaire, :separator => ';'), :class => "get"   %>
+        <% end -%>
+
+      </p>
+      <% info_tip_text = "<p>The available actions are:</p>
+               <p>" + image_tag('icons/key.png', size: '15x15') + " Let's you close a questionnaire, so that the respondents will not be able to make further changes to their answers.</p>
+               <p>" + image_tag('icons/lock.png', size: '15x15') + " Indicates that a questionnaire is closed.</p>
+               <p>" + image_tag('icons/stop.png', size: '15x15') + " Deactivates a questionnaire, making it available for editing and unavailable for the respondents to fill in their answers.</p>
+               <p>" + image_tag('icons/start.png', size: '15x15') + " Activates a questionnaire, making it available for respondents to fill in their answers.</p>" -%>
+      <p>
+        <strong>Actions <%= info_tip("Actions", info_tip_text) %></strong>
+        <%= @questionnaire.active? ? ((link_to image_tag('icons/key.png', :title => 'Close Questionnaire', :alt => 'Close questionnaire'), close_questionnaire_path(@questionnaire.id),:method => :put) + (link_to image_tag('icons/stop.png', :alt => "Deactivate", :title => "Deactivate questionnaire.", :size => "16x16"), deactivate_questionnaire_path(@questionnaire), :method => :put)) :
+                @questionnaire.closed? ? (image_tag('icons/lock.png', :alt => "Questionnaire closed", :title => "Questionnaire is closed")) : (link_to image_tag('icons/start.png', :title => 'Activate questionnaire', :alt => 'Activate questionnaire', :size => "16x16"), activate_questionnaire_path(@questionnaire), :method => :put) %>
+      </p>
+    </div>
+    <hr />
+    <h4>Administrator remarks:</h4>
+    <div class="clear">
+      <%= raw Sanitize.clean(@questionnaire.administrator_remarks, OrtSanitize::Config::ORT) -%>
+    </div>
+  </div>
+</div>

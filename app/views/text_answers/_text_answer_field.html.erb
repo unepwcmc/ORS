@@ -1,0 +1,11 @@
+<div class="option" style="display: block;">
+  <li>
+    <%= f.label :rows %>
+    <%= f.text_field :rows, :value => f.object.rows.present? ? f.object.rows :  5, :size => 5, :validate => "{number:true,messages:{number:'The rows of a text field must be a number'}}" %>
+  </li>
+  <li>
+    <%= f.label :width %>
+    <%= f.text_field :width, :value => f.object.width.present? ? f.object.width : 600, :size => 5, :validate => "{number:true,messages:{number:'The width of a text field must be a number'}}"%>
+  </li>
+  <p><%= remove_child_link "remove text field", f -%></p>
+</div><!-- /option -->

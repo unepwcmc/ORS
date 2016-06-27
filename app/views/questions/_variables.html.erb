@@ -1,0 +1,14 @@
+<% loop_types = available_loop_types(base_section) %>
+<% unless loop_types.empty? -%>
+  <% builder_var ||= "" %>
+  <%= hidden_field_tag builder_var+"[loop_item_type_ids][]", "" %>
+  <li>Available variables: <%= info_tip("Variables", "This is a list of loop item types compiled from looping sections that are ancestors of this question. - Select one or more variables to include it in your question title. Deselect to remove it.") -%></li>
+  <% loop_types.each do |type| -%>
+    <li style="float:left; margin-right:3px">
+    <%= hidden_field_tag builder_var+"_loop_item_type_ids_[#{type.id}]", "" %>
+    <%= check_box_tag builder_var+"[loop_item_type_ids][]", type.id, question.loop_item_types.include?(type), :class => "var" %>
+    <span class="val"><%=h type.name  %></span>
+    </li>
+  <% end -%>
+  <%#= select_tag "question[loop_item_type_ids][]", options_from_collection_for_select(available_loop_types(@section), :id, :name, :selected => @question.loop_item_types.map(&:id)), :multiple => "multiple", :class => "multiselect" %>
+<% end -%>

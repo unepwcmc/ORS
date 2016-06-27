@@ -1,0 +1,56 @@
+<div id="delegates_list" class="span-24 last">
+  <%= render :partial => "options" %>
+  <h1><%= t('manage_delegates.title') %></h1>
+  <div id="manage_delegates">
+    <h3><%=t('generic.help')%>:</h3>
+    <%= raw t('manage_delegates.help_line') %>
+  </div>
+  <h4><%=t('manage_delegates.u_have_delegates') %></h4>
+  <table id="delegates_index">
+    <thead>
+      <tr>
+        <th><%= t('delegate_dashboard.delegate_full_n') %></th>
+        <th><%= t('generic.created_at') %></th>
+        <th><%= t('generic.email') %></th>
+        <th><%= t('generic.options') %></th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @user_delegates.reject{|ud| ud.delegate.nil?}.each do |user_delegate| -%>
+        <tr>
+          <td><%= h("#{user_delegate.delegate.first_name} #{user_delegate.delegate.last_name}" || user_delegate.delegate.email) %></td>
+          <td><%= l(user_delegate.created_at) %></td>
+          <td><%= mail_to h(user_delegate.delegate.email)%></td>
+          <td>
+            <%= link_to t('generic.show'), user_delegate_path(user_delegate) %>
+           |
+           <%= link_to t('generic.remove'), user_delegate_path(user_delegate),
+             :method => :delete, :confirm => t('generic.are_you_sure') %></td>
+        </tr>
+      <% end -%>
+    </tbody>
+  </table>
+  <% if @user_delegators.present? -%>
+    <h4><%= t('manage_delegates.u_are_delegate') %></h4>
+    <table id="delegates_index">
+      <thead>
+        <tr>
+          <th><%= t('generic.delegator') %></th>
+          <th><%= t('generic.created_at') %></th>
+          <th><%= t('generic.email') %></th>
+          <th><%= t('generic.options') %></th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @user_delegators.each do |user_delegate| -%>
+          <tr>
+            <td><%= h(user_delegate.user.full_name || user_delegate.user.email) %></td>
+            <td><%= l(user_delegate.created_at) %></td>
+            <td><%= mail_to h(user_delegate.user.email)%></td>
+            <td><%= link_to t('generic.show'), user_delegate_path(user_delegate) %></td>
+          </tr>
+        <% end -%>
+      </tbody>
+    </table>
+  <% end %>
+</div>

@@ -1,0 +1,18 @@
+<div class="option">
+  <li>
+    <%= f.label :title, t('submission_pages.links_title') %>
+    <%= f.text_field :title %>
+  </li>
+  <li>
+    <%= f.label :url do %>
+      <%= t('submission_pages.links_url') %>
+      <%= info_tip(t('submission_pages.links_url'), t('submission_pages.links_url_tooltip'))  %>
+    <% end %>
+    <%= f.text_field :url, :value => f.object.url || "http://" %>
+  </li>
+  <li>
+    <%= f.label :description, t('submission_pages.attach_description') %>
+    <%= f.text_field :description, :size => 50  %>
+  </li>
+  <li><%= remove_child_link t('submission_pages.links_remove'), f -%></li>
+</div>

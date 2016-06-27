@@ -1,0 +1,160 @@
+<%
+  selection = answer ? answer.answer_parts.map{|a| a.field_type_id} : []
+  options = ( answer_type && answer_type.single? && answer_type.display_type == 1 ) ? [[t("submission_pages.select_option"), ""]] : []
+  details_fields = []
+  answer_type.multi_answer_options.sort.each do |mao|
+    options += [[h(@fields[:multi_answer_option_field][mao.id.to_s]), mao.id]]
+    details_fields << mao.id if mao.details_field?
+  end
+  the_id = "#{append_identifier(question, looping_identifier)}"
+-%>
+<% if answer_type.display_type == 1 -%>
+  <% if !answer_type.single? -%>
+    <%= hidden_field_tag "answers[#{the_id}]", "" %>
+  <% end -%>
+  <%= select_tag "answers[#{the_id}]", options_for_select(options, selection ? Array(selection).map{|s| s.to_i} : answer_type.single ? [t("submission_pages.select_option")] : ""), :multiple => !answer_type.single, :size => answer_type.single? ? 1 : options.size > 10 ? 10 : options.size, :disabled => disabled %>
+  <% if answer_type.other_required? -%>
+    <p>
+    <%=h @fields[:other_text_fields][answer_type.id.to_s] %>
+    <%= text_area_tag "answers[#{the_id}_other]", (answer.present? && answer.other_text.present? ) ? answer.other_text : '', :size => "75x3", :disabled => disabled %>
+    </p>
+  <% end -%>
+<% else -%>
+  <ul class="multi_options_answer">
+    <% options.each do |text, id| -%>
+      <li>
+      <% if answer_type.single? -%>
+        <%= hidden_field_tag "answers[#{the_id}]", "" %>
+        <%= radio_button_tag "answers[#{the_id}]", id, selection.include?(id), :disabled => disabled %>
+      <% else %>
+        <%= hidden_field_tag "answers[#{the_id}_#{id}]", "" %>
+        <%= check_box_tag "answers[#{the_id}_#{id}]", id, selection.include?(id), :disabled => disabled %>
+      <% end -%>
+      <%= label_tag "answers[#{the_id}_#{id}]", h(text) -%>
+      <% if details_fields.include?(id) -%>
+        <br />
+        <%= text_area_tag "answers[#{the_id}_#{id.to_s}_details]", selection.include?(id) ? h(answer.answer_parts.find_by_field_type_id(id).details_text) : '', :size => "75x3", :disabled => disabled %>
+      <% end -%>
+      </li>
+    <% end -%>
+    <% if answer_type.other_required? -%>
+      <li>
+      <% if answer_type.single? -%>
+        <%= radio_button_tag "answers[#{the_id}]", -1, (answer.present? && answer.other_text.present?) , :disabled => disabled %>
+      <% else -%>
+        <%= hidden_field_tag "answers[#{the_id}_-1]", "" %>
+        <%= check_box_tag "answers[#{the_id}_-1]", -1, (answer.present? && answer.other_text.present?), :disabled => disabled %>
+      <% end -%>
+      <%= label_tag "answers[#{the_id}_-1]", @fields[:other_text_fields][answer_type.id.to_s] %>
+      <br />
+      <%= text_area_tag "answers[#{the_id}_other]", (answer.present? && answer.other_text.present? ) ? h(answer.other_text) : '', :size => "75x3", :disabled => disabled %>
+      </li>
+    <% end -%>
+  </ul>
+<% end -%>
+<% if (answer_type.display_type == 1 && !answer_type.single?) || (answer_type.display_type != 1 && answer_type.single?) -%>
+  <p><a href="#" id="clear_<%= the_id.to_s %>"><%= t "s_details.clear_answer" %></a></p>
+<% end %>
+<script type="text/javascript">
+  //Set the handlers For the dependency of sections.
+$(document).ready(function(){
+    <% if (answer_type.display_type == 1 && !answer_type.single?) || (answer_type.display_type != 1 && answer_type.single?) -%>
+      $("#clear_<%= the_id.to_s %>").click(function(e){
+        e.preventDefault();
+        <% if answer_type.display_type != 1 -%>
+          $("input[name='answers[<%= the_id.to_s %>]']:radio").attr('checked', false).change();
+        <% else -%>
+          $("select#answers_<%= the_id.to_s %>").val('').change();
+        <% end -%>
+        });
+    <% end -%>
+    <% if answer_type.has_options_with_dependents? %>
+        if(window.section_identifiers === undefined){
+          var section_identifiers = {};
+        }
+        <% if answer_type.display_type == 1 -%>
+          $("select#answers_<%= the_id %>").change(function(){
+            <%
+              answer_type.multi_answer_options.sort.each do |mao|
+                mao.sections.each do |section| 
+              -%>
+              section_identifiers["<%= the_id %>_<%= mao.id %>"] = "<%= append_identifier(section, looping_identifier) %>";
+              //Section will be displayed if it is selected and the depends_on_option_value is true
+              // or if it is not selected and the depends_on_option_value is false
+              // being hidden otherwise.
+              if($(this).find("option[value='<%= mao.id.to_s %>']").is(":selected").toString() == "<%= section.depends_on_option_value.to_s %>")
+              {
+              $("#section_"+section_identifiers["<%= the_id %>_<%= mao.id %>"]).show("slow").css('display', 'block');
+              $("#section_"+section_identifiers["<%= the_id %>_<%= mao.id %>"]).find("input[type='text'], input[type='checkbox'], input[type='radio'], textarea, select").addClass("dirty");
+              <% if section.root? -%>
+                $("#li_section_"+section_identifiers["<%= the_id %>_<%= mao.id %>"]).show("slow").css('display', 'block');
+              <% end  -%>
+              //mark not to destroy!
+              $("#hidden_"+section_identifiers["<%= the_id %>_<%= mao.id %>"]).val('0').addClass('dirty');
+              }
+              else{
+              $("#section_"+ section_identifiers["<%= the_id %>_<%= mao.id %>"]).hide("slow").css('display', 'none');
+              <% if section.root? -%>
+                  $("#li_section_"+section_identifiers["<%= the_id %>_<%= mao.id %>"]).hide("slow").css('display', 'none');
+            <% end  -%>
+              //mark to destroy
+              $("#hidden_"+section_identifiers["<%= the_id %>_<%= mao.id %>"]).val('1').addClass('dirty');
+              }
+            <% end
+            end -%>
+          });
+        <% else -%>
+            <% if answer_type.single? %>
+              //Handlers in case the questions are of type radio buttons
+              $(":input[name='answers[<%= the_id.to_s %>]']").change(function(){
+                  <% answer_type.multi_answer_options.sort.each do |mao| %>
+                    <% mao.sections.each do |section| -%>
+                      section_identifiers["<%= the_id %>_<%= mao.id %>"] = "<%= append_identifier(section, looping_identifier) %>";
+                      if($("#answers_<%= the_id + "_" + mao.id.to_s  %>").is(':checked').toString() == "<%= section.depends_on_option_value.to_s %>")
+                      {
+                        $("#section_"+ section_identifiers["<%= the_id %>_<%= mao.id %>"]).show("slow").css('display', 'block');
+                        $("#section_"+section_identifiers["<%= the_id %>_<%= mao.id %>"]).find("input[type='text'], input[type='checkbox'], input[type='radio'], textarea, select").addClass("dirty");
+                        <% if section.root? -%>
+                          $("#li_section_"+ section_identifiers["<%= the_id %>_<%= mao.id %>"]).show("slow").css('display', 'block');
+                        <% end  -%>
+                        $("#hidden_"+ section_identifiers["<%= the_id %>_<%= mao.id %>"]).val('0').addClass('dirty');
+                      }
+                      else{
+                        $("#section_"+ section_identifiers["<%= the_id %>_<%= mao.id %>"]).hide("slow").css('display', 'none');
+                        <% if section.root? -%>
+                          $("#li_section_"+ section_identifiers["<%= the_id %>_<%= mao.id %>"]).hide("slow").css('display', 'none');
+                        <% end  -%>
+                        $("#hidden_"+ section_identifiers["<%= the_id %>_<%= mao.id %>"]).val('1').addClass('dirty');
+                      }
+                    <% end
+              end -%>
+              });
+            <% else %>
+                //handlers in case the answer type is of type check boxes
+              <% answer_type.multi_answer_options.sort.each do |mao| %>
+                  <% mao.sections.each do |section| %>
+                    section_identifiers["<%= the_id %>_<%= mao.id %>"] = "<%= append_identifier(section, looping_identifier) %>";
+                    $(":input[name='answers[<%=the_id.to_s %>_<%= mao.id%>]']").change(function(){
+                        if($(this).is(':checked').toString() == "<%= section.depends_on_option_value.to_s %>"){
+                          $("#section_"+ section_identifiers["<%= the_id %>_<%=mao.id %>"]).show("slow").css('display', 'block');
+                          $("#section_"+ section_identifiers["<%= the_id %>_<%=mao.id %>"]).find("input[type='text'], input[type='checkbox'], input[type='radio'], textarea, select").addClass("dirty");
+                          <% if section.root? -%>
+                            $("#li_section_"+ section_identifiers["<%= the_id %>_<%=mao.id %>"]).show('slow').css('display', 'block');
+                          <% end  -%>
+                          $("#hidden_"+ section_identifiers["<%= the_id %>_<%=mao.id %>"]).val('0').addClass('dirty');
+                          }
+                          else{
+                          $("#section_"+ section_identifiers["<%= the_id %>_<%=mao.id %>"]).hide("slow").css('display', 'none');
+                          <% if section.root? -%>
+                            $("#li_section_"+ section_identifiers["<%= the_id %>_<%=mao.id %>"]).hide("slow").css('display', 'none');
+                          <% end  -%>
+                          $("#hidden_"+ section_identifiers["<%= the_id %>_<%=mao.id %>"]).val('1').addClass('dirty');
+                        }
+                    });
+                <% end %>
+              <% end %>
+            <% end %>
+        <% end
+        end -%>
+})
+</script>

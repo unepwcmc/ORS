@@ -1,0 +1,30 @@
+<div class="span-24 last">
+  <%= render :partial => "administration/breadcrumbs" -%>
+  <%= render :partial => "administration/menu", :locals => {:header => "Delete Questionnaire", :include_options => "questionnaires"} -%>
+  <div class="span-15 colborder" id="content">
+    <h2><%=h @questionnaire.title %></h2>
+    <h3>Are you sure you want to delete this Questionnaire?</h3>
+    <!--<p>
+    This questionnaire has:
+    <%#= pluralize(@questionnaire.sections.map{|section| section.self_and_descendants.count}.sum, 'section') %>
+    and
+    <%#= pluralize( @questionnaire.questions_count.to_i, 'question') %>
+  </p>-->
+    <p>Deleting the questionnaire will delete all its sections, sub-sections and questions.</p>
+    <%= form_for @questionnaire, :html => {:method => 'delete'} do |f|  %>
+        <%= submit_tag "Yes"  %>
+        <%= submit_tag "No", :name => "cancel"  %>
+    <% end  %>
+  </div>
+  <%= render :partial => 'layouts/tree' %>
+</div>
+<script type="text/javascript">
+    $(document).ready(function(){
+        loadTree("<%=h escape_javascript(@questionnaire.title)%>", "<%=h @questionnaire.id%>", false);//false => activate_root
+        //Update the breadcrumb
+        $(function(){
+            $("#bcul").find("#bchome").nextAll().remove();
+            $("#bcul").append('<li id="bcquestionnaire"><%= link_to h(@questionnaire.title[0,20]), questionnaire_path(@questionnaire),:class => "get" %></li>');
+        });
+    });
+</script>

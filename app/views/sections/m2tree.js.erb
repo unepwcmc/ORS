@@ -1,0 +1,13 @@
+$("#tree").dynatree({
+        title: "<%=@section.title%>",
+        rootVisible: true 
+    });
+<% unless @descendants.empty? %>
+  <% for section in @descendants %>
+    $("#tree").dynatree("getRoot").addChild({
+        title: "<%=section.title%>",
+        isFolder: true
+      });
+  <%end %>
+<%end%>
+  

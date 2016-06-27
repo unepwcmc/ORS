@@ -1,0 +1,14 @@
+<div id="institutions" class="clear">
+  <% if ApplicationProfile.first.try(:logo) %>
+    <%= link_to ApplicationProfile.first.try(:logo_url), class: 'logo-link' do %>
+      <%= image_tag ApplicationProfile.first.try(:logo).try(:url, :original) %>
+    <% end %>
+  <% end %>
+  <% if ApplicationProfile.first.try(:title) =~ /CITES/ %>
+    <a href="http://www.unep.org">
+      <%= image_tag 'logos/UNEP.gif', style: 'height:75px' %>
+    </a>
+  <% end %>
+</div>
+
+

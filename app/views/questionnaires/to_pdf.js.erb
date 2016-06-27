@@ -1,0 +1,12 @@
+$(function(){
+    <%- flash.each do |name, msg| -%>
+        flash_message("<%=h name%>", "<%=h msg %>");
+        <%- flash.delete(name) -%>
+    <%- end -%>
+    <%# if the @user for which the questionnaire pdf was generated is the current_user, update the dashboard. Otherwise don't do anything.%>
+      <% if @user == current_user %>
+        $("#link_text_<%=@questionnaire.id%>_<%=params[:is_short]%>").html("<%= t("user_dashboard.pdf_generating") %>");
+        $("#questionnaires_for_submission").addClass("set_update_page");
+        updateUserSubmissionPage("<%= @user.id %>");
+    <% end %>
+});

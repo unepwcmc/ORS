@@ -1,0 +1,100 @@
+a img {
+  border: none;
+}
+
+a.logo-link {
+  text-decoration: none;
+}
+
+.gritter_flash { border-radius: 10px; }
+
+.gritter-title {
+  text-shadow: none;
+  text-transform: capitalize;
+}
+
+.gritter-item.gritter-css3 {
+  background: none;
+  color: #FFF;
+}
+.flash_notice { background-color: #71C671; }
+.flash_error { background-color: #CD5555; }
+.fieldWithErrors {
+  display: inline;
+}
+.warning {
+  font-weight: bold;
+  color: red;
+}
+#errorExplanation {
+  width: 400px;
+  border: 2px solid #CF0000;
+  padding: 0px;
+  padding-bottom: 12px;
+  margin-bottom: 20px;
+  background-color: #f0f0f0;
+}
+#errorExplanation h2 {
+  text-align: left;
+  font-weight: bold;
+  padding: 5px 5px 5px 15px;
+  font-size: 12px;
+  margin: 0;
+  background-color: #c00;
+  color: #fff;
+}
+#errorExplanation p {
+  color: #333;
+  margin-bottom: 0;
+  padding: 8px;
+}
+#errorExplanation ul {
+  margin: 2px 24px;
+}
+#errorExplanation ul li {
+  font-size: 12px;
+  list-style: disc;
+}
+#user_nav {
+  float: right;
+  font-size: 12px;
+}
+#user_nav p{
+  margin: 0;
+}
+
+li.pointer {
+  cursor: pointer;
+  border: 1px solid #DCDCDC;
+  padding: 1px;
+  margin: 3px;
+}
+
+table td {
+  word-wrap: break-word;
+  max-width: 175px;
+}
+
+/* GENERAL LAYOUT
+--------------------------------------------------------------------------------------------------*/
+#header { padding-top:20px }
+#title_div { margin-left: 10px }
+#title_div h1{ font-size: 40px }
+#title_div a:link, #title_div a:active, #title_div a:visited { color: #232935 }
+#title_div a:hover { color: #2f4167 }
+#welcome h1{ padding-bottom: 15px; border-bottom: 1px solid #6D808F}
+#bread_crumb { margin-bottom: 0; }
+a:link{color: #2f4167}
+a:hover{color:#94abdc}
+a:visited, a:active{color:#658bdc}
+h1 { font-size: 30px}
+h1, h2, h3, h4, h5, h6 { color: #0A2862 }
+#admin_menu { margin-bottom: 15px; margin-top:5px}
+#admin_menu ul { list-style: none inside; padding: 0; margin: 0 }
+#admin_menu ul li{ float: left; font-size: 15px; text-align: center; margin-right:9px; background-color: #376081;}
+#admin_menu ul li.last{ margin-right:0;}
+#admin_menu ul li a{ display: block; width:100%; }
+#admin_menu ul li a:link, #admin_menu ul li a:visited, #admin_menu ul li a:active { padding: 1px; color: #fff; text-decoration: none; background-color: #376081; }
+#admin_menu ul li a:hover { text-decoration: none; color: #1B3D5A; background-color: #8AAAC5 }
+
+#user_session_email, #user_session_password { height: 25px; fint-size: 14px }

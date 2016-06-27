@@ -1,0 +1,91 @@
+<div class="span-24 last">
+  <%= render :partial => "user_delegates/options"%>
+  <h1><%= t('delegate_section.edit_task') %></h1>
+  <%= form_for @delegation_section, :html => { :class => "formtastic normal", :id => "generator_form" } do |f| -%>
+      <div id="error_container" class="error_container">
+        <h5>There are some errors in your form submission, please see details below</h5>
+        <ul id="error_messages"></ul>
+      </div>
+      <fieldset>
+        <legend><%= t('generic.edit') +" "+  t('delegate_section.edit_task').downcase %></legend>
+        <ol>
+          <li>
+            <%= label_tag t('delegate_section.available_sections') %>
+            <%= select "delegation_section", "section_id", @available_sections.collect{|p| [('-'*p.level) + OrtSanitize.white_space_cleanse((p.tab_title(I18n.locale.to_s).present? ? p.tab_title(I18n.locale.to_s) : p.title(I18n.locale.to_s)))[0,55] , p.id]}, { :selected => @delegation_section.section_id, :include_blank => t('delegate_section.please_select_s') } %>
+          </li>
+          <li id="item_names" style="display: <%= @delegation_section.section.loop_item_type.present? ? "" : "none" %>">
+            <p style="color:blue"><%= t('delegate_section.looping_section_w') %></p>
+            <%= label_tag t('delegation_details.loop_th') %>
+            <% loop_item_names = [] %>
+            <% if @delegation_section.section.loop_item_type.present? -%>
+                <% loop_item_names = @delegation_section.section.loop_item_type.loop_item_names.sort %>
+            <% end -%>
+            <%= select_tag "loop_item_names", loop_item_names.empty? ? [] : options_from_collection_for_select(loop_item_names, :id, :item_name, @delegation_section.loop_item_names.map{|a| a.id}), :multiple => true, :size => loop_item_names.size > 10 ? 10 : loop_item_names.size  %>
+            <p class="clear"><a href="#" id="select_all_items"><%=t('generic.all')%></a> | <a href="#" id="clear_selection_items"><%= t('generic.clear') %></a></p>
+          </li>
+          <p id="submit_p"><%= f.submit t('generic.update') %></p>
+        </ol>
+      </fieldset>
+      <div class="error_container">
+        <h5>There are errors in your form submission, please see details above the form!</h5>
+      </div>
+  <% end -%>
+</div>
+<script type="text/javascript">
+    $(function(){
+        formValidation();
+
+        $("#delegation_section_section_id").change(function(){
+            if($(this).val() == "")
+            {
+                $("#item_names").hide('slow');
+                $("#loop_item_names").val("");
+            }
+            else
+            {
+                loop_items_for($(this).val());
+            }
+        });
+
+        $("#select_all_items").click(function(e){
+            e.preventDefault();
+            $("#loop_item_names option").attr('selected', "selected");
+        });
+
+        $("#clear_selection_items").click(function(e){
+            e.preventDefault();
+            $("#loop_item_names option").removeAttr("selected");
+        })
+    });
+
+    function loop_items_for(section_id){
+        $.ajax({url: RAILS_ROOT+"/sections/"+section_id+"/loop_item_names",
+            type: 'get',
+            dataType: 'jsonp',
+            success: function(data){
+                if(data)
+                {
+                    var $loop_item_names = $("#loop_item_names");
+                    $loop_item_names.find('option').remove();
+                    var countElements= 0;
+                    $.each(data, function(val, text){
+                        $loop_item_names.append(
+                                $("<option></option>").val(val).html(text));
+                        countElements++;
+                    });
+                    if(countElements < 10)
+                        $loop_item_names.attr('size', countElements);
+                    else
+                        $loop_item_names.attr('size', 10);
+                    $("#item_names").show('slow');
+                    $loop_item_names.effect("highlight", {}, 2000);
+                }
+                else
+                {
+                    $("#item_names").hide('slow');
+                    $("#loop_item_names").val("");
+                }
+            }
+        });
+    }
+</script>

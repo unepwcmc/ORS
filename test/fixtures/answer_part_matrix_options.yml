@@ -1,0 +1,22 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+one:
+  answer_part_id: 1
+  matrix_answer_option_id: 1
+
+two:
+  answer_part_id: 1
+  matrix_answer_option_id: 1
+
+# == Schema Information
+#
+# Table name: answer_part_matrix_options
+#
+#  id                           :integer          not null, primary key
+#  answer_part_id               :integer
+#  matrix_answer_option_id      :integer
+#  created_at                   :datetime
+#  updated_at                   :datetime
+#  answer_text                  :text
+#  matrix_answer_drop_option_id :integer
+#

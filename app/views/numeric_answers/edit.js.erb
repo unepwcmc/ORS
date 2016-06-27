@@ -1,0 +1,5 @@
+$(function(){
+    $("#answer_type").empty()
+            .append("<%= escape_javascript(render(:partial => "numeric_answers/form", :locals => {:type => @numeric_answer}))%>")
+            .show("slow");
+});

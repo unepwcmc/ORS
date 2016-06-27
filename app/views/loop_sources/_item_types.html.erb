@@ -1,0 +1,27 @@
+<li>
+  <% if @item_types %>
+      <%= radio_button_tag "part[loop_item_type_id]", @item_types.id, (@section && @section.loop_item_type_id == @item_types.id ), :validate => "{required: true, messages:{required:'Please choose a loop item type'}}"%>
+      <%= label_tag "part[loop_item_type_id]["+@item_types.id.to_s+"]", h(@item_types.name) + (@item_types.is_filtering_field? ? " (*)" : ""),:id => "label_for_#{@item_types.id.to_s}",  :style=> "color:#{( (!@parent_section && !@section ) || ( @section ? @item_types.in_bounds_when_editing?(bottom_boundary, upper_boundary) : @item_types.in_bounds?(upper_boundary) ) ) ? "blue":"red"}", :class => "item_types"%>
+      <% @item_types.descendants.each do |item_type| %>
+          <%= radio_button_tag "part[loop_item_type_id]", item_type.id, (@section && @section.loop_item_type_id == item_type.id ) %>
+          <%= label_tag "part[loop_item_type_id]["+item_type.id.to_s+"]", h(item_type.name) + (item_type.is_filtering_field? ? " (*)" : ""), :id => "label_for_#{item_type.id.to_s}", :style=> "color:#{( (!@parent_section && !@section ) || ( @section ? item_type.in_bounds_when_editing?(bottom_boundary, upper_boundary) : item_type.in_bounds?(upper_boundary) ) ) ? "blue":"red"}", :class => "item_types"%>
+      <% end %>
+      <% text = "These are the the item types defined in the selected loop source. They are displayed hierarchically, from left to
+            right. - You can select an item type by clicking on it. Only the item types displayed in blue are available for this section."  %>
+      <%= info_tip("Loop item types", text) %>
+      <%#= image_tag('qmark.png', :size => "20x20", :title => title, :class => "obj_tooltip") -%>
+      <p style="color: red">Item types that are associated with filtering fields are marked with (*) .</p>
+  <% else %>
+      There are no more types to loop through. Please choose a different loop source or another section type.
+  <% end %>
+</li>
+<% text = "You can hide the item type tag from the title field of the section by ticking this box, please
+        do not remove it manually. - Hiding the tag will prevent the generated sections from displaying the value of the tag. -
+        You can deselect the check box to display the tag again."  %>
+<li>
+  To remove the tag from the name of the section tick here
+  <%= check_box_tag "no_tag", "no_tag", (@section && @section.loop_item_type.present? && (!@section.title.include?("#[#{@section.loop_item_type.name}]")) ), :style => "float: none" %>
+  <%= info_tip("Hide item type tag", text) %>
+  <%#= image_tag('qmark.png', :size => "20x20", :title => title, :class => "obj_tooltip") -%>
+</li>
+<li><a href="#" id="clear_loop_types">Clear selection</a></li>

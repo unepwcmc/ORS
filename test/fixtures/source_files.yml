@@ -1,0 +1,30 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+one:
+  loop_source_id: 1
+  source_file_name: MyString
+  source_content_type: MyString
+  source_file_size: 1
+  source_updated_at: 2010-10-20 16:37:30
+
+two:
+  loop_source_id: 1
+  source_file_name: MyString
+  source_content_type: MyString
+  source_file_size: 1
+  source_updated_at: 2010-10-20 16:37:30
+
+# == Schema Information
+#
+# Table name: source_files
+#
+#  id                  :integer          not null, primary key
+#  loop_source_id      :integer
+#  source_file_name    :string(255)
+#  source_content_type :string(255)
+#  source_file_size    :integer
+#  source_updated_at   :datetime
+#  created_at          :datetime
+#  updated_at          :datetime
+#  parse_status        :integer          default(0)
+#

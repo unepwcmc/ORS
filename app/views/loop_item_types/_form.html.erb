@@ -1,0 +1,29 @@
+<%= form_for @loop_item_type do |f| %>
+  <% if @loop_item_type.errors.any? %>
+    <div id="errorExplanation">
+      <ul id='error_messages'>
+        <% @loop_item_type.errors.full_messages.each do |msg| %>
+          <li><%= msg %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <p>
+    <%= f.label :name %><br />
+    <%= f.text_field :name %>
+  </p>
+  <p>
+    <%= f.label :parent_id %><br />
+    <%= f.text_field :parent_id %>
+  </p>
+  <p>
+    <%= f.label :lft %><br />
+    <%= f.text_field :lft %>
+  </p>
+  <p>
+    <%= f.label :rgt %><br />
+    <%= f.text_field :rgt %>
+  </p>
+  <p><%= f.submit "Submit" %></p>
+<% end %>

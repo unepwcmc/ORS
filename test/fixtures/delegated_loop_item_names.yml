@@ -1,0 +1,20 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+one:
+  delegation_id: 1
+  loop_item_name_id: 1
+
+two:
+  delegation_id: 1
+  loop_item_name_id: 1
+
+# == Schema Information
+#
+# Table name: delegated_loop_item_names
+#
+#  id                    :integer          not null, primary key
+#  loop_item_name_id     :integer
+#  created_at            :datetime
+#  updated_at            :datetime
+#  delegation_section_id :integer
+#

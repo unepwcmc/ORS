@@ -1,0 +1,97 @@
+<div class="span-24 last user_profile" id="content">
+  <%= render :partial => "options"%>
+  <% if @user_delegate.user == current_user %>
+    <h1><%= t('manage_delegates.delegate_details') %></h1>
+    <div id="q_dashboard">
+      <p><strong><%= t('generic.name') %>:</strong> <%=@user_delegate.delegate.full_name.present? ? h(@user_delegate.delegate.full_name) : "-" %></p>
+      <p><strong><%= t('generic.email') %>:</strong> <%= mail_to h(@user_delegate.delegate.email) %></p>
+      <p><strong><%= t('generic.details') %>:</strong> <%=@user_delegate.delegate.first_name.present? ? h(@user_delegate.delegate.full_name) : "-" %></p>
+      <p><strong><%= t('generic.language') %>:</strong> <%=h @user_delegate.delegate.language_full_name  %></p>
+    </div>
+    <div id="manage_delegates">
+      <h3><%=  t('generic.help') %></h3>
+      <p>
+        <%= raw t('user_delegates.help_text') %>
+      </p>
+    </div>
+    <h3><%= t('manage_delegates.delegated_q_t') %></h3>
+    <p><%= link_to t('manage_delegates.delegate_q'), new_user_delegate_delegation_path(@user_delegate) %></p>
+    <table id="delegated_tasks_table" class="tablesorter">
+      <thead>
+        <tr>
+          <th style="width: 400px;"><%= t('generic.questionnaire') %></th>
+          <th><%= t('generic.remarks') %></th>
+          <th><%= t('generic.options') %></th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @user_delegate.delegations.each do |delegation| %>
+          <tr>
+            <td><%= delegation.questionnaire.present? ? OrtSanitize.white_space_cleanse(delegation.questionnaire.title(I18n.locale.to_s)) : "-" %></td>
+            <td><%=h delegation.remarks %></td>
+            <td>
+              <%= link_to "Edit", edit_delegation_path(delegation) %> | <%= link_to t('generic.manage'), delegation_path(delegation) %> | <%= link_to t('generic.remove'), delegation, :method => :delete, :confirm => t('generic.are_you_sure') %>
+            </td>
+          </tr>
+        <% end -%>
+      </tbody>
+    </table>
+  <% else %>
+    <h1><%= t('manage_delegates.delegator_details') %></h1>
+    <div id="q_dashboard">
+      <p><strong><%= t('generic.name') %>:</strong> <%=h @user_delegate.user.full_name %></p>
+      <p><strong><%= t('generic.email') %>:</strong> <%= mail_to h(@user_delegate.delegate.email) %></p>
+    </div>
+    <div id="manage_delegates">
+      <h3><%= t('generic.help') %>:</h3>
+      <p>
+        <%= t('manage_delegates.u_are_delegate')%> <%=h @user_delegate.user.full_name %>. <%= t('manage_delegates.delegate_show_help')%>
+      </p>
+    </div>
+    <div id="q_dashboard">
+      <% @user_delegate.delegations.each do |delegation| -%>
+        <p><strong><%=t('generic.questionnaire')%></strong><%= link_to h(delegation.questionnaire.title), submission_questionnaire_path(delegation.questionnaire, user_delegate: @user_delegate.id) %></p>
+        <p><strong><%=t('delegate_dashboard.delegator_remarks')%></strong><%= delegation.remarks.present? ? h(delegation.remarks) : "-" %></p>
+        <p><strong><%=t('generic.details')%></strong>
+        <% if delegation.sections.present? -%>
+          <%= pluralize(delegation.sections.count, "section")%> <%= t('delegate_dashboard.to_fill') %> <a href="#" id="show_details_<%= delegation.id %>"><%=t('generic.details')%></a>
+        <% else -%>
+          <%= t('delegate_dashboard.fill_all') %>
+        <% end -%>
+        </p>
+        <% if delegation.sections.present? %>
+          <div id="delegation_details_<%= delegation.id %>" class="hide">
+            <table>
+              <thead>
+                <tr>
+                  <th><%= t('generic.section')%></th>
+                  <th><%= t('delegation_details.root_section_th')%></th>
+                  <th><%= t('delegation_details.loop_th')%></th>
+                </tr>
+              </thead>
+              <tbody>
+                <% delegation.delegation_sections.each do |delegation_section| -%>
+                  <tr>
+                    <td><%= OrtSanitize.white_space_cleanse(delegation_section.section.value_in((delegation_section.section.root? ? :tab_title : :title), current_user.language)) %></td>
+                    <td><%= OrtSanitize.white_space_cleanse(delegation_section.section.root.value_in(:tab_title, current_user.language))%></td>
+                    <td><%= delegation_section.loop_item_names.map{|loop_item_name| h(loop_item_name.item_name(current_user.language))}.join(', ') %></td>
+                  </tr>
+                <% end -%>
+              </tbody>
+            </table>
+          </div>
+        <% end -%>
+        <hr />
+      <% end -%>
+    </div>
+  </div>
+<% end %>
+</div><!-- /content -->
+<script type="text/javascript">
+  $(function(){
+      $("#delegated_tasks_table").tablesorter({
+        sortList: [[0,0]],
+        widgets: ['zebra']
+      });
+    });
+</script>

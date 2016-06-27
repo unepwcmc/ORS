@@ -1,0 +1,110 @@
+<% the_id = "#{append_identifier(question, looping_identifier)}" -%>
+<% answer_type.text_answer_fields.each do |answer_field| -%>
+  <% text_field_width = [(answer_field.width ? (answer_field.width/7.5) : 55), 78].min - (question.section.level > 2 ? 3 : 0) %>
+    <p>
+      <% text_answer_values = answer.present? ? answer.get_text_answer_field_if_it_exists(answer_field, @authorization[:translator_visible]) : nil -%>
+      <% answer_text = text_answer_values.present? ? h(text_answer_values[:answer_text]) : nil -%>
+      <% if !answer_field.rows || answer_field.rows <= 1 -%>
+        <%= text_field_tag "answers[#{the_id}_#{answer_field.id.to_s}]",answer_text , :size => text_field_width, :disabled => disabled, :class => ("disabled" if disabled) %>
+      <% else -%>
+        <%= text_area_tag "answers[#{the_id}_#{answer_field.id.to_s}]", answer_text, :rows => answer_field.rows.to_i, :cols => text_field_width, :disabled => disabled, :class => ("disabled" if disabled) %>
+      <% end -%>
+      <% if @authorization[:translator_visible] %>
+        <% original_language = text_answer_values.present? ? text_answer_values[:original_language] : @authorization[:language] -%>
+        <%= hidden_field_tag "answers[#{the_id}_#{answer_field.id.to_s}_original]", original_language, :disabled => disabled %>
+      <% end %>
+    </p>
+
+    <%# display translator functionality if the translator_visible is set to true %>
+    <% if @authorization[:translator_visible] %>
+      <% answer_text_in_english = text_answer_values.present? ? h(text_answer_values[:answer_text_in_english]) : nil -%>
+      <p>
+      <a href="#" id="show_translate_<%= the_id +"_"+ answer_field.id.to_s%>" class="<%= answer_text_in_english.present? ? "hide" : ""%>"><%= t("translator_feat.show_translator")%></a>
+        <a href="#" id="hide_translate_<%= the_id + "_" +answer_field.id.to_s%>" class="<%= answer_text_in_english.present? ? "" : "hide"%>"><%= t("translator_feat.hide_translator")%></a>
+      </p>
+      <div class="<%= answer_text_in_english.present? ? "" : "hide"%>" id="translate_<%= the_id +"_"+ answer_field.id.to_s %>">
+        <p><%=t("translator_feat.from")%> <%= select_tag "from_lang_#{the_id+ "_"+ answer_field.id.to_s}", nil, :class => "language_select", :disabled => disabled-%> <%=t("translator_feat.to_en")%></p>
+        <p><a href="#" id="do_translate_<%= the_id +"_"+ answer_field.id.to_s %>"><%=t("translator_feat.translate")%></a></p>
+        <p>
+          <% if !answer_field.rows || answer_field.rows <= 1 -%>
+              <%= text_field_tag "answers[#{the_id}_#{answer_field.id.to_s}_en]", answer_text_in_english , :size => text_field_width, :disabled => disabled %>
+          <% else -%>
+              <%= text_area_tag "answers[#{the_id}_#{answer_field.id.to_s}_en]", answer_text_in_english, :rows => answer_field.rows.to_i, :cols => text_field_width, :disabled => disabled %>
+          <% end -%>
+        </p>
+        <p style="color:red" class="hide" id="error_translation<%= the_id + "_" + answer_field.id.to_s %>"><%=t("translator_feat.error")%></p>
+        <p style="color:green" class="hide" id="lang_detected<%= the_id + "_" + answer_field.id.to_s %>"><%=t("translator_feat.wrong_choice")%></p>
+      </div>
+      <script type="text/javascript">
+        $(function(){
+              //Show/hide translator box controls.
+              $("#show_translate_<%= the_id  +"_" + answer_field.id.to_s %>").click(function(e){
+                  e.preventDefault();
+                  $("#translate_<%= the_id  + "_" + answer_field.id.to_s %>").show('slow');
+                  $(this).hide();
+                  $("#hide_translate_<%= the_id + "_" + answer_field.id.to_s %>").show();
+              });
+              $("#hide_translate_<%= the_id + "_" + answer_field.id.to_s %>").click(function(e){
+                  e.preventDefault();
+                  $("#translate_<%= the_id + "_" + answer_field.id.to_s %>").hide('slow');
+                  $(this).hide();
+                  $("#show_translate_<%= the_id  + "_" + answer_field.id.to_s %>").show();
+              });
+              //Add the languages to each drop down list.
+              $("#from_lang_<%= the_id + "_" + answer_field.id.to_s %>").append(
+              $("<option></option>").val("").html("<%=t('translator_feat.please_select')%>")
+                      );
+              $.each(LANGUAGES, function(val, text){
+                  $("#from_lang_<%= the_id + "_" + answer_field.id.to_s %>").append(
+                          $("<option></option>").val(text).html(val));
+              });
+              $("#from_lang_<%= the_id + "_" + answer_field.id.to_s %>").val("<%= original_language %>");
+              //On change hide the error/success message.
+              $("#from_lang_<%= the_id + "_" + answer_field.id.to_s %>").change(function(){
+                  $("#error_translation<%= the_id + "_" + answer_field.id.to_s %>").hide();
+                  $("#lang_detected<%= the_id + "_" + answer_field.id.to_s %>").hide();
+                  if($(this).val() == "")
+                  {
+                      $("#<%= the_id %>_<%=answer_field.id.to_s%>_original").val("<%= original_language %>");
+                  }
+                  else
+                  {
+                      $("#<%= the_id %>_<%=answer_field.id.to_s%>_original").val($(this).val());
+                  }
+              });
+              //When "translate" link is clicked try to translate.
+              $("#do_translate_<%= the_id + "_" + answer_field.id.to_s %>").click(function(e){
+                  e.preventDefault();
+                  $("#error_translation<%= the_id + "_" + answer_field.id.to_s %>").hide();
+                  $("#lang_detected<%= the_id + "_" + answer_field.id.to_s %>").hide();
+                  var the_text = $("#answers_<%= the_id %>_<%= answer_field.id.to_s %>").val();
+                  var from_lang = $("#from_lang_<%= the_id + "_" + answer_field.id.to_s %>").val();
+                  google.language.translate(the_text, from_lang, "en", function(result){
+                      if(result.translation && result.translation != the_text){
+                          $("#answers_<%= the_id %>_<%=  answer_field.id.to_s %>_en").val(result.translation);
+                      }
+                      else //if it was not possible to translate with the selected language, try detecting and translating from the result.
+                      {
+                          google.language.detect(the_text, function(result){
+                              if(!result.error && ($.inArray(result.language, ["ar", "zh", "fr", "es", "ru"]) != -1))
+                              {
+                                  var detected_from_lang = result.language;
+                                  $("#from_lang_<%= the_id + "_" + answer_field.id.to_s %>").val(detected_from_lang);
+                                  $("#answers_<%= the_id %>_<%=answer_field.id.to_s%>_original").val(detected_from_lang);
+                                  google.language.translate(the_text, detected_from_lang, 'en', function(result){
+                                      if(result.translation){
+                                          $("#answers_<%= the_id %>_<%=  answer_field.id.to_s %>_en").val(result.translation);
+                                          $("#lang_detected<%= the_id + "_" + answer_field.id.to_s %>").show();
+                                      }
+                                  });
+                              }
+                              else
+                                  $("#error_translation<%= the_id + "_" + answer_field.id.to_s %>").show();
+                          });
+                      }
+                  });
+              });
+          });
+        </script>
+    <% end %>
+<% end -%>

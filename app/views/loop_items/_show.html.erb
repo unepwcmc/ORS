@@ -1,0 +1,8 @@
+<ul>
+  <li>
+    <%=h(loop_item.loop_item_type.name) + " : " + h(loop_item.item_name) + "(#{loop_item.sort_index})" %>
+    <% loop_item.children.each do |child| %>
+        <%= render :partial => 'loop_items/show', :locals => {:loop_item => child} %>
+    <% end %>
+  </li>
+</ul>

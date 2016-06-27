@@ -1,0 +1,22 @@
+<% @fields_count = @fields_count + 1  %>
+<div class="field" style="display: block;">
+  <li>
+    <%= f.label :language %>
+    <%= f.select :language, [["Arabic","ar"], ["Chinese","zh"], ["English","en"], ["French","fr"], ["Russian","ru"], ["Spanish","es"]], {:include_blank => "Choose the language of these fields" }, :class => "language_select" %>
+  </li>
+  <li>
+    <%= f.label :title, "Question" %>
+    <%= f.text_field :title, :class => "question_title" %>
+  </li>
+  <li>
+    <%= f.label :short_title %>
+    <%= f.text_field :short_title %>
+  </li>
+  <li>
+    <%= f.label :description, "Description" %>
+    <%= f.text_field :description %>
+  </li>
+  <% if @fields_count > 1 %>
+      <p><%= remove_child_link "remove", f, "remove_question_field" %></p>
+  <% end   %>
+</div> <!-- /.field -->

@@ -1,0 +1,101 @@
+<div class="span-24 last" id="content">
+  <div id="content_header">
+    <% info_tip_text = "<p>This page presents you with a list of all the loop sources that are connected to this questionnaire.
+                        From this page you can add new loop sources or manage existing loop sources.</p>"%>
+    <%= render :partial => "administration/menu", :locals => {
+      :header => ("Questionnaire loop sources " + info_tip("Questionnaire's loop sources", info_tip_text)).html_safe, 
+      :include_options => "questionnaires"} -%>
+  </div>
+  <p>
+    <strong>Questionnaire:</strong>
+    <%= link_to @questionnaire.title, dashboard_questionnaire_path(@questionnaire) %>
+  </p>
+  <p>
+    <%= link_to "New Loop Source", new_questionnaire_loop_source_path(@questionnaire) %> | <a id="toggle_help" href="#">Help</a>
+  </p>
+  <div id="help_div" style="display: none">
+    <h4>Help:</h4>
+    <p><strong>NOTE</strong></p>
+    <p style="color: red">Please be aware that when you upload a loop source, this is submitted to the engine and is processed in the background, and therefore if the loop source is big, then it might take some time to be uploaded! </p>
+    <p style="color: red">Please refresh the page to see whether the loop source has been uploaded or not</p>
+    <p><strong>Section types</strong></p>
+    <p>A questionnaire is composed by sections and questions. Sections can have subsections and can be of three different types. These types are:</p>
+    <ul>
+      <li><strong>Regular</strong>: This is the basic section and it has no special "attributes" that can contain subsections and questions. All other sections are special cases of the regular section.</li>
+      <li><strong>Same answer type</strong>: Questions that belong to this section share the same answer type (either text answer, multiple choice answer or numeric answer). This type's purpose is to make building
+        a repetitive section easier, since you will only need to specify the answer type once.</li>
+      <li><strong>Looping</strong>: A looping section is one that you associate it with a loop source and one of its columns, so that the section that you
+        create will then originate as many sections as there are elements on the chosen column. This way if, for example, you need to create a section to make questions about the countries of the United Nations
+        you can upload a loop source with all the countries and then create a looping section that will use it. Sparing you the work of manually creating a section for each of the countries.</li>
+    </ul>
+    <p><strong>Loop sources</strong></p>
+    <p>A loop source can be either a single column table or a set of related single column tables. The headers of each of the columns that compose a loop source are defined as <strong>loop item types</strong>, and the
+      elements of each column are defined as <strong>loop items</strong>.
+    </p>
+    <p>To create a loop source you will need to upload a <strong>CSV</strong> file with the different columns that compose the source. The system will assume an hierarchy from the left to the right.</p>
+    <ul>
+      <li>To add <strong>translations</strong> for loop source items, click on Show next to the loop source name.</li>
+    </ul>
+    <p><strong>Example</strong></p>
+    <p>
+      So if for instance you have a column named <strong>Continent</strong> and a column named <strong>Country</strong>, the column <strong>Continent</strong> should come first on your <strong>CSV</strong> file.
+      This hierarchy will then be applied to the elements of each column. So if you have three countries to add, like <strong>Portugal</strong>, <strong>England</strong> and <strong>Brazil</strong>, you will need to have
+      a file like the following.
+    </p>
+    <table>
+      <tr><td>#Continent, Country</td></tr>
+      <tr><td>Europe, England</td></tr>
+      <tr><td>Europe, Portugal</td></tr>
+      <tr><td>South America, Brazil</td></tr>
+    </table>
+    <p>The first line of the file is always the headers' line and should have the character <strong>#</strong> as the first character.</p>
+    <p>
+      In this example <strong>Continent</strong> and <strong>Country</strong> would be the
+      <strong>loop item types</strong> of the source and <strong>Europe</strong>, <strong>South America</strong>, <strong>England</strong>, <strong>Portugal</strong> and <strong>Brazil</strong> would be loop items, with the
+      first two being of the type <strong>Continent</strong> and the last three of type <strong>Country</strong>. An hierarchy would also be defined with <strong>Country</strong> belonging to <strong>Continent</strong>. It is
+      also important to note that even though <strong>Europe</strong> shows up twice in the file, it will not be duplicated in the system, but will have two descendants, <strong>Portugal</strong> and <strong>England</strong>
+    </p>
+    <% if @questionnaire.loop_sources.any? %>
+      <p><strong>Filtering fields</strong></p>
+      <p>Filtering fields allow the filtering of looping sections so that a respondent will only be asked questions that concern his filtering field. More information on filtering fields can be found on the <%= link_to "manage filtering fields page", questionnaire_filtering_fields_path(@questionnaire)%></p>
+    <% end %>
+    <p><strong>Other notes</strong></p>
+    <p>To view the details of a loop source you can click on the <strong>Show</strong> link in front of it.</p>
+    <p>There is no limit for the number of loop sources that a questionnaire can have.</p>
+  </div>
+  <table id="loop_sources_index" class="tablesorter">
+    <thead>
+    <tr>
+      <th>Name</th>
+      <th>Loop item types</th>
+      <th>Used in sections</th>
+      <th></th>
+    </tr>
+    </thead>
+    <tbody>
+    <% for loop_source in @loop_sources %>
+        <tr>
+          <td><%=h(loop_source.name) %></td>
+          <% if loop_source.loop_item_type.present? -%>
+              <td><%= loop_source.loop_item_type.self_and_descendants.sort!{|a,b| a.level <=>b.level}.map{|a| a.is_filtering_field? ? "<strong>"+a.name+"</strong>":a.name}.join(" > ").html_safe %></td>
+          <% else -%>
+              <td><%= "This loop source doesn't have any loop item types" %></td>
+          <% end -%>
+          <td><%= loop_source.sections.size %></td>
+          <td>
+            <%= link_to "Show", loop_source %> |
+            <%= link_to "Remove", loop_source_path(loop_source), :method => :delete, :confirm => "Are you sure you want to delete this loop source?\n Any related elements will be modified accordingly" + (loop_source.questionnaire.source_questionnaire.present? ? " and any associated answers will be deleted." : ".") %>
+          </td>
+        </tr>
+    <% end %>
+    </tbody>
+  </table>
+</div>
+<script type="text/javascript">
+    <% if !@loop_sources.empty? -%>
+    $("#loop_sources_index").tablesorter({
+        sortList: [[0,0]], widthFixed: true, widgets: ['zebra'],
+        headers: { 3: { sorter: false }}
+    });
+    <% end -%>
+</script>

@@ -1,0 +1,64 @@
+$(function(){
+    <%- flash.each do |name, msg| -%>
+      flash_message("<%=h name%>", "<%=h msg %>");
+      <%- flash.delete(name) -%>
+    <%- end -%>
+    <% if params[:loop_item_names].present? %>
+      <% params[:loop_item_names].each do |litem_name_id| %>
+        <%
+          section_delegates = current_user.delegates_for_section @section, litem_name_id
+          questionnaire_delegates = current_user.delegates_for_questionnaire @section.questionnaire
+          if section_delegates.any? || questionnaire_delegates.any?
+            delegates_title = ""
+            if questionnaire_delegates.any?
+              delegates_title += "Delegates for whole questionnaire - <ul>#{questionnaire_delegates.sort.map{|u| "<li>#{h(u.delegate.full_name)}</li>" }.join("")}</ul>"
+            end
+            if section_delegates.any?
+              delegates_title += delegates_title.blank? ? t('delegate_section.existing_t') + " - " : "<h3>#{t('delegate_section.existing_t')}</h3>"
+              delegates_title += "<ul>#{section_delegates.sort.map{|u| "<li>#{h(u.delegate.full_name)}</li>" }.join("")}</ul>"
+            end
+        %>
+          $("#delegates_for_<%=@section.id%>_<%= litem_name_id %>").empty().append("<%= escape_javascript(image_tag('icons/delegates.png', :size => "15x15", :title => delegates_title, :class => 'obj_tooltip', :alt => 'Info')) %>");
+        <% else %>
+          $("#delegates_for_<%= @section.id %>_<%= litem_name_id %>").empty();
+        <% end %>
+      <% end %>
+    <% else
+    section_delegates = current_user.delegates_for_section @section
+      questionnaire_delegates = current_user.delegates_for_questionnaire @section.questionnaire
+      if section_delegates.any? || questionnaire_delegates.any?
+        delegates_title = ""
+        if questionnaire_delegates.any?
+          delegates_title += "Delegates for whole questionnaire - <ul>#{questionnaire_delegates.sort.map{|u| "<li>#{h(u.delegate.full_name)}</li>" }.join("")}</ul>"
+        end
+        if section_delegates.any?
+          delegates_title += delegates_title.blank? ? t('delegate_section.existing_t') + " - " : "<h3>#{t('delegate_section.existing_t')}</h3>"
+          delegates_title += "<ul>#{section_delegates.sort.map{|u| "<li>#{h(u.delegate.full_name)}</li>" }.join("")}</ul>"
+        end
+        if @section.looping? %>
+          $(".delegates_for_<%=@section.id%>").empty().append("<%= escape_javascript(image_tag('icons/delegates.png', :size => "15x15", :title => delegates_title, :class => 'obj_tooltip', :alt => 'Info')) %>");
+        <% else %>
+            $("#delegates_for_<%=@section.id%>_0").empty().append("<%= escape_javascript(image_tag('icons/delegates.png', :size => "15x15", :title => delegates_title, :class => 'obj_tooltip', :alt => 'Info')) %>");
+        <% end %>
+      <% else %>
+        <% if @section.looping? %>
+          $(".delegates_for_<%= @section.id %>").empty();
+        <% else %>
+          $("#delegates_for_<%= @section.id %>_<%= @loop_item_name ? @loop_item_name.id : 0 %>").empty();
+      <% end %>
+    <% end %>
+  <% end %>
+  $("#delegate_section").empty()
+          .append("<%= escape_javascript( render :partial => "delegation_sections/delegate_section") %>")
+          .dialog("open");
+  formValidation();
+  $("#select_all_items").click(function(e){
+      e.preventDefault();
+      $("#loop_item_names option").attr('selected', "selected");
+  });
+
+  $("#clear_selection_items").click(function(e){
+      e.preventDefault();
+      $("#loop_item_names option").removeAttr("selected");
+  });
+});

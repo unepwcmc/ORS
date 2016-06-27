@@ -1,0 +1,21 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+one:
+  range_answer_id: 1
+  sort_index: 1
+
+two:
+  range_answer_id: 1
+  sort_index: 1
+
+# == Schema Information
+#
+# Table name: range_answer_options
+#
+#  id              :integer          not null, primary key
+#  range_answer_id :integer
+#  sort_index      :integer
+#  created_at      :datetime
+#  updated_at      :datetime
+#  original_id     :integer
+#

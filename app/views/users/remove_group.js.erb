@@ -1,0 +1,20 @@
+$(function(){
+    //Add the flash notice message
+<%#- flash.each do |name, msg| -%>
+    //flash_message("<%#=h name%>", "<%#=h msg %>");
+<%#- flash.delete(name) -%>
+<%#- end -%>
+    var e = $("#g_<%= h(@group + "_"+@user.id.to_s)%>");
+    e.effect("highlight", {color: "red"}, 2000);
+    setTimeout(function(){
+        e.remove();
+    },1000);
+    
+<% if @users_index %>
+    $("#users_index").trigger("update")
+                     .trigger("sorton", [[]]);
+<% else %>
+    $("#myTable").trigger("update")
+                 .trigger("sorton", [[]]);
+<% end %>
+});

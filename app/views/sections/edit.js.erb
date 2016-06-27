@@ -1,0 +1,97 @@
+$(function(){
+    $("#content_header").empty().append("<%= escape_javascript( render :partial => "administration/menu", :locals => {:header => "Edit Section", :include_options => "sections"} ) %>");
+    $("#content").empty().append("<%= escape_javascript(render(:partial => "edit"))%>");
+    <% if @section.looping? %>
+        $.ajax({url: RAILS_ROOT+'/loop_sources/<%=@section.loop_source.id%>/item_types/edit/<%= @section.nil? ? "0" : @section.id%>', type: 'get', dataType: 'script'});
+    <% end %>
+    $("#part_loop_source_id").change(function(){
+        var selectVal = $(this).val();
+        if(selectVal != "")
+            $.ajax({url: RAILS_ROOT+'/loop_sources/'+selectVal+'/item_types/edit/<%= @section.nil? ? "0" : @section.id%>', type: 'get', dataType: 'script'});
+        else
+        {
+            $("#looping_categories").empty();
+            removeLoopTagFromTextFields("section_title");
+            $("#part_loop_source_id").val("");
+            $("#part_loop_item_type").val("");
+        }
+    });
+
+    var can_be_displayed_in_tab = "<%= @section.root? ? 'fieldIsDisabled' : (@section.children_can_be_displayed_in_tab?) %>";
+
+    //Function to control the "Section Type" Select Box
+    $("#part_section_type").change(function(){
+        var selectVal = $("#part_section_type :selected").val();
+        switch(selectVal)
+        {
+            case "0":
+            {
+                $("#s_answer_type").hide("slow");
+                $("#part_answer_type_type").addClass("hide").val("");
+                $("#answer_type").empty();
+                $("#part_loop_source_id").removeClass("hide");
+                $("#looping_sources").show("slow");
+                <% if @section.looping? %>
+                    $.ajax({url: RAILS_ROOT+'/loop_sources/<%=@section.loop_source.id%>/item_types/edit/<%= @section.nil? ? "0" : @section.id%>', type: 'get', dataType: 'script'});
+                    $("#part_loop_source_id").val("<%=@section.loop_source.id%>");
+                    $("#part_loop_item_type_id").val(<%=@section.loop_item_type.id%>);
+                    addOrReplaceLoopTagToTextFields("section_title", "<%= escape_javascript( h(@section.loop_item_type.try(:name))) %>");
+                <% end %>
+                if(can_be_displayed_in_tab == 'true')
+                {
+                    $("#part_display_in_tab").attr('checked', false);
+                    $("#part_display_in_tab").attr('disabled', true);
+                    $("#part_starts_collapsed").attr("disabled", false)                    
+                }
+                break;
+            }
+            case "1":
+            {
+                $("#looping_sources").hide("slow");
+                $("#loopingItems").hide("slow");
+                $("#part_loop_source_id").val("").addClass("hide");
+                $("#part_loop_item_type").val("");
+                //clear the title text fields
+                removeLoopTagFromTextFields("section_title");                
+                $("#looping_categories").addClass("hide").empty();
+                $("#part_answer_type_type").removeClass("hide");
+                $("#s_answer_type").show("slow");
+                <% if @section.section_type == 1 %>
+                    $("#answer_type").append("<%= escape_javascript( render(:partial => "#{@section.answer_type_type.underscore}s/form", :locals => {:type => @section.answer_type}))%>");
+                <% end %>
+                if(can_be_displayed_in_tab == 'true')
+                    $("#part_display_in_tab").attr('disabled', false);
+                break;
+            }
+            default:
+            {
+                $("#loopingItems").hide("slow");
+                $("#looping_sources").hide("slow");
+                $("#s_answer_type").hide("slow");
+                $("#part_loop_source_id").val("").addClass("hide");
+                $("#part_loop_item_type_id").val("");
+                //clear the text field
+                removeLoopTagFromTextFields("section_title");
+                $("#looping_categories").addClass("hide").empty();
+                $("#part_answer_type_type").addClass("hide").val("");
+                $("#answer_type").empty();
+                if(can_be_displayed_in_tab == 'true' )
+                    $("#part_display_in_tab").attr('disabled', false);
+                break;
+            }
+        }
+    });
+    $("#part_display_in_tab").change(function(){
+        if($(this).is(':checked'))
+        {
+            $("#part_starts_collapsed").attr("checked", true);
+            $("#part_starts_collapsed").attr("disabled", true);
+        }
+        else
+        {
+            $("#part_starts_collapsed").attr("disabled", false)
+        }
+    });
+    //handle the answer types of the section
+    handleSectionAnswerTypesOptions("<%=@section.section_type%>","<%= @section.section_type == 1 ? @section.answer_type.id : "-1" %>", "<%= @section.questionnaire.id.to_s %>" );
+});

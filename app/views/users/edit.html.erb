@@ -1,0 +1,100 @@
+<div class="span-24 last" id="content">
+
+  <%= render :partial => "users/options" %>
+  <h2><%= t("user_edit.title") %></h2>
+  <div id="user_form">
+    <%= form_for @user, :html => { :class => "normal formtastic", :id => "generator_form"} do |f| -%>
+        <% if @user.errors.any? %>
+          <div id="errorExplanation">
+            <ul id='error_messages'>
+              <% @user.errors.full_messages.each do |msg| %>
+                <li><%= msg %></li>
+              <% end %>
+            </ul>
+          </div>
+        <% end %>
+        <fieldset>
+          <ol>
+            <li>
+              <%= f.label :first_name, t("user_edit.first_n") %> <%= f.text_field :first_name%>
+            </li>
+            <li>
+              <%= f.label :last_name, t("user_edit.last_n") %> <%= f.text_field :last_name %>
+            </li>
+            <li>
+              <%= f.label :language, t("generic.language") %>
+              <%= select :user, :language, [["English","en"], ["Français","fr"], ["Español","es"]]  %>
+            </li>
+            <li>
+              <%= f.label :email, t("generic.email")%> <%= f.text_field :email %>
+            </li>
+            <li>
+              <%= f.label :category, t("generic.category")%>
+              <label id="radio">
+                <%= f.radio_button :category, "Management Authority" %>
+                <%= t("generic.management")%>
+              </label>
+              <label id="radio">
+                <%= f.radio_button :category, "Scientific Authority" %>
+                <%= t("generic.scientific")%>
+              </label>
+              <label id="radio">
+                <%= f.radio_button :category, "Other" %>
+                <%= t("generic.other")%>
+              </label>
+            </li>
+            <li>
+              <%= f.label :password, t("generic.password") %> <%= f.password_field :password, autocomplete: 'off' %>
+            </li>
+            <li>
+              <%= f.label :password_confirmation, t("generic.password_c")%> <%= f.password_field :password_confirmation %>
+            </li>
+            <% if current_user.role?(:admin)-%> <!--a user loop_item_types are filtering fields from some questionnaire-->
+            <% if @user.available_questionnaires %>
+            <p style="font-weight:600"><%= t("generic.select_filter")%></p>
+                <table class="user_table">
+                    <thead>
+                      <tr>
+                        <th><%= t("generic.questionnaire") %></th>
+                        <th><%= t("generic.filtering_fields") %></th>
+                        <th><%= t("generic.value") %></th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                       <% @user.available_questionnaires.each do |questionnaire| -%>
+                            <% questionnaire.filtering_fields.each do |filtering_field| -%>
+                        <tr>
+                          <td><%= questionnaire.title%></td>
+                          <td><%= h(filtering_field.name)%></td>
+                          <% selected_item = selected_loop_item(filtering_field.id ,@user.id) -%>
+                          <td width="25%"><%= collection_select("filtering_field", filtering_field.id, filtering_field.get_unique_loop_item_names, :to_s, :to_s, {:prompt => "Select one that applies to the user", :selected => selected_item ? selected_item : ""}, { :validate => "{required:true}"} ) %></td>
+                        </tr>
+                         <% end -%>
+                      <% end -%>
+                    </tbody>
+                  </table>
+              <% end -%>
+                
+                <div class="clear">
+                  <hr>
+                  <p><h3><%= t("user_edit.roles") %></h3></p>
+                  <ul>
+                    <%= hidden_field_tag "user[role_ids][]", "" %>
+                    <% for role in Role.all %>
+                        <li><label><%=h role.name.titleize %></label><%= check_box_tag "user[role_ids][]", role.id, (@user.role? role.name.to_sym), {:id => "user_#{role.id}" } %></li>
+                    <% end -%>
+                  </ul>
+                </div>
+            <% else -%>
+                <% role = current_user.role?(:respondent) ? Role.find_by_name('respondent') : Role.find_by_name('delegate') -%>
+                <div>
+                  <li><label>Role</label> <%= role.name.titleize %></li>
+                  <%= f.hidden_field :role_ids, :value => role.id %>
+                </div>
+            <% end -%>
+          </ol>
+        </fieldset>
+        <p><%= f.submit t("generic.update") %></p>
+    <% end -%>
+  </div><!-- /user_form -->
+</div><!-- /content -->

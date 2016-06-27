@@ -1,0 +1,8 @@
+<%= render :partial => "answer_type_fields/show", :locals => { :answer_type_field => answer_type.answer_type_fields.find_by_language(language) } %>
+<ul>
+  <% answer_type.range_answer_options.each do |option| %>
+      <li>
+        <%=h("["+option.sort_index.to_s+"] "+ option.option_text(language) )%> 
+      </li>
+  <% end %>
+</ul>

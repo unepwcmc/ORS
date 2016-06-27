@@ -1,0 +1,95 @@
+<div class="span-24 last" id="content">
+
+  <div id="content_header">
+    <%= render :partial => "administration/breadcrumbs" -%>
+    <% info_tip_text = "<p>This page shows you a list with all the questionnaires that exist in the system, sorted by activation date. You can click on the headers to sort differently.</p>
+        <p>Clicking on the name of a questionnaire will take you to its dashboard where you can see more information about it.</p>
+        <p>In this page there are different actions to execute on each of the questionnaires. More information on those can be read in the info of 'Options' column header, from the table.</p>
+        <p>Here you can also obtain a CSV file with all the answers of the respondents of a questionnaire.</p>" %>
+    <%= render :partial => "administration/menu", :locals => {
+      :header => ("Manage Questionnaires " + info_tip("Manage Questionnaires", info_tip_text)).html_safe,
+      :include_options => nil} -%>
+  </div>
+
+  <table id="questionnaires_index" class="tablesorter">
+    <thead>
+    <tr>
+      <th>Name</th>
+      <th>Created on</th>
+      <th>Created by</th>
+      <!--      <th>Updated At</th> -->
+      <!--      <th>Updated By</th> -->
+      <th>Activated</th>
+      <th>Activated on</th>
+      <% info_tip_text = "<p>The available actions are:</p><p>" + image_tag('icons/cog.png', size: '15x15') + " Takes you to the Manage Respondents page, where you can grant or take access from a
+               user to a questionnaire.</p><p>" + image_tag('icons/table.png', size: '15x15') + " Takes you to a page where you can see the state of completion of a questionnaire for each of its respondents</p>
+               <p>" + image_tag('icons/key.png', size: '15x15') + " Let's you close a questionnaire, so that the respondents will not be able to make further changes to their answers.</p>
+               <p>" + image_tag('icons/lock.png', size: '15x15') + " Indicates that a questionnaire is closed.</p>
+               <p>" + image_tag('icons/stop.png', size: '15x15') + " Deactivates a questionnaire, making it available for editing and unavailable for the respondents to fill in their answers.</p>
+               <p>" + image_tag('icons/start.png', size: '15x15') + " Activates a questionnaire, making it available for respondents to fill in their answers.</p>" -%>
+      <th>Actions <%= info_tip("Actions", info_tip_text) %></th>
+      <% info_tip_text = "<p>This engine allows you to obtain a CSV file with all the answers of a questionnaire, by its different respondents. Before being able to download  the file it will have to be generated. To do so you should click on 'Generate'.
+                        The generation of the CSV file takes place in the background and once it is finished you will be notified by e-mail.</p>
+                        <p>After being generated the file will then be available for download in this same page and you will be able to do so by clicking the 'Get file'.</p><p>The file can be
+                        re-generated to include your most recent changes, you can do so by clicking on the 'Regenerate' link. The date displayed refers to the last time the file was generated. Regeneration of a CSV file will
+                        erase the previously generated file.</p>"-%>
+      <th>CSV <%= info_tip("CSV File", info_tip_text) %></th>
+    </tr>
+    </thead>
+    <tbody>
+    <% @questionnaires.each do |questionnaire| %>
+        <tr>
+          <td style="width:250px"><%= link_to h(questionnaire.title), dashboard_questionnaire_path(questionnaire) %></td>
+          <td><%= questionnaire.created_at.strftime('%b %d, %Y')%></td>
+          <td><%= link_to h(questionnaire.user.full_name), user_path(questionnaire.user) %></td>
+          <!-- <td>< %= questionnaire.updated_at.to_formatted_s(:long_ordinal) %></td>
+          <td>< %= link_to h(questionnaire.last_editor.full_name), user_path(questionnaire.last_editor) %>
+          </td>-->
+          <td><%= questionnaire.active? ? "Yes" : "No" %></td>
+          <td><%= questionnaire.active? ? questionnaire.activated_at.strftime('%b %d, %Y') : "-" %></td>
+          <td id="questionnaire_options_<%= questionnaire.id.to_s %>">
+            <%= ( (link_to image_tag('icons/cog.png', :title => 'Manage respondents', :alt => 'Manage respondents'), questionnaire_authorized_submitters_path(questionnaire)))  unless questionnaire.closed? %>
+            <%= link_to image_tag('icons/table.png', :title => 'Feedback summary', :alt => 'Feedback summary'), respondents_questionnaire_path(questionnaire.id) -%>
+            <%= questionnaire.active? ? ((link_to image_tag('icons/key.png', :title => 'Close questionnaire', :alt => 'Close questionnaire'), close_questionnaire_path(questionnaire.id),  :class => "put" ) +
+            (link_to image_tag('icons/stop.png', :alt => "Deactivate", :title => "Deactivate questionnaire.", :size => "16x16"), deactivate_questionnaire_path(questionnaire), :class => :put)) :
+            questionnaire.closed? ? (link_to(image_tag('icons/key_go.png', :alt => "Open Questionnaire", :title => "Open Questionnaire"), open_questionnaire_path(questionnaire), :class => "put") + image_tag('icons/lock.png', :alt => "Questionnaire closed", :title => "Questionnaire is closed")) : (link_to image_tag('icons/start.png', :title => 'Activate questionnaire', :alt => 'Activate questionnaire', :size => "16x16"), activate_questionnaire_path(questionnaire), :class => "put") %>
+          </td>
+          <td>
+            <% if questionnaire.csv_file.present? && File.file?(questionnaire.csv_file.location) -%>
+                <%= link_to "Get file", download_csv_questionnaire_path(questionnaire)%>
+                (Last generated on: <%= File.mtime(questionnaire.csv_file.location).strftime('%H:%M %b %d, %Y') %>)<br>
+            Regenerate:<br>
+            <%= link_to "comma separated", to_csv_questionnaire_path(questionnaire, :separator => ','), :class => "get" %><br>
+            <%= link_to "semicolon separated", to_csv_questionnaire_path(questionnaire, :separator => ';'), :class => "get" %>
+            <% else -%>
+            Generate:<br>
+            <%= link_to "comma separated", to_csv_questionnaire_path(questionnaire, :separator => ','), :class => "get" %><br>
+            <%= link_to "semicolon separated", to_csv_questionnaire_path(questionnaire, :separator => ';'), :class => "get"   %>
+            <% end -%>
+          </td>
+        </tr>
+    <% end %>
+    </tbody>
+  </table>
+  <div id="pager_div" class="pager">
+    <form>
+      <%= image_tag 'pager/first.png', :class => "first", :title => "first", :alt =>"first"%>
+      <%= image_tag 'pager/prev.png', :class => "prev", :title => "previous", :alt=>"previous"%>
+      <input type="text" class="pagedisplay"/>
+      <%= image_tag 'pager/next.png', :class => "next", :title => "next", :alt => "next" %>
+      <%= image_tag 'pager/last.png', :class => "last", :title => "last", :alt => "last"%>
+      <select class="pagesize">
+        <option selected="selected"  value="10">10</option>
+        <option value="20">20</option>
+        <option value="30">30</option>
+        <option  value="40">40</option>
+      </select>
+    </form>
+  </div>
+</div><!-- /content -->
+<script type="text/javascript">
+    $(window).load(function(){
+        myLib.questionnaire_index.init();
+        $("#questionnaires_index").tablesorterPager({container: $("#pager_div")});
+    });
+</script>

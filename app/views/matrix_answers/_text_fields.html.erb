@@ -1,0 +1,18 @@
+<% the_id ||= "" %>
+<% columns.each do |column| %>
+    <% the_id_for_col = the_id+ ( queries_as_rows ? "_#{row_id}" : "_#{column.id}") -%>
+    <% id = queries_as_rows ? column.id : row_id %>
+    <% existing_text = "" %>
+    <% 
+      if !selection.empty?
+        if queries_as_rows && selection[row_id]
+          existing_text = selection[row_id][column.id.to_s]
+        elsif !queries_as_rows && selection[column.id.to_s]
+          existing_text = selection[column.id.to_s][row_id]
+        end
+      end 
+     %>
+    <td>
+      <%= text_field_tag "answers[#{the_id_for_col}_#{id}]", h(existing_text), :disabled => disabled %>
+    </td>
+<% end -%>

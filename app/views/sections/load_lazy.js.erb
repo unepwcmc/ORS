@@ -1,0 +1,25 @@
+$(function(){
+<% if @details[:preloaded] -%>
+    var $pre_container = $("#section_<%= @details[:container_id] %>");
+    $pre_container.append("<%= escape_javascript( render :partial => "sections/submission_content", :locals => { :section => @section,
+                        :loop_item => @details[:loop_item], :loop_sources => @details[:loop_sources], :section_field => @fields[:sections_field][@section.id.to_s],
+                        :section_field_default => @fields[:sections_field_default][@section.id.to_s], :section_visible => @details[:section_visible], :root => false,
+                        :disabled => @fields[:disabled], :looping_identifier => @details[:looping_identifier]} ) %>");
+    $pre_container.children(".info").slideDown("2000");
+  <% else -%>
+    var existing_item_text = $("#lazy_loading_<%= @details[:container_id] %>_ option:selected").text();
+    if(existing_item_text.indexOf("◄") === -1){
+      $("#lazy_loading_<%= @details[:container_id] %>_ option:selected").text(existing_item_text + " ◄");
+    }
+    var $container = $("#lazy_loading_content_<%= @details[:container_id] %>");
+    $container.empty()
+            .append("<%= escape_javascript(render :partial => "sections/submission", :locals => { :root => false, :loop_item => @details[:loop_item],
+                         :section => @section, :section_field => @fields[:sections_field][@section.id.to_s], :section_field_default => @fields[:sections_field_default][@section.id.to_s],
+                         :loop_sources => @details[:loop_sources], :load_lazy => false, :section_visible => @details[:section_visible],
+                         :disabled => @fields[:disabled], :looping_identifier => @details[:looping_identifier] }) %>");
+    $container.css('opacity', '1');
+    $container.effect("highlight", { color: "#F6F6F6" }, 1000);
+
+  <% end -%>
+  dirtyFlagging();
+});

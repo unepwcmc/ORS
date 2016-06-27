@@ -1,0 +1,8 @@
+<ul class="multi_options_answer">
+  <% answer_type.range_answer_options.sort.each do |option| %>
+      <li><input type="radio" name="answer<%=h answer_type.id%>" value="<%=h option.option_text.downcase %>"/><%=h option.option_text %></li>
+  <% end %>
+</ul>
+<p>
+  <strong>Help Text:</strong> <%= raw answer_type.help_text %><br />
+</p>

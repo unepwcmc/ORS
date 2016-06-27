@@ -1,0 +1,53 @@
+<div class="rank_answer span-15 last" >
+  <div class="span-7 colborder">
+    <p><strong><%= t('submission_pages.rank_options_t') %></strong> <%= t('submission_pages.rank_options_info') %> <%= if answer_type.maximum_choices != -1 then "#{t('submission_pages.rank_limit')} #{pluralize(answer_type.maximum_choices, t('submission_pages.rank_limit_word_s'), t('submission_pages.rank_limit_word_p'))}" end -%></p>
+    <ul id="options_rank_<%= answer_type.id %>" class='droptrue'>
+      <% answer_type.rank_answer_options.each do |option| -%>
+          <li class="ui-state-default" id="<%= "rank_option_" + option.id.to_s %>"><%= option.option_text %></li>
+      <% end -%>
+    </ul>
+  </div>
+  <div class="span-7 last">
+    <p><strong><%= t('submission_pages.rank_choices_t') %></strong> <%= t('submission_pages.rank_choices_info') %></p>
+    <ul id="choices_rank_<%= answer_type.id %>" class='droptrue'>
+    </ul>
+  </div>
+</div><!-- End rank answer -->
+
+<script type="text/javascript">
+    $(function(){
+        $("#options_rank_<%= answer_type.id %> li").each(function()
+        {
+            chooseOption($(this), "<%= answer_type.id %>", parseInt("<%= answer_type.maximum_choices %>"));
+        });
+        $("#choices_rank_<%= answer_type.id %> li").each(function(){
+            removeOption($(this), "<%= answer_type.id %>", parseInt("<%= answer_type.maximum_choices %>"));
+        });
+    });
+    function chooseOption(element, the_id, maximum_allowed)
+    {
+        element.unbind('click');
+        element.click(function(e){
+            e.preventDefault();
+            var position = $("#choices_rank_"+the_id).find('li').size();
+            if(maximum_allowed == -1 || position < maximum_allowed)
+            {
+                $(this).hide();
+                $("#choices_rank_"+the_id).append($(this));
+                $(this).show();
+                removeOption($(this), the_id, maximum_allowed);
+            }
+        })
+    }
+    function removeOption(element, the_id, maximum_allowed)
+    {
+        element.unbind('click');
+        element.click(function(e){
+            e.preventDefault();
+            $(this).hide();
+            $("#options_rank_"+the_id).append($(this));
+            $(this).show();
+            chooseOption($(this), the_id, maximum_allowed);
+        });
+    }
+</script>

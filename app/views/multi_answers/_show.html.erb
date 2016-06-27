@@ -1,0 +1,59 @@
+<%= render :partial => "answer_type_fields/show", :locals => { :answer_type_field => answer_type.answer_type_fields.find_by_language(language) } %>
+<p>
+  <strong>Display type:</strong>
+  <%= answer_type.display_type == 0 ?  "Selection Boxes"  : "List" %>
+</p>
+<p>
+  <strong>Selection type:</strong>
+  <%= answer_type.single ? "Single Selection" : "Multiple Selection" %>
+</p>
+<p>
+  <strong>Other field required:</strong>
+  <%= answer_type.other_required ? "Yes" : "No" %>
+</p>
+<% if answer_type.other_required? -%>
+    <p><strong>Other field label:</strong>
+        <%= answer_type.other_fields.sort_by { |a| a.is_default_language? ? 0 : 1 }.map{ |a| "#{a.other_text} (#{a.language})" }.join(', ') %>
+    </p>
+<% end -%>
+<p>
+  <strong>Options <%= info_tip "Multi options", "Options marked with a red * require a details field" %>:</strong>
+</p>
+<ul id="multi_answer_options_list">
+  <% answer_type.multi_answer_options.sort.each do |option| %>
+      <li id="opt_<%= option.id %>" class="pointer">
+        <%= option.details_field? ? "<span style='color:red'>*</span>".html_safe : ""%> <%=h option.option_text(language) %>
+      </li>
+  <% end %>
+</ul>
+
+<script type="text/javascript">
+
+  var data = {};
+
+  function sendData (data) {
+    $.ajax({
+      url: '/multi_answer_options/update_index',
+      type: 'PUT',
+      data: data,
+      error: function ( jqXHR, textStatus, errorThrown) { 
+       throw new Error(errorThrown);
+      }
+    });
+  }
+
+  function prepareData (event, ui) {
+    var obj = {};
+    var items = $(this).parent().find('li').each( function (idx, el) {
+      var id = $(this).attr("id").slice(4);
+      obj[idx] = id;
+    });
+    data.data = obj;
+    sendData(data);
+  }
+
+  $("#multi_answer_options_list").sortable({
+    stop: prepareData
+  });
+  
+</script>

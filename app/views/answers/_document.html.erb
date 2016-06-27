@@ -1,0 +1,15 @@
+<div class="option">
+  <li>
+    <%= f.label :doc, t('submission_pages.files_document') %>
+    <% if f.object.new_record? -%>
+        <%= f.file_field :doc %>
+    <% else -%>
+        <%= link_to h(f.object.doc_file_name), f.object.doc.url %>
+    <% end -%>
+  </li>
+  <li>
+    <%= f.label :description, t('submission_pages.attach_description') %>
+    <%= f.text_field :description, :size => 50  %>
+  </li>
+  <li><%= remove_child_link t('submission_pages.files_remove'), f -%></li>
+</div>

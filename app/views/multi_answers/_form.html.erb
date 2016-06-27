@@ -1,0 +1,30 @@
+<%= fields_for :answer_type, type do |builder| -%>
+    <li>
+      <%= render :partial => "answer_type_fields/form", :locals => { :f => builder, :answer_type_fields => type.answer_type_fields } %>
+    </li>
+    <li>
+      <%= builder.label :display_type, "Display type *" %>
+      <% list_of_options = {"Radio buttons/Check boxes" => 0, "Drop down list/Multi select" => 1}  %>
+      <%= builder.collection_select :display_type, list_of_options, :last, :first, {:prompt => true}, :class => "required"%>
+    </li>
+    <li>
+      <%= builder.check_box :single %>
+      <%= builder.label :single, "Single selection" %>
+    </li>
+    <li>
+      <%= builder.check_box :other_required %>
+      <%= builder.label :other_required, "\"Other\" field is required?"%>
+    </li>
+    <%= render :partial => 'multi_answers/other_text_fields', :locals => {:builder => builder} %>
+    <div id="options_fields">
+      <%= builder.fields_for(:multi_answer_options) do |option_form| %>
+          <%= render :partial => "multi_answers/multi_answer_option", :locals => {:f => option_form, :aux_builder => builder} %>
+      <% end %>
+      <%= new_child_fields_template builder, :multi_answer_options %>
+      <p>
+      <div class="buttons">
+        <%= add_child_link image_tag('icons/add_option.png') + " Add option", :multi_answer_options %>
+      </div>
+      </p>
+    </div><!-- /options_fields -->
+<%end -%>

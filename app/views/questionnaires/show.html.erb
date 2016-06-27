@@ -1,0 +1,35 @@
+<div class="span-24 last">
+  <%= render :partial => "administration/breadcrumbs" -%>
+  <div id="content_header">
+    <% info_tip_text = "<p>From this page you can build a questionnaire. You can add new sections to it, navigate through it (using the questionnaire structure presented on the left, or the breadcrumbs
+                        presented above the main menu), and edit it and its components.</p>" -%>
+    <%= render :partial => "administration/menu", :locals => {:header => ("Questionnaire " + info_tip("Questionnaire", info_tip_text)).html_safe, :include_options => "questionnaires" } -%>
+  </div>
+  <div class="span-15 colborder">
+    <div id="direct_actions">
+      <%= render :partial => "questionnaires/actions" %>
+    </div>
+    <div id="content">
+      <%= render :partial => 'questionnaires/show' %>
+    </div>
+  </div><!-- /content -->
+  <%= render :partial => 'layouts/tree' %>
+</div>
+
+<div class="span-15 colborder hide" id="add_section">
+</div><!-- /add_section -->
+
+<script type="text/javascript">
+    $(window).load(function(){
+        loadTree("<%=h escape_javascript(@questionnaire.title)%>", "<%=h @questionnaire.id%>", false, false); //true => activate_root
+        handleQuestionnaireOptions("<%=@questionnaire.id%>");
+        //Update the breadcrumb
+        $(function(){
+            $("#bcul").find("#bchome").nextAll().remove();
+            $("#bcul").append('<li id="bcquestionnaire"><%= escape_javascript(link_to h(@questionnaire.title.size > 20 ? @questionnaire.title[0,20] + "..." : @questionnaire.title), questionnaire_path(@questionnaire),:class => "get") %></li>');
+        });
+        myLib.questionnaire_show.init();
+        myLib.generator_side_generic.init();
+        myLib.text_areas.init();
+    });
+</script>

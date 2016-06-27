@@ -1,0 +1,15 @@
+<%= fields_for :answer_type, type do |builder| %>
+    <li>
+      <%= render :partial => "answer_type_fields/form", :locals => { :f => builder, :answer_type_fields => type.answer_type_fields } %>
+    </li>
+    <div id="numeric_field_options">
+      <li>
+        <%= builder.label :min_value, "Minimum value:" %>
+        <%= builder.text_field :min_value, :validate => "{number:true}" %>
+      </li>
+      <li>
+        <%= builder.label :max_value, "Maximum value:" %>
+        <%= builder.text_field :max_value, :validate => "{number:true}" %>
+      </li>
+    </div><!-- /numeric_field_options -->
+<%end%>

@@ -1,0 +1,14 @@
+<%= fields_for :answer_type, type do |builder| %>
+    <li>
+      <%= render :partial => "answer_type_fields/form", :locals => { :f => builder, :answer_type_fields => type.answer_type_fields } %>
+    </li>
+    <div id="text_fields">
+      <%= builder.fields_for :text_answer_fields do |option_form| %>
+          <%= render :partial => "text_answers/text_answer_field", :locals => {:f => option_form, :aux_builder => builder } %>
+      <% end %>
+      <%= new_child_fields_template builder, :text_answer_fields %>
+      <li>
+        <%= add_child_link "Add a text field", :text_answer_fields %>
+      </li>
+    </div><!-- /text_fields -->
+<%end%>

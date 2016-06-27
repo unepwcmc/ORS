@@ -1,0 +1,6 @@
+$(function(){
+    $("#content_header").empty().append("<%= escape_javascript( render :partial => "administration/menu", :locals => {:header => "Preview Section", :include_options => "sections"} ) %>")
+    $("#content").empty();
+    $("#content").append("<%= escape_javascript(render(:partial => "preview", :locals => {:section => @section, :root => true, :number => 0, :loop_item => nil}))%>");
+    $("#direct_actions").empty().append("<%= escape_javascript(render(:partial => "actions")) %>");
+});

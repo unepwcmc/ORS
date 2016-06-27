@@ -1,0 +1,75 @@
+<%= fields_for :answer_type, type do |builder| -%>
+    <li>
+      <%= render :partial => "answer_type_fields/form", :locals => { :f => builder, :answer_type_fields => type.answer_type_fields } %>
+    </li>
+    <div>
+      <p style="font-weight:600; font-size:13px">Range type question <%=info_tip("Range Type","<p>The range type question allows the definition of values, which occur within a range e.g. 0-10, 11-20, 21-30 etc..., and this makes it easier for analysis purposes. <br /><br /> Enter each range values in the table below by pressing the 'Add Option', and <span style='color:yellow'>make sure you press enter on the last entry, else it will not be included.</span></p>")%> </p>
+    </div>
+    <div id="options_fields">
+      <table id="options_list"><tr><td>&nbsp;</td></tr></table>
+      <p><a href="#" id="addNewOption">Add option</a> | <a href="#" id="removeSelectedOptions">Remove selected</a></p>
+      <%= builder.fields_for(:range_answer_options) do |option_form| %>
+          <%= render :partial => "range_answers/range_answer_option", :locals => {:f => option_form, :aux_builder => builder} %>
+      <% end %>
+      <%= new_child_fields_template builder, :range_answer_options %>
+    </div><!-- /options_fields -->
+<%end -%>
+
+<script type="text/javascript">
+  $(function(){
+        <% languages = type.answer_type_fields.sort_by{ |a| a.is_default_language? ? 0 : 1 } %>
+        <% data_stub =  ", " + languages.map{|a| "#{a.language_english_name} : ''"}.join(', ') %>
+
+        var the_data_stub = [
+            {
+                id: -1,
+                Index: -1
+                <%= data_stub.html_safe %>
+            }
+        ];
+        <% if !type.new_record? -%>
+            <% j = 0 %>
+                var optionsData = [
+                    <% type.range_answer_options.sort.each_index do |i| %>
+                        {
+                            id: "<%= j %>",
+                            Index: "<%= type.range_answer_options[i].sort_index %>" 
+                            <%= ", " + type.range_answer_options[i].range_answer_option_fields.sort_by{ |a| a.is_default_language? ? 0 : 1 }.map{|a| "#{a.language_english_name} : '#{h(a.option_text)}'"}.join(', ') %>
+                        }
+                        <% if i < type.range_answer_options.size %>
+                            ,
+                        <% end -%>
+                        <% j += 1 %>
+                    <% end -%>
+                ];
+        <% end -%>
+
+        var columnNames = [
+                "Index",
+            <% languages.each_index do |i| -%>
+                '<%= languages[i].language_english_name %>'
+                <% if i < languages.size -%>
+                    ,
+                <% end -%>
+            <% end -%>
+        ];
+
+        var columnModel = [
+            {name: 'Index', index: 'Index', sortable: false, editable: false, width: 30, fixed: true },
+            <% languages.each_index do |i| -%>
+                {name:'<%= languages[i].language_english_name %>', index:'<%= languages[i].language_english_name %>', sortable:false, editable: true, edittype:'textarea', editoptions:{maxlength: 3000}}
+                <% if i < languages.size -%>
+                    ,
+                <% end -%>
+            <% end -%>
+        ];
+
+       <% if type.new_record? -%>
+            //options
+            answerTypeGrid(columnNames, columnModel, the_data_stub, [], "options_list", "List of options", "addNewOption", "removeSelectedOptions", "range_answer_options", "range_answer_option_fields", true, "option_text");
+        <% else -%>
+            //options
+            answerTypeGrid(columnNames, columnModel, the_data_stub, optionsData, "options_list", "List of options", "addNewOption", "removeSelectedOptions", "range_answer_options", "range_answer_option_fields", true, "option_text");
+        <% end -%>
+  });
+</script>

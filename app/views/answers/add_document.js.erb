@@ -1,0 +1,5 @@
+$(function(){
+    $("#add_document").empty().append("<%= escape_javascript( render :partial => "answers/add_document") %>")
+            .dialog("open");
+    $("#upload_doc").jaxy();
+});

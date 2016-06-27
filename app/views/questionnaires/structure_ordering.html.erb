@@ -1,0 +1,83 @@
+<div class="span-24 last">
+  <div id="content_header">
+    <%= render :partial => "administration/breadcrumbs" -%>
+    <%= render :partial => "administration/menu", :locals => {:header => "Questionnaire structure ordering", :include_options => "questionnaires"} -%>
+  </div>
+  <div class="clear span-14 colborder" id="demo" class="demo"></div>
+  <div id="questionnaire" class="no_dialog"></div>
+  <div class="span-9 last" id="q_dashboard">
+    <h4>Rules for moving the tree nodes</h4>
+    <ol>
+      <li>The root node can't be moved</li>
+      <li>All objects can be re-ordered with their siblings</li>
+      <li>Questions can not be moved to the root of the tree</li>
+      <li>Questions with loop item types or extra information regarding loop items associated can not change parent</li>
+      <li>Sections can not be moved inside their own descendants</li>
+      <li>Sections can not be moved if they are of looping type</li>
+      <li>Sections can not be moved if they have extra information regarding loop items associated with them</li>
+    </ol>
+    <h4>Nodes info</h4>
+    <div id="node_info_container">
+    </div>
+  </div>
+</div>
+<script type="text/javascript">
+    $(function(){
+        $("#demo").bind('move_node.jstree', function(e, data){
+            var moved_node = data.rslt.o;
+            //var position = data.rslt.p;
+            var new_parent = data.rslt.np;
+            var cp = data.rslt.cp;
+            if(data.rslt.rt.check_move())
+            {
+                $.ajax({ url: RAILS_ROOT+"/questionnaires/<%= @questionnaire.id %>/move_questionnaire_part/",
+                    type:'put',
+                    dataType:'script',
+                    data : {
+                        node_id: moved_node.attr("id"),
+                        new_parent: new_parent.attr("id"),
+                        position_index: cp
+                    },
+                    success: function(){
+                        flash_message("notice", "Move successful");
+                    },
+                    error: function(){
+                        flash_message("error", "Move is not possible");
+                    }
+                })
+            }
+        }).bind('hover_node.jstree', function(e, data){
+            var selected_node = data.rslt.obj;
+            if(selected_node.attr("id") != "root")
+                $.ajax({ url: RAILS_ROOT+"/questionnaire_parts/" +selected_node.attr("id")+"/node_move_information/",
+                    type: 'get',
+                    dataType: 'script'
+                })
+        }).jstree({
+            "crrm": {
+                "move" : {
+                    "check_move" : function(m) {
+                        var old_parent = m.ot._get_parent(m.o);
+                        var new_parent = m.np;
+                        if( old_parent.attr("id") == new_parent.attr("id") )
+                            return true;
+                        if(new_parent.attr("id") == "root" && m.o.attr("is_question") == "true")
+                            return false;
+                        if(m.o.attr('display_in_tab') == 'true' && new_parent.attr('looping_branch') == 'true')
+                            return false;
+                        return (m.o.attr("movable") == "true" && new_parent.attr("targetable") == "true");
+                    }
+                }
+            },
+            "ui": {
+                "select_limit" : 1
+            },
+            "json_data" : {
+                "ajax" : {
+                    "url" : RAILS_ROOT + "/questionnaires/<%= @questionnaire.id %>/jstree"
+                }
+            },
+            "plugins" : [ "themes", "types", "json_data", "ui", "crrm", "dnd", "contextmenu" ]
+        })
+    })
+</script>

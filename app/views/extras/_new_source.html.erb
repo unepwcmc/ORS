@@ -1,0 +1,16 @@
+<%= form_tag( {:controller => "extras", :action=>"upload_source"}, { :multipart => true, :id => "extra_source", :class => "formtastic" }) do -%>
+    <div id="error_container" class="error_container">
+      <h5>There are some errors in your form submission, please see details below</h5>
+      <ul id="error_messages"></ul>
+    </div>
+    <fieldset>
+      <legend>Add source for <%=h @extra.name %> of <%=h @extra.loop_item_type.name %></legend>
+      <ol>
+        <li>
+          <%= label_tag :source %>
+          <%= file_field_tag :source, :validate => "{required:true}" %>
+        </li>
+        <li><%= submit_tag "Upload" %></li>
+      </ol>
+    </fieldset>
+<% end -%>

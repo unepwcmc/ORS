@@ -1,0 +1,48 @@
+$(function(){
+    $("#content_header").empty()
+                        .append("<%= escape_javascript( render :partial => "administration/menu", :locals => {:header => "Question", :include_options => "questions"} ) %>");
+    $("#content").empty()
+                 .append("<%= escape_javascript(render(:partial => "questions/show"))%>");
+    $("#direct_actions").empty().append("<%= escape_javascript( render :partial => "questions/actions") %>");
+    var $bcquestionnaire = $("#bcquestionnaire");
+    //breadcrumb update
+    $(function(){
+        if($("#bcul").find("#bcq<%=h @question.id%>").empty())
+        {
+            <% the_title = @question.section.tab_title.present? ? @question.section.tab_title : @question.section.title %>
+            <% the_title = Sanitize.clean(the_title).strip.gsub("\n\n","") -%>
+            $bcquestionnaire.nextAll().remove()
+                    .after('<li id="bcq<%=h @question.id%>"><%= escape_javascript(link_to h(@question.short_title), question_path(@question),:class => "get")%></li>')
+                    .after('<li id="bc<%=h @question.section.id%>"><%= escape_javascript(link_to (the_title.size > 20 ? the_title[0,20] + "..." : the_title[0,20]), section_path(@question.section),:class => "get")%></li>');
+        <% unless @question.section.ancestors.empty? %>
+            <% @question.section.ancestors.reverse.each do |a| %>
+                <% the_title = a.tab_title.present? ? a.tab_title : a.title %>
+                <% the_title = Sanitize.clean(the_title).strip.gsub("\n\n","") -%>
+                $bcquestionnaire.after('<li id="bc<%=h a.id%>"><%= escape_javascript(link_to (the_title.size > 20 ? the_title[0,20] + "..." : the_title[0,20]), section_path(a),:class => "get")%></li>');
+            <%end%>
+        <% end %>
+        }
+        else
+            $("#bcq<%=h @question.id%>").nextAll().remove();
+
+    });
+    //Show AddQuestion Div and call the new action on the questions controller
+    $("#show_add_question").click(function(e){
+        e.preventDefault();
+        collapseInfoGeneratorShowPages();        
+        $("#addSubSection").empty().hide();
+        if(!$("#add_question").is(':visible'))
+        {
+            $("#add_question").show();
+            //$.ajax({url: RAILS_ROOT+'/questions/new/<%#= @question.section.id%>', type: 'get', dataType: 'script'})
+            $.ajax({url: RAILS_ROOT+'/questionnaires/<%= @question.questionnaire.id %>/questionnaire_parts/new/',
+                type: 'get',
+                dataType: 'script',
+                data: {
+                    part_type: "Question",
+                    parent_id: "<%= @question.section.questionnaire_part.id %>"
+                }
+            })
+        }
+    });
+});

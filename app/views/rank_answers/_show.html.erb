@@ -1,0 +1,15 @@
+<%= render :partial => "answer_type_fields/show", :locals => { :answer_type_field => answer_type.answer_type_fields.find_by_language(language) } %>
+<p>
+  <strong>Maximum choices:</strong>
+  <%= answer_type.maximum_choices %>
+</p>
+<p>
+  <strong>Options:</strong>
+</p>
+<ul>
+  <% answer_type.rank_answer_options.each do |option| %>
+      <li>
+        <%=h option.option_text(language) %> 
+      </li>
+  <% end %>
+</ul>

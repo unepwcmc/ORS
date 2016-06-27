@@ -1,0 +1,15 @@
+$(function(){
+    <%- flash.each do |name, msg| -%>
+        flash_message("<%=h name%>", "<%=h msg %>");
+        <%- flash.delete(name) -%>
+    <%- end -%>
+    <% if @users %> //if any users have been authorized
+        <% @users.each do |user| %>
+            <% authorized_submitter = user.authorized_submitters.find_by_questionnaire_id(@questionnaire.id) || nil %>
+            $("#auth_<%=user.id.to_s%>").html("<%= authorized_submitter.status == SubmissionStatus::NOT_STARTED ? "Authorizing" : "Yes" %>"); //change the "Authorized" to "Yes"
+            $("#auth_<%=user.id.to_s%>").effect("highlight", {color: "green"}, 1000); //highlight the row with color green
+        <% end %>
+        $("#myTable").trigger("update") //"tell" the table that it has been updated
+                .trigger("sorton", [[]]); //remove the sorting.
+    <% end %>
+});

@@ -1,0 +1,9 @@
+$(function(){
+    $("#content_header").empty();
+    $("#content_header").append("<%= escape_javascript( render :partial => "administration/menu", :locals => {:header => "Preview Question", :include_options => "questions"} ) %>")
+    $("#content").empty();
+    $("#content").append("<%= escape_javascript(render(:partial => "preview", :locals => {:question => @question, :root => true}))%>");
+    $("#direct_actions").empty().append("<%= escape_javascript(render(:partial => "actions")) %>");
+
+    //ajaxLinks();
+});

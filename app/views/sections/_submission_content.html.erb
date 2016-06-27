@@ -1,0 +1,117 @@
+<% lazy_loading ||= [] -%>
+<% lazy_loading_limit = 10 -%>
+<%
+   q_not_closed = !@authorization[:is_closed]
+   is_delegate = @authorization[:sections]
+-%>
+<div class="info clear <%= section.is_hidden? || root || !section.starts_collapsed? ? "" : "hide" %>">
+  <%= hidden_field_tag "sections_disabled[#{append_identifier(section, looping_identifier)}]", (disabled ? 1 : 0), :class => "disabled_section_information" %>
+  <% if !section.is_hidden? -%>
+      <% field_to_use = section_field && section_field.description.present? ? section_field : section_field_default %>
+      <% if field_to_use && field_to_use.description.present? -%>
+          <p>
+            <%= raw Sanitize.clean((section.section_extras.present? && loop_item.present?) ?  field_to_use.replace_variables(:description, @authorization[:language], loop_sources, loop_item) : field_to_use.description, OrtSanitize::Config::ORT) %>
+          </p>
+      <% end -%>
+  <% end -%>
+  <% section.questionnaire_part.children_parts_sorted.each do |child|
+      if child.is_a?(Question) -%>
+        <%= render :partial => "questions/submission", :locals => {:question => child, :loop_item => loop_item, :question_field => @fields[:questions_field][child.id.to_s], :question_field_default => @fields[:questions_field_default][child.id.to_s], :answer_type_help_text => @fields[:answer_types_field].present? ? @fields[:answer_types_field][(child.answer_type_id.to_s + "_" + child.answer_type_type)] : nil, :loop_sources => loop_sources, :disabled => disabled, :looping_identifier => looping_identifier}, :inline => true %>
+      <% else -%>
+          <% if child.looping?
+          items = child.next_loop_items loop_item, loop_sources
+              #previously was : items.size > lazy_loading_limit + 80
+              if ( items.size > lazy_loading_limit) && !child.loop_item_type.is_filtering_field? -%>
+                  <div class="clear lazy_loading">
+                    <h3><%= t 's_details.choose_loop_item' %><%= info_tip(t('s_help.choose_loop_item_title'), t('s_help.choose_loop_item_helptext')) %></h3>
+                    <% loop_items_available = child.remove_unavailable(items, @authorization[:user]).sort %>
+                    <p><%= select "lazy_loading_#{append_identifier(child, looping_identifier)}", nil, options_for_select( loop_items_available.collect{ |item| [item.item_name(@authorization[:language]), item.id] } ), { :include_blank => t("submission_pages.choose")+": #{items.first.loop_item_type.name}" } %></p>
+                   <script type="text/javascript">
+                    <% loop_items_available.each do |l_item| %>
+                      <% if @authorization[:user].answered_anything_here(child, (looping_identifier ? looping_identifier+"S"+l_item.id.to_s : l_item.id.to_s)) %>
+                        $("#lazy_loading_<%=append_identifier(child, looping_identifier)%>_ option[value='<%=l_item.id%>']").addClass("loop_item_with_answers");
+                        $("#lazy_loading_<%=append_identifier(child, looping_identifier)%>_ option[value='<%=l_item.id%>']").text( $("#lazy_loading_<%=append_identifier(child, looping_identifier)%>_ option[value='<%=l_item.id%>']").text() + " **");
+                      <% end %>
+                    <% end %>
+                  </script>
+                  </div>
+                  <div id="lazy_loading_content_<%= append_identifier(child, looping_identifier) %>"></div>
+                  <% lazy_loading << { :section => child.id, :loop_sources => loop_sources, :size => items.size, :looping_identifier => looping_identifier } -%>
+              <% else -%>
+                  <% items.each do |item| -%>
+                      <% if child.available_for? @authorization[:user], item -%>
+                          <% loop_sources[child.loop_source.id.to_s] = item -%>
+                          <% #check if a section questions should be disabled:
+                             # - If the questionnaire was submitted
+                             # or
+                             # - If the user is a delegate and this child section is not available to it
+                             # or
+                             # - If a specific loop item (for looping sections) is not available to the delegate
+                             # or
+                             # - the parent section is disabled
+                             child_available = !is_delegate || ((@authorization[:sections].has_key?(child.id.to_s) && @authorization[:sections][child.id.to_s].empty?) || (@authorization[:sections].has_key?(child.id.to_s) && @authorization[:sections][child.id.to_s].include?(item.loop_item_name.id) ))
+                             is_disabled = !( q_not_closed && ( child_available || !disabled ) ) %>
+                             <%= render :partial => "sections/submission", :locals => { :section => child, :root => false, :loop_item => item, :loop_sources => loop_sources, :section_field => @fields[:sections_field][child.id.to_s], :section_field_default => @fields[:sections_field_default][child.id.to_s], :section_visible => section_visible, :load_lazy => ( items.size > lazy_loading_limit && !child.loop_item_type.is_filtering_field?), :disabled => is_disabled, :looping_identifier => (looping_identifier ? "#{looping_identifier}#{LoopItem::LOOPING_ID_SEPARATOR}#{item.id.to_s}" : item.id.to_s) }, :inline => true %>
+                      <% end -%>
+                  <% end -%>
+              <% end -%>
+          <% else -%>
+              <% child_available = !is_delegate || @authorization[:sections].has_key?(child.id.to_s) -%>
+              <% is_disabled = !( q_not_closed && ( child_available || !disabled ) ) %>
+              <%= render :partial => "sections/submission", :locals => { :section => child, :root => false, :loop_item => loop_item ? loop_item : nil, :loop_sources => loop_sources, :section_field => @fields[:sections_field][child.id.to_s], :section_field_default => @fields[:sections_field_default][child.id.to_s], :section_visible => section_visible, :load_lazy => false, :disabled => is_disabled, :looping_identifier => looping_identifier }, :inline => true  %>
+          <% end -%>
+      <% end -%>
+  <% end -%>
+</div>
+<script type="text/javascript">
+    $(document).ready(function(){
+    <% lazy_loading.each do |l| -%>
+        $("#lazy_loading_<%= l[:section].to_s + (l[:looping_identifier] ? "_#{l[:looping_identifier]}_" : "_0_") %>").change(function(){
+            var value = $(this).val();
+            if(value != "")
+            {
+                //set the form to auto-save mode
+                $("#auto_save").val("1");
+                //disable the automatic dialog
+                $("#questionnaire").addClass("no_dialog");
+                //submit the form to save the questions
+                $("form.sectionSubmission").submit();
+                //open the "please wait" dialog manually"
+                $("#requests_dialog").dialog("open");
+                $("#lazy_loading_content_<%= l[:section].to_s + (l[:looping_identifier] ? "_" + l[:looping_identifier] : "" ) %>").css('opacity', '0.4');
+                //make the requests for the new section
+                $.ajax({url: RAILS_ROOT+"/sections/<%= l[:section] %>/load_lazy", type: 'get', dataType: 'script',
+                    data: {
+                        loop_item_id: value,
+                        loop_sources: {
+                            <% if l[:loop_sources].present? -%>
+                              <% loop_sources = l[:loop_sources].to_a %>
+                              <% loop_sources.each_index do |i| %>
+                                "<%= loop_sources[i][0] %>": "<%= loop_sources[i][1].id %>"
+                                <%= if (i + 1) != loop_sources.size then "," end %>
+                              <% end -%>
+                            <% end -%>
+                        },
+                        size: "<%= l[:size] %>",
+                        disabled: "<%= disabled %>",
+                        section_visible: "<%= section_visible -%>",
+                        looping_identifier: "<%= l[:looping_identifier] %>"
+                    },
+                    //on success of the request :
+                    success: function(){
+                        //turn off the auto_save mode
+                        $("#auto_save").val("0");
+                        //enable the "please wait" dialog again.
+                        $("#questionnaire").removeClass("no_dialog");
+                        //close the "please wait" dialog box.
+                        $("#requests_dialog").dialog("close");
+                    }
+                })
+            }
+            else{
+              $('#lazy_loading_content_<%= l[:section].to_s + (l[:looping_identifier] ? "_#{ l[:looping_identifier] }" : "" ) %>').empty();
+            }
+        });
+    <% end -%>
+    })
+</script>

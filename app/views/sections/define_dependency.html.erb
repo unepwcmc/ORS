@@ -1,0 +1,76 @@
+<div class="span-24 last">
+  <div id="content_header">
+    <%= info_tip_text = "<p>In this page you can define a relation of dependency for this section. Defining which conditions must be met for it to be displayed to a user.</p>".html_safe -%>
+    <%= render :partial => "administration/menu", :locals => {:header => ("Set section dependency" + info_tip("Questionnaire's loop sources", info_tip_text)).html_safe, :include_options => "sections"} -%>
+  </div>
+  <div class="span-15 colborder" id="content">
+    <% field = @section.section_fields.find_by_is_default_language(true) || @section.section_fields.first -%>
+    <h3>
+      Section: <%= Sanitize.clean(field.tab_title.present? ? field.tab_title : ( field.title.present? ? field.title : "#Not specified#" )).html_safe %>
+    </h3>
+    <h4>Dependency constraints</h4>
+    <ol>
+      <li>A <strong>section</strong> cannot be dependent on <strong>its</strong> own or <strong>its</strong> descendants questions</li>
+      <li>A <strong>section</strong> can only depend on looping sections' questions, if the looping section it's an ancestor of the <strong>section</strong>.</li>
+      <li>A <strong>section</strong> can only depend on Multi Answer questions</li>
+    </ol>
+    <%= form_for( @section, :url => { :action => :set_dependency }, :html => { :class => "normal formtastic", :id => "generator_form", :method => :post } ) do |f| %>
+        <div id="error_container" class="error_container">
+          <h5>There are some errors in your form submission, please see details below</h5>
+          <ul id="error_messages"></ul>
+        </div>
+        <fieldset>
+          <ol>
+            <li>
+              <%= label_tag :sections, "Section * #{info_tip("Dependency", "First you need to choose a section. Then a list of all the available questions for that section will be presented. Allowing you to choose the question that this section will depend on.")}".html_safe %>
+              <%= select 'sections', nil, options_for_select(@all_sections.collect{ |i| ["#{'-'*i.level} #{OrtSanitize.white_space_cleanse((i.root? ? i.tab_title : i.title))[0,65]}", i.id ] }, :selected => @section.section_that_this_depends_on ), { :include_blank => "Choose a section" }, { :validate => "{required:true}"} %>
+            </li>
+            <div id="question"><li>
+              <% q_options = @section.depends_on_option ? ( questions_based_on_dependency_of @section ) : { } -%>
+              <%= label_tag :section_depends_on_question, "Question * #{info_tip("Dependency", "Here will be listed the available questions for the selected section. Only questions with Multiple Options answer type will be available for you to select.")}".html_safe %>
+              <%= select :section, :depends_on_question, q_options , { :include_blank => "Choose a question" }, { :validate => "{required:true}"} %>
+            </div><!-- /question -->
+            <div id="options">
+              <li>
+                <%= label_tag :depends_on_option, "Option * #{info_tip("Dependency", "Here will be displayed the options of the Multi Options question that you selected above. Select the option that this section will depend on.")}".html_safe -%>
+                <% o_options = {}
+                   if @section.depends_on_option
+                       o_options = options_for_select(@section.depends_on_option.multi_answer.multi_answer_options.sort.collect{ |i| [i.option_text[0,65], i.id]}, :selected => @section.depends_on_option_id)
+                   end %>
+                <%= select :section, :depends_on_option, o_options, { :include_blank => @section.depends_on_option ? "Choose an Option" : false }, { :validate => "{required:true}"} %>
+              </li>
+            </div><!-- /options -->
+            <li>
+              <%= f.label :depends_on_option_value, "Value * #{info_tip("Dependency", "A section can depend on an option being or not being selected. Please choose which one you want here.")}".html_safe %>
+              <%= f.select :depends_on_option_value, options_for_select({ "Unselected" => "0" ,  "Selected" => "1" }, :selected => @section.depends_on_option ? ( @section.depends_on_option_value? ? "1" : "0" ) : ""), { :include_blank => "Choose a value" }, { :validate => "{required:true}"} %>
+            </li>
+          </ol>
+          <p><%= submit_tag "Set Dependency" %></p>
+        </fieldset>
+        <div class="error_container">
+          <h5>There are errors in your form submission, please see details above the form!</h5>
+        </div>
+    <% end %>
+  </div><!-- /content -->
+  <%= render :partial => 'layouts/tree' -%>
+</div>
+<script type="text/javascript">
+    $(document).ready(function(){
+        initialiseDefineDependencyPage("<%=params[:id]%>");
+        loadTreeAndActivateNode("<%= escape_javascript(@section.root.questionnaire.title ) %>","<%= @section.root.questionnaire.id %>","<%=@section.id%>");
+        handleSectionOptions("<%=@section.id%>");
+        formValidation();
+        //breadcrumb update
+        $(function(){
+            $("#bcul").find("#bchome").nextAll().remove();
+            var new_stuff = '<li id="bcquestionnaire"><%= escape_javascript(link_to h(@section.root.questionnaire.title.size > 20 ? @section.root.questionnaire.title[0,20] + "..." : @section.root.questionnaire.title), questionnaire_path(@section.root.questionnaire.id),:class => "get") %></li>'.html_safe
+            $("#bcul").append(new_stuff);
+        <% unless @section.ancestors.empty?
+            @section.ancestors.reverse.each do |a| %>
+                $("#bcquestionnaire").after('<li id="bc<%=h a.id%>"><%= escape_javascript(link_to h(a.title.size > 20 ? a.title[0,20] + "..." : a.title), section_path(a),:class => "get")%></li>');
+            <% end
+        end %>
+            $("#bcul").append('<li id="bc<%=h @section.id%>"><%= escape_javascript(link_to h(@section.title.size > 20 ? @section.title[0,20]+"..." : @section.title), section_path(@section),:class => "get")%></li>');
+        });
+    });
+</script>

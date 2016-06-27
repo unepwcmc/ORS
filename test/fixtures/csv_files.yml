@@ -1,0 +1,25 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+one:
+  questionnaire_id: 1
+  file_name: MyString
+  file_location: MyString
+
+two:
+  questionnaire_id: 1
+  file_name: MyString
+  file_location: MyString
+
+
+# == Schema Information
+#
+# Table name: csv_files
+#
+#  id          :integer          not null, primary key
+#  name        :string(255)
+#  location    :string(255)
+#  created_at  :datetime
+#  updated_at  :datetime
+#  entity_type :string(255)
+#  entity_id   :integer
+#

@@ -1,0 +1,15 @@
+<p>
+  <% if @question.questionnaire.inactive? && "preview" != controller.action_name %>
+    <% info_tip_text = "<p>Clicking here will present you with a form to add a new question to the questionnaire. The new question will be added as a sibling of this question.</p>"-%>
+    <a href="#" class="li_tooltip" title="<%= "Add question - " +info_tip_text %>" id="show_add_question">Add question</a> |
+    <% info_tip_text = "<p>Displays a form where you can edit this question's details.</p>"-%>
+    <%= link_to "Edit", edit_question_path(@question), :class => 'get li_tooltip', :title => "Edit - " +info_tip_text %> |
+  <% end %>
+  <% if "preview" == controller.action_name %>
+    <% info_tip_text = "<p>Takes you back to the page of this question.</p>"-%>
+    <li class="li_tooltip" title="<%= "Question - " +info_tip_text %>"><%= link_to "Close preview", question_path(@question), :class => 'get' %>
+  <% else %>
+    <% info_tip_text = "<p>Displays a quick preview of this question, as it will be seen in the submission side.</p>"-%>
+    <%= link_to "Preview", preview_question_path(@question.id), :class => 'get li_tooltip', :title => "Preview question - " +info_tip_text %>
+  <% end %>
+</p>

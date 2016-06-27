@@ -1,0 +1,21 @@
+<p>Hi <%=h @user.full_name %>,</p>
+
+<p>The following questionnaire is due on <%=h @deadline.strftime("%H:%M:%S %B %d, %Y") %>:</p>
+
+<p>
+  <strong>Title:</strong> <%=h @questionnaire.title %><br />
+  <strong>Default language:</strong> <%=h @questionnaire.language_english_name %><br/>
+  <strong>Available languages:</strong> <%= @questionnaire.questionnaire_fields.map{|a| a.language_english_name}.join(', ') %><br/>
+  <strong>Year:</strong> <%= @questionnaire.questionnaire_date.strftime('%Y') %><br />
+</p>
+
+<p>Please go to <a href="<%= @url %>/questionnaires/<%= @questionnaire.id %>/submission">this link</a> to finish your answers
+  and submit it.</p>
+<p>The questionnaire is also available through your dashboard.</p>
+
+<p>Best regards,<br />
+  The <%= ApplicationProfile.title %> team
+</p>
+<p>
+  <%=h @questionnaire.email_footer %>
+</p>

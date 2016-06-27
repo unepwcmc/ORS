@@ -1,0 +1,11 @@
+$(function(){    //Add the flash notice message
+    <%- flash.each do |name, msg| -%>
+        flash_message("<%=h name%>", "<%=h msg %>");
+        <%- flash.delete(name) -%>
+    <%- end -%>
+    //update tree entry:   The title treaming is done in the js function.
+    <% the_title = @section.tab_title.present? ? @section.tab_title : @section.title -%>
+    <% the_title = Sanitize.clean(the_title).strip.gsub("\n\n","") -%>
+    updateTreeNode("<%= escape_javascript(the_title) %>");
+    $.ajax({ url: RAILS_ROOT+"/sections/"+"<%= @section.id %>", type: 'get', dataType: 'script'});
+});

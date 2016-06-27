@@ -1,0 +1,26 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+one:
+  range_answer_option_id: 1
+  option_text: MyString
+  language: MyString
+  is_default_language: MyString
+
+two:
+  range_answer_option_id: 1
+  option_text: MyString
+  language: MyString
+  is_default_language: MyString
+
+# == Schema Information
+#
+# Table name: range_answer_option_fields
+#
+#  id                     :integer          not null, primary key
+#  range_answer_option_id :integer
+#  option_text            :string(255)
+#  language               :string(255)
+#  created_at             :datetime
+#  updated_at             :datetime
+#  is_default_language    :boolean
+#

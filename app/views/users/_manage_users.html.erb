@@ -1,0 +1,38 @@
+<div id="options" class="clear">
+  <p>
+    <% if @questionnaire %>
+        <button type="button" name="authorize" class="authorization_buttons">Authorize</button>
+        <button type="button" name="remove" class="authorization_buttons">De-authorize</button>
+    <% end %>
+
+    <%= select_tag(
+      "groups",
+      options_for_select(@groups.sort{|x,y| x.name <=> y.name}
+        .collect {|p| [ p.name, p.name ] }),
+      { :include_blank => 'Add users to a group' }
+    ) %>
+
+    <%= text_field_tag "group", nil, placeholder: "Enter name for new group" %>
+    <button type="button" name="group" class="authorization_buttons">Add</button>
+     <span id="loading" class="hide"><%= image_tag('spinner.gif') %></span>
+  </p>
+  <p>
+    <a href="#" id="add_new_user">Add user</a>
+    <%= link_to "Add list of users", add_list_users_path %>
+    |
+    <strong>Select:</strong>
+    <a href="#" id="check_all">all</a>
+    <a href="#" id="uncheck_all">none</a>
+    <% if @questionnaire %>
+        <a href="#" id="check_authorized">authorized</a>
+        <a href="#" id="check_unauthorized">not authorized</a>
+        <a href="#" id="check_authorizing">authorizing</a>
+    <% end %>
+    |
+    <label for="filter">Search:</label>
+    <input type="text" name="filter" id="filter" value="" placeholder="Type your search here... " size="25"/>
+    <%= select_tag 'groups_list', options_from_collection_for_select(@groups, "name", "name"), {:include_blank => "Select a group" } %>
+    <a href="#" id="clear_search">Clear Search</a>
+
+  </p>
+</div><!-- /options -->

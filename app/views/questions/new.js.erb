@@ -1,0 +1,20 @@
+$(function(){
+    var part_answer_type_type = $("#part_answer_type_type");
+    $("#add_question")
+    .append("<%= escape_javascript(render(:partial => "questionnaire_parts/new"))%>");
+    //Function to control the "Answer Type" Select Box (for the answer type type)
+    part_answer_type_type.expire();
+    part_answer_type_type.livequery('change', function(){
+        var selectVal = $(this).val();
+        var resultVal = selectVal.replace(/Answer/,"");
+        $("#answer_type").hide('slow').empty();
+        if(resultVal != ""){
+            $.ajax({
+                url: RAILS_ROOT+'/'+resultVal.toLowerCase()+'_answers/new/', 
+                type: 'get', 
+                dataType: 'script', 
+                data: {questionnaire_id: "<%= @questionnaire.id.to_s %>"}
+            });
+        }
+    });
+});

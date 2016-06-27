@@ -1,0 +1,10 @@
+<% the_id ||= "" %>
+<% columns.each do |column| %>
+    <% the_id_for_col = "answers[#{the_id}_"+ ( queries_as_rows ? "#{row_id}" : "#{column.id}")+"]" -%>
+    <% id = queries_as_rows ? column.id : row_id %>
+    <% selected = queries_as_rows ? (selection[row_id] ? selection[row_id].key?(column.id.to_s) : false ) : ( selection[column.id.to_s] ? selection[column.id.to_s].key?(row_id) : false) %>
+    <td>
+      <%= hidden_field_tag the_id_for_col, "" %>
+      <%= radio_button_tag the_id_for_col, id, selected, :disabled => disabled %>
+    </td>
+<% end -%>

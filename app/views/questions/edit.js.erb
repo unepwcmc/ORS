@@ -1,0 +1,20 @@
+$(function(){
+    $("#content_header").empty()
+            .append("<%= escape_javascript( render :partial => "administration/menu", :locals => {:header => "Edit Question", :include_options => "questions"} ) %>");
+    $("#content").empty()
+            .append("<%= escape_javascript(render(:partial => "edit"))%>");
+    //Function to control the "Answer Type" Select Box
+    $("#part_answer_type_type").change(function(){
+        var selectVal = $(this).val();
+        var resultVal = selectVal.replace(/Answer/,"");
+        $("#answer_type").hide('slow').empty();
+        if(resultVal != "")
+        {
+            //$("#answerType").append("<%#= escape_javascript(render(:partial => "multi_answers/new", :locals => {:question => @question}))%>");            break;
+            if(selectVal == "<%= @question.answer_type_type %>")
+                $.ajax({url: RAILS_ROOT+'/'+resultVal.toLowerCase()+'_answers/<%= @question.answer_type_id %>/edit', type: 'get', dataType: 'script', data: {questionnaire_id: "<%= @question.questionnaire.id.to_s %>"}});
+            else
+                $.ajax({url: RAILS_ROOT+'/'+resultVal.toLowerCase()+'_answers/new/', type: 'get', dataType: 'script', data: {questionnaire_id: "<%= @question.questionnaire.id.to_s %>"}});
+        }
+    });
+});

@@ -1,0 +1,13 @@
+$(function(){
+    //Add the flash notice message
+    <%- flash.each do |name, msg| -%>
+        flash_message("<%=h name%>", "<%=h msg %>");
+        <%- flash.delete(name) -%>
+    <%- end -%>
+    <% if @result -%>
+        $('#questionnaire_options_<%= @questionnaire.id.to_s %>')
+        .html("<%= escape_javascript( (link_to image_tag('icons/table.png', :title => 'Feedback summary', :alt => 'Feedback summary'), respondents_questionnaire_path(@questionnaire.id)) +
+                link_to(image_tag('icons/key_go.png', :alt => "Open Questionnaire", :title => "Open Questionnaire"), open_questionnaire_path(@questionnaire), :class => "put")+
+                (image_tag('icons/lock.png', :alt => "Questionnaire closed", :title => "Questionnaire is closed")))  %>");
+    <% end -%>
+});

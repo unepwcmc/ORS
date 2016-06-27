@@ -1,0 +1,13 @@
+<% section ||= @section %>
+<% info_tip_text = "<p>Takes you the main page of this section, where you can see its information and access the options to add new sub sections or questions to it.</p>"-%>
+<li class="li_tooltip" title="<%= "Manage section - " +info_tip_text %>"><%= link_to "Manage section", section_path(section) %>
+  <ul>
+    <% if section.questionnaire.inactive? -%>
+        <% info_tip_text = "<p>Allows you to delete this section and the element that it contains (both sections and questions).</p>"-%>
+        <li class="li_tooltip" title="<%= "Delete section - " + info_tip_text %>"><%= link_to "Delete section", delete_section_path(section) %></li>
+        <% info_tip_text = "<p>Takes you to a page where you can define a relation of dependency for this section. Defining which conditions must be met for it to be displayed.</p>"-%>
+        <li class="li_tooltip" title="<%= "Define dependency - " + info_tip_text %>"><%= link_to "Define dependency", define_dependency_section_path(:id => section.id) %></li>
+    <% end  -%>
+  </ul>
+</li>
+<%= render :partial => "questionnaires/options", :locals => { :questionnaire => section.questionnaire } %>

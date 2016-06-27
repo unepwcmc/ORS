@@ -1,0 +1,6 @@
+$(function(){
+    $("#content_header").empty();
+    $("#content_header").append("<%= escape_javascript( render :partial => "administration/menu", :locals => {:header => "Preview Questionnaire", :include_options => "questionnaires" } ) %>");
+    $("#content").empty().append("<%= escape_javascript(render(:partial => "preview"))%>");
+    $("#direct_actions").empty().append("<%= escape_javascript(render(:partial => "actions")) %>");
+});

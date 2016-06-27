@@ -1,0 +1,7 @@
+<% the_id = append_identifier(question, looping_identifier) -%>
+<% answer_text = ( (answer && answer.answer_parts.any?) ? (answer.answer_parts.first.answer_text.present? ? h(answer.answer_parts.first.answer_text) : nil) : nil) -%>
+<p>
+<%= text_field_tag "answers[#{the_id}_#{answer_type.id.to_s}]", answer_text , :disabled => disabled, "data-min" => answer_type.min_value, "data-max" => answer_type.max_value, :class => "numeric_type" %>
+<br />
+<span><%= t('s_details.numeric_note') %> <%= if answer_type.min_value then t('s_details.numeric_min') + answer_type.min_value.to_s + "." end %> <%= if answer_type.max_value then t('s_details.numeric_max') + answer_type.max_value.to_s + "." end %></span>
+</p>

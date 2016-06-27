@@ -1,0 +1,48 @@
+<div class="span-24 last" id="content">
+  <%= render :partial => "administration/breadcrumbs" -%>
+  <% info_tip_text = "<p>In the administration dashboard you can find information regarding the latest activity of the users of this tool. Like the latest reports created, the latest reports activated and the latest users that have been registered in the system.</p>
+                      <p>From here you can easily access the a questionnaire dashboard, but can also preform some actions on the questionnaires.</p>
+                      <p>You can also navigate to other management pages.</p>" -%>
+  <%= render :partial => "administration/menu", :locals => {:header => ("Dashboard " + info_tip("Dashboard", info_tip_text)).html_safe, :include_options => "administration"} -%>
+  <div class="span-24 last" id="questionnaires">
+    <div class="span-11 colborder" id="recent_questionnaires">
+      <% info_tip_text = "<p>This presents you with a list of the last five questionnaires that have been added in the system.</p>" -%>
+      <h3 class="prepend-top">Recently created questionnaires <%=info_tip("Recently created", info_tip_text)%></h3>
+      <% if @questionnaires[:created].present? -%>
+          <%= render :partial => "new_questionnaires", :locals => { :last_created => @questionnaires[:created] }  %>
+      <% else  -%>
+          <p>No questionnaires have been created yet.</p>
+      <% end  -%>
+    </div><!-- /recent_questionnaires -->
+    <div class="span-12 last" id="active_questionnaires">
+      <% info_tip_text = "<p>Here are listed the last five questionnaires that have been activated in the system, and which are now available for the respondents to fill in their answers.</p>" -%>
+      <h3 class="prepend-top">Active questionnaires <%=info_tip("Recently activated", info_tip_text)%></h3>
+      <% if @questionnaires[:activated].present? -%>
+          <%= render :partial => "active_questionnaires", :locals => { :last_activated => @questionnaires[:activated] } %>
+      <% else -%>
+          <p id="no_active_questionnaires">No questionnaires have been activated yet.</p>
+      <% end -%>
+    </div><!-- /active_questionnaires -->
+  </div><!-- /questionnaires -->
+  <hr />
+  <div class="span-24 last" id="users">
+    <div class="span-11 colborder"  id="last_edited_questionnaires">
+      <% info_tip_text = "<p>Here are listed the last five questionnaires to have been edited in the system.</p>" -%>
+      <h3 class="prepend-top">Last edited questionnaires <%=info_tip("Recently edited", info_tip_text)%></h3>
+      <% if @questionnaires[:edited].present? -%>
+          <%= render :partial => "last_edited_questionnaires", :locals => { :last_edited => @questionnaires[:edited] } %>
+      <% else -%>
+          <p>No questionnaires have been edited yet yet.</p>
+      <% end -%>
+    </div><!-- /last_edited_questionnaires -->
+    <div class="span-12 last"  id="recent_users">
+      <% info_tip_text = "<p>Here are listed the last five users that have been registered in the system.</p>" -%>
+      <h3 class="prepend-top">Last registered users <%=info_tip("Recently registered", info_tip_text)%></h3>
+      <% if @users.present? -%>
+          <%= render :partial => "registered_users"  %>
+      <% else -%>
+          <p>No users have been registered yet.</p>
+      <% end -%>
+    </div><!-- /recent_users -->
+  </div><!-- /users -->
+</div> <!-- /content -->

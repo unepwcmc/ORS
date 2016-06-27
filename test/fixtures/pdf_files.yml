@@ -1,0 +1,28 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+one:
+  questionnaire_id: 1
+  user_id: 1
+  name: MyString
+  location: MyString
+
+two:
+  questionnaire_id: 1
+  user_id: 1
+  name: MyString
+  location: MyString
+
+
+# == Schema Information
+#
+# Table name: pdf_files
+#
+#  id               :integer          not null, primary key
+#  questionnaire_id :integer
+#  user_id          :integer
+#  name             :string(255)
+#  location         :string(255)
+#  created_at       :datetime
+#  updated_at       :datetime
+#  is_long          :boolean          default(TRUE)
+#

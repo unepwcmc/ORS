@@ -1,0 +1,30 @@
+<% 
+  selection = answer ? answer.answer_parts.map{|a| a.field_type_id} : []
+  options = []
+  answer_type.range_answer_options.sort.each do |rao|
+    options += [[h(@fields[:range_answer_option_field][rao.id.to_s]), rao.id]]
+  end
+  the_id = append_identifier(question, looping_identifier)
+-%>
+
+<ul class="multi_options_answer">
+  <% options.each do |text, id| -%>
+      <li>
+        <%= hidden_field_tag "answers[#{the_id}]", "" %>
+        <%= radio_button_tag "answers[#{the_id}]", id, selection.include?(id), :disabled => disabled %>
+        <%= label_tag the_id+"["+id.to_s+"]", h(text) -%>
+      </li>
+  <% end -%>
+</ul>
+<p><a href="#" id="clear_<%= the_id.to_s %>"><%= t "s_details.clear_answer" %></a></p>
+
+<script type="text/javascript">
+    $(function(){
+        $("#clear_<%= the_id.to_s %>").click(function(e){
+            e.preventDefault();
+            $("input[name='answers[<%= the_id.to_s %>]']:radio").attr('checked', false);
+            $("#answers_<%=the_id%>").addClass("dirty");
+        });
+        
+    })
+</script>

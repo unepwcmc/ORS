@@ -1,0 +1,11 @@
+<%=I18n.t('generic.hi')%> <%=h @user.full_name%>,
+
+<%= I18n.t('user_mailer.questionnaire_duplication_failed.first_line', :questionnaire => h(@questionnaire.title(@user.language))) %>
+
+<%= h @error_message %>
+
+<%=I18n.t('user_mailer.greetings')%>
+
+<%=ApplicationProfile.title%>
+
+<%=h @questionnaire.email_footer(@user.language) %>

@@ -1,0 +1,68 @@
+/* -------------------------------------------------------------------------------------------------
+
+Load this stylesheet after formtastic.css in your layouts to override the CSS to suit your needs.
+This will allow you to update formtastic.css with new releases without clobbering your own changes.
+
+For example, to make the inline hint paragraphs a little darker in color than the standard #666:
+
+form.formtastic fieldset ol li p.inline-hints { color:#333; }
+
+--------------------------------------------------------------------------------------------------*/
+
+/* NORMALIZE AND RESET - obviously inspired by Yahoo's reset.css, but scoped to just form.formtastic
+--------------------------------------------------------------------------------------------------*/
+form.formtastic { line-height: 1.3em;}
+form.formtastic fieldset { border-top: 1px solid #6D808F; padding: 10px; margin-bottom: 15px; width:550px; color:#051e52 }
+form.formtastic legend { margin-bottom: 1em; color:#0A2862 }
+
+/* INPUT LIs
+--------------------------------------------------------------------------------------------------*/
+form.formtastic fieldset ol li { margin-bottom: 0.8em; display:block;}
+form.formtastic fieldset ol li input, form.formtastic fieldset ol li select, form.formtastic fieldset ol li textarea { float: left }
+/* form.formtastic fieldset ol li input { width: 150px } */
+
+
+
+/* LABELS
+--------------------------------------------------------------------------------------------------*/
+form.formtastic fieldset ol li label { width: 120px; }
+form.formtastic fieldset ol li label.language_tag { display:inline-block; float: none; padding-left: 8px; width: 92px; }
+
+/* INLINE HINTS
+--------------------------------------------------------------------------------------------------*/
+form.formtastic fieldset ol li p.inline-hints { margin:0.2em 0 0 0%; font-size:11px; clear:both;  }
+
+/* INLINE ERRORS
+--------------------------------------------------------------------------------------------------*/
+form.formtastic fieldset ol li label.inline-errors { color:#cc0000; float: left; margin-left:5px; padding-left: 16px; background:image-url("validation/unchecked.gif") no-repeat 0 0;}
+form.formtastic fieldset ol li label.inline-success { color:#70C264; float: left; margin-left: 5px; padding-left: 16px; background:image-url("validation/checked.gif") no-repeat 0 0;  }
+form.formtastic fieldset ol li input.inline-errors, form.formtastic fieldset ol li select.inline-errors { border: 1px solid red; }
+form.formtastic fieldset ol li input.inline-success, form.formtastic fieldset ol li select.inline-success { border: 1px solid green; }
+
+
+/* NESTED FIELDSETS AND LEGENDS (radio, check boxes and date/time inputs use nested fieldsets)
+--------------------------------------------------------------------------------------------------*/
+form.formtastic fieldset ol li fieldset { border: 1px solid #83A3BE; padding-top:5px; margin: 0;}
+form.formtastic fieldset ol li fieldset legend { color: #0A2862; font-size: 14px; }
+form.formtastic fieldset ol li fieldset ol { width:100%; margin:0; padding:0; }
+form.formtastic fieldset ol li fieldset ol li { padding:0; border:0; }
+form.formtastic fieldset ol li fieldset ol li label { font-size: 13px; }
+form.formtastic fieldset ol li fieldset ol li label.inline-errors { width: 150px; }
+form.formtastic fieldset ol li fieldset ol li label.inline-success {width: 150px; }
+
+/* EXTRAS
+--------------------------------------------------------------------------------------------------*/
+form.formtastic fieldset p { margin-bottom: 0.8em; }
+form.formtastic fieldset ol li label.language_tag { float: left; }
+
+form.formtastic #add_section .new_lang_header { padding: 5px; display: block; line-height:2em; position: relative; clear:both}
+form.formtastic #add_section .new_lang_header h4 { margin: 0 }
+form.formtastic #add_section .new_lang_header p { margin: 0 0 0; float: right; }
+form.formtastic div.error_container { display: none; margin: 10px; background-color:#f6ecaf; border:2px solid red}
+form.formtastic div.error_container h5 { padding:5px; color: red; margin-bottom: 5px; font-size:13px}
+form.formtastic div.error_container ul#error_messages { list-style: disc; margin-left: 20px; padding: 5px; }
+form.formtastic div.error_container ul#error_messages li { color: black; font-size:11px; font-weight:normal; }
+form.formtastic div.error_container ul#error_messages li label.inline-errors{ color: red; font-size:11px; font-weight:normal; }
+form.formtastic div.error_container ul#error_messages li label.inline-success{ color: green; }
+
+form.formtastic div#looping_sources div#looping_categories li label.item_types { width:auto; padding-left:2px; padding-right: 5px }

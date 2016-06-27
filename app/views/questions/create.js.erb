@@ -1,0 +1,51 @@
+$(function(){
+
+    <%- flash.each do |name, msg| -%>
+        flash_message("<%=h name%>", "<%=h msg %>");
+        <%- flash.delete(name) -%>
+    <%- end -%>
+    <% @question = @part %>
+    $("#content_header").empty()
+                        .append("<%= escape_javascript( render :partial => "administration/menu", :locals => {:header => "Question", :include_options => "questions"} ) %>")
+    $("#content").empty()
+                 .append("<%= escape_javascript(render(:partial => "questions/show", :locals => {:question => @question}))%>");
+    $("#direct_actions").empty().append("<%= escape_javascript( render :partial => "questions/actions") %>");
+    $(function(){
+        var node = $("#tree").dynatree("getActiveNode");
+        if(node.data.isFolder != true)
+            node = $("#tree").dynatree("getTree").getNodeByKey("<%=@question.section.id%>");
+        node.addChild({
+            <% the_title = Sanitize.clean(@question.title).strip.gsub("\n\n", "") -%>
+            title: "<%= escape_javascript( (the_title.size > 25 ? the_title[0,25]+ "..." : the_title)) %>",
+            tooltip: "<%=escape_javascript( the_title ) %>",
+            isFolder: false,
+            activate: true,
+            key: "q<%=@question.id%>",
+            expand: true
+        });
+    });
+    //update the breadcrumb
+    $(function(){
+        $("#bc<%=h @question.section.id%>").nextAll().remove();
+        $("#bc<%=h @question.section.id%>").after('<li id="bcq<%=h @question.id%>"><%= escape_javascript(link_to h(@question.short_title), question_path(@question),:class => "get") %></li>');
+    });
+    //Show AddQuestion Div and call the new action on the questions controller
+    $("#show_add_question").click(function(e){
+        e.preventDefault();
+        collapseInfoGeneratorShowPages();
+        $("#addSubSection").empty().hide();
+        if(!$("#add_question").is(':visible'))
+        {
+            $("#add_question").show();
+            //$.ajax({url: RAILS_ROOT+'/questions/new/<%#= @question.section.id%>', type: 'get', dataType: 'script'})
+            $.ajax({url: RAILS_ROOT+'/questionnaires/<%= @questionnaire_part.root.questionnaire_id %>/questionnaire_parts/new/',
+                type: 'get',
+                dataType: 'script',
+                data: {
+                    part_type: "Question",
+                    parent_id: "<%= @questionnaire_part.parent.id %>"
+                }
+            })
+        }
+    });
+});

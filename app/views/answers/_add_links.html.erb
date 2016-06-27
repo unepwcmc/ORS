@@ -1,0 +1,16 @@
+<%= form_for @answer,  :html => { :class =>"formtastic ajaxForm" } do |form| -%>
+    <%= hidden_field_tag :to_render, "save_links" %>
+    <%= hidden_field_tag :user_delegate, params[:user_delegate] %>
+    <fieldset>
+      <ol>
+        <%= form.fields_for :answer_links do |builder| -%>
+            <%= render :partial => 'answers/answer_link', :locals => { :f => builder } -%>
+        <% end -%>
+        <%= new_child_fields_template form, :answer_links -%>
+        <li>
+          <%= add_child_link t('submission_pages.links_add'), :answer_links %>
+        </li>
+      </ol>
+      <%= form.submit t('s_details.save') -%>
+    </fieldset>
+<% end -%>

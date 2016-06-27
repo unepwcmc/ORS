@@ -1,0 +1,20 @@
+<div class="span-24 last" id="content">
+
+  <div id="content_header">
+    <% info_tip_text = "<p>A filtering field allows you to define a field with which you can characterize your users and, based on that characteristic, filter out some parts of the questionnaire,
+                        that are not relevant for the user.</p>
+                        <p>This achieved in conjugation with the loop sources that you add to the questionnaire and the different columns of those loop sources. Each filtering field can be connected
+                        to one ore more loop item types (the columns of the loop sources), but only one loop item type per loop source. So when you use one of those loop item types in one of your looping
+                        sections, instead of looping through all of the items in that column for every user, it will only be presented once for each user and for the item of the colum tnat matches the user's
+                        defined value for the specific filtering field.</p>
+                        <p>The values available for a specific filtering field are a collection of all of the associated loop item types' items. So for some users a looping section with a filtering field will
+                        not be displayed at all, if their value doesn't match any of that loop item type's items.</p>"%>
+    <%= render :partial => "administration/menu", :locals => {:header => "Filtering field " + info_tip("Filtering field", info_tip_text), :include_options => "questionnaires"} -%>
+  </div>
+  <div class="clear" id="q_dashboard">
+    <p><strong>Questionnaire</strong><%= link_to @questionnaire.title, dashboard_questionnaire_path(@questionnaire) %></p>
+    <p><strong>Name</strong><%=h @filtering_field.name %> (<%= link_to 'Edit', edit_questionnaire_filtering_field_path(@questionnaire,@filtering_field) %> | <%= link_to "All filtering_fields", questionnaire_filtering_fields_path(@questionnaire) %>)</p>
+    <p><strong>Associated loop items</strong> <%= @filtering_field.loop_item_types.sort{|a,b| a.name <=> b.name}.map{|a| (link_to h(a.name), loop_item_type_path(a))}.join(', ').html_safe.presence || "none" %></p>
+    <p><strong>Associated loop sources</strong> <%= @filtering_field.loop_item_types.map{|a| a.root? ? a.loop_source : a.root.loop_source}.sort{|a,b| a.name <=> b.name}.map{|a| (link_to h(a.name), loop_source_path(a))}.join(', ').html_safe.presence || "none" %></p>
+  </div>
+</div>

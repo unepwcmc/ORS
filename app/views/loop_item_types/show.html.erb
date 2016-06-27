@@ -1,0 +1,134 @@
+<% title "Loop item type - "+ h(@loop_item_type.name) %>
+<div class="span-24 last" id="content">
+
+  <div id="content_header">
+    <% info_tip_text ="<p>In this page you can add extra fields to this loop item type, see its unique loop items, add translation for those loop items, and add values for the extra fields of the loop item type.</p>"-%>
+    <%= render :partial => "administration/menu", :locals => {:header => "Loop item type " + info_tip('Loop item type', info_tip_text), :include_options => "questionnaires"} -%>
+  </div>
+  <div id="q_dashboard" class="clear">
+    <p><strong>Questionnaire</strong><%= link_to h(@questionnaire.title), dashboard_questionnaire_path(@questionnaire) %></p>
+    <p><strong>Default Language</strong><%= @questionnaire.questionnaire_fields.find_by_is_default_language(true).language_english_name %></p>
+    <p><strong>Languages</strong> <%= @questionnaire.questionnaire_fields.map{|qf| "#{qf.language_english_name} (#{qf.language})"}.join(", ") %></p>
+    <p><strong>Source name</strong><%= link_to h(@loop_item_type.root.loop_source.name), loop_source_path(@loop_item_type.root.loop_source) %></p>
+    <p><strong>Hierarchy</strong><%= raw @loop_item_type.root.self_and_descendants.sort!{|a, b| a.level <=> b.level}.map{|a| a == @loop_item_type ? "<em>#{h(a.name)}</em>" : (link_to h(a.name), loop_item_type_path(a))}.join(" >> ") %></p>
+    <% if @loop_item_type.is_filtering_field? -%>
+        <p><strong>Filtering field</strong><%= link_to h(@loop_item_type.filtering_field.name), [@questionnaire,@loop_item_type.filtering_field] %></p>
+    <% end -%>
+  </div>
+  <div id="extra_fields">
+    <% info_tip_text ="<p>Each loop item type can have a number of extra fields associated with it. This fields can be of type 'Image', 'URL' or 'Text'.</p>
+                       <p>Defining extra fields for a loop item type allows you to define values for each of the loop item type's loop items. These values
+                       can then be used when building the questionnaire, being displayed in the description of questions or sections. Giving you more options
+                       and flexibility when using looping sections.</p>
+                       <p>You can add extra fields by clicking on the 'Add extra' link and then filling the form that shows up.</p>"-%>
+    <p><strong>Extra fields <%= info_tip('Extra fields', info_tip_text) %></strong></p>
+    <table>
+      <thead>
+      <tr>
+        <th>Name</th>
+        <th>Type</th>
+        <th width="13%"></th>
+      </tr>
+      </thead>
+      <% for extra in @loop_item_type.extras %>
+          <tbody>
+          <tr>
+            <td><%=h extra.name %></td>
+            <td><%= extra.field_type_humanize %></td>
+            <td><%= link_to "Remove", extra, :method => :delete, :confirm => "Are you sure you want to remove this extra field?" %></td>
+          </tr>
+          </tbody>
+      <% end %>
+    </table>
+    <p><%= link_to "Add extra", new_loop_item_type_extra_path(@loop_item_type), :class => "get"%></p>
+  </div>
+  <div id="add_extra" class="clear hide" style="margin-bottom:10px">
+  </div>
+
+  <div id="add_extra_source" class="clear hide" style="margin-bottom:10px"></div>
+
+  <div id="add_loop_item_names_source" class="clear hide" style="margin-bottom:10px">
+    <%= form_for( @loop_item_type, :url => upload_item_names_source_loop_item_type_path(@loop_item_type), :html => { :method => :post, :multipart => true, :id => "item_names_source", :class => "formtastic" }) do -%>
+        <div id="error_container" class="error_container">
+          <h5>There are some errors in your form submission, please see details below</h5>
+          <ul id="error_messages"></ul>
+        </div>
+        <fieldset>
+          <legend>Add loop items name in different languages</legend>
+          <p>Use a csv file like: </p>
+          <table>
+            <tr>
+              <td>#<%=h @loop_item_type.name %>, language 1 (e.g. fr), language 2 (e.g es), etc</td>
+            </tr>
+            <tr>
+              <td>Existing name (in default language), Name in lang1, name in lang2, etc</td>
+            </tr>
+          </table>
+          <ol>
+            <li>
+              <%= label_tag :source %>
+              <%= file_field_tag :source %>
+            </li>
+            <li><%= submit_tag "Upload" %> <a href="#" id="hide_add_translations">Cancel</a></li>
+          </ol>
+        </fieldset>
+    <% end -%>
+  </div>
+
+  <div id="loop_items" class="clear" style="margin-top:10px">
+    <h4>Unique loop items</h4>
+    <p><strong>Total</strong> <%= @loop_item_type.loop_item_names.count %></p>
+    <table id="item_names_table" class="tablesorter">
+      <thead>
+      <tr>
+        <% info_tip_text ="<p>Each loop item can have its name defined in the same language as that of the questionnaire it belongs to. When adding a loop source, its
+                          loop items' name will be set to be of the default language of the questionnaire. You can add them in other languages or even update the value in the
+                          default language by clicking on this link and uploading a file with the desired changes.</p>
+                          <p>In this table the loop items' name is displayed in with the corresponding language inside parenthesis, a red star marks the default language. </p>"-%>
+        <th><%=h @loop_item_type.name %> (<a href="#" id="add_item_name_other_languages">Add translations</a> <%= info_tip('Add translations', info_tip_text) %>)</th>
+        <% @loop_item_type.extras.sort!{|a,b| a.created_at <=> b.created_at }.each do |e| -%>
+            <% info_tip_text ="<p>By clicking on 'Upload source' you will be presented with a form to upload a file to define the value of #{e.name} for each loop item.</p>
+                               <p>The file to be uploaded must be a CSV file with an header line starting with the <strong>#</strong> character and with the first element of the
+                               header line being the name of the loop item type, in this case <strong>#{@loop_item_type.name}</strong>. The other elements of the header line should
+                               be languages in which the questionnaire this loop item type belongs to is available.</p>
+                               <p>The other lines should start with the loop item name in the default language and then the values of the extra field in each language.</p>"-%>
+            <th><%=h e.name %> (<%= link_to "Upload source", new_source_extra_path(e), :class => "get" %> <%= info_tip('Upload source', info_tip_text) %>)</th>
+        <% end -%>
+      </tr>
+      </thead>
+      <tbody>
+      <% @loop_item_type.loop_item_names.each do |item| %>
+          <tr>
+            <!--<td><%#= item.loop_item_name_fields.sort_by{ |a| a.is_default_language? ? 0 : 1 }.map{|a| h(a.item_name) + " ("+a.language+ (a.is_default_language? ? "<span style='color:red' title='Default language'>*</span>" : "") +")"}.join(', ') %></td>-->
+            <td><%= link_to h(item.item_name), loop_item_name_path(item) %></td>
+            <% @loop_item_type.extras.sort!{|a,b| a.created_at <=> b.created_at}.each do |e| -%>
+                <td>
+                  <% if e.item_extras.find_by_loop_item_name_id(item.id) -%>
+                      <%= e.item_extras.find_by_loop_item_name_id(item.id).item_extra_fields.map{|a| "#{h(a.value)} (#{a.language + (a.is_default_language? ? "<span style='color:red' title='Default language'>*</span>" : "")})"}.join(", ") %>
+                  <% else -%>
+                      -
+                  <% end -%>
+                </td>
+            <% end -%>
+          </tr>
+      <% end %>
+      </tbody>
+    </table>
+  </div>
+</div>
+<script type="text/javascript">
+    $("#add_item_name_other_languages").click(function(e){
+        e.preventDefault();
+        $("#add_extra").hide('slow').empty();
+        $("#add_extra_source").hide('slow').empty();
+        $("#add_loop_item_names_source").show('slow');
+    });
+    $("#hide_add_translations").click(function(e){
+        e.preventDefault();
+        $("#add_loop_item_names_source").hide('slow');
+    });
+    $("#item_names_table").tablesorter({
+        sortList: [[0,0]],
+        widgets: ['zebra']
+    });
+</script>

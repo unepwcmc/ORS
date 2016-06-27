@@ -1,0 +1,10 @@
+<% info_tip_text = "<p>Takes you back to the page of this question.</p>"-%>
+<li class="li_tooltip" title="<%= "Manage question - " +info_tip_text %>"><%= link_to "Manage question", question_path(@question), :class => 'get' %>
+  <ul>
+    <% if @question.questionnaire.inactive? %>
+        <% info_tip_text = "<p>Allows you to delete this question.</p>"-%>
+        <li class="li_tooltip" title="<%= "Delete question - " +info_tip_text %>"><%= link_to "Delete question", delete_question_path(@question) %> </li>
+    <% end %>
+  </ul>
+</li>
+<%= render :partial => "sections/options", :locals => { :section => @question.section } %>

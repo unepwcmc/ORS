@@ -1,0 +1,4 @@
+<li>
+  <%= label_tag :section_depends_on_question, "Question * #{info_tip("Dependency", "Here will be listed the available questions for the selected section. Only questions with Multiple Options answer type will be available for you to select.")}".html_safe %>
+  <%= select :section, :depends_on_question, @questions.collect{ |i| [OrtSanitize.white_space_cleanse(i.title).size > 65 ? OrtSanitize.white_space_cleanse(i.title)[0,65] + "..." : OrtSanitize.white_space_cleanse(i.title), i.id ]  }, { :include_blank => "Choose a question" }, { :validate => "{required:true}"} %>  
+</li>

@@ -1,0 +1,116 @@
+<div class="span-24 last" id="content">
+
+  <div id="content_header">
+    <% info_tip_text = "The loop source can be edited here, either by uploading a loop source to update the existing one, or to modify items individually."%>
+    <%= render :partial => "administration/menu", :locals => {:header => "Edit loop source " + info_tip("Edit loop source", info_tip_text), :include_options => "questionnaires"} -%>
+  </div>
+  <div class="clear" id="q_dashboard" style="margin-bottom: 25px">
+    <p><strong>Questionnaire</strong><%= link_to @loop_source.questionnaire.title, dashboard_questionnaire_path(@loop_source.questionnaire) %> (<%= link_to "Questionnaire's loop sources", questionnaire_loop_sources_path(@loop_source.questionnaire) %>)</p>
+    <p><strong>Source name</strong><%= link_to h(@loop_source.name), @loop_source %></p>
+  </div>
+  <% if @loop_source.loop_item_type.present? -%>
+   
+    <div style="color:green">
+      <p><strong>Edit name or add new files:</strong> allows you to edit the name of the loop source, or to upload a file which will append new values. If you want to delete items, you will need to remove the loop source, and re-upload a new one.</p>
+       <p><strong>Manage existing items:</strong> allows to edit individual items.</p>
+    </div>
+  
+      <p><a href="#" id="show_add_files"><span style="font-size:14px">Edit name or add new files</span></a> | <a href="#" id="show_edit_items"><span style="font-size:14px">Manage existing items</span></a></p>
+  <% end -%>
+  <div id="add_files" class="<%= @loop_source.loop_item_type.present? ? "hide" : "" %>">
+    <%= render :partial => 'loop_sources/form'%>
+  </div>
+  <% if @loop_source.loop_item_type.present? %>
+      <div id="edit_items" class="hide clear no_dialog">
+        <p>Please choose the language to edit:
+          <%= select :edit, :language, options_for_select(@loop_source.questionnaire.questionnaire_fields.map{|a| [a.language_english_name, a.language]}), { :include_blank => true }  %>
+        </p>
+        <div id="loop_source_grid">
+          <table id="edit_loop_source"></table>
+          <div id="loop_source_pager"></div>
+        </div>
+      </div>
+  <% end -%>
+</div>
+<script type="text/javascript">
+    $(function(){
+        myLib.generator_side_generic.init();
+    <% if @loop_source.loop_item_type.present? %>
+        $("#show_add_files").click(function(e){
+            e.preventDefault();
+            $("#edit_items").hide('slow');
+            $("#add_files").show('slow');
+        });
+        $("#show_edit_items").click(function(e){
+            e.preventDefault();
+            $("#add_files").hide('slow');
+            $("#edit_items").show('slow');
+        });
+        $("#edit_language").change(function(){
+            if($(this).val() != "")
+            {
+                loop_sources_grid($(this).val());
+            }
+        });
+    <% end -%>
+    });
+    <% if @loop_source.loop_item_type.present? %>
+    function loop_sources_grid(language)
+    {
+        $("#loop_source_grid").empty().append("<table id='edit_loop_source'></table><div id='loop_source_pager'></div>");
+
+        $("#edit_loop_source").jqGrid({
+            url: (RAILS_ROOT + "/loop_sources/<%= @loop_source.id %>/fill_jqgrid?language="+language),
+            datatype: "json",
+            colNames:[
+                "Leaf Id"
+                <%= "," + @loop_source.loop_item_type.self_and_descendants.sort.map{|a| "\"#{a.name}\""}.join(',') %>
+            ],
+            colModel:[
+                {name: 'leaf_id', index: 'leaf_id', hidden: true, editable: true, key: true }
+                <%= "," + @loop_source.loop_item_type.self_and_descendants.sort.map{|a| "{name: \"#{a.name}\", index: \"#{a.name}\", editable: true, editrules: {required: false}}"}.join(', ') %>
+            ],
+            rowNum: 10,
+            sortorder: 'asc',
+            rowList: [5,10,20,30],
+            autowidth: true,
+            height: '100%',
+            multiselect: true,
+            pager: "#loop_source_pager",
+            viewrecords: true,
+            sortname: "<%= @loop_source.loop_item_type.name %>",
+            caption: 'Loop Source: <%= @loop_source.name %>',
+            editurl: (RAILS_ROOT+ "/loop_sources/<%= @loop_source.id %>/jqgrid_update?language="+language)
+        });
+        $("#edit_loop_source").jqGrid('navGrid', "#loop_source_pager",
+        {view:true, edit:true, add:false, del:true, delfunc: destroy_row},
+        {jqModal:true,checkOnUpdate:true,savekey: [true,13], navkeys: [true,38,40], reloadAfterSubmit:false, closeOnEscape:true, bottominfo:"Fields marked with (*) are required"}, // edit options
+        {}, // add options
+        {}, // del options
+        {closeOnEscape:true}, // search options
+        {closeOnEscape:true} // view options
+                );
+    }
+    function destroy_row(id)
+    {
+        var confirmation_text = "Are you sure you want to delete the selected record?";
+        if(id.length > 1)
+            confirmation_text = "Are you sure you want to delete the selected records?";
+        if(confirm(confirmation_text))
+        {
+            $.ajax({url: RAILS_ROOT+"/loop_sources/<%= @loop_source.id %>/jqgrid_update",
+                dataType: 'script',
+                type: 'post',
+                data: {
+                    leaf_id: id,
+                    oper: "del"
+                },
+                success: function(){
+                    for(var i = (id.length-1); i >= 0; i--)
+                        $("#edit_loop_source").jqGrid('delRowData', id[i])
+                }
+            });
+        }
+    }
+    <% end -%>
+</script>

@@ -1,0 +1,23 @@
+<p>
+  <% if current_user -%>
+      <%= link_to h((current_user.full_name.present? ? current_user.full_name : current_user.email)), user_path(current_user) %>
+      |
+    <%= link_to t("login_menu.logout"), logout_path(:lang => current_user.language) %>
+  <% else -%>
+    <%= link_to t("login_menu.sign_up"), new_user_path(:lang => (params[:lang]||"en")) %>
+    |
+    <%= link_to t("login_menu.login"), root_path(:lang => (params[:lang]||"en")) %>
+  </p>
+  <p style="float: right">
+    <%= select :display, :language, [["English","en"], ["Français","fr"]], {:selected => (params[:lang] || "en")}  %> 
+  </p>
+  <script type="text/javascript">
+    $("#display_language").change(function(){
+      var selected_lang = $(this).val();
+      if(selected_lang != "")
+      {
+        window.location = "?lang="+selected_lang;
+      }
+    });
+  </script>
+  <% end -%>

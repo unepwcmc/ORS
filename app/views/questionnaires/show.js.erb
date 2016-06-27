@@ -1,0 +1,19 @@
+$(function(){
+    $("#content_header").empty()
+                        .append("<%= escape_javascript( render :partial => "administration/menu", :locals => {:header => "Questionnaire", :include_options => "questionnaires", :building => true} ) %>");
+    //add the questionnaire _show partial, with the added questionnaire
+    $("#content").empty()
+                 .append("<%= escape_javascript(render(:partial => "questionnaires/show"))%>");
+    $("#direct_actions").empty().append("<%= escape_javascript( render :partial => "questionnaires/actions") %>");
+    //Load the tree structure with the questionnaire
+    loadTree("<%=h escape_javascript(@questionnaire.title)%>", "<%=h @questionnaire.id%>", false, true);
+    handleQuestionnaireOptions("<%=@questionnaire.id%>");
+    //set the source forms to be executed as ajax request
+    $("#sources_form").jaxy();
+    //Update the breadcrumb
+    var $bcul = $("#bcul");
+    $(function(){
+        $bcul.find("#bchome").nextAll().remove();
+        $bcul.append('<li id="bcquestionnaire"><%= escape_javascript(link_to h(@questionnaire.title.size > 20 ? @questionnaire.title[0,20]+"..." : @questionnaire.title), questionnaire_path(@questionnaire),:class => "get") %></li>');
+    });
+});

@@ -1,0 +1,79 @@
+<div class="span-24 last" id="content">
+
+  <div id="content_header">
+    <% info_tip_text = "<p>In this page you can see the loop item types that compose a loop source, and also the number of loop items that each loop item type contains.</p>"%>
+    <%= render :partial => "administration/menu", :locals => {:header => "Loop source " + info_tip("Loop Source", info_tip_text), :include_options => "questionnaires"} -%>
+  </div>
+  <div class="clear" id="q_dashboard" style="margin-bottom: 25px">
+    <p><strong>Questionnaire</strong> <%= link_to @loop_source.questionnaire.title, dashboard_questionnaire_path(@loop_source.questionnaire) %> (<%= link_to "Questionnaire's loop sources", questionnaire_loop_sources_path(@loop_source.questionnaire) %>)</p>
+    <p><strong>Source name</strong> <%=h @loop_source.name %> (<%= link_to "Edit", edit_loop_source_path(@loop_source) %>)</p>
+    <p><strong>Sections that use it:</strong> <br />
+      <ul>
+        <%= @loop_source.sections.map do |s|
+            start_str = "<li>#{link_to(OrtSanitize.white_space_cleanse(s.title), s)} "
+            if s.parent
+              end_str = "(under <strong>#{OrtSanitize.white_space_cleanse(s.parent.title)}</strong>)</li>"
+            else
+              end_str = "</li>"
+            end
+            start_str + end_str
+          end.join().html_safe
+        %>
+      </ul>
+    </p>
+  </div>
+  <p class="clear"><strong>Source files</strong> (<a href="#" id="toggle_source_files">Show</a>)</p>
+  <% if @loop_source.source_files.present? %>
+      <ul id="source_files_list" class="hide">
+        <% @loop_source.source_files.sort.each do |source_file| -%>
+            <li><%= print_status(source_file) %> <%= source_file.source.file? ? (link_to h(source_file.source_file_name), source_file.source.url) + " (Added on #{source_file.source_updated_at.strftime("%B %d, %Y")} )" : "file not available" %></li>
+        <% end -%>
+      </ul>
+  <% end -%>
+  <% if @loop_source.loop_item_type.present? -%>
+      <div id="loop_item_types">
+        <h3><strong>Loop item types <%= info_tip("Loop item types", "Loop item types with name in <strong>bold</strong> are filtering fields of the questionnaire.") %></strong>
+        </h3>
+        <fieldset>
+          <li>To add <strong>translations</strong> for the loop items, please click on the <span style="color:red; font-weight:600">Show</span> link</li>
+          <li>To add <strong>extra fields</strong> to the loop items, e.g. an image, click on the <span style="color:red; font-weight:600">Add Extra</span> link</li>
+        </fieldset>
+        <table>
+          <tr>
+            <th>Name</th>
+            <th>Parent</th>
+            <% info_tip_text ="<p>This is the total number of existing loop items for a specific loop item type. There can be more than one loop item with the same name under a loop item type,
+                              this is to guarantee that the hierarchy of the whole loop source is kept. Each 'repeating' loop item represents a branch of the tree.</p>"-%>
+            <th>Number of Loop items <%= info_tip('Number of loop items', info_tip_text) %></th>
+            <% info_tip_text ="<p>This represents the number of unique loop items, grouping the loop items that share the same name.</p>"-%>
+            <th>Number of unique Loop Items <%= info_tip('Number of unique loop items', info_tip_text) %></th>
+            <% info_tip_text ="<p>Each loop item type can have a number of extra fields associated with it. This fields can be of type 'Image', 'URL' or 'Text'.</p>
+                              <p>Defining extra fields for a loop item type allows you to define values for each of the loop item type's loop items. These values
+                              can then be used when building the questionnaire, being displayed in the description of questions or sections. Giving you more options
+                              and flexibility when using looping sections.</p>"-%>
+            <th>Extra fields <%= info_tip('Extra fields', info_tip_text) %></th>
+          </tr>
+          <% for loop_item_type in @loop_source.loop_item_type.self_and_descendants.sort!{|a, b| a.level <=> b.level} %>
+              <tr>
+                <td><%= loop_item_type.is_filtering_field? ? ("<strong>" + h(loop_item_type.name) + "</strong>").html_safe : h(loop_item_type.name)%></td>
+                <td><%= loop_item_type.parent ? h(loop_item_type.parent.name) : "-" %></td>
+                <td><%= loop_item_type.loop_items.count %></td>
+                <td><%= loop_item_type.loop_item_names.count %></td>
+                <td><%= loop_item_type.extras.map(&:name).join(", ") %></td>
+                <td><%= link_to "Show", loop_item_type %></td>
+                <td><%= link_to "Add extra", new_loop_item_type_extra_path(loop_item_type), :class => "get"%></td>
+              </tr>
+          <% end %>
+        </table>
+      </div>
+      <div id="add_extra"class="clear hide" style="margin-bottom:20px">
+      </div>
+  <% end -%>
+</div>
+<script type="text/javascript">
+  $("#toggle_source_files").click(function(e){
+      e.preventDefault();
+      $(this).html() == "Show" ? $(this).html("Hide") : $(this).html("Show");
+      $("#source_files_list").toggle();
+  });
+</script>

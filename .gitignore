@@ -1,0 +1,17 @@
+log/*.log
+db/schema.rb
+db/structure.sql
+config/database.yml
+.idea/*
+public/system/headers/*
+public/system/*
+tmp/**/*
+*.swp
+*.swo
+*.swn
+*.DS_Store
+private/*
+nbproject/private/
+/.yardoc/
+.sass-cache/
+.vagrant

@@ -1,0 +1,26 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+one:
+  title: MyString
+  type: 1
+  due_date: 2010-10-29 10:42:55
+  questionnaire_id: 1
+
+two:
+  title: MyString
+  type: 1
+  due_date: 2010-10-29 10:42:55
+  questionnaire_id: 1
+
+# == Schema Information
+#
+# Table name: deadlines
+#
+#  id               :integer          not null, primary key
+#  title            :string(255)
+#  soft_deadline    :boolean          default(FALSE)
+#  due_date         :datetime
+#  questionnaire_id :integer          not null
+#  created_at       :datetime
+#  updated_at       :datetime
+#

@@ -1,0 +1,32 @@
+<%# adds the section as the part of this questionnaire part %>
+<%= fields_for :part, @questionnaire_part.part  do |builder| %>
+
+  <% if builder.object.errors.any? %>
+    <div id="errorExplanation">
+      <ul id='error_messages'>
+        <% builder.object.errors.full_messages.each do |msg| %>
+          <li><%= msg %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+    <fieldset>
+      <legend>New Section Details</legend>
+      <ol>
+        <div id="include_extras_container">
+          <%= render :partial => "extras/include_extras", :locals => { :base_section => @parent ? @parent.part : nil, :check_extras => "section" } %>
+        </div>
+        <%= render :partial => "sections/form", :locals => {:f => builder} %>
+        <%= render :partial => "loop_sources/loop_sources", :locals => { :f => builder } %>
+        <li id="s_answer_type" style="display: none">
+          <%= builder.label :answer_type, "Answer Type *" %>
+          <% list_of_options = {"Matrix" => "MatrixAnswer", "Multi" => "MultiAnswer", "Numeric" => "NumericAnswer", "Rank" => "RankAnswer", "Text" => "TextAnswer", "Range" => "RangeAnswer"}  %>
+          <%= builder.collection_select :answer_type_type, list_of_options.sort{|a,b| a<=>b}, :last, :first, {:prompt => true}, :class => "section_answer_type_type hide", :validate => "{required:true, messages:{required:'Please select an answer type'}}" %>
+          <%#= select( :section, :answer_type, {"Text" => "text", "Binary" => "binary", "Multi" => "multi"}, {:include_blank => true})%>
+        </li>
+        <div id="answer_type">
+        </div><!-- /answer_type -->
+      </ol>
+    </fieldset>
+<% end %>

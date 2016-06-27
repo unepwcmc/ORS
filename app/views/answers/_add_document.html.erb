@@ -1,0 +1,16 @@
+<%= form_for @answer,  :html => { :multipart => true, :id => "upload_doc", :class =>"formtastic" } do |form| -%>
+    <%= hidden_field_tag :to_render, "upload_document" %>
+    <%= hidden_field_tag :user_delegate, params[:user_delegate] %>
+    <fieldset>
+      <ol>
+        <%= form.fields_for :documents do |builder| -%>
+          <%= render :partial => 'answers/document', :locals => { :f => builder } -%>
+        <% end -%>
+        <%= new_child_fields_template form, :documents -%>
+        <li>
+          <%= add_child_link t('submission_pages.files_add'), :documents %>
+        </li>
+      </ol>
+      <%= form.submit t('s_details.save') -%>
+    </fieldset>
+<% end -%>

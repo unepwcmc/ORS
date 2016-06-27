@@ -1,0 +1,32 @@
+<div id="other_text_fields" class="<%= (!builder.object.other_required?) ? 'hide' : '' %>">
+  <li>Add the "other" label in the following languages (click to display the fields):</li>
+  <li>
+    <%= builder.object.other_fields.sort_by { |a| a.is_default_language? ? 0 : 1 }.
+      map { |field| "<a href='#' class='display_lang' id='of_#{field.language}'>#{field.language_english_name} #{field.is_default_language? ? "-" : "+" }</a> " }.
+      join(" | ").html_safe %>
+    |
+    <a href="#" class="show_all_lang_fields">Expand all</a>
+    /
+    <a href="#" class="hide_all_lang_fields">Collapse all</a>
+  </li>
+  <li>
+    <%= builder.fields_for :other_fields, builder.object.other_fields.sort_by { |a| a.is_default_language? ? 0 : 1 } do |o_builder| %>
+        <div class="<%= o_builder.object.is_default_language? ? "" : "hide" %> lang_fields" id="fields_for_of_<%= o_builder.object.language %>">
+          <fieldset>
+            <legend>
+              <%= h o_builder.object.language_english_name %>
+            </legend>
+            <%= o_builder.hidden_field :_destroy, :value => ( builder.object.other_required? ? 0 : 1), :class => "other_text_destroy" %>
+            <%= o_builder.hidden_field :language, :value => o_builder.object.language %>
+            <%= o_builder.hidden_field :is_default_language, :value => o_builder.object.is_default_language %>
+            <ol>
+              <li>
+                <%= o_builder.label :other_text, "Other label #{o_builder.object.is_default_language? ? "*" : ""}" %>
+                <%= o_builder.text_area :other_text, :rows => 2, :cols => 55, :dir => o_builder.object.language == "ar" ? "rtl" : "ltr", :class => "grow", :minlength => "2", :validate => "#{o_builder.object.is_default_language? ? "{required:'#other_text_fields:visible', messages:{required:'The other text in #{o_builder.object.language_english_name} is required'}}" :"" }" %>
+              </li>
+            </ol>
+          </fieldset>
+        </div>
+    <% end %>
+  </li>
+</div>

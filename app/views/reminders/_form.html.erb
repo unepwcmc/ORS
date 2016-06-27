@@ -1,0 +1,35 @@
+<%= form_for @reminder, :html => { :id => "generator_form" , :class => "normal formtastic" } do |f| -%>
+    <div id="error_container" class="error_container clear">
+      <h5>There are some errors in your form submission, please see details below</h5>
+      <ul id="error_messages"></ul>
+    </div>
+    <fieldset>
+      <legend>Add a reminder</legend>
+      <ol>
+        <li>
+          <%= f.label :title%>
+          <%= f.text_field :title %>
+        </li>
+        <li>
+          <%= f.label :body, "Alert message" -%>
+          <%= f.text_area :body, :cols => 28, :rows => 3 %>
+        </li>
+        <li>
+          <%= f.label :days, "No of days before deadline" %>
+          <%= f.text_field :days, :validate => "{number:true}" %>
+        </li>
+        <li>
+          <%= label_tag "Choose deadlines to associated with" %>
+          <%= select_tag :deadlines, options_for_select(@deadlines.collect{ |i| ["#{i.title} # #{i.questionnaire.title[0,40]}", i.id ] }, (@reminder.deadlines.present? ? @reminder.deadlines.map{|d| d.id} : []) ), { :size => (@deadlines.size < 10 ? @deadlines.size : 10 ), :multiple => true, :validate => "{required:true}"} %>
+        </li>
+      </ol>
+      <p><%= f.submit (@reminder.new_record? ? "Add" : "Update" ) %></p>
+    </fieldset>
+    <div class="error_container">
+      <h5>There are errors in your form submission, please see details above the form!</h5>
+    </div>
+<% end -%>
+
+<script>
+    formValidation();
+</script>

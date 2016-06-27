@@ -1,0 +1,47 @@
+<div class="span-15 colborder" id="edit_section">
+  <%= form_for @section, :as => :part, :url => { :action => "update" }, :html => { :method => :put, :class=>"formtastic", :id => "generator_form" } do |f| %>
+      <div id="error_container" class="error_container">
+        <h5>There are some errors in your form submission, please see details below</h5>
+        <ul id="error_messages"></ul>
+      </div>
+      <% if @section.errors.any? %>
+        <div id="errorExplanation">
+          <ul id='error_messages'>
+            <% @section.errors.full_messages.each do |msg| %>
+              <li><%= msg %></li>
+            <% end %>
+          </ul>
+        </div>
+      <% end %>
+      <fieldset>
+        <legend>Details</legend>
+        <% if @section.has_answers? -%>
+            <p style="color: red">If you change this section's type any existing answers associated with its questions will be deleted. Editing the basic information will not compromise the existing data.</p>
+        <% end -%>
+        <ol>
+          <div id="include_extras_container">
+            <%= render :partial => "extras/include_extras", :locals => {:base_section => @section, :check_extras => @section }-%>
+          </div>
+          <%= render :partial => "form", :locals => {:f => f} %>
+          <%= render :partial => "loop_sources/edit_loop_sources", :locals => { :f => f } %>
+          <li id="s_answer_type" style="display: <%= @section.section_type == 1 ? "block" : "none" %>">
+            <%= f.label :answer_type_type, "Answer type *" %>
+            <% list_of_options = {"Matrix" => "MatrixAnswer", "Multi" => "MultiAnswer", "Numeric" => "NumericAnspartwer", "Rank" => "RankAnswer", "Text" => "TextAnswer", "Range" => "RangeAnswer" } %>
+            <%= f.collection_select :answer_type_type, list_of_options, :last, :first, {:prompt => true}, :class => "required #{@section.section_type == 1 ? "" : "hide"}" %>
+          </li>
+          <div id="answer_type">
+            <%= render :partial => "#{@section.answer_type_type.underscore}s/form", :locals => {:type => @section.answer_type} if @section.section_type == 1%>
+          </div><!-- /answer_type -->
+        </ol>
+        <p>
+          <%= f.submit "Update" -%>
+          <% info_tip_text = "<p>do not save edits and go back to section.</p>"-%>
+          <%= link_to "Cancel", section_path(@section), :class => 'get li_tooltip', :title => "Cancel - " +info_tip_text %>
+        </p>
+      </fieldset>
+      <div class="error_container">
+        <h5>There are errors in your form submission, please see details above the form!</h5>
+      </div>
+  <% end -%>
+
+</div><!-- /edit_questionnaire -->

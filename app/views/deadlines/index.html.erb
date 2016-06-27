@@ -1,0 +1,39 @@
+<div class="span-24 last" id="content">
+  <div id="content_header">
+    <% info_tip_text = ""%>
+    <%= render :partial => "administration/menu", :locals => {
+      :header => ("Questionnaire deadlines " + 
+        info_tip("Questionnaire deadlines", info_tip_text)).html_safe, 
+      :include_options => "questionnaires"} -%>
+  </div>
+  <p>
+    <strong>Questionnaire:</strong>
+    <%= link_to @questionnaire.title, dashboard_questionnaire_path(@questionnaire) %>
+  </p>
+  <p><%= link_to "New deadline", new_questionnaire_deadline_path(@questionnaire) %></p>
+
+  <table id="loop_sources_index" class="tablesorter">
+    <thead>
+    <tr>
+      <th>Title</th>
+      <th>Due at</th>
+      <th>Type</th>
+      <th></th>
+    </tr>
+    </thead>
+    <tbody>
+    <% for deadline in @deadlines -%>
+        <tr>
+          <td><%=h(deadline.title) %></td>
+          <td><%= deadline.due_date.strftime("%d/%m/%Y") %></td>
+          <td><%= deadline.soft_deadline? ? "Soft" : "Hard" %></td>
+          <td>
+            <%= link_to "Show", deadline %> |
+            <%= link_to "Edit", edit_deadline_path(deadline) %> |
+            <%= link_to "Remove", deadline, :method => :delete, :confirm => "Are you sure you want to delete this deadline?" %>
+          </td>
+        </tr>
+    <% end %>
+    </tbody>
+  </table>
+</div>

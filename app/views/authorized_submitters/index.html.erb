@@ -1,0 +1,75 @@
+<div class="span-24 last" id="content">
+    <% info_tip_text = "<p>This page shows you a list with all the respondents that are registered in the system, sorted by name. It presents the groups they belong to and it states
+                    if they have been authorised to fill this specific questionnaire. </p>
+                    <p>Here you can authorize and de-authorize respondents from answering this questionnaire. You can do this by selecting the respondents whose authorization you wish to change
+                    and clicking in either the 'Authorize' or the 'De-authorize' buttons. Only authorised respondents are able to access the submission page and fill in their answers to a questionnaire.</p>
+                    <p>This page also allows you to add respondents to an existing or a new group. You can do this by selecting the respondents through the check boxes on the left. And
+                    then choosing a group from the drop down list on the first line of the control panel or by writing a name for a new group and pressing 'Add'. To remove a user
+                    from a group simply click on the 'x' link by the group name on a user's groups column.</p>
+                    <p>Here you can also add new respondents by clicking on the 'Add new respondents' link. Respondents added through this page will be automatically authorised to fill in this questionnaire.</p>
+                    <p>To make management easier you can search for respondents by typing your search criteria in the search text field, or by selecting a group to get all the respondents from
+                    a specific group. You can then select all the results of your selection by clicking on the select filter 'all'. Other available filters are:</p>
+                    <p><strong>authorised</strong>: which selects all and only the authorised respondents<br />
+                       <strong>not authorised</strong>: which selects all and only the non authorise respondents</p>
+                    <p>If you want to go back to the full list you can clear your search by clicking in 'Clear Search'.</p>
+                    <p>To see all the details of a specific user you can click on its name.</p>" %>
+  <%= render :partial => "administration/menu", :locals => {:header => ("Manage Respondents " + info_tip("Manage Respondents", info_tip_text)).html_safe, :include_options => "questionnaires"} -%>
+  <h3>Questionnaire: <%= link_to h(@questionnaire.title), dashboard_questionnaire_path(@questionnaire) %></h3>
+  <%= form_tag({:controller => :authorized_submitters}, :class => "ajaxForm", :id => "manage") do %>
+      <%= hidden_field_tag "questionnaire_id", @questionnaire.id %>
+      <div id="menu">
+        <%= render :partial => "users/manage_users" %>
+      </div><!-- /menu -->
+      <div id="the_table">
+        <table id="myTable" class="tablesorter">
+          <thead>
+          <tr>
+            <th></th>
+            <th>Authorise</th>
+            <th>Name</th>
+            <th>E-mail</th>
+            <th>Groups</th>
+          </tr>
+          </thead>
+          <tbody>
+          <% if @users %>
+              <% @users.each do |user| %>
+                  <tr id="row_<%=user.id.to_s%>">
+                    <td>
+                      <%= check_box_tag "users["+user.id.to_s+"]", user.id.to_s, false, {:class => "checkboxes" }%>
+                    </td>
+                    <% authorized_submitter = user.authorized_submitters.find_by_questionnaire_id(@questionnaire.id) || nil %>
+                    <td id="auth_<%=user.id.to_s%>">
+                      <%=  !authorized_submitter || authorized_submitter.status == SubmissionStatus::HALTED ? "No" : (authorized_submitter.status == SubmissionStatus::NOT_STARTED ? "Authorizing" : "Yes") %>
+                    </td>
+                    <td><%= link_to h(user.full_name), user_path(user) %></td>
+                    <td><%= mail_to user.email, h(user.email)%></td>
+
+                    <td id="groups_<%=user.id.to_s%>" class="user_groups">
+                      <% user.group_list.sort.each do |name| %>
+                        <span id='g_<%= h(name)+ "_"  + user.id.to_s %>'>
+                          <%= h(name) %>
+                          <%= link_to "x", remove_group_user_path(
+                            :id => user.id, 
+                            :group_name => name,
+                            :format => :js), 
+                            :method => 'put',
+                            :remote => true %>
+                        </span>
+                      <% end %>
+                    </td>
+
+                  </tr>
+              <% end %>
+          <% end %>
+          </tbody>
+        </table>
+      </div><!-- /the_table -->
+  <% end %>
+</div><!-- /content -->
+<div id="user_dialog" title="Add new user"><%= render :partial => "users/new" %></div>
+<script type="text/javascript">
+  $(window).load(function(){
+      myLib.questionnaire_authorized_submitters.init();
+  });
+</script>

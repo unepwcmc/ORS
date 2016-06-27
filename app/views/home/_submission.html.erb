@@ -1,0 +1,65 @@
+<% questionnaires ||= @questionnaires -%>
+<% set_update_page = false %>
+<div id="questionnaires_for_submission">
+  <h3><%= t('user_dashboard.table_title')%></h3>
+  <table class="dashboard_table">
+    <thead>
+      <tr>
+        <th><%= t('dashboard_help.questionnaire_title')%> <%= info_tip( t('dashboard_help.questionnaire_title'), t('dashboard_help.questionnaire_text')) %></th>
+        <th><%= t('user_dashboard.created_by')%></th>
+        <th><%= t('user_dashboard.date')%></th>
+        <th><%= t('user_dashboard.status')%></th>
+        <!--<th>Progress</th>-->
+        <th><%= t('user_dashboard.pdf_download')%> <%= info_tip(t('dashboard_help.pdf_title'), t('dashboard_help.pdf_text')) %></th>
+        <th><%= t('user_dashboard.short_pdf_download')%> <%= info_tip(t('dashboard_help.pdf_small_title'), t('dashboard_help.pdf_small_text')) %></th>
+      </tr>
+    </thead>
+    <tbody>
+      <% questionnaires.each do |questionnaire| -%>
+          <% pdf_file = questionnaire.pdf_files.find_by_user_id_and_is_long(@user.id, true) -%>
+          <% short_pdf_file = questionnaire.pdf_files.find_by_user_id_and_is_long(@user.id, false) -%>
+          <% if File.directory?("#{Rails.root}/private/questionnaires/#{questionnaire.id.to_s}/users/#{@user.id}/generating_long_pdf") || File.directory?("#{Rails.root}/private/questionnaires/#{questionnaire.id.to_s}/users/#{@user.id}/generating_short_pdf")
+            set_update_page = true
+          end -%>
+          <tr>
+            <td><%= questionnaire.active? && @user.authorized_submitters.find_by_questionnaire_id(questionnaire.id).status == SubmissionStatus::UNDERWAY  ? (link_to ("<strong>"+h(questionnaire.title(current_user.language))+"</strong>").html_safe, submission_questionnaire_path(questionnaire)) : h(questionnaire.title)%></td>
+            <td><%= h(questionnaire.user.full_name) %></td>
+            <td><%= l(questionnaire.created_at) %></td>
+            <td>
+              <strong><%= questionnaire.inactive? ? t('user_dashboard.status_na').html_safe : questionnaire.active? ? (questionnaire.authorized_submitters.find_by_user_id(@user.id).status == 2 ? (t('user_dashboard.status_s') + " ").html_safe + link_to(t('generic.unsubmit'), new_questionnaire_unsubmission_request_path(questionnaire), :title => t("user_dashboard.unsubmit_title")) : t('user_dashboard.status_u')) : image_tag('icons/lock.png', :alt => t('user_dashboard.status_closed'), :title => t('user_dashboard.status_closed')) %></strong>
+            </td>
+            <!--<td><%#= questionnaire.percentage_of_completion_for(current_user) %>%</td>-->
+            <td id="pdf_for_<%= questionnaire.id %>">
+              <% link_text = File.directory?("#{Rails.root}/private/questionnaires/#{questionnaire.id.to_s}/users/#{@user.id}/generating_long_pdf") ? t("user_dashboard.pdf_generating") : nil %>
+              <% if pdf_file.present? && File.file?(pdf_file.location) -%>
+                <%= link_to image_tag('icons/page_white_acrobat.png', :alt => t('user_dashboard.pdf_download'), :title => t('user_dashboard.pdf_download')), questionnaire_download_user_pdf_path(questionnaire, current_user) %>
+                (<%= t("user_dashboard.pdf_last_g")%>: <%= l(File.mtime(pdf_file.location), :format => :with_time).html_safe %>)
+                &nbsp;
+                <%= link_to "<span id='link_text_#{questionnaire.id}_'>#{(link_text||t("user_dashboard.pdf_regenerate"))}</span>".html_safe, to_pdf_questionnaire_path(questionnaire), :class => "get" %>
+              <% else -%>
+                <%= link_to "<span id='link_text_#{questionnaire.id}_'>#{(link_text||t("user_dashboard.pdf_generate"))}</span>".html_safe, to_pdf_questionnaire_path(questionnaire), :class => "get" %>
+              <% end -%>
+            </td>
+            <td id="short_pdf_for_<%= questionnaire.id %>">
+              <% link_text = File.directory?("#{Rails.root}/private/questionnaires/#{questionnaire.id.to_s}/users/#{@user.id}/generating_short_pdf") ? t("user_dashboard.pdf_generating") : nil %>
+              <% if short_pdf_file.present? && File.file?(short_pdf_file.location) -%>
+                <%= link_to image_tag('icons/page_white_acrobat.png', :alt => t('user_dashboard.pdf_download'), :title => t('user_dashboard.pdf_download')), questionnaire_download_user_pdf_path(questionnaire, current_user, :params => {:is_short => true}) %>
+                (<%= t("user_dashboard.pdf_last_g")%>: <%= l(File.mtime(short_pdf_file.location), :format => :with_time) %>)
+                &nbsp;
+                <%= link_to "<span id='link_text_#{questionnaire.id}_true'>#{(link_text||t("user_dashboard.pdf_regenerate"))}</span>".html_safe, to_pdf_questionnaire_path(questionnaire, :params => {:is_short => true}), :class => "get" %>
+              <% else -%>
+                <%= link_to "<span id='link_text_#{questionnaire.id}_true'>#{(link_text||t("user_dashboard.pdf_generate"))}</span>".html_safe, to_pdf_questionnaire_path(questionnaire, :params => {:is_short => true}), :class => "get" %>
+              <% end -%>
+            </td>
+          </tr>
+      <% end -%>
+    </tbody>
+  </table>
+</div>
+<% if set_update_page -%>
+  <script type="text/javascript">
+    $("#questionnaires_for_submission").addClass("set_update_page");
+    updateUserSubmissionPage("<%= @user.id %>");
+  </script>
+<% end -%>
+

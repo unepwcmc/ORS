@@ -1,0 +1,14 @@
+<div class="container" id="main_wrapper">
+  <div id="header" class="span-24 last">
+    <div id="user_nav">
+      <%= render :partial => "layouts/authentication" -%>
+    </div>
+    <% flash.each do |name, msg| -%>
+      <%= javascript_tag "flash_message('#{name}', '#{escape_javascript(msg)}')" %>
+      <% flash.delete(name) %>
+    <% end -%>
+    <div id ="title_div">
+      <h1><%= set_header %></h1>
+    </div><!-- /titlediv -->
+  </div><!-- /header -->
+</div><!-- /main_wrapper -->
