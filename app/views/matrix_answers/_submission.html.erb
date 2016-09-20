@@ -8,27 +8,29 @@
 end %>
 <% the_id = append_identifier(question, looping_identifier)-%>
 
-<table class="submission_matrix">
-  <thead>
-  <tr>
-    <th></th>
-    <% columns.each do |column| -%>
-        <th>
-          <%=h @fields[(column.class.to_s.underscore.downcase+"_field").to_sym][column.id.to_s] %>
-        </th>
+<div class="submission-matrix-container">
+  <table class="submission-matrix">
+    <thead>
+    <tr>
+      <th></th>
+      <% columns.each do |column| -%>
+          <th>
+            <%=h @fields[(column.class.to_s.underscore.downcase+"_field").to_sym][column.id.to_s] %>
+          </th>
+      <% end -%>
+    </tr>
+    </thead>
+    <tbody>
+    <% rows.each do |row| %>
+        <tr>
+          <td class="matrix-queries"><%=h @fields[(row.class.to_s.underscore.downcase+"_field").to_sym][row.id.to_s] %></td>
+          <%= render :partial => "matrix_answers/#{answer_type.display_reply_humanize.gsub(" ", "_").tableize}", :locals => { :columns => columns, :answer => answer, :the_id => the_id, :row_id => row.id.to_s, :queries_as_rows => queries_as_rows, :selection => selection, :drop_down_options => drop_down_options, :disabled => disabled } %>
+          <%#= render :partial => "matrix_answers/check_boxes", :locals => { :columns => columns, :answer => answer } %>
+        </tr>
     <% end -%>
-  </tr>
-  </thead>
-  <tbody>
-  <% rows.each do |row| %>
-      <tr>
-        <td class="matrix_queries"><%=h @fields[(row.class.to_s.underscore.downcase+"_field").to_sym][row.id.to_s] %></td>
-        <%= render :partial => "matrix_answers/#{answer_type.display_reply_humanize.gsub(" ", "_").tableize}", :locals => { :columns => columns, :answer => answer, :the_id => the_id, :row_id => row.id.to_s, :queries_as_rows => queries_as_rows, :selection => selection, :drop_down_options => drop_down_options, :disabled => disabled } %>
-        <%#= render :partial => "matrix_answers/check_boxes", :locals => { :columns => columns, :answer => answer } %>
-      </tr>
-  <% end -%>
-  </tbody>
-</table>
+    </tbody>
+  </table>
+</div>
 <% if answer_type.radio_button? -%>
     <p><a href="#" id="<%= the_id %>_clear_choices"><%= t "s_details.clear_answer" %></a></p>
 <% end -%>

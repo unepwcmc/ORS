@@ -1,35 +1,38 @@
 <%= form_for @reminder, :html => { :id => "generator_form" , :class => "normal formtastic" } do |f| -%>
-    <div id="error_container" class="error_container clear">
+    <div id="error_container" class="error_container clear hide">
       <h5>There are some errors in your form submission, please see details below</h5>
       <ul id="error_messages"></ul>
     </div>
-    <fieldset>
-      <legend>Add a reminder</legend>
+    <div class="page-header"><h2>Add a reminder</h2></div>
       <ol>
-        <li>
-          <%= f.label :title%>
-          <%= f.text_field :title %>
-        </li>
-        <li>
-          <%= f.label :body, "Alert message" -%>
-          <%= f.text_area :body, :cols => 28, :rows => 3 %>
-        </li>
-        <li>
-          <%= f.label :days, "No of days before deadline" %>
-          <%= f.text_field :days, :validate => "{number:true}" %>
-        </li>
-        <li>
-          <%= label_tag "Choose deadlines to associated with" %>
-          <%= select_tag :deadlines, options_for_select(@deadlines.collect{ |i| ["#{i.title} # #{i.questionnaire.title[0,40]}", i.id ] }, (@reminder.deadlines.present? ? @reminder.deadlines.map{|d| d.id} : []) ), { :size => (@deadlines.size < 10 ? @deadlines.size : 10 ), :multiple => true, :validate => "{required:true}"} %>
-        </li>
+        <div class="row padded">
+          <div class="col col-4"><%= f.label :title%></div>
+          <div class="col col-8 border-left"><%= f.text_field :title %></div>
+        </div>
+        <div class="row padded">
+          <div class="col col-4"><%= f.label :body, "Alert message" -%></div>
+          <div class="col col-8 border-left"><%= f.text_area :body, :cols => 46, :rows => 9 %></div>
+        </div>
+        <div class="row padded">
+          <div class="col col-4"><%= f.label :days, "No of days before deadline" %></div>
+          <div class="col col-8 border-left"><%= f.text_field :days, :validate => "{number:true}" %></div>
+        </div>
+        <div class="row padded">
+          <div class="col col-4"><%= label_tag "Choose deadlines to associated with" %></div>
+          <div class="col col-8 border-left">
+
+            <%= select_tag :deadlines, options_for_select(@deadlines.collect{ |i| ["#{i.title} # #{i.questionnaire.title[0,40]}", i.id ] }, (@reminder.deadlines.present? ? @reminder.deadlines.map{|d| d.id} : []) ), { :multiple => true, :validate => "{required:true}", :class => 'multiple-select'} %>
+
+          </div>
+        </div>
       </ol>
       <p><%= f.submit (@reminder.new_record? ? "Add" : "Update" ) %></p>
-    </fieldset>
-    <div class="error_container">
+
+    <div class="error_container hide">
       <h5>There are errors in your form submission, please see details above the form!</h5>
     </div>
 <% end -%>
 
 <script>
-    formValidation();
+  FormValidator.initialize($('#generator_form'));
 </script>

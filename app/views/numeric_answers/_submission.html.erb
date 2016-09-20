@@ -3,5 +3,6 @@
 <p>
 <%= text_field_tag "answers[#{the_id}_#{answer_type.id.to_s}]", answer_text , :disabled => disabled, "data-min" => answer_type.min_value, "data-max" => answer_type.max_value, :class => "numeric_type" %>
 <br />
-<span><%= t('s_details.numeric_note') %> <%= if answer_type.min_value then t('s_details.numeric_min') + answer_type.min_value.to_s + "." end %> <%= if answer_type.max_value then t('s_details.numeric_max') + answer_type.max_value.to_s + "." end %></span>
+<p><%= t('s_details.numeric_note').html_safe %><br/> <i><%= if answer_type.min_value then t('s_details.numeric_min') + ' ' + answer_type.min_value.to_s + "." end %> <%= if answer_type.max_value then t('s_details.numeric_max') + ' ' + answer_type.max_value.to_s + "." end %></i></p>
 </p>
+<div class="separator"></div>

@@ -3,24 +3,30 @@
 <%= form_for @application_profile, :url => { :action => :update } , :html => { :multipart => true } do |f| %>
 
   <fieldset>
-    <ul>
-      <li>
-        <%= f.label :title %>
-        <%= f.text_field :title %>
-      </li>
-      <li>
-        <%= f.label :short_title %>
-        <%= f.text_field :short_title %>
-      </li>
-      <li>
-        <%= f.label :logo_url %>
-        <%= f.text_field :logo_url %>
-      </li>
-      <li>
-        <%= f.label :logo %>
-        <%= f.file_field :logo %>
-      </li>
-    </ul>
+    <div class="row padded group" >
+      <%= f.label :title %>
+      <%= f.text_field :title %>
+    </div>
+    <div class="row padded group" >
+      <%= f.label :short_title %>
+      <%= f.text_field :short_title %>
+    </div>
+    <div class="row padded group" >
+      <%= f.label :sub_title %>
+      <%= f.text_field :sub_title %>
+    </div>
+    <div class="row padded group" >
+      <%= f.label :logo_url %>
+      <%= f.text_field :logo_url %>
+    </div>
+    <div class="row padded group" >
+      <%= f.label :logo %>
+      <%= f.file_field :logo %>
+    </div>
+    <div class="row padded group">
+      <%= f.label :show_sign_up %>
+      <%= f.check_box :show_sign_up %>
+    </div>
   </fieldset>
   <%= f.submit %>
 <% end %>

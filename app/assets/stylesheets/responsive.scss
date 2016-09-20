@@ -1,0 +1,24 @@
+/* SCREEN */
+
+@media screen and (max-width: 1024px) {
+  #shape { display: none !important; }
+  #title { width: 66.13%;}
+}
+
+/* TABLET */
+
+@media screen and (max-width: 800px) {
+  #right { text-align: left; }
+}
+
+/* MOBILE */
+
+@media screen and (max-width: 640px) {
+  #organisation-logo, #footer-menu { display: none !important; }
+  #title { width: 100%; }
+
+  div {
+    margin: 0 auto !important;
+    text-align: center !important;
+  }
+}

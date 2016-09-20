@@ -5,13 +5,23 @@
     <tbody>
       <tr>
         <th width="10%"><%= t("generic.name") %>:</th>
-        <td><%=h @user.full_name %></td></tr>
-      <tr>
-        <th><%= t("generic.email") %>:</th>
-        <td><%=h @user.email %></td></tr>
+        <td><%=h @user.full_name %></td>
+      </tr>
       <tr>
         <th><%= t("generic.language") %>:</th>
         <td><%=h @user.language_full_name %></td>
+      </tr>
+      <tr>
+        <th><%= t("generic.email") %>:</th>
+        <td><%=h @user.email %></td>
+      </tr>
+      <tr>
+        <th><%= t("generic.country") %>:</th>
+        <td><%=h @user.country %></td>
+      </tr>
+      <tr>
+        <th><%= t("generic.region") %>:</th>
+        <td><%=h @user.region %></td>
       </tr>
       <tr>
         <th><%= t("generic.category") %>:</th>
@@ -30,7 +40,7 @@
           <p><strong><%#= "#{h(field.name)} #{info_tip "Questionnaire", questionnaire.title}"%>: </strong> <%#= @user.get_filtering_field_value(field) %></p>
       <%# end -%>
   <%# end -%>
-  
+
   -->
   <a style="font-weight:600; font-size:14px" id="toggle_help" href="#">
     Filtering fields
@@ -57,11 +67,11 @@
     </tbody>
   </table>
   </div>
-  
+
   <% unless @user.available_questionnaires.empty? %>
       <hr />
       <div class="span-24 last" id="questionnaires">
-        <%= render :partial => "home/submission", :locals => { 
+        <%= render :partial => "home/submission", :locals => {
           :questionnaires => @user.available_questionnaires } %>
       </div><!-- /questionnaires -->
   <% end %>

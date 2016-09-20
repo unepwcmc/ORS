@@ -1,4 +1,3 @@
-$(function(){
     <%- flash.each do |name, msg| -%>
       flash_message("<%=h name%>", "<%=h msg %>");
       <%- flash.delete(name) -%>
@@ -18,7 +17,7 @@ $(function(){
               delegates_title += "<ul>#{section_delegates.sort.map{|u| "<li>#{h(u.delegate.full_name)}</li>" }.join("")}</ul>"
             end
         %>
-          $("#delegates_for_<%=@section.id%>_<%= litem_name_id %>").empty().append("<%= escape_javascript(image_tag('icons/delegates.png', :size => "15x15", :title => delegates_title, :class => 'obj_tooltip', :alt => 'Info')) %>");
+          //$("#delegates_for_<%#=@section.id%>_<%#= litem_name_id %>").empty().append("<%#= escape_javascript(image_tag('icons/delegates.png', :size => "15x15", :title => delegates_title, :class => 'obj_tooltip', :alt => 'Info')) %>");
         <% else %>
           $("#delegates_for_<%= @section.id %>_<%= litem_name_id %>").empty();
         <% end %>
@@ -36,9 +35,9 @@ $(function(){
           delegates_title += "<ul>#{section_delegates.sort.map{|u| "<li>#{h(u.delegate.full_name)}</li>" }.join("")}</ul>"
         end
         if @section.looping? %>
-          $(".delegates_for_<%=@section.id%>").empty().append("<%= escape_javascript(image_tag('icons/delegates.png', :size => "15x15", :title => delegates_title, :class => 'obj_tooltip', :alt => 'Info')) %>");
+          //$(".delegates_for_<%#=@section.id%>").empty().append("<%#= escape_javascript(image_tag('icons/delegates.png', :size => "15x15", :title => delegates_title, :class => 'obj_tooltip', :alt => 'Info')) %>");
         <% else %>
-            $("#delegates_for_<%=@section.id%>_0").empty().append("<%= escape_javascript(image_tag('icons/delegates.png', :size => "15x15", :title => delegates_title, :class => 'obj_tooltip', :alt => 'Info')) %>");
+            //$("#delegates_for_<%#=@section.id%>_0").empty().append("<%#= escape_javascript(image_tag('icons/delegates.png', :size => "15x15", :title => delegates_title, :class => 'obj_tooltip', :alt => 'Info')) %>");
         <% end %>
       <% else %>
         <% if @section.looping? %>
@@ -48,10 +47,9 @@ $(function(){
       <% end %>
     <% end %>
   <% end %>
-  $("#delegate_section").empty()
-          .append("<%= escape_javascript( render :partial => "delegation_sections/delegate_section") %>")
-          .dialog("open");
-  formValidation();
+  debugger
+  $("#delegate_section").empty().append("<%= escape_javascript( render :partial => "delegation_sections/delegate_section") %>").dialog("open");
+  FormValidator.initialize($('#generator_form'));
   $("#select_all_items").click(function(e){
       e.preventDefault();
       $("#loop_item_names option").attr('selected', "selected");
@@ -61,4 +59,3 @@ $(function(){
       e.preventDefault();
       $("#loop_item_names option").removeAttr("selected");
   });
-});

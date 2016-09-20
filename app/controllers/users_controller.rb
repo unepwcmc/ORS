@@ -48,7 +48,7 @@ class UsersController < ApplicationController
       end
     else
       respond_to do |format|
-        format.html { 
+        format.html {
           render :action => "new", :params => {:lang => (params[:lang]||"en")}
         }
         format.js
@@ -70,7 +70,7 @@ class UsersController < ApplicationController
     if @user.update_attributes(params[:user])
       @user.update_authorizations if update_authorizations
       @user.add_or_update_filtering_fields(params[:filtering_field]) if params[:filtering_field]
-      flash[:notice] = t('flash_messages.update_profile_s') 
+      flash[:notice] = t('flash_messages.update_profile_s')
       redirect_to @user
     else
       render :action => 'edit'
@@ -135,7 +135,8 @@ class UsersController < ApplicationController
     @status = {}
     @user = current_user
     url = "http://#{request.host}/"
-    @user.parse_uploaded_list(params[:list_of_users].path, @status, url)
+    send_welcome_email = params[:send_welcome_email] == '1'
+    @user.parse_uploaded_list(params[:list_of_users].path, @status, url, send_welcome_email)
     if @status[:errors].present?
       flash[:error] = "There were some errors when parsing the file you provided."
     else
@@ -148,4 +149,3 @@ class UsersController < ApplicationController
     @user = User.find(params[:id], :include => [:available_questionnaires, :pdf_files])
   end
 end
-

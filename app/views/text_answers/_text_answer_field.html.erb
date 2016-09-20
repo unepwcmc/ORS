@@ -1,11 +1,12 @@
 <div class="option" style="display: block;">
-  <li>
+  <div class="row group padded">
     <%= f.label :rows %>
     <%= f.text_field :rows, :value => f.object.rows.present? ? f.object.rows :  5, :size => 5, :validate => "{number:true,messages:{number:'The rows of a text field must be a number'}}" %>
-  </li>
-  <li>
+  </div>
+  <div class="row group padded">
     <%= f.label :width %>
     <%= f.text_field :width, :value => f.object.width.present? ? f.object.width : 600, :size => 5, :validate => "{number:true,messages:{number:'The width of a text field must be a number'}}"%>
-  </li>
-  <p><%= remove_child_link "remove text field", f -%></p>
+    <p>Maximum width: 600</p>
+  </div>
+  <%= remove_child_link "Remove text field", f -%>
 </div><!-- /option -->

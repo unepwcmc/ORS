@@ -1,77 +1,53 @@
 <% answer = Question.get_answer(@fields[:answers], question.id, looping_identifier) -%>
 <%= hidden_field_tag(:user_delegate, @current_user_delegate.id, class: 'disabled_section_information') if @current_user_delegate %>
-<div class="submit_question clear <%= answer && answer.old_answer? ? "old-answer" : "" %><%= disabled ? "disabled" : "" %>" id="question_div_<%= question.id.to_s + (looping_identifier ? "_#{looping_identifier}" : "") %>">
-  <h4 style="float:left">
-    <% field_to_use = question_field && question_field.title.present? ? question_field : question_field_default %>
-    <%= raw  "<span style='color: red'>*</span> " if question.is_mandatory? %><%= raw Sanitize.clean( ( ( ( question.loop_item_types.present? && loop_item.present? ) ? field_to_use.loop_title(loop_sources, loop_item) : field_to_use.title )), OrtSanitize::Config::ORT) %>
-  </h4>
-  <div class="clear">
-    <% field_to_use = question_field && question_field.description.present? ? question_field : question_field_default
-      #since description is not mandatory, the question_field object might not have it so we'll try with the question_field_default-%>
-    <% if field_to_use && field_to_use.description.present?  -%>
-      <p class="q_description">
-      <%#=h question_field.description %>
-      <%= Sanitize.clean((question.question_extras.present? && loop_item.present?) ?  field_to_use.replace_variables(:description, @authorization[:language], loop_sources, loop_item) : field_to_use.description, OrtSanitize::Config::ORT).html_safe %>
-      </p>
-    <% end -%>
+<div class="submit_question row clear <%= answer && answer.old_answer? ? "old-answer" : "" %><%= disabled ? "disabled" : "" %>" id="question_div_<%= question.id.to_s + (looping_identifier ? "_#{looping_identifier}" : "") %>">
 
-    <div class="answer_fields_wrapper">
-      <p class="tooltips" style="float: right">
-      <% if answer_type_help_text -%>
-        <% field_to_use = question_field.short_title.present? ? question_field : question_field_default %>
-        <%= tooltip((field_to_use && field_to_use.short_title ? field_to_use.short_title : ""), answer_type_help_text) %> <br />
-      <% end -%>
-      <% if question.allow_attachments? -%>
-        <%= link_to image_tag('icons/attach.png', :alt => "clip image", :title => t("submission_pages.attach_files")) + " " + t("submission_pages.attach_files"), add_document_answer_path(question, :looping_identifier => looping_identifier, :user_delegate => @current_user_delegate.try(:id)), :class => "get" %><br />
-        <%= link_to t('submission_pages.attach_links'), add_links_answer_path(question, :looping_identifier => looping_identifier, :user_delegate => @current_user_delegate.try(:id)), :class => "get" %>
-      <% end -%>
-      <% if answer -%>
-        <br />
-        <%= t('submission_pages.last_edited_by') %><br />
-        <% last_editor = answer.last_editor || answer.user %>
-        <span id="edited_by_<%= question.id.to_s + (looping_identifier ? "_#{looping_identifier}" : "") %>"><%= link_to h(last_editor.full_name)[0,30], user_path(last_editor), :title => h(last_editor.full_name) -%></span>
-      <% end -%>
-      </p>
+  <div class="question-title">
+    <!-- <div class="number-circle"><%#= question_index %></div> -->
+    <h4>
+      <% field_to_use = question_field && question_field.title.present? ? question_field : question_field_default %>
+      <%= raw Sanitize.clean( ( ( ( question.loop_item_types.present? && loop_item.present? ) ? field_to_use.loop_title(loop_sources, loop_item) : field_to_use.title )), OrtSanitize::Config::ORT) %>
+
+      <%= raw  "<span style='color: red;'>*</span>" if question.is_mandatory? %>
+    </h4>
+  </div>
+
+
+  <div class="">
+    <% field_to_use = question_field && question_field.description.present? ? question_field : question_field_default %>
+      <% #since description is not mandatory, the question_field object might not have it so we'll try with the question_field_default-%>
+
+  <% if field_to_use && field_to_use.description.present?  -%>
+    <div class="question-description">
+      <%= Sanitize.clean((question.question_extras.present? && loop_item.present?) ?  field_to_use.replace_variables(:description, @authorization[:language], loop_sources, loop_item) : field_to_use.description, OrtSanitize::Config::ORT).html_safe %>
+    </div>
+  <% end -%>
+
+    <div class="answer_fields_wrapper row padded">
       <% can_edit = question.can_edit_text_answer?(answer, @current_user_delegate) %>
       <%= render :partial => "#{question.answer_type_type.underscore}s/submission", :locals => { :question => question, :answer_type => question.answer_type, :loop_item => loop_item, :answer => answer, :disabled => disabled || !can_edit, :looping_identifier => looping_identifier }, :inline => true  %>
-      <p>
-        <% if question.answer_type_type == 'TextAnswer'%>
-          <% unique_id = append_identifier(question, looping_identifier) %>
-          <% if answer %>
-            <%= hidden_field_tag "delegate_text_answers[#{unique_id}][answer_id]", answer.id, class: 'disabled_section_information' %>
-            <% delegate_text_answers = answer.delegate_text_answers.order('updated_at DESC') %>
-            <% if !DelegateTextAnswer.find_by_user_id_and_answer_id(current_user.id, answer.id).present? && answer.user_id != current_user.id && !disabled%>
-              <%= hidden_field_tag "delegate_text_answers[#{unique_id}][delegate_answer_id]", 'new', class: 'disabled_section_information' %>
-              <%= text_area_tag "delegate_text_answers[#{unique_id}][value]", '', :rows => 5, :cols => 78, :disabled => disabled || answer.question_answered, :class => ("disabled" if disabled || answer.question_answered) %>
-            <% end %>
-            <% delegate_text_answers.each do |delegate_text_answer| %>
-              <p class="tooltips" style="float:right; clear:both;">
-                <br />Answered by:<br />
-                <% editor = delegate_text_answer.user %>
-                <span><%= editor.id != current_user.id ? (link_to h(editor.full_name)[0,30], user_path(editor), :title => h(editor.full_name)) : 'You' -%></span><br />
-                <span><%= delegate_text_answer.updated_at %></span>
-              </p>
-              <% if current_user.id == delegate_text_answer.user_id %>
-                <%= hidden_field_tag "delegate_text_answers[#{unique_id}][delegate_answer_id]", delegate_text_answer.id, class: 'disabled_section_information' %>
-                <%= text_area_tag "delegate_text_answers[#{unique_id}][value]", delegate_text_answer.answer_text, :rows => 5, :cols => 78, :disabled => answer.question_answered, :class => ("disabled" if answer.question_answered), style: "float:left;" %>
-              <% else %>
-                <%= text_area_tag "other_delegates_answers[#{delegate_text_answer.id}]", delegate_text_answer.answer_text, :rows => 5, :cols => 78, :disabled => true, :class => "disabled", style: "float:left;" %>
-              <% end %>
-            <% end %>
-          <% elsif current_user.is_authorized_to_answer?(question.section, @current_user_delegate)  %>
-            <%= hidden_field_tag :user_delegate, @current_user_delegate.try(:id), class: 'disabled_section_information' %>
-            <%= hidden_field_tag "delegate_text_answers[#{unique_id}][delegate_answer_id]", 'new', class: 'disabled_section_information' %>
-            <%= hidden_field_tag "delegate_text_answers[#{unique_id}][looping_id]", looping_identifier, class: 'disabled_section_information' %>
-            <%= text_area_tag "delegate_text_answers[#{unique_id}][value]", nil, :rows => 5, :cols => 78, style: "float:left;" %>
-          <% end %>
-        <% end %>
-      </p>
-      <% if answer && answer.user_id == current_user.id %>
-        <p style="float:right; clear:both;">
-          <%= hidden_field_tag "question_answered[#{answer.id}]", "" %>
-          <%= (check_box_tag "question_answered[#{answer.id}]", true, answer.question_answered) + 'Mark question as answered' %>
-        </p>
+
+      <%= render partial: "questions/answer_details", locals: {
+          question: question, answer: answer, looping_identifier: looping_identifier,
+          answer_type_help_text: answer_type_help_text,
+          current_user: current_user, field_to_use: field_to_use
+        }
+      %>
+
+      <% if question.answer_type_type == 'TextAnswer'%>
+        </div>
+        <div class="text-answers-flag">
+          <span>Respondent</span>
+        </div>
+        </div> <!-- text-answer-container -->
+        <%= render partial: "text_answers/delegate_text_answers", locals: {
+          question: question, answer: answer,
+          looping_identifier: looping_identifier,
+          current_user: current_user, disabled: disabled
+        }
+        %>
       <% end %>
+
     </div>
 
     <div id="answer_doc_<%= question.id.to_s + (looping_identifier ? "_#{looping_identifier}" : "")%>">

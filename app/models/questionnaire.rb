@@ -14,7 +14,7 @@ class Questionnaire < ActiveRecord::Base
   ###   Paperclip
   ###
   has_attached_file :header,
-    :styles => { :original => "940x90>", :thumb => "237x22>" },
+    :styles => {:original => "940x90>", :thumb => "237x22>"},
     :default_url => "#{ActionController::Base.relative_url_root}/assets/headers/default/default_:style_header.png"
   validates_attachment_size :header,
     :less_than => 5.megabytes
@@ -25,14 +25,14 @@ class Questionnaire < ActiveRecord::Base
   ###
   belongs_to :user #the author of the questionnaire
   belongs_to :last_editor, :class_name => "User"
-  has_many :submitters, :through => :authorized_submitters, :source => :user, :conditions => {:authorized_submitters => { :status => [SubmissionStatus::NOT_STARTED, SubmissionStatus::UNDERWAY, SubmissionStatus::SUBMITTED] } }
+  has_many :submitters, :through => :authorized_submitters, :source => :user, :conditions => {:authorized_submitters => {:status => [SubmissionStatus::NOT_STARTED, SubmissionStatus::UNDERWAY, SubmissionStatus::SUBMITTED]}}
   has_many :authorized_submitters, :dependent => :destroy
-  has_many :questionnaire_parts#, :dependent => :destroy
-  has_many :loop_sources, :include => :loop_item_type#, :dependent => :destroy
+  has_many :questionnaire_parts, :dependent => :destroy
+  has_many :loop_sources, :include => :loop_item_type, :dependent => :destroy
   has_many :answers, :dependent => :destroy
   has_many :documents, :through => :answers #documents from the users answers
   has_many :questionnaire_fields, :dependent => :destroy
-  accepts_nested_attributes_for :questionnaire_fields, :reject_if => lambda { |a| a.values.all?(&:blank?)}, :allow_destroy => true #
+  accepts_nested_attributes_for :questionnaire_fields, :reject_if => lambda { |a| a.values.all?(&:blank?) }, :allow_destroy => true #
   belongs_to :source_questionnaire, :foreign_key => :original_id, :class_name => "Questionnaire"
   has_many :copies, :foreign_key => :original_id, :class_name => "Questionnaire"
   has_many :filtering_fields, :dependent => :destroy
@@ -45,11 +45,11 @@ class Questionnaire < ActiveRecord::Base
   ###
   ###   Named Scopes
   ###
-  scope :last_created, lambda { |num| { :limit => num, :order => 'created_at DESC', :include => :user } }
-  scope :last_edited, lambda { |num| { :limit => num, :order => 'updated_at DESC', :include => :user } }
-  scope :last_activated, lambda { |num| { :limit => num, :order => 'activated_at DESC', :conditions => ['status = 1'], :include => :user } }
-  scope :closed_questionnaires, { :order => "created_at DESC", :conditions => ['status = 2'] , :include => :user}
-  scope :authorized_questionnaires, lambda {|user| { :joins => :authorized_submitters, :conditions => ['authorized_submitters.user_id = ?', user.id], :include => :questionnaire_fields } }
+  scope :last_created, lambda { |num| {:limit => num, :order => 'created_at DESC', :include => :user} }
+  scope :last_edited, lambda { |num| {:limit => num, :order => 'updated_at DESC', :include => :user} }
+  scope :last_activated, lambda { |num| {:limit => num, :order => 'activated_at DESC', :conditions => ['status = 1'], :include => :user} }
+  scope :closed_questionnaires, {:order => "created_at DESC", :conditions => ['status = 2'] , :include => :user}
+  scope :authorized_questionnaires, lambda { |user| {:joins => :authorized_submitters, :conditions => ['authorized_submitters.user_id = ?', user.id], :include => :questionnaire_fields} }
 
   ###
   ###   Validations
@@ -62,7 +62,7 @@ class Questionnaire < ActiveRecord::Base
   ###
 
   def propagate_languages_changes old_languages, old_default_language
-    questionnaire_languages = self.questionnaire_fields.reject{|a| a.marked_for_destruction?}.map{|a| a.language}
+    questionnaire_languages = self.questionnaire_fields.reject{ |a| a.marked_for_destruction? }.map{ |a| a.language }
     new_default = self.questionnaire_fields.find_by_is_default_language(true).language
     langs_to_remove = old_languages - questionnaire_languages
     langs_to_add = questionnaire_languages - old_languages
@@ -82,7 +82,7 @@ class Questionnaire < ActiveRecord::Base
 
   def questionnaire_structure (params) # to display the questionnaire in the dynatree
     @obj = []
-    self.questionnaire_parts.sort{|a,b| a.lft <=> b.lft}.each do |qpart|
+    self.questionnaire_parts.sort{ |a,b| a.lft <=> b.lft }.each do |qpart|
       children = qpart.children
       the_title = Sanitize.clean(qpart.display_title).strip.gsub("\n\n", "")
       @obj += [ {
@@ -99,7 +99,7 @@ class Questionnaire < ActiveRecord::Base
   end
 
   def available_languages
-    self.questionnaire_fields.map{|qf| qf.language}
+    self.questionnaire_fields.map{ |qf| qf.language }
   end
 
   #destroy sections, questions && answer_types of a questionnaire
@@ -137,7 +137,6 @@ class Questionnaire < ActiveRecord::Base
     self.questionnaire_parts.each do |qpart|
       qpart.destroy_branch
     end
-    self.destroy
     #    puts "###########System Totals - After deleting the stuff ##########"
     #    puts "Total sections of the System: #{Section.count}"
     #    puts "Total questions of the System: #{Question.count}"
@@ -154,13 +153,12 @@ class Questionnaire < ActiveRecord::Base
 
   #build questionnaire_field objects for the languages missing from the 6 existing languages
   def build_questionnaire_fields!
-    languages = ['ar', 'zh', 'en', 'es', 'fr', 'ru'] - self.questionnaire_fields.map{|a| a.language}#&:language
+    languages = ['ar', 'zh', 'en', 'es', 'fr', 'ru'] - self.questionnaire_fields.map{ |a| a.language }#&:language
     languages.each do |lang|
       self.questionnaire_fields.build(:language => lang)
     end
     self.questionnaire_fields.sort!{ |a,b| a.language <=> b.language }
   end
-
 
   #Method to facilitate the printing of the Questionnaire Title
   #by printing the title in the default language
@@ -230,19 +228,13 @@ class Questionnaire < ActiveRecord::Base
 
   #get the number of questions from a questionnaire
   def questions_count
-    total_questions = 0
-    self.questionnaire_parts.each do |qpart|
-      total_questions += qpart.self_and_descendants.map(&:part).delete_if{|a| !a.is_a?(Question)}.count
-    end
-    total_questions
+    from_sql = ActiveRecord::Base.send(:sanitize_sql_array, ["questionnaire_questions(?)", self.id])
+    Questionnaire.from(from_sql).count
   end
 
   def sections_count
-    total_sections = 0
-    self.questionnaire_parts.each do |qpart|
-      total_sections += qpart.self_and_descendants.map(&:part).delete_if{|a| !a.is_a?(Section)}.count
-    end
-    total_sections
+    from_sql = ActiveRecord::Base.send(:sanitize_sql_array, ["questionnaire_sections(?)", self.id])
+    Questionnaire.from(from_sql).count
   end
 
   def close!
@@ -281,21 +273,25 @@ class Questionnaire < ActiveRecord::Base
   end
 
   def sections_to_display_in_tab
-    root_sections = self.sections
-    to_add = {}
-    root_sections.each do |section|
-      to_add[root_sections.index(section).to_s] = section.descendants.reject{|s| !s.display_in_tab?}
-    end
-    to_add.each do |index, sections|
-      root_sections.insert(index.to_i + 1, sections)
-    end
-
-    root_sections.flatten.sort{|a,b| a.questionnaire_part.lft <=> b.questionnaire_part.lft}
+    Section.select('*').from(
+      ActiveRecord::Base.send(:sanitize_sql_array,
+        [
+          "(
+            SELECT sections.*
+            FROM questionnaire_parts_with_descendents(:questionnaire_id)
+            JOIN sections ON part_id = sections.id AND part_type = 'Section'
+            WHERE questionnaire_id IS NOT NULL OR display_in_tab
+            ORDER BY lft
+          ) sections",
+          questionnaire_id: self.id
+        ]
+      )
+    ).preload(:questionnaire_part, :section_fields)
   end
 
   def questionnaire_structure_for_js_tree (params) # to display the questionnaire in the dynatree
     tree_children = []
-    self.questionnaire_parts.sort{|a,b| a.lft <=> b.lft}.each do |qpart|
+    self.questionnaire_parts.sort{ |a,b| a.lft <=> b.lft }.each do |qpart|
       children = qpart.children
       the_title = Sanitize.clean(qpart.display_title).strip.gsub("\n\n", "")
       tree_children += [ {
@@ -306,7 +302,7 @@ class Questionnaire < ActiveRecord::Base
         #:tooltip => the_title,
         #:isFolder => qpart.part.is_a?(Section),
         #:key => qpart.part.is_a?(Section) ? qpart.part_id.to_s : "q"+qpart.part_id.to_s,
-        :attr => { :id => qpart.id.to_s, :movable => "true", :targetable => "true", :is_question => "false", :looping_branch => qpart.part.loop_source.present?,
+        :attr => {:id => qpart.id.to_s, :movable => "true", :targetable => "true", :is_question => "false", :looping_branch => qpart.part.loop_source.present?,
           :display_in_tab => "true"},
           :state => children.present? ? "closed" : "leaf",
           #:activate => ( params[:activate] && params[:activate].to_i == qpart.part_id ) ? true : false,
@@ -319,7 +315,7 @@ class Questionnaire < ActiveRecord::Base
       :title => self.title,
       :icon => "folder"
     },
-      :attr => { :id => "root", :targetable => "true"},
+      :attr => {:id => "root", :targetable => "true"},
       :state => "open",
       :children => tree_children
     }
@@ -361,18 +357,15 @@ class Questionnaire < ActiveRecord::Base
   end
 end
 
-
-
-
 # == Schema Information
 #
 # Table name: questionnaires
 #
 #  id                       :integer          not null, primary key
-#  created_at               :datetime
-#  updated_at               :datetime
+#  created_at               :datetime         not null
+#  updated_at               :datetime         not null
 #  last_edited              :datetime
-#  user_id                  :integer
+#  user_id                  :integer          not null
 #  last_editor_id           :integer
 #  activated_at             :datetime
 #  administrator_remarks    :text

@@ -8,9 +8,14 @@ class UserSessionsController < ApplicationController
     if @user_session.save
       I18n.locale = @user_session.user.language
       flash[:notice] = t('flash_messages.logged_successfully')
-      redirect_to_target_or_default(root_url)
+      if @user_session.user.role?(:admin)
+        redirect_to administration_path
+      else
+        redirect_to_target_or_default(root_url)
+      end
     else
-      render :action => 'new', :params => {:lang => params[:lang] || "en"}
+      flash[:notice] = "Username or password was incorrect"
+      redirect_to root_url, :params => {:lang => params[:lang] || "en"}
     end
   end
 

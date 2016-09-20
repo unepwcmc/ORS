@@ -1,342 +1,345 @@
-# French translations for Ruby on Rails 
-# by Christian Lescuyer (christian@flyingcoders.com)
-# contributor: Sebastien Grosjean - ZenCocoon.com
-
 fr:
-  title: "Système de rapport en ligne de la Convention de Berne"
+  title: "Système de rapport en ligne"
+  hello: "Bonjour la planète"
   generic:
     help: "Aide"
     remove: "Supprimer"
     questionnaire: "Questionnaire"
-    filtering_fields: "Champs de filtrage"
-    value: "Valeur"
+    filtering_fields: "Filtrer"
     select_filter: "Veuillez sélectionner les champs de filtrage"
-    details: "Details"
-    hi: "Salut"
-    email: "Courriel"
+    value: "valeur"
+    details: "Détails"
     section: "Section"
+    hi: "Bonjour"
+    email: "E-mail"
     category: "Catégorie"
-    scientific: "Autorité Scientifique"
+    scientific: "Autorité scientifique"
     other: "Autre"
-    management: "Autorité de Gestion"
-    password: 'Mot de passe'
-    password_c: "Validez le mot de passe"
+    management: "Autorité de gestion"
+    password: "Mot de passe"
+    password_c: "Confirmation du mot de passe"
     options: "Options"
-    created_at: "Date de création"
-    show: "Inspecter"
-    are_you_sure: "Etes-vous sûr?"
+    created_at: "Créé à"
+    show: "Afficher"
+    are_you_sure: "Voulez-vous vraiment continuer ?"
     language: "Langue"
     name: "Nom"
     remarks: "Remarques"
     manage: "Gérer"
-    delegate: "Déléguér"
-    delegator: "Mandant"
+    delegate: "Déléguer"
+    delegator: "Délégateur"
     edit: "Modifier"
-    all: "Tous"
+    all: "Tout"
     clear: "Effacer"
-    update: "Mise à jour"
+    update: "Mettre à jour"
     add: "Ajouter"
-    subject: "Sujet"
-    body: "Corps du message"
-    unsubmit: "Rétablir la soumission"
+    subject: "Objet"
+    body: "Corps"
+    unsubmit: "Annuler la soumission"
     send: "Envoyer"
     title: "Titre"
-    of:
-  unsubmission_request:
-    legend: "Email votre demande"
+    of: "de"
   questionnaire_feedback:
     state0: "Toutes les questions sans réponse"
-    state1: "Il ya des questions obligatoires sans réponse (questions avec un * rouge)"
-    state2: "Certaines questions sans réponse"
-    state3: "Toutes les questions sont répondues"
+    state1: "Des questions obligatoires sont sans réponse (questions marquées d'un * rouge)"
+    state2: "Certaines questions sont sans réponse"
+    state3: "Toutes les questions comportent une réponse"
     state4: "Nouvelle section"
-  s_details:
-    fill_instructions: "Pour remplir le questionnaire veuillez cliquer sur les sections de gauche."
-    confirm_submission: "Je déclare que les informations fournies dans ce rapport ont été vérifiées et que la soumission du rapport a été approuvée par l’institution nationale compétente."
-    submission_disabled:
+  s_details: #submission_details
+    fill_instructions: "Pour répondre à ce questionnaire, choisissez une section à gauche."
+    confirm_submission: "Je déclare que les informations fournies dans ce rapport ont été vérifiées et que la soumission du rapport a été approuvée par l'institution publique concernée du pays."
+    submission_disabled: "Certaines de vos réponses ne sont pas enregistrées. Enregistrez ces réponses avant de soumettre le questionnaire."
     submission_success: "Le questionnaire a été soumis, merci."
-    submission_failure: "Vous ne pouvez pas soumettre le questionnaire avant de répondre à toutes les questions obligatoires. S'il vous plaît vérifier le signe du «danger» sur les onglets à gauche"
+    submission_failure: "Vous ne pouvez pas soumettre le questionnaire tant que vous n'avez pas répondu à toutes les questions obligatoires. Veuillez vérifier la présence du symbole 'danger' sur les onglets de gauche"
     title: "Titre"
     default_lang: "Langue par défaut"
     available_lang: "Langues disponibles"
     year: "Année de création"
     q_displayed_in: "Questionnaire affiché en"
-    been_submitted: "Vous avez soumis ce questionnaire."
-    change_lang: "Changez de langue"
-    choose_loop_item: "Selectionnez dans cette liste"
+    been_submitted: "Vous avez soumis le questionnaire."
+    change_lang: "Changer de langue"
+    choose_loop_item: "Veuillez choisir un élément de la liste"
     submit_q: "Soumettre le questionnaire"
-    choose_lang: "Choisissez une langue"
+    choose_lang: "Choisir une langue"
     change_button: "Changer"
-    download_pdf: "Pour télécharger la version pdf du questionnaire, veuillez visiter"
-    save: "Enregistrer tout"
+    download_pdf: "Pour télécharger la version PDF de ce questionnaire, rendez-vous sur :"
+    save: "Tout enregistrer"
     save_tip: "Enregistrer - Cliquez sur ce bouton pour enregistrer toutes les réponses sur la page en cours."
-    collapse: "Fermer"
-    expand: "Étendre"
+    collapse: "Réduire"
+    expand: "Développer"
     clear_answer: "Effacer la réponse"
-    numeric_note: "Remarque: Vous ne pouvez entrer des valeurs numériques dans ce domaine."
-    numeric_min: "La valeur minimale est:"
-    numeric_max: "La valeur maximale est:"
+    numeric_note: "<strong>Remarque</strong> <i>Vous ne pouvez saisir que des valeurs numériques dans ce champ.</i>"
+    numeric_min: "La valeur minimum est"
+    numeric_max: "La valeur maximum est"
   tab_details: #tab details
     q_details: "Introduction"
-    dashboard: "panneau de configuration"
+    dashboard: "tableau de bord"
     admin_dashboard: "admin"
-    delegation_sections: "liste des sections délégué"
-    delegate_section: "Déléguer cette section"
-    delegate_section_tooltip: "Déléguer cette section - Vous pouvez déléguer cette section à un de vos délégués de répondre en votre nom. Vous pouvez gérer vos délégués par le lien 'Gérer les délégués' sur votre tableau de bord."
+    delegation_sections: "liste de sections déléguées"
+    delegate_section: "Déléguer section"
+    delegate_section_tooltip: "Déléguer section - Vous pouvez déléguer cette section à l'un de vos délégués afin qu'il y réponde à votre place. Vous pouvez gérer la liste de vos délégués en cliquant sur le lien 'Gérer les délégués' sur votre tableau de bord."
   delegation_details:
-    header_p: "Vous avez été délégué avec les sections suivantes de ce questionnaire:"
-    root_section_th: 'Section Primaire'
-    loop_th: 'articles loop'
-    whole_q: "Vous avez été délégué à l'ensemble du questionnaire."
+    header_p: "Les sections suivantes de ce questionnaire vous ont été attribuées"
+    root_section_th: 'Section principale'
+    loop_th: 'Éléments en boucle'
+    whole_q: "Le questionnaire complet vous a été attribué."
   delegate_section:
-    existing_t: "Les délégués d'accéder à cette section et descendante"
-    delegates_whole: "Les délégués ont accès à l'ensemble du questionnaire"
-    delegate_to: "Deleguez à"
-    all_delegated: "Vous avez déjà délégué cette section pour l'ensemble de vos délégués. Pour ajouter de nouveaux délégués s'il vous plaît aller à"
-    your_dashboard: "votre tableau de bord des délégués"
-    no_delegates: "Vous n'avez pas encore délégués. Pour ajouter des délégués s'il vous plaît aller à"
-    added_success: "Section déléguée avec succès."
-    added_failure: "S'il vous plaît assurez-vous de sélectionner une section à être déléguées."
-    removed_success: "Délégation supprimé avec succès."
+    existing_t: "Délégués ayant accès à cette section et aux sous-sections"
+    delegates_whole: "Délégués ayant accès au questionnaire complet"
+    delegate_to: "Déléguer à"
+    all_delegated: "Vous avez déjà délégué cette section à tous vos délégués. Pour ajouter de nouveaux délégués, accédez à"
+    your_dashboard: "le tableau de bord de vos délégués"
+    no_delegates: "Vous n'avez pas encore de délégués. Pour ajouter des délégués, accédez à"
+    added_success: "Section déléguée."
+    added_failure: "Veuillez sélectionner une section à déléguer."
+    removed_success: "Délégation supprimée."
     edit_task: "Tâche déléguée"
     available_sections: "Sections disponibles"
-    please_select_s: "S'il vous plaît sélectionnez une section"
-    looping_section_w: "Vous avez sélectionné une section en boucle, s'il vous plaît sélectionnez les éléments que vous souhaitez déléguer. 'Tous' Sélectionnez, si vous souhaitez le délégué de répondre à remplir les questions sur tous les articles."
-    users_whole_q: "Utilisateurs délégué à l'ensemble du questionnaire"
-    remove_section: "Suppression de l'article délégué"
-    remove_delegation: "Retirez la délégation"
-    help_remove_section: "Retirez la section du Délégation - Supprime cette section de la délégation de l'utilisateur à ce questionnaire. Si ce n'est le seul article de la délégation utilisateur de ce questionnaire et vous enlever l'utilisateur sera autorisé à répondre à l'ensemble du questionnaire. Pour éviter cela, vous pouvez retirer la délégation au lieu de seulement la suppression de cette section."
-    help_remove_delegation: "Retirez la délégation - Supprime la délégation de cet utilisateur à ce questionnaire. L'utilisateur ne sera pas en mesure d'accéder et de répondre aux questions de ce questionnaire est."
+    looping_section_w: "Vous avez sélectionné une section en boucle. Veuillez sélectionner les éléments à déléguer. Sélectionnez 'Tout' pour demander au délégué de répondre aux questions sur tous les éléments."
+    users_whole_q: "Utilisateurs auxquels le questionnaire complet a été délégué"
+    remove_section: "Supprimer la section déléguée"
+    remove_delegation: "Supprimer la délégation"
+    help_remove_section: "Supprimer la section de la délégation - Supprime cette section des parties du questionnaire déléguées à l'utilisateur. S'il s'agit de la seule section déléguée à l'utilisateur et que vous la supprimez, l'utilisateur pourra répondre à l'ensemble du questionnaire. Pour y remédier, vous pouvez supprimer la délégation au lieu de supprimer simplement cette section."
+    help_remove_delegation: "Supprimer la délégation - Supprime la délégation pour cet utilisateur. Celui-ci ne pourra pas accéder aux questions de ce questionnaire ni y répondre."
   delegate_dashboard:
-    title: "Vous avez été délégué avec les tâches suivantes"
-    delegator_remarks: "Mandant de remarques"
-    fill_all: "Toutes les sections délégué"
-    to_fill: "pour remplir"
-    no_tasks: "Vous n'avez pas les tâches assignées."
+    title: "Les tâches suivantes vous ont été attribuées"
+    delegator_remarks: "Remarques du délégateur"
+    fill_all: "Toutes les sections déléguées"
+    to_fill: "à remplir"
+    no_tasks: "Aucune tâche ne vous a été attribuée."
     delegate_full_n: "Nom complet du délégué"
+    please_select_s: "Veuillez sélectionner une section"
   user_delegates:
-    help_text: "Un délégué est un utilisateur qui peut vous aider à remplir vos questionnaires. Un délégué peut se voir attribuer toutes les sections de vos questionnaires, ou bien un sous-ensemble de sections. Vous pouvez ajouter un délégué en cliquant sur le bouton «Ajouter délégué».
-<br />Depuis cette page, vous pouvez sélectionner un nouveau questionnaire à déléguer à ce délégué, ou bien vous pouvez gérer les délégations existantes (sections gérer/supprimer) figurant dans le tableau ci-dessous. Si une délégation n’a pas de sections qui lui sont associées, cela signifie que le délégué pourra répondre à toutes les questions du questionnaire. Vous pouvez limiter l’accès du délégué en ajoutant un ensemble de sections à la délégation. En déléguant une section d’un questionnaire vous donnez accès à cette section et à toutes ses sous-sections."
-    delegate_details: "Nom de délégué"
+    help_text: "Un délégué est un utilisateur qui peut vous aider à répondre à vos questionnaires. Vous pouvez lui attribuer toutes les sections de vos questionnaires ou un ensemble de sections.<br />
+      From this page you can select to delegate a new questionnaire to this delegate: or you can manage the existing delegations (add/remove sections) listed in the table below.,À partir de cette page vous pouvez choisir de déléguer un nouveau questionnaire à ce délégué, ou bien vous pouvez gérer les délégations existantes (ajouter/retirer des sections) listées dans le tableau ci-dessous.
+      If a delegation does not have any sections associated with it it will mean that the delegate will be able to answer every question of the questionnaire. You can limit the delegate's       access by adding a set of section to that delegation. Delegating a section of a questionnaire will give access to that section and to that section's descendant sections.
+      Si une délégation n'est associée à aucune section, cela signifie alors que le délégué sera en mesure de répondre a toutes les questions du questionnaire. Vous pouvez limiter l'accès du délégué en ajoutant un ensemble de sections à cette délégation. Déléguer une section d'un questionnaire donnera accès a cette section et aux sections découlant de celle-ci."
+    delegate_details: "Nom du délégué"
   manage_delegates:
     title: "Délégués"
-    u_have_delegates: "Vous avez les délégués suivants"
+    u_have_delegates: "Vous disposez des délégués suivants"
     u_are_delegate: "Vous êtes un délégué de"
-    delegate_q: "Déléguer questionnaire"
-    delegate_details: "Détails du délégué"
-    delegator_details: "Détails du mandant"
-    delegated_q_t: "Questionnaires Délégués"
-    delegate_task: "Déléguer les tâches"
+    delegate_q: "Déléguer le questionnaire"
+    delegate_details: "Détails sur le délégué"
+    delegator_details: "Détails sur le délégateur"
+    delegated_q_t: "Questionnaires délégués"
+    delegate_task: "Déléguer la tâche"
     available_q: "Questionnaires disponibles"
     select_a_q: "Veuillez sélectionner un questionnaire"
-    add_sections: "Ajouter sections"
-    delegations_show_t: "Détails de la tâche déléguée"
+    add_sections: "Ajouter des sections"
+    delegations_show_t: "Détails sur la tâche déléguée"
     delegations_show_sl: "Sections déléguées"
-    help_line: "<p>Un délégué est un utilisateur qui peut vous aider à remplir vos questionnaires. Un délégué peut se voir attribuer toutes les sections de vos questionnaires ou bien un sous-ensemble de sections.Vous pouvez ajouter un délégué en cliquant sur le bouton «Ajouter un délégué».</p><p>Pour chacun de vos délégués, répertoriés dans le tableau ci-dessous, vous avez deux options disponibles: <strong>Afficher</strong> et <strong>Supprimer</strong>. L'option <strong>Supprimer</strong> va supprimer ce délégué et toutes les délégations qui y étaient associées. L'option <strong>Afficher</strong> vous amène à une page avec les détails du délégué, y compris les questionnaires que vous lui avez délégués.<br />Vous pouvez associer un délégué à un questionnaire directement à partir de la page de soumission du questionnaire.<br />Gardez à l'esprit que tous les questionnaires ne permettent pas d'utiliser la fonction de délégation.</p>"
-    delegate_show_help: "Vous serez en mesure de répondre à des questionnaires sur son nom. Voir ci-dessous une liste des questionnaires que vous êtes autorisé à répondre."
+    help_line: "<p>Un délégué est un utilisateur qui peut vous aider à répondre à vos questionnaires. Vous pouvez lui attribuer toutes les sections de vos questionnaires ou un ensemble de sections. Pour ajouter un délégué, cliquez sur le bouton 'Ajouter un délégué'.</p><p>Pour chacun de vos délégués répertoriés dans le tableau ci-dessous, deux options sont disponibles <strong>Afficher</strong> et <strong>Supprimer</strong>. L'option <strong>Supprimer</strong> supprimera ce délégué et toutes les délégations associées à ce délégué. L'option <strong>Afficher</strong> affichera une page comprenant les informations sur le délégué, dont les questionnaires que vous lui avez délégués.<p/><p>Vous pouvez associer un délégué à un questionnaire directement à partir de la page de soumission du questionnaire. Notez que la fonction de délégation n'est pas activée pour tous les questionnaires.</p>"
+    delegate_show_help: "Vous pourrez répondre à des questionnaires à sa place. La liste ci-dessous répertorie les questionnaires auxquels vous êtes autorisé à répondre."
   flash_messages:
-    nothing_to_save: "Rien à sauvegarder"
-    saved_successfully: "les réponses ont été enregistrées avec succès"
-    logged_successfully: "Vous êtes entré avec succès."
+    nothing_to_save: "Rien à enregistrer"
+    saved_successfully: "réponses enregistrées"
+    logged_successfully: "Connecté !"
     logged_out: "Vous avez été déconnecté."
-    sign_up_success: "Merci pour votre inscription."
-    delegate_success: "Délégué ajouter au système avec succes."
-    update_profile_s: "Inspecter le profil de l'utilisateur mis à jour."
+    sign_up_success: "Merci de vous être enregistré. Vous êtes maintenant connecté."
+    delegate_success: "Délégué ajouté au système."
+    update_profile_s: "Profil utilisateur mis à jour."
     not_authorized: "Vous n'êtes pas autorisé à accéder à cette page."
-    questionnaire_submitted: "Vous ne pouvez pas accéder à cette page, car vous avez déjà soumis ce questionnaire."
-    questionnaire_closed: "Ce questionnaire a été fermé par l'administrateur de sorte qu'il est actuellement indisponible."
-    questionnaire_not_available: "Ce questionnaire n'est pas encore disponible"
+    questionnaire_submitted: "Vous ne pouvez pas accéder à cette page car vous avez déjà soumis ce questionnaire."
+    questionnaire_closed: "Ce questionnaire a été clos par l'administrateur. Il n'est donc pas disponible pour le moment."
+    questionnaire_not_available: "Ce questionnaire n'est pas disponible."
   translator_feat:
-    show_translator: "Montrer traducteur"
-    hide_translator: "Masquer traducteur"
-    please_select: "S'il vous plaît choisissez une langue"
-    to_en: "Pour: Anglais"
-    from: "De:"
+    show_translator: "Afficher le traducteur"
+    hide_translator: "Masquer le traducteur"
+    please_select: "Veuillez sélectionner une langue"
+    to_en: "En : Anglais"
+    from: "De :"
     translate: "Traduire"
-    error: "Désolé, mais il n'était pas possible de traduire votre texte."
-    wrong_choice: "Il n'était pas possible de traduire à partir de votre choix, nous avons tenté de fournir une meilleure adéquation à votre langue."
+    error: "Impossible de traduire votre texte."
+    wrong_choice: "Impossible de traduire à partir de l'option choisie. Nous avons essayé de trouver l'option la plus approchante."
   submission_pages:
-    choose: "Choisissez"
-    select_option: "S'il vous plaît sélectionnez une option"
-    attach_save: "Sauver"
-    attach_files: "Pièces jointes"
-    attach_links: "Lien Web/URL jointes"
+    choose: "Choisir"
+    select_option: "Veuillez sélectionner une option"
+    attach_files: "Fichiers en pièces jointes"
+    attach_links: "Liens/URL en pièces jointes"
     attach_description: "Description"
-    files_dialog_title: "Gérer des fichiers"
-    files_document: "Fichier"
-    files_remove: "retirer le fichier"
-    files_add: "ajouter un fichier"
-    files_you_have: "Vous avez ci-joint les documents suivants à cette réponse."
-    links_dialog_title: "Gérer les lien Web/URL"
+    files_dialog_title: "Gérer les documents"
+    files_document: "Document"
+    files_remove: "supprimer le document"
+    files_add: "ajouter un document"
+    files_you_have: "Vous avez joint les documents suivants à cette réponse."
+    links_dialog_title: "Gérer les liens/URL"
     links_title: "Titre"
-    links_remove: "retirer le lien Web/URL"
-    links_add: "ajouter une lien Web/URL"
-    links_you_have: "Vous avez ci-joint les lien Web/URL suivantes pour cette réponse."
-    links_url: "Lien Web/URL"
-    links_url_tooltip: "L'URL doit être quelque chose comme: http://www.yourdomain.com ou ftp://yourdomain.com ou https: / / www.yoursecretdomain.com. Si vous ne spécifiez pas le domaine de l'URL ne sera pas ajouté à la réponse."
-    last_edited_by: "Dernière édition par:"
+    links_remove: "supprimer le lien/l'URL"
+    links_add: "ajouter un lien/une URL"
+    links_you_have: "Vous avez joint les liens/URL suivants à cette réponse."
+    links_url: "URL"
+    links_url_tooltip: "L'URL doit être au format: http://www.votredomaine.com ou ftp://votredomaine.com ou https://www.votredomainesecret.com. Si vous ne spécifiez pas le domaine, l'URL ne sera pas ajoutée à la réponse."
+    last_edited_by: 'Dernière modification par'
     rank_options_t: "Options disponibles"
-    rank_options_info: "Sélectionnez en cliquant sur les valeurs."
+    rank_options_info: "Cliquez sur les valeurs pour les sélectionner."
     rank_limit: "Vous êtes limité à"
     rank_limit_word_s: "choix"
     rank_limit_word_p: "choix"
-    rank_choices_t:  "Votre choix, classés du premier au dernier préféré."
-    rank_choices_info:  "Désélectionnez en cliquant sur les valeurs."
+    rank_choices_t: "Vos choix, par ordre de préférence, le préféré en premier."
+    rank_choices_info: "Cliquez sur les valeurs pour les désélectionner."
   s_help:
     submit_title: "Soumettre"
-    submit_text:  "Après avoir rempli le questionnaire, vous pouvez le soumettre en cliquant sur ce lien. Vous recevrez alors un e-mail de confirmation de la soumission.<br />Après avoir soumis le questionnaire, vous pourrez toujours visiter la page, mais vous ne serez pas en mesure d'apporter des modifications à vos réponses."
-    lang_change_title:  "Changer la langue"
-    lang_change_text: "Les questionnaires peuvent avoir plus d'une langue disponible. Dans ce cas vous pouvez changer la langue dans laquelle vous souhaitez le voir. Vous pouvez changer de langue à tout moment sans compromettre vos réponses.<br />La langue choisie sera définie comme langue par défaut pour ce questionnaire."
-    s_guidance_title: "Remplir le questionnaire"
-    s_guidance_text:  "Sur la gauche figurent les principales sections du questionnaire. En cliquant sur un onglet vous pourrez ouvrir la section correspondante dans la fenêtre principal. Vous serez alors en mesure de voir les sous-sections et les questions qui font partie de la section sélectionnée. <br /> L'icône sur la partie droite des onglets représente l'état d'avancement de aa section. Il y a cinq icônes différentes. <br /><img src='/assets/submissionstate/fidelitybyagapeh/4.png' alt='Nouvelle section' width='20px' height='20px'/>: Nouvelle section que vous n'avez pas encore ouverte<br /><img src='/assets/submissionstate/fidelitybyagapeh/3.png' alt='Toutes les réponses' width='20px' height='20px'/>: Toutes les questions ont une réponse<br /><img src='/assets/submissionstate/fidelitybyagapeh/2.png' alt='Certaines questions restent sans réponse' width='20px' height='20px'/>: Certaines questions restent sans réponse <br /><img src='/assets/submissionstate/fidelitybyagapeh/1.png' alt='Questions obligatoires sans réponse' width='20px' height='20px'/>: Il y a des questions obligatoires sans réponse <br /><img src='/assets/submissionstate/fidelitybyagapeh/0.png' alt='Aucune question n'a reçu de réponse' width='20px' height='20px'/>:Aucune question n'a reçu de réponse <br /> Il n'y a pas d'ordre fixe pour répondre au questionnaire. Vous pouvez modifier vos réponses à tout moment, sauf si vous avez déjà soumis le questionnaire."
-    dashboard_title:  "Panneau de configuration"
-    dashboard_text: "Ce lien vous amène à votre panneau de configuration. Vous y trouverez la liste de tous vos questionnaires et vous pourrez télécharger une version PDF de chacun d'eux."
-    choose_loop_item_helptext: "<p>Les éléments de la liste qui ont des réponses associés sont marqués de <strong>**</strong>.</p>"
-    choose_loop_item_title: "Aide"
+    submit_text: "<p>Après avoir répondu au questionnaire, cliquez sur ce lien pour le soumettre. Vous recevrez un e-mail de confirmation de sa soumission.</p><p>Une fois le questionnaire soumis, vous pourrez toujours accéder à la page, mais vous ne pourrez plus modifier vos réponses.</p>"
+    lang_change_title: "Changer de langue"
+    lang_change_text: "<p>Des questionnaires peuvent être proposés dans plusieurs langues. Dans ce cas, vous pouvez choisir la langue dans laquelle vous souhaitez l'afficher.</p><p>Vous pouvez changer de langue à tout moment sans affecter vos réponses. La langue que vous choisirez sera définie comme votre langue par défaut pour ce questionnaire.</p>"
+    s_guidance_title: "Réponse au questionnaire"
+    s_guidance_text: "<p>Les sections principales du questionnaire sont répertoriées à gauche. Cliquez sur l'onglet d'une section pour y accéder. Lorsque vous cliquez sur un onglet, la section correspondante s'affiche sur le panneau principal. Vous pourrez ainsi consulter les sous-sections et les questions de la section sélectionnée.</p><p>L'icône à droite de chaque onglet représente le statut de progression de la section correspondante. Cinq icônes sont possibles.</p><p><i class='fa fa-asterisk'></i><img src='/assets/submissionstate/fidelitybyagapeh/4.png' alt='Nouvelle section' width='20px' height='20px'/>, nouvelle section que vous n'avez pas encore consultée<br /><img src='/assets/submissionstate/fidelitybyagapeh/3.png' alt='Toutes les questions sans réponse' width='20px' height='20px'/>, toutes les questions sans réponse<br /><img src='/assets/submissionstate/fidelitybyagapeh/2.png' alt='Des questions sont sans réponse' width='20px' height='20px'/>, Des questions sont sans réponse <br /><img src='/assets/submissionstate/fidelitybyagapeh/1.png' alt='Questions obligatoires sans réponse' width='20px' height='20px'/>,Des questions obligatoires sont sans réponse <br /><img src='/assets/submissionstate/fidelitybyagapeh/0.png' alt='Toutes les questions sans réponse' width='20px' height='20px'/>,Toutes les questions sans réponse </p><p>Vous pouvez répondre au questionnaire dans n'importe quel ordre. Vous pouvez modifier vos réponses tant que vous n'avez pas soumis le questionnaire.</p>"
+    dashboard_title: "Tableau de bord"
+    dashboard_text: "<p>Ce lien vous conduira à votre tableau de bord. Vous y trouverez une liste de tous vos questionnaires et pourrez télécharger une version PDF pour chacun d'eux.</p>"
+    choose_loop_item_helptext: "<p>Les éléments de la liste qui comportent des réponses sont marqués du symbole <strong>**</strong> et s'affichent en couleur dans certains navigateurs.</p>"
+    choose_loop_item_title: "Aide déroulante"
   dashboard_help:
-    questionnaire_title:  "Titre questionnaire"
-    questionnaire_text: "<p>Cette colonne indique le titre des différents questionnaires disponibles auxquels vous pouvez répondre.</p><p> Vous pouvez naviguer vers la page de soumission en cliquant sur le titre du questionnaire.</p><p>Vous ne pouvez arriver à la page de soumission que si le questionnaire est actif. </p>"
-    pdf_title: "Télécharger le PDF"
-    pdf_text: "<p>Avant de pouvoir télécharger le questionnaire en format PDF, il devra être généré. Pour ce faire vous devez cliquer sur 'Générer'. La génération du PDF se fera en arrière-plan. Une fois celui-ci terminé, vous recevrez une notification par e-mail.</p><p>Après avoir été généré, le fichier sera alors disponible en téléchargement sur cette même page, ce que vous pourrez faire en cliquant sur l'icône PDF.</p><p>Le fichier peut être re-généré de façon à inclure les modifications les plus récentes. Vous pouvez le faire en cliquant sur le lien «régénérer». La date affichée par l'icône PDF se réfère à la dernière fois que le fichier a été généré. La régénération d'un PDF effacera le fichier précédemment généré.</p>"
+    questionnaire_title: "Titre du questionnaire"
+    questionnaire_text: "<p>Cette colonne affiche le titre des différents questionnaires que vous avez à remplir.</p><p>Cliquez sur le titre d'un questionnaire pour accéder à la page de soumission.</p><p> Vous pouvez accéder à la page de soumission uniquement si le questionnaire est actif.</p>"
+    pdf_title: "Téléchargement de PDF"
+    pdf_text: "<p>Cette version du PDF reprend toutes les questions du questionnaire, même celles sans réponse. </p> <p>Avant de pouvoir télécharger le questionnaire au format PDF, celui-ci devra être généré. Pour ce faire, cliquez sur 'Générer'. Le processus de création du PDF se déroule en arrière-plan. Une fois celui-ci généré, vous recevrez un e-mail de notification.</p><p>Une fois le PDF généré, vous pourrez le télécharger en cliquant sur l'icône PDF depuis cette même page.</p><p>Cliquez sur le lien 'Regénérer' pour regénérer le fichier afin d'y inclure vos dernières modifications. La date indiquée sur l'icône PDF fait référence à la date de dernière génération du fichier. Regénérer un PDF écrase la version générée précédemment.</p>"
     options_title: "Options"
-    options_text: "<p>Dans cette colonne, vous trouverez une liste d'actions à préforme.</p><p><img src='images/icons/pencil.png' width='15px' height='15x' alt='Crayon' />: En cliquant sur cette icône vous amène à la page de soumission de ce questionnaire.</p>"
-    pdf_small_title: "Télécharger une version courte du document PDF"
-    pdf_small_text: "<p> Cette version courte du PDF ne reproduit que les questions pour lesquelles une réponse a été apportée.</p>"
+    options_text: "<p>Cette colonne répertorie une liste d'actions à exécuter.</p><p><%= fa_icon('pencil-square-o', alt: 'Répondre au questionnaire', titre: 'Répondre au questionnaire', classe: 'background inverse info') %>  Cliquez sur cette icône pour accéder à la page de soumission de ce questionnaire.</p>"
+    pdf_small_title: "Téléchargement de PDF léger"
+    pdf_small_text: "<p> Cette version allégée du PDF reprend uniquement les questions comportant des réponses.</p>"
   administration_help:
-    dashboard:  "Panneau de configuration de l'Administration - Dans le panneau de configuration de d'administration, vous pouvez trouver des informations sur les dernières activités des utilisateurs de cet outil. Comme les derniers questionnaires créés, les derniers questionnaires activé et la dernière les utilisateurs qui ont été enregistrés dans le système."
-    new_q:  "Nouveau questionnaire - Commencer à créer un nouveau questionnaire à partir de zéro."
-    duplicate_q:  "Dupliquer un questionnaire -  Cette page vous permet de créer de nouveaux questionnaires à partir des questionnaires existants. Il ya une option pour copier non seulement la structure du questionnaire, mais ses réponses ainsi."
-    manage_q: "Gérer les questionnaires - Sur cette page vous trouverez une liste avec les questionnaires qui existent dans le système et des informations différentes sur chacune de ces. Nommément information concernant la date de création, l'auteur, l'état et la date d'activation, si le questionnaire est active. Vous pouvez également apporter des modifications à l'état des questionnaires, et de revoir leurs répondants, et obtenir un résumé de l'activité des répondants."
-    manage_u: "Manage users - This page presents a list of all users registered in the system and some of their characteristics, like name, e-mail, roles, groups and authorized questionnaires. It also allows you to search through the list of users, add or remove a user from a group and also add new users."
+    dashboard: "Tableau de bord d'administration - Vous trouverez sur le tableau de bord d'administration des informations sur les dernières activités des utilisateurs dans cet outil, par ex., les derniers questionnaires créés, les derniers questionnaires activés ou les derniers utilisateurs enregistrés sur le système."
+    new_q: "Nouveau questionnaire - Créez un nouveau questionnaire de toute pièce."
+    duplicate_q: "Dupliquer un questionnaire - Cette page vous permet de créer de nouveaux questionnaires à partir de questionnaires existants. Une option vous permet de copier non seulement la structure du questionnaire, mais également ses réponses."
+    manage_q: "Gérer les questionnaires - Cette page répertorie les questionnaires existant dans le système et diverses informations sur ceux-ci, à savoir leur date de création, leur auteur, leur statut et leur date d'activation, pour les questionnaires actifs. Vous pouvez également modifier le statut des questionnaires, consulter la liste des répondants ainsi qu'un résumé de l'activité des répondants."
+    manage_u: "Gérer les utilisateurs - Cette page répertorie tous les utilisateurs enregistrés sur le système et certaines de leurs caractéristiques, par ex., leur nom, leur e-mail, leur rôle, leur groupe et les questionnaires qui leur sont autorisés. Vous pouvez également effectuer une recherche dans la liste des utilisateurs, ajouter ou supprimer un utilisateur d'un groupe ou ajouter de nouveaux utilisateurs."
+    q_answers: "Réponses au questionnaire - Permet à un administrateur de consulter les réponses à chaque question d'un questionnaire."
   user_dashboard:
     welcome_msg: "Bienvenue"
     table_title: "Questionnaires à soumettre"
     edit_u: "Modifier l'utilisateur"
-    manage_d: "Tableau de bord de délégation"
-    submission_d: "Panneau de configuration"
-    help_p: "Aide"
+    manage_d: "Délégations"
+    submission_d: "Tableau de bord de soumission"
+    help_p: "Pages d'aide"
     quest_title: "Titre du questionnaire"
     created_by: "Créé par"
     date: "Date de création"
     status: "Statut"
     status_s: "Soumis"
     status_u: "En cours"
-    status_na: "Pas encore disponible"
-    status_closed: "Questionnaire fermé"
-    short_pdf_download: "Télécharger le PDF - Version courte"
-    pdf_download: "Télécharger le PDF"
+    status_na: "Non disponible"
+    status_closed: "Questionnaire clos"
+    short_pdf_download: "Téléchargement de PDF - version allégée"
+    pdf_download: "Téléchargement de PDF"
     pdf_generate: "Générer"
-    pdf_regenerate: "Régénérer"
-    pdf_last_g: "Dernière généré au"
-    no_q: "Vous n'avez pas à soumettre des questionnaires."
-    unsubmit_title: "Envoyer un email à l'administrateur de ce questionnaire avec une demande de revenir votre soumission"
+    pdf_regenerate: "Regénérer"
+    pdf_generating: "Génération en cours"
+    pdf_last_g: "Dernière génération à"
+    no_q: "Vous n'avez aucun questionnaire à soumettre."
+    unsubmit_title: "Envoyez un e-mail à l'administrateur de ce questionnaire pour demander l'annulation de votre soumission"
+  unsubmission_request:
+    legend: "Envoyez votre demande par e-mail"
   login_menu:
-    logout: "Déconnectez-vous"
-    login: "Connectez-vous"
-    sign_up: "Inscrivez-vous"
+    logout: "Se déconnecter"
+    login: "Se connecter"
+    sign_up: "S'enregistrer"
   welcome_page:
-    restriction: "A la disposition des utilisateurs enregistrés."
-    please_login: "Entrez:"
-    or_signup: "Ou enregistrez-vous"
-    signup_instructions1: "Veuillez indiquer votre adresse email et un mot de passe d'entrée et donner quelques renseignements sur votre personne."
-    signup_instructions2: "Allez à la"
-    signup_instructions3: "page d'enregistrement"
-    developed_by: "Développé et maintenu par &copy;PNUE-WCMC"
-    please_wait: "Veuillez patienter"
+    restriction: "Cet outil est à la disposition des utilisateurs enregistrés."
+    forgotten_password: "Vous avez oublié votre mot de passe ? Veuillez contacter votre administrateur<br> ou envoyer un e-mail à l'adresse <a href='#'>orsteam@unep-wcmc.org</a>"
+    please_login: "Veuillez vous connecter"
+    or_signup: "Ou vous enregistrer"
+    signup_instructions1: "Vous devrez fournir une adresse e-mail, quelques informations à votre sujet et choisir un mot de passe."
+    signup_instructions2: "Accédez à la page"
+    signup_instructions3: "d'enregistrement"
+    developed_by: "Proposé par"
+    please_wait: "Veuillez patienter quelques instants..."
   user_new:
-    sign_up: "Enregistrez-vous"
-    email: "Email"
-    title: "Enregistrez-vous"
+    sign_up: "S'enregistrer"
+    title: "S'enregistrer"
     first_n: "Prénom"
-    last_n: "Nom de famille"
-    already_registered: "Vous avez déjà un compte?"
-    login: "Connectez-vous"
+    last_n: "Nom"
+    already_registered: "Vous disposez déjà d'un compte ?"
+    login: "Se connecter"
     add_delegate: "Ajouter un délégué"
     role: "Rôle"
   user_session_new:
-    title: "Connectez-vous"
-    no_account: "Vous n'avez pas de compte?"
-    signup: "Inscrivez-vous"
-    email: "Email"
-    login: "Connectez-vous"
+    title: "Se connecter"
+    no_account: "Vous ne disposez pas encore de compte ?"
+    signup: "S'enregistrer"
+    login: "Se connecter"
   user_show:
-    details: "Utilisateur"
+    details: "Informations sur l'utilisateur"
   user_edit:
-    title: "Profil - Modifier"
+    title: "Profil utilisateur - Modifier"
     first_n: "Prénom"
-    last_n: "Nom de famille"
+    last_n: "Nom"
     roles: "Rôles"
   user_mailer:
     greetings: 'Cordialement,'
-    access: 'Vous pouvez accéder au site par le lien suivant:'
-    login: 'Vos détails pour se connecter sont:'
-    registration: 'Registration'
-    new_user_registered: 'Nouvel utilisateur enregistré dans le système'
-    admin_footer: 
-    for_the_user: 
+    access: 'Vous pouvez accéder au site Web à partir du lien suivant'
+    login: 'Vos informations de connexion sont les suivantes'
+    registration: 'Enregistrement'
+    new_user_registered: 'Nouvel utilisateur enregistré sur le système'
+    admin_footer: "Vous avez reçu cet e-mail car vous êtes administrateur du système de rapport en ligne"
+    for_the_user: "pour l'utilisateur"
+    delegate_registration:
+      subject: "Vous avez été ajouté en tant que délégué"
     user_registration:
-      subject: 'Vous avez été enregistré avec succès!'
-      first_line: 
-      admin_first_line_1: 
-      admin_first_line_2: 
+      subject: 'Vous êtes maintenant enregistré.'
+      first_line: "Merci de vous être enregistré sur le"
+      admin_first_line: "Un nouvel utilisateur vient de s'enregistrer sur le %{title}, avec les informations suivantes"
     new_delegate:
-      subject: "Delegate registration"
-      first_line: "vous avez été inscrit en tant que délégué dans le"
+      subject: "Enregistrement de délégué"
+      first_line: "Vous avez été enregistré en tant que délégué sur le"
     section_delegated:
-      subject:
-      intro: 'Vous avez été délégué à la section suivante:'
-      looping: 'Cette section est une section en boucle; Vous avez été délégué avec les items suivants:'
-      access: 'Vous pouvez accéder à cette section à travers ce lien:'
-      dashboard: 'Il sera également disponible à partir de votre panel de controle.'
+      subject: "Section déléguée"
+      intro: 'La section suivante vous a été attribuée'
+      looping: 'Cette section est une section en boucle ; les éléments suivants vous ont été attribués'
+      access: 'Vous pouvez accéder à cette section à partir du lien de soumission du questionnaire'
+      dashboard: 'Il sera également disponible à partir de votre tableau de bord.'
     questionnaire_delegated:
-      subject:
-      intro: 'Vous avez été délégué avec le questionnaire ci-dessous:'
-      access: 'Vous pouvez accéder à ce questionnaire par le lien suivant:'
-      dashboard: 'Il sera également disponible à partir de votre panel de controle.'
+      subject: "Questionnaire délégué"
+      intro: 'Le questionnaire suivant vous a été attribué'
+      access: 'Vous pouvez accéder à ce questionnaire à partir du lien suivant :'
+      dashboard: 'Il sera également disponible à partir de votre tableau de bord.'
     new_respondent:
-      first_line: 
+      subject: "Vous avez été ajouté au système de rapport en ligne"
+      first_line: "Vous avez été enregistré en tant que répondant sur le"
     authorisation_granted:
-      subject: 
-      first_line: 
-      start_filling:
-      available_from_dashboard:
+      subject: "L'accès à un questionnaire vous a été octroyé"
+      first_line: "L'accès au questionnaire suivant vous a été octroyé :"
+      start_filling: "Vous pouvez commencer à répondre au questionnaire à"
+      available_from_dashboard: 'Il sera également disponible à partir de votre tableau de bord de soumission.'
     questionnaire_submitted:
-      subject:
-      first_line: 
-      second_line: 
-      admin_subject: 
-      admin_line: 
+      subject: "Questionnaire soumis"
+      first_line: "Le questionnaire intitulé '%{questionnaire}' a été soumis."
+      second_line: "Merci d'avoir pris le temps d'y répondre."
+      admin_subject: "Questionnaire soumis par"
+      admin_line: "%{user} a soumis le questionnaire intitulé '%{questionnaire}'."
     unsubmission_request:
-      first_line:
-      start_message:
-      end_message:
-      guidance:
-      user_details:
-      administrator_footer:
+      first_line: "%{user} a demandé l'annulation de la soumission du questionnaire intitulé '%{questionnaire}'."
+      start_message: "%{user} a écrit le message suivant"
+      end_message: "Fin du message utilisateur"
+      guidance: "Pour annuler la soumission, vous pouvez consulter la <a href='%{link}'>page des répondants au questionnaire</a>."
+      user_details: "Les informations sur l'utilisateur sont"
+      administrator_footer: "Vous avez reçu cet e-mail car vous êtes l'administrateur de ce questionnaire."
     pdf_generated:
-      subject: 
-      first_line: 
-      download:
+      subject: "Votre PDF est disponible en téléchargement"
+      first_line: "Le PDF du questionnaire intitulé '%{questionnaire}' a été généré"
+      first_line_user: "pour l'utilisateur"
+      download: "Vous pouvez désormais le télécharger à partir de votre tableau de bord."
     pdf_generation_failed:
-      subject: 
-      first_line: 
+      subject: "Le PDF n'a pas pu être généré"
+      first_line: "Le PDF du questionnaire intitulé '%{questionnaire}'%{for_user} n'a pas pu être généré en raison de l'erreur suivante"
+      first_line_3: "n'a pas pu être généré en raison de l'erreur suivante"
     csv_file_generated:
-      subject:
-      first_line:
-      download:
+      subject: "Le fichier CSV a été généré"
+      first_line: "Le fichier CSV du %{section}questionnaire intitulé '%{questionnaire}' a été généré."
+      download: "Vous pouvez le télécharger à partir de la page 'Gestion des questionnaires'."
     csv_generation_failed:
-      subject: 
-      first_line:
+      subject: "Le fichier CSV n'a pas pu être généré"
+      first_line: "Le fichier CSV du %{section}questionnaire intitulé '%{questionnaire}' n'a pas pu être généré en raison de l'erreur suivante"
     delegate_request:
-      subject: 
-      first_line:
+      subject: "Vous avez été ajouté en tant que délégué"
+      first_line: "L'utilisateur %{user} vous a ajouté en tant que l'un de ses délégués."
     questionnaire_duplicated:
-      subject:
-      first_line:
-      second_line:
+      subject: "Questionnaire dupliqué"
+      first_line: "Le questionnaire intitulé '%{questionnaire}' a été dupliqué."
+      second_line: "Vous trouverez le nouveau questionnaire sur votre tableau de bord ou pouvez y accéder à partir de ce lien <a href='%{link}>%{link}</a>."
     questionnaire_duplication_failed:
-      subject: 
-      first_line: 
+      subject: "Le questionnaire n'a pas pu être dupliqué"
+      first_line: "Le questionnaire intitulé '%{questionnaire}' n'a pas pu être dupliqué en raison de l'erreur suivante"
   languages:
     arabic: "Arabe"
     chinese: "Chinois"
@@ -344,142 +347,10 @@ fr:
     french: "Français"
     russian: "Russe"
     spanish: "Espagnol"
-  
   date:
     formats:
       default: "%d/%m/%Y"
-      short: "%e %b"
-      long: "%e %B %Y"
-      long_ordinal: "%e %B %Y"
-      only_day: "%e"
-    day_names: [dimanche, lundi, mardi, mercredi, jeudi, vendredi, samedi]
-    abbr_day_names: [dim, lun, mar, mer, jeu, ven, sam]
-    month_names: [~, janvier, février, mars, avril, mai, juin, juillet, août, septembre, octobre, novembre, décembre]
-    abbr_month_names: [~, jan., fév., mar., avr., mai, juin, juil., août, sept., oct., nov., déc.]
-    order:
-      - :day
-      - :month
-      - :year
-  
   time:
     formats:
       default: "%d %B %Y"
-      time: "%H:%M"
-      short: "%d %b %H:%M"
-      long: "%A %d %B %Y %H:%M:%S %Z"
-      long_ordinal: "%A %d %B %Y %H:%M:%S %Z"
-      only_second: "%S"
       with_time: "%d %B %Y, %H:%M"
-    am: 'am'
-    pm: 'pm'
-
-  datetime:
-    distance_in_words:
-      half_a_minute: "une demi-minute"
-      less_than_x_seconds:
-        zero:  "moins d'une seconde"
-        one:   "moins de 1 seconde"
-        other: "moins de {{count}} secondes"
-      x_seconds:
-        one:   "1 seconde"
-        other: "{{count}} secondes"
-      less_than_x_minutes:
-        zero:  "moins d'une minute"
-        one:   "moins de 1 minute"
-        other: "moins de {{count}} minutes"
-      x_minutes:
-        one:   "1 minute"
-        other: "{{count}} minutes"
-      about_x_hours:
-        one:   "environ une heure"
-        other: "environ {{count}} heures"
-      x_days:
-        one:   "1 jour"
-        other: "{{count}} jours"
-      about_x_months:
-        one:   "environ un mois"
-        other: "environ {{count}} mois"
-      x_months:
-        one:   "1 mois"
-        other: "{{count}} mois"
-      about_x_years:
-        one:   "environ un an"
-        other: "environ {{count}} ans"
-      over_x_years:
-        one:   "plus d'un an"
-        other: "plus de {{count}} ans"
-    prompts:
-      year:   "Année"
-      month:  "Mois"
-      day:    "Jour"
-      hour:   "Heure"
-      minute: "Minute"
-      second: "Seconde"
-  
-  number:
-    format:
-      precision: 3
-      separator: ','
-      delimiter: ' '
-    currency:
-      format:
-        unit: '€'
-        precision: 2
-        format: '%n %u'
-    human:
-      format:
-        # These three are to override number.format and are optional
-        # separator: 
-        delimiter: "" 
-        precision: 2
-      # Rails <= v2.2.2
-      # storage_units: [octet, kb, Mb, Gb, Tb]
-      # Rails >= v2.3
-      storage_units:
-        format: "%n %u"
-        units:
-          byte:
-            one:   "octet"
-            other: "octets"
-          kb: "ko"
-          mb: "Mo"
-          gb: "Go"
-          tb: "To"
-
-  support:
-    array:
-      sentence_connector: 'et'
-      skip_last_comma: true
-      words_connector: ", "
-      two_words_connector: " et "
-      last_word_connector: " et "
-  
-  activerecord:
-    errors:
-      template:
-        header: 
-          one: "Impossible d'enregistrer {{model}}: 1 erreur"
-          other: "Impossible d'enregistrer {{model}}: {{count}} erreurs."
-        body: "Veuillez vérifier les champs suivants :"
-      messages:
-        inclusion: "n'est pas inclus(e) dans la liste"
-        exclusion: "n'est pas disponible"
-        invalid: "n'est pas valide"
-        confirmation: "ne concorde pas avec la confirmation"
-        accepted: "doit être accepté(e)"
-        empty: "doit être rempli(e)"
-        blank: "doit être rempli(e)"
-        too_long: "est trop long (pas plus de {{count}} caractères)"
-        too_short: "est trop court (au moins {{count}} caractères)"
-        wrong_length: "ne fait pas la bonne longueur (doit comporter {{count}} caractères)"
-        taken: "n'est pas disponible"
-        not_a_number: "n'est pas un nombre"
-        greater_than: "doit être supérieur à {{count}}"
-        greater_than_or_equal_to: "doit être supérieur ou égal à {{count}}"
-        equal_to: "doit être égal à {{count}}"
-        less_than: "doit être inférieur à {{count}}"
-        less_than_or_equal_to: "doit être inférieur ou égal à {{count}}"
-        odd: "doit être impair"
-        even: "doit être pair"
-        record_invalid: "La validation a échoué : {{errors}}"
-        

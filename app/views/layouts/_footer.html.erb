@@ -1,12 +1,55 @@
-<hr class="space"/>
-<div class="footer" >
-  <hr />
-  <div class="container">
-    <div class="span-24 last">
-      <div style="float:right">
-        <label style="font-size:smaller;float:left;"> <%= t("welcome_page.developed_by")%> &nbsp;</label>
-        <%= link_to image_tag('UNEP WCMC_blue3.jpg'), "http://www.unep-wcmc.org" %>
+<div id="footer">
+  <div class="row group" id="footer-menu">
+    <div class="container">
+      <div class="col col-6">
+        <h4><%= h( yield(:title).presence || ApplicationProfile.title) %></h4>
+        <h6><%= ApplicationProfile.sub_title %></h6><br>
+        <%= link_to 'http://orssupport.unep-wcmc.org/home', target: '_blank', class: 'btn' do %>
+          <%= fa_icon 'question-circle' %> Support Centre
+        <% end %>
+      </div>
+
+      <div class="col col-3">
+        <!--ul>
+          <li class="heading"><a href="#">Administration Dashboard</a></li>
+          <li><a href="#">Manage Questionnaires</a></li>
+          <li><a href="#">Manage Users</a></li>
+          <li><a href="#">New Questionnaire</a></li>
+          <li><a href="#">Duplicate Questionnaire</a></li>
+        </ul-->
+      </div>
+
+      <div class="col col-3">
+        <!--ul>
+          <li class="heading"><a href="#">Submission Dashboard</a></li>
+          <li><a href="#">Delegations</a></li>
+          <li><a href="#">Edit my profile</a></li>
+        </ul-->
+      </div>
+
+      <!--div class="col col-2">
+        <ul>
+          <li class="heading"><a href="#">Nulla sit amet</a></li>
+          <li><a href="#">Ligula urna</a></li>
+          <li><a href="#">Vestibulum urna</a></li>
+          <li><a href="#">Hendrerit eget</a></li>
+          <li><a href="#">Fermentum eu</a></li>
+        </ul>
+      </div-->
+    </div>
+  </div>
+
+  <div class="row group" id="copyright-bar">
+    <div class="container">
+      <div class="row group">
+        <div class="col col-8" id="left">
+          <p>Copyright &copy; <%= DateTime.now.year %> UNEP-WCMC. All rights reserved.</p>
+        </div>
+        <div class="col col-4" id="right">
+          <p>Powered By UNEP-WCMC</p>
+          <%= image_tag 'wcmc_logo.png', id: 'unep-wcmc-logo' %>
+        </div>
       </div>
     </div>
   </div>
-</div><!-- /footer -->
+</div>

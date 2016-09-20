@@ -10,7 +10,6 @@ class Section < ActiveRecord::Base
   include SectionSaveAnswers
   extend EnumerateIt
 
-
   #attr_accessible :is_hidden, :section_type, :questionnaire_id, :parent_id, :answer_type_id, :answer_type_type, :loop_source_id, :loop_item_type_id, :section_fields_attributes, :starts_collapsed
   attr_protected :id, :created_at, :updated_at
   attr_accessor :section_extras_ids
@@ -40,12 +39,12 @@ class Section < ActiveRecord::Base
   belongs_to :depends_on_option, :class_name => "MultiAnswerOption"
   belongs_to :depends_on_question, :class_name => "Question"
   has_many :section_fields, :dependent => :destroy #=> to allow for multiple languages.
-  accepts_nested_attributes_for :section_fields, :reject_if => lambda { |a| a.values.all?(&:blank?)}, :allow_destroy => true #
+  accepts_nested_attributes_for :section_fields, :reject_if => lambda { |a| a.values.all?(&:blank?) }, :allow_destroy => true #
   #=> for each user the state of completion of a section will be stored
   has_many :submission_states, :class_name => "UserSectionSubmissionState", :dependent => :destroy
   has_many :section_extras, :dependent => :destroy
   has_many :extras, :through => :section_extras
-  has_many :delegation_sections
+  has_many :delegation_sections, dependent: :destroy
   has_many :delegations, :through => :delegation_sections
   has_one :csv_file, :dependent => :destroy, :as => :entity
 
@@ -214,19 +213,19 @@ class Section < ActiveRecord::Base
     looping = self.looping_descendants
     if !looping.empty?
       if looping_identifier.present?
-        all_l_descendants = looping.map{|s| s.self_and_descendants}.flatten
+        all_l_descendants = looping.map{ |s| s.self_and_descendants }.flatten
         with_current_l_identifier = with_current_l_identifier - all_l_descendants
-        Answer.destroy_all("question_id IN (#{all_l_descendants.map{|s| s.questions.map{|q| q.id}}.flatten.join(',')}) AND user_id = #{user.id} AND looping_identifier iLIKE '#{looping_identifier}#{LoopItem::LOOPING_ID_SEPARATOR}%'")
-        UserSectionSubmissionState.update_all({:dont_care => false}, "section_id IN (#{all_l_descendants.map{|s| s.id}.join(',')}) AND user_id = #{user.id} AND looping_identifier iLIKE '#{looping_identifier}#{LoopItem::LOOPING_ID_SEPARATOR}%'")
-        Answer.destroy_all({:question_id => with_current_l_identifier.map{|s| s.questions.map{|q| q.id}}.flatten, :user_id => user.id, :looping_identifier => looping_identifier})
-        UserSectionSubmissionState.update_all({:dont_care => true}, {:section_id => with_current_l_identifier.map{|s| s.id}, :user_id => user.id, :looping_identifier => looping_identifier})
+        Answer.destroy_all("question_id IN (#{all_l_descendants.map{ |s| s.questions.map{ |q| q.id } }.flatten.join(',')}) AND user_id = #{user.id} AND looping_identifier iLIKE '#{looping_identifier}#{LoopItem::LOOPING_ID_SEPARATOR}%'")
+        UserSectionSubmissionState.update_all({:dont_care => false}, "section_id IN (#{all_l_descendants.map{ |s| s.id }.join(',')}) AND user_id = #{user.id} AND looping_identifier iLIKE '#{looping_identifier}#{LoopItem::LOOPING_ID_SEPARATOR}%'")
+        Answer.destroy_all({:question_id => with_current_l_identifier.map{ |s| s.questions.map{ |q| q.id } }.flatten, :user_id => user.id, :looping_identifier => looping_identifier})
+        UserSectionSubmissionState.update_all({:dont_care => true}, {:section_id => with_current_l_identifier.map{ |s| s.id }, :user_id => user.id, :looping_identifier => looping_identifier})
       else
-        Answer.destroy_all({:question_id => with_current_l_identifier.map{|s| s.questions.map{|q| q.id}}.flatten, :user_id => user.id})
-        UserSectionSubmissionState.update_all({:dont_care => true}, {:section_id => with_current_l_identifier.map{|s| s.id}, :user_id => user.id})
+        Answer.destroy_all({:question_id => with_current_l_identifier.map{ |s| s.questions.map{ |q| q.id } }.flatten, :user_id => user.id})
+        UserSectionSubmissionState.update_all({:dont_care => true}, {:section_id => with_current_l_identifier.map{ |s| s.id }, :user_id => user.id})
       end
     else
-      Answer.destroy_all({:question_id => with_current_l_identifier.map{|s| s.questions.map{|q| q.id}}.flatten, :user_id => user.id, :looping_identifier => looping_identifier})
-      UserSectionSubmissionState.update_all({:dont_care => true}, {:section_id => with_current_l_identifier.map{|s| s.id}, :user_id => user.id, :looping_identifier => looping_identifier})
+      Answer.destroy_all({:question_id => with_current_l_identifier.map{ |s| s.questions.map{ |q| q.id } }.flatten, :user_id => user.id, :looping_identifier => looping_identifier})
+      UserSectionSubmissionState.update_all({:dont_care => true}, {:section_id => with_current_l_identifier.map{ |s| s.id }, :user_id => user.id, :looping_identifier => looping_identifier})
     end
   end
 
@@ -239,22 +238,22 @@ class Section < ActiveRecord::Base
   def update_submission_state_to_care user, looping_identifier=nil
     #UserSectionSubmissionState.update_all({:dont_care => false}, {:section_id => self.id, :user_id => user.id, :looping_identifier => looping_identifier})
     if (dependent = self.dependent_descendants)
-      to_update = self.self_and_descendants - dependent.map{|d| d.self_and_descendants}.flatten
+      to_update = self.self_and_descendants - dependent.map{ |d| d.self_and_descendants }.flatten
     else
       to_update = self.self_and_descendants
     end
     l_descendants = self.looping_descendants
     if !l_descendants.empty?
       if looping_identifier.present?
-        all_l_descendants = l_descendants.map{|s| s.self_and_descendants}.flatten
+        all_l_descendants = l_descendants.map{ |s| s.self_and_descendants }.flatten
         to_update = to_update - all_l_descendants
-        UserSectionSubmissionState.update_all({:dont_care => false}, "section_id IN (#{all_l_descendants.map{|s| s.id}.join(',')}) AND user_id = #{user.id} AND looping_identifier iLIKE '#{looping_identifier}#{LoopItem::LOOPING_ID_SEPARATOR}%'")
-        UserSectionSubmissionState.update_all({:dont_care => false}, {:section_id => to_update.map{|s| s.id}, :user_id => user.id, :looping_identifier => looping_identifier})
+        UserSectionSubmissionState.update_all({:dont_care => false}, "section_id IN (#{all_l_descendants.map{ |s| s.id }.join(',')}) AND user_id = #{user.id} AND looping_identifier iLIKE '#{looping_identifier}#{LoopItem::LOOPING_ID_SEPARATOR}%'")
+        UserSectionSubmissionState.update_all({:dont_care => false}, {:section_id => to_update.map{ |s| s.id }, :user_id => user.id, :looping_identifier => looping_identifier})
       else
-        UserSectionSubmissionState.update_all({:dont_care => false}, {:section_id => to_update.map{|s| s.id}, :user_id => user.id})
+        UserSectionSubmissionState.update_all({:dont_care => false}, {:section_id => to_update.map{ |s| s.id }, :user_id => user.id})
       end
     else
-      UserSectionSubmissionState.update_all({:dont_care => false}, {:section_id => to_update.map{|s| s.id}, :user_id => user.id, :looping_identifier => looping_identifier})
+      UserSectionSubmissionState.update_all({:dont_care => false}, {:section_id => to_update.map{ |s| s.id }, :user_id => user.id, :looping_identifier => looping_identifier})
     end
   end
 
@@ -310,7 +309,7 @@ class Section < ActiveRecord::Base
       self.update_submission_state!(user, looping_identifier)
     end
     state_tracker = UserSectionSubmissionState.find_or_create_by_user_id_and_section_id_and_looping_identifier(user.id, self.id, looping_identifier)
-    all_states = user.submission_states.find(:all, :conditions => { :section_id => self.self_and_descendants.reject{|s| !s.questions.any?}.map{|s| s.id}.flatten, :dont_care => false}, :select => :section_state).map{|sub| sub.section_state}.uniq.sort
+    all_states = user.submission_states.find(:all, :conditions => {:section_id => self.self_and_descendants.reject{ |s| !s.questions.any? }.map{ |s| s.id }.flatten, :dont_care => false}, :select => :section_state).map{ |sub| sub.section_state }.uniq.sort
     #state is only 0 (all unanswered) or 3(all answered) if there are no other states
     #if there's state 1 (mandatory unanswered) return 1 otherwise return 2 (mandatory answered, and other answers exist, but still there answeres missing
     status = if all_states.size == 1
@@ -410,11 +409,10 @@ class Section < ActiveRecord::Base
         the_items = loop_sources[self.loop_source.id.to_s].descendants.find_all_by_loop_item_type_id(self.loop_item_type_id)
       else #return the section loop item type's loop_items
         if self.loop_item_type
-          the_items = self.loop_item_type.loop_items
+          the_items = self.loop_item_type.loop_items.order(:lft)
         end
       end
     end
-    the_items.sort
   end
 
   #The purpose of this function is to run the maximum number of queries at the same time, so that rendering of the views isn't
@@ -523,7 +521,6 @@ class Section < ActiveRecord::Base
     (the_title || nil)
   end
 
-
   def children_can_be_displayed_in_tab?
     return false if self.level >= ( self.questionnaire.display_in_tab_max_level || 3).to_i
     self.self_and_ancestors.each do |ancestor|
@@ -564,7 +561,7 @@ class Section < ActiveRecord::Base
   end
 
   def delegations_from user
-    self.delegation_sections.find(:all, :joins => { :delegation => :user_delegate }, :conditions => {:user_delegates => {:user_id => user.id}})
+    self.delegation_sections.find(:all, :joins => {:delegation => :user_delegate}, :conditions => {:user_delegates => {:user_id => user.id}})
   end
 
   def is_delegated? user_delegate_id
@@ -605,10 +602,10 @@ end
 # Table name: sections
 #
 #  id                      :integer          not null, primary key
-#  created_at              :datetime
-#  updated_at              :datetime
+#  created_at              :datetime         not null
+#  updated_at              :datetime         not null
 #  last_edited             :datetime
-#  section_type            :integer
+#  section_type            :integer          not null
 #  answer_type_id          :integer
 #  answer_type_type        :string(255)
 #  loop_source_id          :integer

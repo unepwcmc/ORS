@@ -1,43 +1,45 @@
 <li>Add question fields information in the following languages (click to display the fields):</li>
 <li>
   <%= f.object.question_fields.sort_by{ |a| a.is_default_language? ? 0 : 1 }.
-    map{|field| "<a href='#' class='display_lang' id='quest_#{field.language}'>#{field.language_english_name} #{field.is_default_language? ? "-" : "+" }</a> " }.
+    map{|field| "<a href='#' class='display_lang btn' id='quest_#{field.language}'>#{field.language_english_name} #{field.is_default_language? ? "<i class='fa fa-caret-up'></i>" : "<i class='fa fa-caret-down'></i>" }</a> " }.
     join(" | ").html_safe %>
-  |
-  <a href="#" class="show_all_lang_fields">Expand all</a>
-  /
-  <a href="#" class="hide_all_lang_fields">Collapse all</a>
+  <a href="#" class="show_all_lang_fields btn">Expand all</a>
+  <a href="#" class="hide_all_lang_fields btn">Collapse all</a>
 </li>
 <li>
   <%= f.fields_for :question_fields, f.object.question_fields.sort_by{ |a| a.is_default_language? ? 0 : 1 } do |builder| %>
       <div class="<%= builder.object.is_default_language? ? "" : "hide"%> lang_fields" id="fields_for_quest_<%= builder.object.language %>">
         <fieldset>
-          <legend><%=h builder.object.language_english_name %></legend>
+          <div class="page-header">
+            <h5><%=h builder.object.language_english_name %></h5>
+          </div>
           <ol>
             <%= builder.hidden_field :language, :value => builder.object.language %>
             <%= builder.hidden_field :is_default_language,:value => builder.object.is_default_language %>
-            <li>
-              <%= builder.label :title, "Title #{builder.object.is_default_language? ? "*" : ""}" %>
-              <%= builder.text_area :title, :rows => 2, :cols => 55, :dir => builder.object.language == "ar" ? "rtl" : "ltr", :minlength => "2", :class => "question_title tinymce", :validate => "#{builder.object.is_default_language? ? "{required:true, messages:{required:'The title in #{builder.object.language_english_name} is required'}}" : "" }" %>
-            </li>
-            <li>
-              <%= builder.label :short_title, "Short title" %>
-              <%= builder.text_field :short_title ,:size => 25, :dir => builder.object.language == "ar" ? "rtl" : "ltr" %>
-            </li>
-            <li>
-              <%= builder.label :description, "Description" %>
-              <%= builder.text_area :description, :rows => 2, :cols => 55, :dir => builder.object.language == "ar" ? "rtl" : "ltr", :minlength => "2", :class => "tinymce object_description" %>
-            </li>
+            <div class="row padded">
+              <div class="col col-4"><%= builder.label :title, "Title #{builder.object.is_default_language? ? "*" : ""}" %></div>
+              <div class="col col-8 border-left"><%= builder.text_area :title, :rows => 2, :cols => 55, :dir => builder.object.language == "ar" ? "rtl" : "ltr", :minlength => "2", :class => "question_title tinymce", :validate => "#{builder.object.is_default_language? ? "{required:true, messages:{required:'The title in #{builder.object.language_english_name} is required'}}" : "" }" %></div>
+            </div>
+
+            <div class="row padded">
+              <div class="col col-4"><%= builder.label :short_title, "Short title" %></div>
+              <div class="col col-8 border-left"><%= builder.text_field :short_title ,:size => 25, :dir => builder.object.language == "ar" ? "rtl" : "ltr" %></div>
+            </div>
+            <div class="row padded">
+              <div class="col col-4"><%= builder.label :description, "Description" %></div>
+              <div class="col col-8 border-left"><%= builder.text_area :description, :rows => 2, :cols => 55, :dir => builder.object.language == "ar" ? "rtl" : "ltr", :minlength => "2", :class => "tinymce object_description" %></div>
+            </div>
           </ol>
         </fieldset>
       </div>
   <% end %>
 </li>
-<li>
-  <%= f.label :is_mandatory %>
-  <%= f.check_box :is_mandatory %>
-</li>
-<li>
-  <%= f.label :allow_attachments %>
-  <%= f.check_box :allow_attachments %>
-</li>
+<hr class="grey">
+<div class="row padded">
+  <div class="col col-4"><%= f.label :is_mandatory %></div>
+  <div class="col col-8 border-left"><%= f.check_box :is_mandatory %></div>
+</div>
+<div class="row padded">
+  <div class="col col-4"><%= f.label :allow_attachments %></div>
+  <div class="col col-8 border-left"><%= f.check_box :allow_attachments %></div>
+</div>

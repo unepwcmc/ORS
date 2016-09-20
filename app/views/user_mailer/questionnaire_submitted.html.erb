@@ -1,6 +1,5 @@
 <p><%=t('generic.hi')%> <%=@user.full_name%>,</p>
-<p><%=t('user_mailer.questionnaire_submitted.first_line', :questionnaire => @questionnaire.title(@user.language)) %></p>
+<p><%=t('user_mailer.questionnaire_submitted.first_line', :questionnaire => @questionnaire.title(@user.language)).html_safe %></p>
 <p><%=t('user_mailer.questionnaire_submitted.second_line')%></p>
 <p><%=t('user_mailer.greetings')%><br /><%=t('title')%></p>
 <p><%=@questionnaire.email_footer(@user.language)%></p>
-

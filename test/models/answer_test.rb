@@ -3,7 +3,7 @@ require 'test_helper'
 class AnswerTest < ActiveSupport::TestCase
 
   context "1 Questionnaire -> 3 Sections (one of each type) -> 2 Questions -> different answer types" do
-    subject{@questionnaire}
+    subject{ @questionnaire }
     setup do
       @file = "test/csv/geo_nc.csv"
       @questionnaire = FactoryGirl.create(:questionnaire)  #questionnaire
@@ -35,7 +35,7 @@ class AnswerTest < ActiveSupport::TestCase
       t3.questions << q3
       t4 = FactoryGirl.create(:text_answer)
       t4.questions << q4
-      
+
       @questionnaire.generate!
       #debugger
 =begin
@@ -48,22 +48,21 @@ class AnswerTest < ActiveSupport::TestCase
 
 end
 
-
-
 # == Schema Information
 #
 # Table name: answers
 #
 #  id                     :integer          not null, primary key
-#  user_id                :integer
-#  questionnaire_id       :integer
-#  created_at             :datetime
-#  updated_at             :datetime
+#  user_id                :integer          not null
+#  questionnaire_id       :integer          not null
+#  created_at             :datetime         not null
+#  updated_at             :datetime         not null
 #  other_text             :text
-#  question_id            :integer
+#  question_id            :integer          not null
 #  looping_identifier     :string(255)
 #  from_dependent_section :boolean          default(FALSE)
 #  last_editor_id         :integer
 #  loop_item_id           :integer
 #  original_id            :integer
+#  question_answered      :boolean          default(FALSE)
 #

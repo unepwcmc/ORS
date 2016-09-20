@@ -66,7 +66,7 @@ module SectionBranchMethods
       end
 
       def section_and_descendants_answers_for user
-        Answer.find(:all, :joins => :question, :conditions => {"questions.section_id" => self.self_and_descendants.map{|a| a.id}, "answers.user_id" => user.id}, :include => [:last_editor, :documents, :answer_links, :user])
+        Answer.find(:all, :joins => :question, :conditions => {"questions.section_id" => self.self_and_descendants.map{ |a| a.id }, "answers.user_id" => user.id}, :include => [:last_editor, :documents, :answer_links, :user])
       end
 
       def has_looping_descendants?
@@ -75,7 +75,7 @@ module SectionBranchMethods
 
       def looping_descendants
         ids = self.questionnaire_part.descendants.find(:all, :conditions => {:part_type => "#{self.class}"}, :select => 'part_id')
-        self.class.find(:all, :conditions => {:id => ids.map{|p| p.part_id}, :section_type => SectionType::LOOPING}, :include => :questionnaire_part)
+        self.class.find(:all, :conditions => {:id => ids.map{ |p| p.part_id }, :section_type => SectionType::LOOPING}, :include => :questionnaire_part)
       end
 
       def has_dependent_descendants?
@@ -84,7 +84,7 @@ module SectionBranchMethods
 
       def dependent_descendants
         ids = self.questionnaire_part.descendants.find(:all, :conditions => {:part_type => "#{self.class}"}, :select => 'part_id')
-        self.class.find(:all, :conditions => {:id => ids.map{|p| p.part_id}, :depends_on_question_id => nil}, :include => :questionnaire_part)
+        self.class.find(:all, :conditions => {:id => ids.map{ |p| p.part_id }, :depends_on_question_id => nil}, :include => :questionnaire_part)
       end
     end
   end

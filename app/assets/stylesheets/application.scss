@@ -14,7 +14,16 @@
 *= require formtastic_changes
 *= require superfish/superfish
 *= require jqgrid-jquery-rails
+*= require font-awesome
 *= require gritter
-*= require shared
-*= require_tree ./application
+*= require select2
+
+*= require flexbox
+*= require base
+*= require layout
+*= require modules
+*= require state
+*= require theme
+*= require responsive
+*= require_tree ./respondent
 */

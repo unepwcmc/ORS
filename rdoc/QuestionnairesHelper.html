@@ -1,0 +1,263 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>
+  Module: QuestionnairesHelper
+  
+    &mdash; Documentation by YARD 0.7.2
+  
+</title>
+
+  <link rel="stylesheet" href="css/style.css" type="text/css" media="screen" charset="utf-8" />
+
+  <link rel="stylesheet" href="css/common.css" type="text/css" media="screen" charset="utf-8" />
+
+<script type="text/javascript" charset="utf-8">
+  relpath = '';
+  if (relpath != '') relpath += '/';
+</script>
+
+  <script type="text/javascript" charset="utf-8" src="js/jquery.js"></script>
+
+  <script type="text/javascript" charset="utf-8" src="js/app.js"></script>
+
+
+  </head>
+  <body>
+    <script type="text/javascript" charset="utf-8">
+      if (window.top.frames.main) document.body.className = 'frames';
+    </script>
+    
+    <div id="header">
+      <div id="menu">
+  
+    <a href="_index.html">Index (Q)</a> &raquo; 
+    
+    
+    <span class="title">QuestionnairesHelper</span>
+  
+  
+  <div class="noframes"><span class="title">(</span><a href="." target="_top">no frames</a><span class="title">)</span></div>
+</div>
+
+      <div id="search">
+  
+    <a id="class_list_link" href="#">Class List</a>
+  
+    <a id="method_list_link" href="#">Method List</a>
+  
+    <a id="file_list_link" href="#">File List</a>
+  
+</div>
+      <div class="clear"></div>
+    </div>
+    
+    <iframe id="search_frame"></iframe>
+    
+    <div id="content"><h1>Module: QuestionnairesHelper
+  
+  
+  
+</h1>
+
+<dl class="box">
+  
+  
+    
+  
+    
+  
+  
+  
+    <dt class="r1 last">Defined in:</dt>
+    <dd class="r1 last">app/helpers/questionnaires_helper.rb</dd>
+  
+</dl>
+<div class="clear"></div>
+
+
+
+
+
+
+  
+    <h2>
+      Instance Method Summary
+      <small>(<a href="#" class="summary_toggle">collapse</a>)</small>
+    </h2>
+
+    <ul class="summary">
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#display_loop_sources_of-instance_method" title="#display_loop_sources_of (instance method)">- (Object) <strong>display_loop_sources_of</strong>(questionnaire) </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#due_warning_basic_message-instance_method" title="#due_warning_basic_message (instance method)">- (Object) <strong>due_warning_basic_message</strong>(questionnaire, url) </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+      
+    </ul>
+  
+
+
+
+  <div id="instance_method_details" class="method_details_list">
+    <h2>Instance Method Details</h2>
+    
+    
+      <div class="method_details first">
+  <p class="signature first" id="display_loop_sources_of-instance_method">
+  
+    - (<tt>Object</tt>) <strong>display_loop_sources_of</strong>(questionnaire) 
+  
+
+  
+</p><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'app/helpers/questionnaires_helper.rb', line 3</span>
+
+<span class='def def kw'>def</span> <span class='display_loop_sources_of identifier id'>display_loop_sources_of</span> <span class='questionnaire identifier id'>questionnaire</span>
+  <span class='sources identifier id'>sources</span> <span class='assign token'>=</span> <span class='lbrack token'>[</span><span class='rbrack token'>]</span>
+  <span class='questionnaire identifier id'>questionnaire</span><span class='dot token'>.</span><span class='loop_sources identifier id'>loop_sources</span><span class='dot token'>.</span><span class='each identifier id'>each</span> <span class='do do kw'>do</span> <span class='bitor op'>|</span><span class='source identifier id'>source</span><span class='bitor op'>|</span>
+    <span class='li_obj identifier id'>li_obj</span> <span class='assign token'>=</span> <span class='dstring node'>&quot;&lt;li id='source_#{source.id.to_s}'&gt;#{link_to h(source.name), loop_source_path(source)}: &quot;</span>
+    <span class='case case kw'>case</span> <span class='source identifier id'>source</span><span class='dot token'>.</span><span class='parse_status identifier id'>parse_status</span>
+      <span class='when when kw'>when</span> <span class='integer val'>0</span>
+        <span class='li_obj identifier id'>li_obj</span> <span class='lshft op'>&lt;&lt;</span> <span class='string val'>&quot;Source being uploaded.&quot;</span>
+      <span class='when when kw'>when</span> <span class='integer val'>1</span>
+        <span class='li_obj identifier id'>li_obj</span> <span class='lshft op'>&lt;&lt;</span> <span class='string val'>&quot;[ &quot;</span> <span class='plus op'>+</span> <span class='source identifier id'>source</span><span class='dot token'>.</span><span class='loop_item_type identifier id'>loop_item_type</span><span class='dot token'>.</span><span class='self_and_descendants identifier id'>self_and_descendants</span><span class='dot token'>.</span><span class='map identifier id'>map</span><span class='lbrace token'>{</span><span class='bitor op'>|</span><span class='item identifier id'>item</span><span class='bitor op'>|</span> <span class='lparen token'>(</span> <span class='item identifier id'>item</span><span class='dot token'>.</span><span class='is_filtering_field? fid id'>is_filtering_field?</span> <span class='integer val'>? </span><span class='dstring node'>&quot;&lt;strong&gt;#{h(item.name)}&lt;/strong&gt;&quot;</span><span class='colon op'>:</span> <span class='dstring node'>&quot;#{h(item.name)}&quot;</span> <span class='rparen token'>)</span><span class='plus op'>+</span><span class='string val'>&quot; &quot;</span><span class='plus op'>+</span> <span class='lparen token'>(</span><span class='item identifier id'>item</span><span class='dot token'>.</span><span class='is_filtering_field? fid id'>is_filtering_field?</span> <span class='integer val'>? </span><span class='string val'>&quot;*&quot;</span> <span class='colon op'>:</span> <span class='string val'>&quot;&quot;</span><span class='rparen token'>)</span><span class='rbrace token'>}</span><span class='dot token'>.</span><span class='join identifier id'>join</span><span class='lparen token'>(</span><span class='string val'>&quot; &gt; &quot;</span><span class='rparen token'>)</span> <span class='plus op'>+</span> <span class='string val'>&quot; ] &quot;</span> <span class='if if_mod kw'>if</span> <span class='source identifier id'>source</span><span class='dot token'>.</span><span class='loop_item_type identifier id'>loop_item_type</span>
+        <span class='li_obj identifier id'>li_obj</span> <span class='lshft op'>&lt;&lt;</span> <span class='dstring node'>&quot;#{link_to &quot;Remove&quot;, loop_source_path(source), :method =&gt; :delete, :class =&gt; &quot;delete confirm_deletion&quot;, :confirm_text =&gt; &quot;Are you sure you want to delete this loop source?\n Any related elements will be modified accordingly&quot; + (questionnaire.source_questionnaire.present? ? &quot; and any associated answers will be deleted.&quot; : &quot;.&quot;)}&lt;/li&gt;&quot;</span>
+      <span class='when when kw'>when</span> <span class='integer val'>2</span>
+        <span class='li_obj identifier id'>li_obj</span> <span class='lshft op'>&lt;&lt;</span> <span class='string val'>&quot;There were some errors uploading this source, please go to the loop source page for details. &quot;</span>
+        <span class='li_obj identifier id'>li_obj</span> <span class='lshft op'>&lt;&lt;</span> <span class='dstring node'>&quot;#{link_to &quot;Remove&quot;, loop_source_path(source), :method =&gt; :delete, :class =&gt; &quot;delete confirm_deletion&quot;, :confirm_text =&gt; &quot;Are you sure you want to delete this loop source?\n Any related elements will be modified accordingly&quot; + (questionnaire.source_questionnaire.present? ? &quot; and any associated answers will be deleted.&quot; : &quot;.&quot;)}&lt;/li&gt;&quot;</span>
+    <span class='end end kw'>end</span>
+    <span class='sources identifier id'>sources</span> <span class='lshft op'>&lt;&lt;</span> <span class='li_obj identifier id'>li_obj</span>
+  <span class='end end kw'>end</span>
+  <span class='sources identifier id'>sources</span>
+<span class='end end kw'>end</span>
+</pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <p class="signature " id="due_warning_basic_message-instance_method">
+  
+    - (<tt>Object</tt>) <strong>due_warning_basic_message</strong>(questionnaire, url) 
+  
+
+  
+</p><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'app/helpers/questionnaires_helper.rb', line 22</span>
+
+<span class='def def kw'>def</span> <span class='due_warning_basic_message identifier id'>due_warning_basic_message</span> <span class='questionnaire identifier id'>questionnaire</span><span class='comma token'>,</span> <span class='url identifier id'>url</span>
+  <span class='returning identifier id'>returning</span> <span class='text identifier id'>text</span><span class='assign token'>=</span><span class='string val'>&quot;&quot;</span> <span class='do do kw'>do</span>
+    <span class='text identifier id'>text</span> <span class='lshft op'>&lt;&lt;</span> <span class='dstring node'>&quot;The following questionnaire is due on #{Time.now.strftime(&quot;%H:%M:%S %B %d, %Y&quot;)}:\n\n&quot;</span>
+    <span class='text identifier id'>text</span> <span class='lshft op'>&lt;&lt;</span> <span class='dstring node'>&quot;Title: #{questionnaire.title}\n&quot;</span>
+    <span class='text identifier id'>text</span> <span class='lshft op'>&lt;&lt;</span> <span class='dstring node'>&quot;Default language: #{questionnaire.language_english_name}\n&quot;</span>
+    <span class='text identifier id'>text</span> <span class='lshft op'>&lt;&lt;</span> <span class='dstring node'>&quot;Available languages: #{questionnaire.questionnaire_fields.map{|a| a.language_english_name}.join(', ')}\n&quot;</span>
+    <span class='text identifier id'>text</span> <span class='lshft op'>&lt;&lt;</span> <span class='dstring node'>&quot;Year: #{questionnaire.questionnaire_date.strftime('%Y')}\n\n&quot;</span>
+    <span class='text identifier id'>text</span> <span class='lshft op'>&lt;&lt;</span> <span class='dstring node'>&quot;Please go to #{url}/questionnaires/#{questionnaire.id}/submission to finish your answers and submit it.\n&quot;</span>
+    <span class='text identifier id'>text</span> <span class='lshft op'>&lt;&lt;</span> <span class='string val'>&quot;The questionnaire is also available through your dashboard.\n\n&quot;</span>
+    <span class='text identifier id'>text</span> <span class='lshft op'>&lt;&lt;</span> <span class='string val'>&quot;Best regards,\n&quot;</span>
+    <span class='text identifier id'>text</span> <span class='lshft op'>&lt;&lt;</span> <span class='string val'>&quot;The Bern Convention - Online Reporting System team&quot;</span>
+  <span class='end end kw'>end</span>
+<span class='end end kw'>end</span>
+</pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+  </div>
+
+</div>
+    
+    <div id="footer">
+  Generated on Fri Jul  8 14:33:32 2011 by 
+  <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
+  0.7.2 (ruby-1.8.7).
+</div>
+
+  </body>
+</html>

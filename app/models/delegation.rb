@@ -6,7 +6,7 @@ class Delegation < ActiveRecord::Base
   has_one :user, :through => :user_delegate
   has_one :delegate, :through => :user_delegate
   belongs_to :questionnaire, :include => :questionnaire_fields
-  has_many :delegation_sections, :dependent => :destroy, :include => [:section, {:delegated_loop_item_names => {:loop_item_name => :loop_item_name_fields } } ]
+  has_many :delegation_sections, :dependent => :destroy, :include => [:section, {:delegated_loop_item_names => {:loop_item_name => :loop_item_name_fields}} ]
   has_many :sections, :through => :delegation_sections, :include => :section_fields
   has_many :delegated_loop_item_names, :through => :delegation_sections
   has_many :loop_item_names, :through => :delegated_loop_item_names, :include => :loop_item_name_fields
@@ -32,14 +32,14 @@ class Delegation < ActiveRecord::Base
       quest_part.part
     }.reject{|part|
       !part.is_a?(Section) || previously_delegated_sections.include?(part)
-    }.sort{|a,b| a.lft <=> b.lft}
+    }.sort{ |a,b| a.lft <=> b.lft }
   end
 
   def available_sections_including section
     return [] unless self.questionnaire
     sections_unavailable = self.sections - Array(section)
     #start by fetching the delegate's tasks that are of type "Section" and that belong to questionnaire
-    previously_delegated_sections = sections_unavailable.reject{|s| s.nil?}.map{|s|
+    previously_delegated_sections = sections_unavailable.reject{ |s| s.nil? }.map{|s|
       s.self_and_descendants
     }.flatten
     #get all the sections (questionnaire_parts.part of type Section) that belong to the delegator's available questionnaire.
@@ -51,11 +51,11 @@ class Delegation < ActiveRecord::Base
       quest_part.part
     }.reject{|part|
       !part.is_a?(Section) || previously_delegated_sections.include?(part)
-    }.sort{|a,b| a.lft <=> b.lft}
+    }.sort{ |a,b| a.lft <=> b.lft }
   end
 
   def self.available_questionnaires_for delegate, delegator
-    previously_delegated_questionnaires = delegate.delegated_tasks.map{|delegation| delegation.questionnaire if delegation.delegation_sections.empty?}
+    previously_delegated_questionnaires = delegate.delegated_tasks.map{ |delegation| delegation.questionnaire if delegation.delegation_sections.empty? }
     delegator.available_questionnaires.reject{|quest|
       previously_delegated_questionnaires.include?(quest) || delegate.available_questionnaires.include?(quest)
     }
@@ -82,7 +82,7 @@ class Delegation < ActiveRecord::Base
     #get all the delegations that belong to the delegator/delegate pair
     delegations = delegator.delegations.find_all_by_delegate_id(delegate.id)
     #reject the questionnaires
-    possible_collisions = delegations.reject{|delegation| delegation.task.is_a?(Questionnaire)}
+    possible_collisions = delegations.reject{ |delegation| delegation.task.is_a?(Questionnaire) }
     #check if the existing tasks belong to the questionnaire, if so remove them , otherwise they'll overlap
     possible_collisions.each do |delegation|
       if delegation.task && delegation.task.questionnaire == questionnaire
@@ -121,18 +121,17 @@ class Delegation < ActiveRecord::Base
   end
 end
 
-
-
 # == Schema Information
 #
 # Table name: delegations
 #
-#  id               :integer          not null, primary key
-#  created_at       :datetime
-#  updated_at       :datetime
-#  remarks          :text
-#  questionnaire_id :integer
-#  user_delegate_id :integer
-#  from_submission  :boolean
-#  original_id      :integer
+#  id                         :integer          not null, primary key
+#  created_at                 :datetime
+#  updated_at                 :datetime
+#  remarks                    :text
+#  questionnaire_id           :integer
+#  user_delegate_id           :integer
+#  from_submission            :boolean
+#  original_id                :integer
+#  can_view_all_questionnaire :boolean          default(FALSE)
 #

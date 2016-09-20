@@ -7,6 +7,7 @@ CREATE OR REPLACE FUNCTION copy_loop_items_start(
 LANGUAGE plpgsql AS $$
 BEGIN
   CREATE TEMP TABLE tmp_loop_item_names () INHERITS (loop_item_names);
+  CREATE TEMP TABLE tmp_loop_item_name_fields () INHERITS (loop_item_name_fields);
   CREATE TEMP TABLE tmp_loop_items () INHERITS (loop_items);
 
   INSERT INTO tmp_loop_item_names (
@@ -28,7 +29,7 @@ BEGIN
   JOIN tmp_loop_item_types
   ON tmp_loop_item_types.original_id = loop_item_names.loop_item_type_id;
 
-  INSERT INTO loop_item_name_fields (
+  INSERT INTO tmp_loop_item_name_fields (
     loop_item_name_id,
     item_name,
     language,
@@ -91,6 +92,10 @@ BEGIN
   INSERT INTO loop_item_names
   SELECT * FROM tmp_loop_item_names;
   DROP TABLE tmp_loop_item_names;
+
+  INSERT INTO loop_item_name_fields
+  SELECT * FROM tmp_loop_item_name_fields;
+  DROP TABLE tmp_loop_item_name_fields;
 
   INSERT INTO loop_items SELECT * FROM tmp_loop_items;
   DROP TABLE tmp_loop_items;

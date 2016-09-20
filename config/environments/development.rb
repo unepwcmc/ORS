@@ -17,6 +17,7 @@ OnlineReportingTool::Application.configure do
   config.action_mailer.raise_delivery_errors = false
   # Send email to a file in the tmp/mails directory.
   config.action_mailer.delivery_method = :file
+  config.action_mailer.default_url_options = {host: Rails.application.secrets.mailer['host']}
 
   # Print deprecation notices to the Rails logger
   config.active_support.deprecation = :log

@@ -10,7 +10,7 @@ class UnsubmissionRequestsController < ApplicationController
     auth = current_user.authorized_submitters.find_by_questionnaire_id(@questionnaire.id)
     auth.requested_unsubmission = true
     auth.save
-    url = "http://" + request.host + (ActionController::Base.relative_url_root.present? ? ActionController::Base.relative_url_root : "") 
+    url = "http://" + request.host + (ActionController::Base.relative_url_root.present? ? ActionController::Base.relative_url_root : "")
     UserMailer.request_unsubmission(current_user, @questionnaire, params[:subject], params[:body], url).deliver
     redirect_to root_url
   end

@@ -1,20 +1,28 @@
 <div class="span-24 last" id="content">
 
+<div class="page-header"><h2>Edit existing loop source</h2></div>
   <div id="content_header">
     <% info_tip_text = "The loop source can be edited here, either by uploading a loop source to update the existing one, or to modify items individually."%>
     <%= render :partial => "administration/menu", :locals => {:header => "Edit loop source " + info_tip("Edit loop source", info_tip_text), :include_options => "questionnaires"} -%>
   </div>
   <div class="clear" id="q_dashboard" style="margin-bottom: 25px">
-    <p><strong>Questionnaire</strong><%= link_to @loop_source.questionnaire.title, dashboard_questionnaire_path(@loop_source.questionnaire) %> (<%= link_to "Questionnaire's loop sources", questionnaire_loop_sources_path(@loop_source.questionnaire) %>)</p>
-    <p><strong>Source name</strong><%= link_to h(@loop_source.name), @loop_source %></p>
+    <div class="row padded group">
+      <div class="col col-4">Questionnaire</div>
+      <div class="col col-8 border-left"><%= link_to @loop_source.questionnaire.title, dashboard_questionnaire_path(@loop_source.questionnaire) %> (<%= link_to "Questionnaire's loop sources", questionnaire_loop_sources_path(@loop_source.questionnaire) %>)</div>
+    </div>
+
+    <div class="row padded group">
+      <div class="col col-4">Source name</div>
+      <div class="col col-8 border-left"><%= link_to h(@loop_source.name), @loop_source %></div>
+    </div>
   </div>
   <% if @loop_source.loop_item_type.present? -%>
-   
+
     <div style="color:green">
       <p><strong>Edit name or add new files:</strong> allows you to edit the name of the loop source, or to upload a file which will append new values. If you want to delete items, you will need to remove the loop source, and re-upload a new one.</p>
        <p><strong>Manage existing items:</strong> allows to edit individual items.</p>
     </div>
-  
+
       <p><a href="#" id="show_add_files"><span style="font-size:14px">Edit name or add new files</span></a> | <a href="#" id="show_edit_items"><span style="font-size:14px">Manage existing items</span></a></p>
   <% end -%>
   <div id="add_files" class="<%= @loop_source.loop_item_type.present? ? "hide" : "" %>">

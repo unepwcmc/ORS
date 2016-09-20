@@ -1,3 +1,4 @@
+secrets = Rails.application.secrets.mailer
 OnlineReportingTool::Application.configure do
   # Settings specified here will take precedence over those in config/application.rb
 
@@ -28,6 +29,7 @@ OnlineReportingTool::Application.configure do
   # The :test delivery method accumulates sent emails in the
   # ActionMailer::Base.deliveries array.
   config.action_mailer.delivery_method = :test
+  config.action_mailer.default_url_options = {host: Rails.application.secrets.mailer['host']}
 
   # Raise exception on mass assignment protection for Active Record models
   config.active_record.mass_assignment_sanitizer = :strict

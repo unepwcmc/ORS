@@ -2,11 +2,11 @@ class LoopItemsController < ApplicationController
   def index
     @loop_items = LoopItem.all
   end
-  
+
   def new
     @loop_item = LoopItem.new
   end
-  
+
   def create
     @loop_item = LoopItem.new(params[:loop_item])
     if @loop_item.save
@@ -16,15 +16,15 @@ class LoopItemsController < ApplicationController
       render :action => 'new'
     end
   end
-  
+
   def show
     @loop_item = LoopItem.find(params[:id])
   end
-  
+
   def edit
     @loop_item = LoopItem.find(params[:id])
   end
-  
+
   def update
     @loop_item = LoopItem.find(params[:id])
     if @loop_item.update_attributes(params[:loop_item])
@@ -34,7 +34,7 @@ class LoopItemsController < ApplicationController
       render :action => 'edit'
     end
   end
-  
+
   def destroy
     @loop_item = LoopItem.find(params[:id])
     @loop_item.destroy

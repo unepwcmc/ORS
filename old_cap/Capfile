@@ -1,0 +1,5 @@
+# Generated with 'brightbox-capify' on 2015-02-10 08:02:36 +0000
+load 'deploy' if respond_to?(:namespace) # cap2 differentiator
+Dir['vendor/plugins/*/recipes/*.rb'].each { |plugin| load(plugin) }
+load 'deploy/assets'
+load 'config/deploy'

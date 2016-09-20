@@ -3,7 +3,7 @@
       <%= render :partial => "answer_type_fields/form", :locals => { :f => builder, :answer_type_fields => type.answer_type_fields } %>
     </li>
     <div>
-      <p style="font-weight:600; font-size:13px">Rank type question <%=info_tip("Rank Type","<p>The rank type question allows one to specify a list of items to be ranked in certain order by the respondent. E.g. Choose your favorite holiday destination. <br /><br /> The <span style='color:yellow'>Maximum selections </span>refer to the amount of options the respondent can select. A value of -1 means one can select everything, value of 0 means you can't select anything, and a value of 1 means you can select one option. <br /><br />Enter each rank value in the table below by pressing the 'Add Option'</p>")%> </p>
+      <p style="font-weight:600; font-size:13px">Rank type question <%=info_tip("Rank Type","<p>The rank type question allows one to specify a list of items to be ranked in certain order by the respondent. E.g. Choose your favorite holiday destination. <br /><br /> The Maximum selections refer to the amount of options the respondent can select. A value of -1 means one can select everything, value of 0 means you can't select anything, and a value of 1 means you can select one option. <br /><br />Enter each rank value in the table below by pressing the 'Add Option'</p>")%> </p>
     </div>
     <li>
       <%= builder.label :maximum_choices, "Maximum selections" %>

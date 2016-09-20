@@ -66,7 +66,7 @@ $(function(){
                     var the_id = $("input[@name='part[loop_item_type_id]']:checked").val().toString();
                     var tag = $("#label_for_"+the_id).text();
                     if(tag.search(/ \(\*\)/)!= -1)
-                        tag = tag.replace(/ \(\*\)$/,"");                        
+                        tag = tag.replace(/ \(\*\)$/,"");
                     addOrReplaceLoopTagToTextFields("section_title",tag);
                 }
             }
@@ -74,7 +74,7 @@ $(function(){
         $("#clear_loop_types").livequery('click', function(e){
             e.preventDefault();
             removeLoopTagFromTextFields("section_title");
-            $("input[@name='part[loop_item_type_id]']:checked").attr('checked', false);
+            $("input[name='part[loop_item_type_id]']:checked").attr('checked', false);
             //if it is editing or creating a new section, you'll want to ignore self.
             $("#include_extras_container").hide('slow').empty().append("<%= escape_javascript(render :partial => "extras/include_extras", :locals => {:base_section => (@section || @parent_section), :selected_item_type => nil, :ignore_self => true, :check_extras => @section})%>");
         });

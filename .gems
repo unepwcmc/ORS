@@ -1,0 +1,4 @@
+
+authlogic -s "http://gems.github.com"
+fastercsv
+cancan

@@ -9,6 +9,6 @@ module ActiveRecord
       end
       new_obj
     end
-  
+
   end
 end

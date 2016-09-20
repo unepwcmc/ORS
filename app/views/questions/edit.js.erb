@@ -3,6 +3,7 @@ $(function(){
             .append("<%= escape_javascript( render :partial => "administration/menu", :locals => {:header => "Edit Question", :include_options => "questions"} ) %>");
     $("#content").empty()
             .append("<%= escape_javascript(render(:partial => "edit"))%>");
+
     //Function to control the "Answer Type" Select Box
     $("#part_answer_type_type").change(function(){
         var selectVal = $(this).val();

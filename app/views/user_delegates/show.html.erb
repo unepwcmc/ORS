@@ -1,5 +1,5 @@
 <div class="span-24 last user_profile" id="content">
-  <%= render :partial => "options"%>
+  <%= render "users/options"%>
   <% if @user_delegate.user == current_user %>
     <h1><%= t('manage_delegates.delegate_details') %></h1>
     <div id="q_dashboard">
@@ -50,17 +50,17 @@
     </div>
     <div id="q_dashboard">
       <% @user_delegate.delegations.each do |delegation| -%>
-        <p><strong><%=t('generic.questionnaire')%></strong><%= link_to h(delegation.questionnaire.title), submission_questionnaire_path(delegation.questionnaire, user_delegate: @user_delegate.id) %></p>
-        <p><strong><%=t('delegate_dashboard.delegator_remarks')%></strong><%= delegation.remarks.present? ? h(delegation.remarks) : "-" %></p>
+        <p><strong><%=t('generic.questionnaire')%>: </strong><%= link_to h(delegation.questionnaire.title), submission_questionnaire_path(delegation.questionnaire, user_delegate: @user_delegate.id) %></p>
+        <p><strong><%=t('delegate_dashboard.delegator_remarks')%></strong><%= delegation.remarks.present? ? h(delegation.remarks) : ": " %></p>
         <p><strong><%=t('generic.details')%></strong>
         <% if delegation.sections.present? -%>
-          <%= pluralize(delegation.sections.count, "section")%> <%= t('delegate_dashboard.to_fill') %> <a href="#" id="show_details_<%= delegation.id %>"><%=t('generic.details')%></a>
+          <%= pluralize(delegation.sections.count, "section")%> <%= t('delegate_dashboard.to_fill') %> <a href="#" class="show-details" id="show_details_<%= delegation.id %>"><%=t('generic.details')%></a>
         <% else -%>
           <%= t('delegate_dashboard.fill_all') %>
         <% end -%>
         </p>
         <% if delegation.sections.present? %>
-          <div id="delegation_details_<%= delegation.id %>" class="hide">
+          <div class="delegation-details hide" id="delegation_details_<%= delegation.id %>">
             <table>
               <thead>
                 <tr>
@@ -89,6 +89,10 @@
 </div><!-- /content -->
 <script type="text/javascript">
   $(function(){
+      $(".show-details").click(function(e){
+        e.preventDefault();
+        $(this).parent().siblings('.delegation-details').toggle('slow');
+      });
       $("#delegated_tasks_table").tablesorter({
         sortList: [[0,0]],
         widgets: ['zebra']

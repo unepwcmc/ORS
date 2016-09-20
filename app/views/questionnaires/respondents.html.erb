@@ -1,3 +1,7 @@
+<div class="page-header">
+  <h2>Respondents</h2>
+</div>
+
 <div class="span-24 last">
   <div id="content_header">
     <% info_tip_text = "<p>In this page you can see a table with the list of respondents of this questionnaire. You can access the authorization page by clicking in the 'Manage' link.</p>
@@ -5,64 +9,73 @@
                         <p>You can go back to the questionnaire dashboard by clicking in its title.</p>"-%>
                         <%= render :partial => "administration/menu", :locals => {:header => ("Questionnaire Respondents " + info_tip("Questionnaire's respondents", info_tip_text)).html_safe, :include_options => "questionnaires"} -%>
   </div>
+
   <div id="q_dashboard" class="span-24 last">
-    <p><strong>Title</strong> <%= link_to h(@questionnaire.title), dashboard_questionnaire_path(@questionnaire) %></p>
-    <p><strong>Creator</strong> <%= link_to h(@questionnaire.user.full_name), user_path(@questionnaire.user) %></p>
-    <p><strong>Date</strong> <%= @questionnaire.questionnaire_date.mon.to_s + "/" + @questionnaire.questionnaire_date.year.to_s%></p>
-    <p><strong>Respondents</strong> <%=h @questionnaire.authorized_submitters.count %> (<%= link_to "Manage", questionnaire_authorized_submitters_path(@questionnaire) %>)</p>
-    <p><strong>Filtering fields</strong> <%= @questionnaire.filtering_fields.map(&:name).join(', ') %></p>
+    <div class="row padded">
+      <div class="col col-4">Title</div>
+      <div class="col col-8 border-left"><%= link_to h(@questionnaire.title), dashboard_questionnaire_path(@questionnaire) %></div>
+    </div>
+    <div class="row padded">
+      <div class="col col-4">Creator</div>
+      <div class="col col-8 border-left"><%= link_to h(@questionnaire.user.full_name), user_path(@questionnaire.user) %></div>
+    </div>
+    <div class="row padded">
+      <div class="col col-4">Date</div>
+      <div class="col col-8 border-left"><%= @questionnaire.questionnaire_date.mon.to_s + "/" + @questionnaire.questionnaire_date.year.to_s%></div>
+    </div>
+    <div class="row padded">
+      <div class="col col-4">Respondents</div>
+      <div class="col col-8 border-left"><%=h @questionnaire.authorized_submitters.count %> (<%= link_to "Manage", questionnaire_authorized_submitters_path(@questionnaire) %>)</div>
+    </div>
+    <div class="row group">
+      <div class="col col-4">Filtering fields</div>
+      <div class="col col-8 border-left"><%= @questionnaire.filtering_fields.map(&:name).join(', ') %></div>
+    </div>
   </div>
   <hr/>
   <%= form_for @questionnaire, :as => :questionnaire, :url => send_multiple_deadline_warnings_questionnaire_path(@questionnaire), :html => {:method => :post, :class => "ajaxForm formtastic"} do |f| %>
-    <div id="respondents_menu">
-      <p>
-          <% info_tip_text = "<p>To make management easier you can search for respondents by typing your search criteria in the search text field.
-    You can then select all the results of your selection by clicking on the select filter 'all'. Other available filters are:</p>
-    <p><strong>none</strong>: removes selection of all respondents<br />
-       <strong>status:Underway</strong>: selects all users who are still in process of filling the questionnaire<br />
-       <strong>status:Submitted</strong>: selects all users who have already submitted the questionnaire</p>" %>
-       <strong>Select <%= info_tip('Select', info_tip_text) %>:</strong>
-       <a href="#" id="check_all">all</a>
-       <a href="#" id="uncheck_all">none</a>
-       <a href="#" id="check_underway">status:Underway</a>
-       <a href="#" id="check_submitted">status:Submitted</a>
-       |
-       <a href="#" id="write_message">Send message to selected users</a>
-       |
-       <label for="filter">Search:</label>
-       <input type="text" name="filter" id="filter" value="" placeholder="Type your search here..." size="25"/>
-       <a href="#" id="clear_search">Clear Search</a>
-     </p>
-   </div>
+
+  <div class="datatable-filters">
+    <div class="datatable-filters__left">
+      <% if @questionnaire %>
+       Filter by
+        <%= select_tag :authorized_filter, options_for_select([['All',''],['Underway'],['Submitted']]) %>
+
+        <a href="#" id= "write_message" class="btn">Send message to selected users</a>
+      <% end %>
+    </div>
+    <div class="datatable-filters__right">
+      <input type="text" name="filter" id="filter" value="" placeholder="Type your search here... " size="25"/>
+      <a href="#" id="clear_search" class="btn">Clear Search</a><br>
+    </div>
+  </div>
    <div id="message_container" class="hide clear">
      <fieldset>
-       <legend>Write your message</legend>
+       <div class="page-header">
+         <h5>Write your message</h5>
+       </div>
        <ol>
          <li>
          <%= @questionnaire.questionnaire_fields.sort_by{ |a| a.is_default_language? ? 0 : 1 }.
-           map{|field| "<a href='#' class='display_lang' id='quest_#{field.language}'>#{field.language_english_name} #{field.is_default_language? ? "-" : "+" }</a> " }.
+           map{|field| "<a href='#' class='display_lang btn' id='quest_#{field.language}'>#{field.language_english_name} #{field.is_default_language? ? "<i class='fa fa-caret-up'></i>" : "<i class='fa fa-caret-down'></i>"}</a> " }.
            join(" | ").html_safe %>
-         |
-         <a href="#" class="show_all_lang_fields">Expand all</a>
-         /
-         <a href="#" class="hide_all_lang_fields">Collapse all</a>
+         <a href="#" class="show_all_lang_fields btn">Expand all</a>
+         <a href="#" class="hide_all_lang_fields btn">Collapse all</a>
          </li>
          <li>
          <% @questionnaire.questionnaire_fields.sort_by{|a| a.is_default_language? ? 0 : 1}.each do |field| %>
            <div class="<%= field.is_default_language? ? "" : "hide"%> lang_fields" id="fields_for_quest_<%= field.language %>">
-             <fieldset>
-               <legend><%=h field.language_english_name %></legend>
-               <ol>
-                 <li>
-                   <%= label_tag "subject_#{field.language}", "Subject" %>
-                   <%= text_field_tag "subject_#{field.language}", h(field.email_subject), :size => 55 %>
-                 </li>
-                 <li>
-                   <%= label_tag "body_#{field.language}", "Body" %>
-                   <%= text_area_tag "body_#{field.language}", h(field.email) + "\n\n\n" + h(field.email_footer) + h(current_user.first_name) + " " + h(current_user.last_name) + "\n" + h(current_user.email), :cols => 55, :rows => 10 %>
-                 </li>
-               </ol>
-             </fieldset>
+               <h5><%=h field.language_english_name %></h5>
+                <div class="row padded group">
+                  <div class="col col-1"><%= label_tag "subject_#{field.language}", "Subject" %></div>
+                  <div class="col col-9 border-left"><%= text_field_tag "subject_#{field.language}", h(field.email_subject), :size => 55 %></div>
+                </div>
+                <div class="row padded group">
+                  <div class="col col-1"><%= label_tag "body_#{field.language}", "Body" %></div>
+                  <div class="col col-9 border-left"><%= text_area_tag "body_#{field.language}", h(field.email) + "\n\n\n" + h(field.email_footer) + h(current_user.first_name) + " " + h(current_user.last_name) + "\n" + h(current_user.email), :cols => 55, :rows => 10 %></div>
+                </div>
+
+
            </div>
          <% end %>
          </li>
@@ -74,7 +87,7 @@
    <table>
      <thead>
        <tr>
-         <th></th>
+         <th><%= check_box_tag :select_all, nil, false, class: 'select-all-checkbox' %></th>
          <th>Respondent name</th>
          <th>Status</th>
          <!--<th>Progress</th>-->

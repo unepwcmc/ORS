@@ -97,11 +97,11 @@ class MultiAnswer < ActiveRecord::Base
         end
       end
       if !question.answer_type.single? && question.answer_type.display_type == 1
-        to_remove += answer.answer_parts.select{|ap| !saved.include?(ap)}
+        to_remove += answer.answer_parts.select{ |answer_part| !saved.include?(answer_part) }
       end
     end
     if !to_remove.empty?
-      to_remove.map{|t| t.delete}
+      to_remove.map{ |t| t.delete }
       result = true
     end
     if result && answer.last_editor_id != editor_id
@@ -112,16 +112,15 @@ class MultiAnswer < ActiveRecord::Base
   end
 end
 
-
 # == Schema Information
 #
 # Table name: multi_answers
 #
 #  id             :integer          not null, primary key
-#  single         :boolean          default(TRUE)
-#  created_at     :datetime
-#  updated_at     :datetime
-#  other_required :boolean          default(FALSE)
-#  display_type   :integer
+#  single         :boolean          default(FALSE), not null
+#  created_at     :datetime         not null
+#  updated_at     :datetime         not null
+#  other_required :boolean          default(FALSE), not null
+#  display_type   :integer          not null
 #  original_id    :integer
 #

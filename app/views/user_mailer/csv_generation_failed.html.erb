@@ -1,9 +1,9 @@
-<%=I18n.t('generic.hi')%> <%=h @user.full_name%>,
+<p><%=I18n.t('generic.hi')%> <%=h @user.full_name%>,</p>
 
-<%= I18n.t('user_mailer.csv_generation_failed.first_line', :section => (@section ? "section ("+Sanitize.clean(@section.title(@user.language), {})+") of " : "" ), :questionnaire => h(@questionnaire.title(@user.language))) %>
+<p><%= I18n.t('user_mailer.csv_generation_failed.first_line', :section => (@section ? "section ("+Sanitize.clean(@section.title(@user.language), {})+") of " : "" ), :questionnaire => h(@questionnaire.title(@user.language))).html_safe %></p>
 
-<%= h @error.message %>
+<p><%= h @error.message %></p>
 
-<%=I18n.t('user_mailer.greetings')%>
+<p><%=I18n.t('user_mailer.greetings')%></p>
 
 <%=ApplicationProfile.title%>

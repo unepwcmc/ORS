@@ -27,7 +27,7 @@ class DelegationsController < ApplicationController
       flash[:error] = "It was not possible to delegate the task."
     end
     respond_to do |format|
-      format.html {redirect_to user_delegate_path(@user_delegate)}
+      format.html { redirect_to user_delegate_path(@user_delegate) }
     end
   end
 
@@ -50,7 +50,7 @@ class DelegationsController < ApplicationController
       flash[:error] = "It was not possible to update this delegation"
     end
     respond_to do |format|
-      format.html {redirect_to user_delegate_path(@user_delegate)}
+      format.html { redirect_to user_delegate_path(@user_delegate) }
     end
   end
 
@@ -60,7 +60,7 @@ class DelegationsController < ApplicationController
     @user_delegate = @delegation.user_delegate
     @delegation.destroy
     respond_to do |format|
-      format.html { redirect_to user_delegate_path(@user_delegate)}
+      format.html { redirect_to user_delegate_path(@user_delegate) }
       format.js { redirect_to new_delegation_section_path(:section_id => @section, :loop_item_name_id => params[:loop_item_name_id], :format => :js) }
     end
   end

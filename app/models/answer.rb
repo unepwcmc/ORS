@@ -23,7 +23,6 @@ class Answer < ActiveRecord::Base
   ###
   validates_uniqueness_of :questionnaire_id, :scope => [:question_id, :user_id, :looping_identifier]
 
-
   # How are the answers being stored:
   # Answer has (questionnaire_id, user_id, question_id, loop_item_id)
   # loop_item_id: exists if the answer is from a question that is part of a looping section.
@@ -130,12 +129,12 @@ class Answer < ActiveRecord::Base
         end
         if answer && !answer.question_answered
           if question.answer_type_type == "MatrixAnswer"
-            to_remove = answer.answer_parts.map{|ap| ap.answer_part_matrix_options}.flatten
+            to_remove = answer.answer_parts.map{ |ap| ap.answer_part_matrix_options }.flatten
           else
             to_remove = answer.answer_parts
           end
           if !to_remove.empty?
-            to_remove.map{|a| a.delete}
+            to_remove.map{ |a| a.delete }
             result = true
           end
         end
@@ -174,11 +173,11 @@ class Answer < ActiveRecord::Base
     end
     if result
       Section.dependent_availability_changes(dependent_sections_state, user) if dependent_sections_state
-      answers.map{|a| [a.looping_identifier, a.question.section]}.uniq.reject{|a,b| b.root?}.each do |looping_identifier, section|
+      answers.map{ |a| [a.looping_identifier, a.question.section] }.uniq.reject{ |a,b| b.root? }.each do |looping_identifier, section|
         section.update_submission_state!(user, looping_identifier)
       end
     end
-    [ result, parts_saved.map{|ap| if ap.is_a?(AnswerPart) then ap.answer else nil end}.uniq.reject{|a| a.nil?}.map{|a| a.question_id.to_s + (a.looping_identifier.present? ? "_#{a.looping_identifier}" : "")}, [], auth_error]
+    [ result, parts_saved.map{ |ap| if ap.is_a?(AnswerPart) then ap.answer else nil end }.uniq.reject{ |a| a.nil? }.map{ |a| a.question_id.to_s + (a.looping_identifier.present? ? "_#{a.looping_identifier}" : "") }, [], auth_error]
   end
 
   # When a user removes an answer the answer record is not removed, but still should be considered as non existing
@@ -194,24 +193,21 @@ class Answer < ActiveRecord::Base
 
 end
 
-
-
-
-
 # == Schema Information
 #
 # Table name: answers
 #
 #  id                     :integer          not null, primary key
-#  user_id                :integer
-#  questionnaire_id       :integer
-#  created_at             :datetime
-#  updated_at             :datetime
+#  user_id                :integer          not null
+#  questionnaire_id       :integer          not null
+#  created_at             :datetime         not null
+#  updated_at             :datetime         not null
 #  other_text             :text
-#  question_id            :integer
+#  question_id            :integer          not null
 #  looping_identifier     :string(255)
 #  from_dependent_section :boolean          default(FALSE)
 #  last_editor_id         :integer
 #  loop_item_id           :integer
 #  original_id            :integer
+#  question_answered      :boolean          default(FALSE)
 #

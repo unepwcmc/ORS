@@ -4,7 +4,7 @@ class LoopItemTypesController < ApplicationController
   end
 
   def show
-    @loop_item_type = LoopItemType.find(params[:id], :include => [{ :extras => :item_extras }, { :loop_item_names => :loop_item_name_fields }, :filtering_field])
+    @loop_item_type = LoopItemType.find(params[:id], :include => [{:extras => :item_extras}, {:loop_item_names => :loop_item_name_fields}, :filtering_field])
     @questionnaire = @loop_item_type.root.loop_source.questionnaire
   end
 

@@ -11,12 +11,11 @@ class CsvFile < ActiveRecord::Base
 
   private
   def remove_csv_file
-    if File.exists?(location)
+    if File.exist?(location)
       FileUtils.rm(location)
     end
   end
 end
-
 
 # == Schema Information
 #
@@ -25,8 +24,8 @@ end
 #  id          :integer          not null, primary key
 #  name        :string(255)
 #  location    :string(255)
-#  created_at  :datetime
-#  updated_at  :datetime
+#  created_at  :datetime         not null
+#  updated_at  :datetime         not null
 #  entity_type :string(255)
 #  entity_id   :integer
 #

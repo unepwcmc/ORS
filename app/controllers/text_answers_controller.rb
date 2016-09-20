@@ -1,5 +1,5 @@
 class TextAnswersController < ApplicationController
-  
+
   def new
     @questionnaire = Questionnaire.find(params[:questionnaire_id], :include => :questionnaire_fields) if params[:questionnaire_id]
     @text_answer = TextAnswer.new

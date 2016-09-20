@@ -14,10 +14,10 @@ end
 # Table name: rank_answer_option_fields
 #
 #  id                    :integer          not null, primary key
-#  rank_answer_option_id :integer
-#  language              :string(255)
+#  rank_answer_option_id :integer          not null
+#  language              :string(255)      not null
 #  option_text           :text
-#  is_default_language   :boolean
-#  created_at            :datetime
-#  updated_at            :datetime
+#  is_default_language   :boolean          default(FALSE), not null
+#  created_at            :datetime         not null
+#  updated_at            :datetime         not null
 #

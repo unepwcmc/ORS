@@ -1,14 +1,53 @@
-<div class="container" id="main_wrapper">
-  <div id="header" class="span-24 last">
-    <div id="user_nav">
-      <%= render :partial => "layouts/authentication" -%>
+<div id="header">
+  <div id="authentication-bar">
+    <div id="authentication-buttons-group" class="container">
+      <p>
+        <% if current_user %>
+          <%= link_to h((current_user.full_name.present? ? current_user.full_name : current_user.email)), user_path(current_user) %>
+          |
+          <%= link_to t("login_menu.logout"), logout_path(:lang => current_user.language) %>
+        <% else %>
+          <% if ApplicationProfile.show_sign_up %>
+            <%= link_to t("login_menu.sign_up"), new_user_path(:lang => (params[:lang]||"en")) %>
+            |
+          <% end %>
+          <%= link_to t("login_menu.login"), root_path(:lang => (params[:lang]||"en")) %>
+          | <%= select :display, :language, [["English","en"], ["Français","fr"], ["Español","es"]], {:selected => (params[:lang] || "en")}  %>
+          <script type="text/javascript">
+            $("#display_language").change(function(){
+              var selected_lang = $(this).val();
+              if(selected_lang != ""){
+                window.location = "?lang="+selected_lang;
+              }
+            });
+          </script>
+        <% end %>
+      </p>
     </div>
+  </div>
+
     <% flash.each do |name, msg| -%>
       <%= javascript_tag "flash_message('#{name}', '#{escape_javascript(msg)}')" %>
       <% flash.delete(name) %>
     <% end -%>
-    <div id ="title_div">
-      <h1><%= set_header %></h1>
-    </div><!-- /titlediv -->
-  </div><!-- /header -->
-</div><!-- /main_wrapper -->
+
+  <div id="main-header">
+    <div class="row group">
+      <div class="container flex-container">
+        <div class="col" id="organisation-logo">
+          <%= application_profile_logo %>
+        </div>
+
+        <div class="col col-6" id="title">
+          <span>
+          <h3><%= h( yield(:title).presence || ApplicationProfile.title) %></h3>
+          <h2><%= ApplicationProfile.sub_title %></h2></span>
+        </div>
+
+        <div class="col col-4" id="shape">
+          <%= image_tag 'ORS_identity.png', id: 'ors-logo' %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

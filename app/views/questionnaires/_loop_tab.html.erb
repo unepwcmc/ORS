@@ -1,6 +1,7 @@
 <li id="li_section_<%= append_identifier(section, loop_item.try(:id)) %>" class="<%= ( section.depends_on_option && !section.dependency_condition_met?(current_user, loop_item.id) ) ? "hide" : "" %>">
-  <span style="float:left; width:10em">
-  <%= link_to h(section.value_in(:tab_title, @authorization[:language], loop_item)), submission_section_path(section.id, :params => {:loop_item_id => loop_item.id, :user_delegate => params[:user_delegate]}), :title=> "section content #{section.id.to_s + "_" + loop_item.sort_index.to_s}", :class=>'test' %>
+  <span id="img<%=section.id.to_s%>">
+  <%= link_to h(section.value_in(:tab_title, @authorization[:language], loop_item)), submission_section_path(section.id, :params => {:loop_item_id => loop_item.id, :user_delegate => params[:user_delegate]}), :title=> "section content #{section.id.to_s + "_" + loop_item.sort_index.to_s}", class: 'section-link' %>
   </span>
-  <span id="img<%=section.id.to_s + "_#{loop_item.sort_index}"%>" style="padding-top:5px; padding-right: 5px; float:right;"></span>
+  <span id="img<%=section.id.to_s + "_#{loop_item.sort_index}"%> ___DISABLED___" style="padding-top:5px; padding-right: 5px; float:right;"></span>
+  <% # FIXME: Remove ___DISABLED___ from Id to reactivate icons %>
 </li>

@@ -4,9 +4,10 @@ class QuestionnaireTest < ActiveSupport::TestCase
 
   context "3 Questionnaires, 2 recent ones and 1 not recent" do
     setup do
-      FactoryGirl.create(:questionnaire, :created_at => 3.week.ago)
-      FactoryGirl.create(:questionnaire)
-      FactoryGirl.create(:questionnaire)
+      user = FactoryGirl.create(:user)
+      FactoryGirl.create(:questionnaire, created_at: 3.week.ago, user: user, last_editor: user)
+      FactoryGirl.create(:questionnaire, user: user, last_editor: user)
+      FactoryGirl.create(:questionnaire, user: user, last_editor: user)
     end
 
     should "return 3 questionnaires when find :all is called" do
@@ -16,12 +17,13 @@ class QuestionnaireTest < ActiveSupport::TestCase
 
   context "Testing the cloning method of Questionnaire. Which creates a clone of that questionnaire. Starting with a section. " do
     setup do
-      @questionnaire = FactoryGirl.create(:questionnaire)
+      user = FactoryGirl.create(:user)
+      @questionnaire = FactoryGirl.create(:questionnaire, user: user, last_editor: user)
       #add a questionnaire field
-      @questionnaire.questionnaire_fields << FactoryGirl.create(:questionnaire_field)
+      FactoryGirl.create(:questionnaire_field, questionnaire: @questionnaire)
       #Add Sections
       qpart_s = FactoryGirl.create(:questionnaire_part, :part => FactoryGirl.create(:section))
-      qpart_s.part.section_fields << FactoryGirl.create(:section_field)
+      FactoryGirl.create(:section_field, section: qpart_s.part)
       @questionnaire.questionnaire_parts << qpart_s
 
       CloneQuestionnaire.perform_async(FactoryGirl.create(:user).id,
@@ -43,10 +45,12 @@ class QuestionnaireTest < ActiveSupport::TestCase
     context "Adding a question to that section and cloning again. " do
       setup do
         qp_section = @questionnaire.questionnaire_parts.first
-        text_answer = FactoryGirl.create(:text_answer, :answer_type_fields_attributes => {0 => {is_default_language: true}})
-        qp_question = FactoryGirl.create(:questionnaire_part, :part => FactoryGirl.create(:question, :answer_type => text_answer))
-        qp_question.part.question_fields << FactoryGirl.create(:question_field)
-        qp_section.part.questions << qp_question.part
+        text_answer = FactoryGirl.create(:text_answer, :answer_type_fields_attributes => {0 => {is_default_language: true, language: 'en'}})
+        qp_question = FactoryGirl.create(
+          :questionnaire_part,
+          part: FactoryGirl.create(:question, :answer_type => text_answer, section: qp_section.part)
+        )
+        FactoryGirl.create(:question_field, question: qp_question.part)
         qp_question.move_to_child_of(qp_section)
         CloneQuestionnaire.perform_async(FactoryGirl.create(:user).id,
                                            @questionnaire.id,
@@ -64,8 +68,10 @@ class QuestionnaireTest < ActiveSupport::TestCase
       end
       context "Having a loop source associated with the @questionnaire. " do
         setup do
-          @loop_source = FactoryGirl.create(:loop_source)
+          @loop_source = FactoryGirl.create(:loop_source, questionnaire: @questionnaire)
+          FactoryGirl.create(:source_file, loop_source: @loop_source)
           @loop_item_type = FactoryGirl.create(:loop_item_type, :name => 'LIT 1', :loop_source_id => @loop_source.id)
+          extra = FactoryGirl.create(:extra, loop_item_type: @loop_item_type)
           @loop_item_type2 = FactoryGirl.create(:loop_item_type, :name => 'LIT 2', :parent_id => @loop_item_type.id)
           (1..2).each do
             loop_item_name = FactoryGirl.create(
@@ -73,7 +79,7 @@ class QuestionnaireTest < ActiveSupport::TestCase
               :loop_item_type_id => @loop_item_type.id,
               :loop_source_id => @loop_source.id
             )
-            loop_item_name.loop_item_name_fields << FactoryGirl.create(:loop_item_name_field)
+            FactoryGirl.create(:item_extra, loop_item_name: loop_item_name, extra: extra)
             loop_item = FactoryGirl.create(
               :loop_item,
               :loop_item_name_id => loop_item_name.id,
@@ -84,7 +90,6 @@ class QuestionnaireTest < ActiveSupport::TestCase
               :loop_item_type_id => @loop_item_type2.id,
               :loop_source_id => @loop_source.id
             )
-            loop_item_name2.loop_item_name_fields << FactoryGirl.create(:loop_item_name_field)
             loop_item2 = FactoryGirl.create(
               :loop_item,
               :loop_item_name_id => loop_item_name2.id,
@@ -114,7 +119,7 @@ class QuestionnaireTest < ActiveSupport::TestCase
         end
         context "Having a filtering field associated with the @questionnaire, consisting of @loop_item_type. " do
           setup do
-            @filtering_field = FactoryGirl.create(:filtering_field)
+            @filtering_field = FactoryGirl.create(:filtering_field, questionnaire: @questionnaire)
             @questionnaire.filtering_fields << @filtering_field
             @loop_item_type.filtering_field = @filtering_field
             @loop_item_type.save
@@ -144,18 +149,15 @@ class QuestionnaireTest < ActiveSupport::TestCase
   end
 end
 
-
-
-
 # == Schema Information
 #
 # Table name: questionnaires
 #
 #  id                       :integer          not null, primary key
-#  created_at               :datetime
-#  updated_at               :datetime
+#  created_at               :datetime         not null
+#  updated_at               :datetime         not null
 #  last_edited              :datetime
-#  user_id                  :integer
+#  user_id                  :integer          not null
 #  last_editor_id           :integer
 #  activated_at             :datetime
 #  administrator_remarks    :text

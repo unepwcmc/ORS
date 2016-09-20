@@ -18,7 +18,6 @@ class ApplicationController < ActionController::Base
   # from your application log (in this case, all fields with names like "password").
   #filter_parameter_logging :password, :password_confirmation
 
-
   unless Rails.application.config.consider_all_requests_local
     rescue_from Exception,                            :with => :render_error
     rescue_from ActiveRecord::RecordNotFound,         :with => :render_not_found
@@ -27,7 +26,6 @@ class ApplicationController < ActionController::Base
     rescue_from ActionController::UnknownAction,      :with => :render_not_found
   end
   rescue_from CanCan::AccessDenied,                 :with => :cancan_error
-
 
   private
   def set_locale
@@ -86,6 +84,6 @@ class ApplicationController < ActionController::Base
   end
 
   def set_current_user_delegate
-    @current_user_delegate = UserDelegate.find(params[:user_delegate]) if params[:user_delegate]
+    @current_user_delegate = UserDelegate.find(params[:user_delegate]) if params[:user_delegate].present?
   end
 end

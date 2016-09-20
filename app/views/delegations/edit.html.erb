@@ -1,33 +1,38 @@
+<h1>Edit Delegation</h1>
 <div class="span-24 last">
-  <%= render :partial => "user_delegates/options"%>
-  <%= form_for @delegation do |f| %>
-    <ul>
-      <li>
-        <%= f.label :delegator %>
+  <div class="delegation-form">
+    <%= render :partial => "users/options"%>
+    <%= form_for @delegation do |f| %>
+      <div class="row group padded">
+        <strong><%= t('generic.delegator')%>:</strong>
         <%= @delegator.full_name %>
-      </li>
+      </div>
 
-      <li>
-        <%= f.label :delegate %>
+      <div class="row group padded">
+        <strong><%= t('generic.delegate')%>:</strong>
         <%= @user_delegate.delegate.full_name %>
-      </li>
+      </div>
 
-      <li>
-        <%= f.label :remarks %>
+      <div class="row group padded">
+        <strong><%= f.label :remarks %></strong>
+      </div>
+      <div class="row">
         <%= f.text_area :remarks, :cols => 50, :rows => 5, :class => "grow" %>
-      </li>
+      </div>
 
-      <li>
-        <%= f.label :questionnaire_id, t('manage_delegates.available_q') %>
+      <div class="row group padded">
+        <strong><%= f.label :questionnaire_id, t('manage_delegates.available_q') %></strong>
+      </div>
+      <div class="row">
         <%= select "delegation", :questionnaire_id, @available_questionnaires.collect{|p| [h(p.title(I18n.locale.to_s)[0,50])+"...", p.id] }, { :include_blank => t('manage_delegates.select_a_q') } %>
-      </li>
+      </div>
 
-      <li>
-        <%= f.label :can_view_all_questionnaire, 'Delegate can view the entire questionnaire but edit only delegated sections' %>
+      <div class="row group padded">
         <%= f.check_box :can_view_all_questionnaire %>
-      </li>
-    </ul>
+        <%= f.label :can_view_all_questionnaire, 'Delegate can view the entire questionnaire but edit only delegated sections' %>
+      </div>
 
-    <%= f.submit %>
-  <% end %>
+      <%= f.submit %>
+    <% end %>
+  </div>
 </div>

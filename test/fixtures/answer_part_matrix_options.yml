@@ -13,10 +13,10 @@ two:
 # Table name: answer_part_matrix_options
 #
 #  id                           :integer          not null, primary key
-#  answer_part_id               :integer
+#  answer_part_id               :integer          not null
 #  matrix_answer_option_id      :integer
-#  created_at                   :datetime
-#  updated_at                   :datetime
+#  created_at                   :datetime         not null
+#  updated_at                   :datetime         not null
 #  answer_text                  :text
 #  matrix_answer_drop_option_id :integer
 #

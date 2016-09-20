@@ -1,6 +1,6 @@
 <%=I18n.t('generic.hi')%> <%=h @requester.full_name%>,
 
-<%= I18n.t('user_mailer.pdf_generation_failed.first_line', :questionnaire => h(@questionnaire.title(@requester.language)), :for_user => (if @requester != @user then", #{I18n.t('user_mailer.for_the_user')} #{@user.full_name}," end)) %> 
+<%= I18n.t('user_mailer.pdf_generation_failed.first_line', :questionnaire => h(@questionnaire.title(@requester.language)), :for_user => (if @requester != @user then", #{I18n.t('user_mailer.for_the_user')} #{@user.full_name}," end)).html_safe %> 
 
 <%= h @error_message %>
 

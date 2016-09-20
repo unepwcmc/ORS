@@ -34,6 +34,8 @@ $(function(){
         e.preventDefault();
         collapseInfoGeneratorShowPages();
         $("#addSubSection").empty().hide();
+        $('.info-toggle-header').trigger('header:hide');
+
         if(!$("#add_question").is(':visible'))
         {
             $("#add_question").show();

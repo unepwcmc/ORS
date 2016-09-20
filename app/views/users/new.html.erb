@@ -2,7 +2,9 @@
   <% if current_user %>
     <%= render :partial => "users/options" %>
   <% end %>
-  <h1><% if current_user %><%= t("user_new.add_delegate")%><% else %><%= t("user_new.sign_up") %>
+  <div class="page-header">
+    <h1><% if current_user %><%= t("user_new.add_delegate")%><% else %><%= t("user_new.sign_up") %>
+  </div>
     <% end %></h1>
 
   <%= form_for @user do |f| %>
@@ -30,15 +32,15 @@
       </p>
       <p>
       <%= f.label :category, t("generic.category")%> <br />
-        <label id="radio">
+        <label class="radio">
           <%= f.radio_button :category, "Management Authority" %>
           <%= t("generic.management")%>
-        </label>
-        <label id="radio">
+        </label><br>
+        <label class="radio">
           <%= f.radio_button :category, "Scientific Authority" %>
           <%= t("generic.scientific")%>
-        </label>
-        <label id="radio">
+        </label><br>
+        <label class="radio">
           <%= f.radio_button :category, "Other" %>
           <%= t("generic.other")%>
         </label>

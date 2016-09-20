@@ -11,9 +11,9 @@ two:
 # Table name: matrix_answers
 #
 #  id                 :integer          not null, primary key
-#  display_reply      :integer
-#  created_at         :datetime
-#  updated_at         :datetime
-#  matrix_orientation :integer
+#  display_reply      :integer          not null
+#  created_at         :datetime         not null
+#  updated_at         :datetime         not null
+#  matrix_orientation :integer          not null
 #  original_id        :integer
 #

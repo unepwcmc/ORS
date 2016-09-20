@@ -1,0 +1,41 @@
+@import "variables";
+
+/* ICONS */
+
+i {
+  &.inverse { color: $white;}
+  &.background {
+    &.info {
+      background: $blue;
+        &:hover { cursor: default; }
+    }
+
+    &.success {
+      background: $success;
+      &:hover { cursor: default; }
+    }
+
+    &.warning {
+      background: $warning;
+      &:hover { cursor: default }
+    }
+
+    &.error {
+      background: $error;
+      &:hover { cursor: default; }
+    }
+  }
+}
+
+a {
+  i {
+    &.info:hover { background: $blue-dark; cursor: hand; }
+    &.success:hover { background: $success-dark; cursor: hand; }
+    &.warning:hover { background: $warning-dark; cursor: hand; }
+    &.error:hover { background: $error-dark; cursor: hand; }
+  }
+}
+
+.info-icon--blue {
+  color: $blue;
+}

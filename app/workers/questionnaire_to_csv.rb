@@ -5,34 +5,38 @@ class QuestionnaireToCsv
   def perform(user_id, questionnaire_id, separator)
     user = User.find(user_id)
     questionnaire = Questionnaire.find(questionnaire_id)
+
     return if !user || !questionnaire
+
     file_location = "#{Rails.root}/private/questionnaires/#{questionnaire.id.to_s}/"
     if !File.directory? file_location
       FileUtils.mkdir_p(file_location)
     end
     file_location << "questionnaire_generating.csv"
 
-    if File.exists?(file_location) && File.atime(file_location) < 30.minutes.ago
+    if File.exist?(file_location) && File.atime(file_location) < 30.minutes.ago
       return false
     end
+
     begin
       CsvMethods.fill_csv file_location, questionnaire.submitters, questionnaire.sections, separator
-      #move file to the final destination
+
+      # move file to the final destination
       file_record = questionnaire.csv_file || CsvFile.new(:entity => questionnaire)
-      if !file_record.new_record? && File.exists?(file_record.location)
+      if !file_record.new_record? && File.exist?(file_record.location)
         FileUtils.rm(file_record.location)
       end
       file_record.name = questionnaire.title[0,35].gsub(/[^a-z0-9\-]+/i, '_') + "_#{DateTime.now.strftime("%d%m%Y")}.csv"
       file_record.location = "private/questionnaires/#{questionnaire.id.to_s}/"+ file_record.name
       file_record.save
+
       FileUtils.move(file_location, file_record.location)
       FileUtils.touch file_record.location
-      #send notifying e-mail
+
+      # send notifying e-mail
       UserMailer.csv_file_generated(user, questionnaire).deliver
-    rescue Exception => e
+    rescue => e
       UserMailer.csv_generation_failed(user, questionnaire, e).deliver
-      logger.info "#{Time.now.to_s} - CSV failed to generate - #{questionnaire.id} - for #{user.full_name} - with error: #{e.message}"
-      logger.info e.backtrace
       if File.exists?(file_location)
         FileUtils.rm(file_location)
       end

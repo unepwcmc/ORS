@@ -1,0 +1,203 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>
+  Class: ActiveRecord::Base
+  
+    &mdash; Documentation by YARD 0.7.2
+  
+</title>
+
+  <link rel="stylesheet" href="../css/style.css" type="text/css" media="screen" charset="utf-8" />
+
+  <link rel="stylesheet" href="../css/common.css" type="text/css" media="screen" charset="utf-8" />
+
+<script type="text/javascript" charset="utf-8">
+  relpath = '..';
+  if (relpath != '') relpath += '/';
+</script>
+
+  <script type="text/javascript" charset="utf-8" src="../js/jquery.js"></script>
+
+  <script type="text/javascript" charset="utf-8" src="../js/app.js"></script>
+
+
+  </head>
+  <body>
+    <script type="text/javascript" charset="utf-8">
+      if (window.top.frames.main) document.body.className = 'frames';
+    </script>
+    
+    <div id="header">
+      <div id="menu">
+  
+    <a href="../_index.html">Index (B)</a> &raquo; 
+    <span class='title'>ActiveRecord</span>
+     &raquo; 
+    <span class="title">Base</span>
+  
+  
+  <div class="noframes"><span class="title">(</span><a href="." target="_top">no frames</a><span class="title">)</span></div>
+</div>
+
+      <div id="search">
+  
+    <a id="class_list_link" href="#">Class List</a>
+  
+    <a id="method_list_link" href="#">Method List</a>
+  
+    <a id="file_list_link" href="#">File List</a>
+  
+</div>
+      <div class="clear"></div>
+    </div>
+    
+    <iframe id="search_frame"></iframe>
+    
+    <div id="content"><h1>Class: ActiveRecord::Base
+  
+  
+  
+</h1>
+
+<dl class="box">
+  
+    <dt class="r1">Inherits:</dt>
+    <dd class="r1">
+      <span class="inheritName">Object</span>
+      
+        <ul class="fullTree">
+          <li>Object</li>
+          
+            <li class="next">ActiveRecord::Base</li>
+          
+        </ul>
+        <a href="#" class="inheritanceTree">show all</a>
+      
+      </dd>
+    
+  
+  
+    
+  
+    
+  
+  
+  
+    <dt class="r2 last">Defined in:</dt>
+    <dd class="r2 last">lib/questionnaire_clone_methods.rb</dd>
+  
+</dl>
+<div class="clear"></div>
+
+<h2>Overview</h2><div class="docstring">
+  <div class="discussion">
+    <p>
+module QuestionnaireCloneMethods
+</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+</div><div id="subclasses">
+  <h2>Direct Known Subclasses</h2>
+  <p class="children"><span class='object_link'><a href="../Alert.html" title="Alert (class)">Alert</a></span>, <span class='object_link'><a href="../Answer.html" title="Answer (class)">Answer</a></span>, <span class='object_link'><a href="../AnswerLink.html" title="AnswerLink (class)">AnswerLink</a></span>, <span class='object_link'><a href="../AnswerPart.html" title="AnswerPart (class)">AnswerPart</a></span>, <span class='object_link'><a href="../AnswerPartMatrixOption.html" title="AnswerPartMatrixOption (class)">AnswerPartMatrixOption</a></span>, <span class='object_link'><a href="../AnswerTypeField.html" title="AnswerTypeField (class)">AnswerTypeField</a></span>, <span class='object_link'><a href="../Assignment.html" title="Assignment (class)">Assignment</a></span>, <span class='object_link'><a href="../AuthorizedSubmitter.html" title="AuthorizedSubmitter (class)">AuthorizedSubmitter</a></span>, <span class='object_link'><a href="../CsvFile.html" title="CsvFile (class)">CsvFile</a></span>, <span class='object_link'><a href="../Deadline.html" title="Deadline (class)">Deadline</a></span>, <span class='object_link'><a href="../DelegatedLoopItemName.html" title="DelegatedLoopItemName (class)">DelegatedLoopItemName</a></span>, <span class='object_link'><a href="../Delegation.html" title="Delegation (class)">Delegation</a></span>, <span class='object_link'><a href="../DelegationSection.html" title="DelegationSection (class)">DelegationSection</a></span>, <span class='object_link'><a href="../Document.html" title="Document (class)">Document</a></span>, <span class='object_link'><a href="../Extra.html" title="Extra (class)">Extra</a></span>, <span class='object_link'><a href="../FilteringField.html" title="FilteringField (class)">FilteringField</a></span>, <span class='object_link'><a href="../ItemExtra.html" title="ItemExtra (class)">ItemExtra</a></span>, <span class='object_link'><a href="../ItemExtraField.html" title="ItemExtraField (class)">ItemExtraField</a></span>, <span class='object_link'><a href="../LoopItem.html" title="LoopItem (class)">LoopItem</a></span>, <span class='object_link'><a href="../LoopItemName.html" title="LoopItemName (class)">LoopItemName</a></span>, <span class='object_link'><a href="../LoopItemNameField.html" title="LoopItemNameField (class)">LoopItemNameField</a></span>, <span class='object_link'><a href="../LoopItemType.html" title="LoopItemType (class)">LoopItemType</a></span>, <span class='object_link'><a href="../LoopSource.html" title="LoopSource (class)">LoopSource</a></span>, <span class='object_link'><a href="../MatrixAnswer.html" title="MatrixAnswer (class)">MatrixAnswer</a></span>, <span class='object_link'><a href="../MatrixAnswerDropOption.html" title="MatrixAnswerDropOption (class)">MatrixAnswerDropOption</a></span>, <span class='object_link'><a href="../MatrixAnswerDropOptionField.html" title="MatrixAnswerDropOptionField (class)">MatrixAnswerDropOptionField</a></span>, <span class='object_link'><a href="../MatrixAnswerOption.html" title="MatrixAnswerOption (class)">MatrixAnswerOption</a></span>, <span class='object_link'><a href="../MatrixAnswerOptionField.html" title="MatrixAnswerOptionField (class)">MatrixAnswerOptionField</a></span>, <span class='object_link'><a href="../MatrixAnswerQuery.html" title="MatrixAnswerQuery (class)">MatrixAnswerQuery</a></span>, <span class='object_link'><a href="../MatrixAnswerQueryField.html" title="MatrixAnswerQueryField (class)">MatrixAnswerQueryField</a></span>, <span class='object_link'><a href="../MultiAnswer.html" title="MultiAnswer (class)">MultiAnswer</a></span>, <span class='object_link'><a href="../MultiAnswerOption.html" title="MultiAnswerOption (class)">MultiAnswerOption</a></span>, <span class='object_link'><a href="../MultiAnswerOptionField.html" title="MultiAnswerOptionField (class)">MultiAnswerOptionField</a></span>, <span class='object_link'><a href="../NumericAnswer.html" title="NumericAnswer (class)">NumericAnswer</a></span>, <span class='object_link'><a href="../OtherField.html" title="OtherField (class)">OtherField</a></span>, <span class='object_link'><a href="../PdfFile.html" title="PdfFile (class)">PdfFile</a></span>, <span class='object_link'><a href="../PersistentError.html" title="PersistentError (class)">PersistentError</a></span>, <span class='object_link'><a href="../Question.html" title="Question (class)">Question</a></span>, <span class='object_link'><a href="../QuestionExtra.html" title="QuestionExtra (class)">QuestionExtra</a></span>, <span class='object_link'><a href="../QuestionField.html" title="QuestionField (class)">QuestionField</a></span>, <span class='object_link'><a href="../QuestionLoopType.html" title="QuestionLoopType (class)">QuestionLoopType</a></span>, <span class='object_link'><a href="../Questionnaire.html" title="Questionnaire (class)">Questionnaire</a></span>, <span class='object_link'><a href="../QuestionnaireField.html" title="QuestionnaireField (class)">QuestionnaireField</a></span>, <span class='object_link'><a href="../QuestionnairePart.html" title="QuestionnairePart (class)">QuestionnairePart</a></span>, <span class='object_link'><a href="../RangeAnswer.html" title="RangeAnswer (class)">RangeAnswer</a></span>, <span class='object_link'><a href="../RangeAnswerOption.html" title="RangeAnswerOption (class)">RangeAnswerOption</a></span>, <span class='object_link'><a href="../RangeAnswerOptionField.html" title="RangeAnswerOptionField (class)">RangeAnswerOptionField</a></span>, <span class='object_link'><a href="../RankAnswer.html" title="RankAnswer (class)">RankAnswer</a></span>, <span class='object_link'><a href="../RankAnswerOption.html" title="RankAnswerOption (class)">RankAnswerOption</a></span>, <span class='object_link'><a href="../RankAnswerOptionField.html" title="RankAnswerOptionField (class)">RankAnswerOptionField</a></span>, <span class='object_link'><a href="../Reminder.html" title="Reminder (class)">Reminder</a></span>, <span class='object_link'><a href="../Role.html" title="Role (class)">Role</a></span>, <span class='object_link'><a href="../Section.html" title="Section (class)">Section</a></span>, <span class='object_link'><a href="../SectionExtra.html" title="SectionExtra (class)">SectionExtra</a></span>, <span class='object_link'><a href="../SectionField.html" title="SectionField (class)">SectionField</a></span>, <span class='object_link'><a href="../SourceFile.html" title="SourceFile (class)">SourceFile</a></span>, <span class='object_link'><a href="../TextAnswer.html" title="TextAnswer (class)">TextAnswer</a></span>, <span class='object_link'><a href="../TextAnswerField.html" title="TextAnswerField (class)">TextAnswerField</a></span>, <span class='object_link'><a href="../User.html" title="User (class)">User</a></span>, <span class='object_link'><a href="../UserFilteringField.html" title="UserFilteringField (class)">UserFilteringField</a></span>, <span class='object_link'><a href="../UserSectionSubmissionState.html" title="UserSectionSubmissionState (class)">UserSectionSubmissionState</a></span></p>
+</div>
+
+
+
+
+
+  
+    <h2>
+      Instance Method Summary
+      <small>(<a href="#" class="summary_toggle">collapse</a>)</small>
+    </h2>
+
+    <ul class="summary">
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#clone_object-instance_method" title="#clone_object (instance method)">- (Object) <strong>clone_object</strong>(attrs = []) </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+      
+    </ul>
+  
+
+
+
+  <div id="instance_method_details" class="method_details_list">
+    <h2>Instance Method Details</h2>
+    
+    
+      <div class="method_details first">
+  <p class="signature first" id="clone_object-instance_method">
+  
+    - (<tt>Object</tt>) <strong>clone_object</strong>(attrs = []) 
+  
+
+  
+</p><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+4
+5
+6
+7
+8
+9
+10
+11</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/questionnaire_clone_methods.rb', line 4</span>
+
+<span class='def def kw'>def</span> <span class='clone_object identifier id'>clone_object</span> <span class='attrs identifier id'>attrs</span><span class='assign token'>=</span><span class='lbrack token'>[</span><span class='rbrack token'>]</span>
+  <span class='new_obj identifier id'>new_obj</span> <span class='assign token'>=</span> <span class='self self kw'>self</span><span class='dot token'>.</span><span class='class identifier id'>class</span><span class='dot token'>.</span><span class='new identifier id'>new</span>
+  <span class='comment val'>#copy attributes</span>
+  <span class='attrs identifier id'>attrs</span><span class='dot token'>.</span><span class='each identifier id'>each</span> <span class='do do kw'>do</span> <span class='bitor op'>|</span><span class='attr identifier id'>attr</span><span class='bitor op'>|</span>
+    <span class='new_obj identifier id'>new_obj</span><span class='dot token'>.</span><span class='send identifier id'>send</span><span class='lparen token'>(</span><span class='attr identifier id'>attr</span><span class='dot token'>.</span><span class='to_s identifier id'>to_s</span> <span class='plus op'>+</span> <span class='string val'>&quot;=&quot;</span><span class='comma token'>,</span> <span class='self self kw'>self</span><span class='dot token'>.</span><span class='send identifier id'>send</span><span class='lparen token'>(</span><span class='attr identifier id'>attr</span><span class='dot token'>.</span><span class='to_s identifier id'>to_s</span><span class='rparen token'>)</span><span class='rparen token'>)</span>
+  <span class='end end kw'>end</span>
+  <span class='new_obj identifier id'>new_obj</span>
+<span class='end end kw'>end</span>
+</pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+  </div>
+
+</div>
+    
+    <div id="footer">
+  Generated on Fri Jul  8 14:33:40 2011 by 
+  <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
+  0.7.2 (ruby-1.8.7).
+</div>
+
+  </body>
+</html>

@@ -14,7 +14,7 @@ class AlertsController < ApplicationController
       @alert = Alert.create(:reminder => reminder, :deadline => @deadline)
       flash[:notice] = "Successfully associated reminder with deadline."
       respond_to do |format|
-        format.html {redirect_to @deadline}
+        format.html { redirect_to @deadline }
       end
     else
       flash[:error] = "Something went wrong when associating the reminder with the deadline."
@@ -26,7 +26,7 @@ class AlertsController < ApplicationController
     @deadline = @alert.deadline
     @alert.destroy
     respond_to do |format|
-      format.html { redirect_to @deadline}
+      format.html { redirect_to @deadline }
     end
   end
 

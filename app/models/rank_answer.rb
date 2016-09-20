@@ -6,9 +6,9 @@ class RankAnswer < ActiveRecord::Base
   has_many :questions, :as => :answer_type
   has_many  :sections, :as => :answer_type
   has_many :answer_type_fields, :as => :answer_type, :dependent => :destroy
-  accepts_nested_attributes_for :answer_type_fields, :reject_if => lambda { |a| a.values.all?(&:blank?)}, :allow_destroy => true #
+  accepts_nested_attributes_for :answer_type_fields, :reject_if => lambda { |a| a.values.all?(&:blank?) }, :allow_destroy => true #
   has_many :rank_answer_options, :dependent => :destroy, :include => :rank_answer_option_fields
-  accepts_nested_attributes_for :rank_answer_options, :reject_if => lambda { |a| a.values.all?(&:blank?)}, :allow_destroy => true #
+  accepts_nested_attributes_for :rank_answer_options, :reject_if => lambda { |a| a.values.all?(&:blank?) }, :allow_destroy => true #
 
   attr_accessible :answer_type_fields_attributes, :maximum_choices,
     :rank_answer_options_attributes
@@ -75,7 +75,7 @@ end
 #
 #  id              :integer          not null, primary key
 #  maximum_choices :integer          default(-1)
-#  created_at      :datetime
-#  updated_at      :datetime
+#  created_at      :datetime         not null
+#  updated_at      :datetime         not null
 #  original_id     :integer
 #

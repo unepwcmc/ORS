@@ -1,0 +1,332 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>
+  Class: CsvMethods
+  
+    &mdash; Documentation by YARD 0.7.2
+  
+</title>
+
+  <link rel="stylesheet" href="css/style.css" type="text/css" media="screen" charset="utf-8" />
+
+  <link rel="stylesheet" href="css/common.css" type="text/css" media="screen" charset="utf-8" />
+
+<script type="text/javascript" charset="utf-8">
+  relpath = '';
+  if (relpath != '') relpath += '/';
+</script>
+
+  <script type="text/javascript" charset="utf-8" src="js/jquery.js"></script>
+
+  <script type="text/javascript" charset="utf-8" src="js/app.js"></script>
+
+
+  </head>
+  <body>
+    <script type="text/javascript" charset="utf-8">
+      if (window.top.frames.main) document.body.className = 'frames';
+    </script>
+    
+    <div id="header">
+      <div id="menu">
+  
+    <a href="_index.html">Index (C)</a> &raquo; 
+    
+    
+    <span class="title">CsvMethods</span>
+  
+  
+  <div class="noframes"><span class="title">(</span><a href="." target="_top">no frames</a><span class="title">)</span></div>
+</div>
+
+      <div id="search">
+  
+    <a id="class_list_link" href="#">Class List</a>
+  
+    <a id="method_list_link" href="#">Method List</a>
+  
+    <a id="file_list_link" href="#">File List</a>
+  
+</div>
+      <div class="clear"></div>
+    </div>
+    
+    <iframe id="search_frame"></iframe>
+    
+    <div id="content"><h1>Class: CsvMethods
+  
+  
+  
+</h1>
+
+<dl class="box">
+  
+    <dt class="r1">Inherits:</dt>
+    <dd class="r1">
+      <span class="inheritName">Object</span>
+      
+        <ul class="fullTree">
+          <li>Object</li>
+          
+            <li class="next">CsvMethods</li>
+          
+        </ul>
+        <a href="#" class="inheritanceTree">show all</a>
+      
+      </dd>
+    
+  
+  
+    
+  
+    
+  
+  
+  
+    <dt class="r2 last">Defined in:</dt>
+    <dd class="r2 last">lib/modules/csv_methods.rb</dd>
+  
+</dl>
+<div class="clear"></div>
+
+
+
+
+
+
+  
+    <h2>
+      Class Method Summary
+      <small>(<a href="#" class="summary_toggle">collapse</a>)</small>
+    </h2>
+
+    <ul class="summary">
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#export-class_method" title="export (class method)">+ (Object) <strong>export</strong>(the_section, submitters_ids, loop_sources, item = nil) </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#fill_csv-class_method" title="fill_csv (class method)">+ (Object) <strong>fill_csv</strong>(file_location, submitters, sections) </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+      
+    </ul>
+  
+
+
+
+  <div id="class_method_details" class="method_details_list">
+    <h2>Class Method Details</h2>
+    
+    
+      <div class="method_details first">
+  <p class="signature first" id="export-class_method">
+  
+    + (<tt>Object</tt>) <strong>export</strong>(the_section, submitters_ids, loop_sources, item = nil) 
+  
+
+  
+</p><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/modules/csv_methods.rb', line 33</span>
+
+<span class='def def kw'>def</span> <span class='self self kw'>self</span><span class='dot token'>.</span><span class='export identifier id'>export</span> <span class='the_section identifier id'>the_section</span><span class='comma token'>,</span> <span class='submitters_ids identifier id'>submitters_ids</span><span class='comma token'>,</span> <span class='loop_sources identifier id'>loop_sources</span><span class='comma token'>,</span> <span class='item identifier id'>item</span><span class='assign token'>=</span><span class='nil nil kw'>nil</span>
+  <span class='comment val'>#puts &quot;Dealing with section #{the_section.id} for item: #{item.try(:item_name)}&quot;</span>
+  <span class='rows identifier id'>rows</span> <span class='assign token'>=</span> <span class='lbrack token'>[</span><span class='rbrack token'>]</span>
+  <span class='if if kw'>if</span> <span class='notop op'>!</span><span class='the_section identifier id'>the_section</span><span class='dot token'>.</span><span class='is_hidden? fid id'>is_hidden?</span> <span class='andop op'>&amp;&amp;</span> <span class='notop op'>!</span><span class='the_section identifier id'>the_section</span><span class='dot token'>.</span><span class='questions identifier id'>questions</span><span class='dot token'>.</span><span class='any? fid id'>any?</span>
+    <span class='next_row identifier id'>next_row</span> <span class='assign token'>=</span> <span class='Array constant id'>Array</span><span class='dot token'>.</span><span class='new identifier id'>new</span><span class='lparen token'>(</span><span class='submitters_ids identifier id'>submitters_ids</span><span class='dot token'>.</span><span class='size identifier id'>size</span> <span class='plus op'>+</span> <span class='integer val'>2</span><span class='rparen token'>)</span>
+    <span class='if if kw'>if</span> <span class='item identifier id'>item</span>
+      <span class='next_row identifier id'>next_row</span><span class='lbrack token'>[</span><span class='integer val'>0</span><span class='rbrack token'>]</span> <span class='assign token'>=</span> <span class='string val'>&quot;--&quot;</span><span class='mult op'>*</span><span class='the_section identifier id'>the_section</span><span class='dot token'>.</span><span class='level identifier id'>level</span> <span class='plus op'>+</span> <span class='OrtSanitize constant id'>OrtSanitize</span><span class='dot token'>.</span><span class='white_space_cleanse identifier id'>white_space_cleanse</span><span class='lparen token'>(</span><span class='the_section identifier id'>the_section</span><span class='dot token'>.</span><span class='section_fields identifier id'>section_fields</span><span class='dot token'>.</span><span class='find_by_is_default_language identifier id'>find_by_is_default_language</span><span class='lparen token'>(</span><span class='true true kw'>true</span><span class='rparen token'>)</span><span class='dot token'>.</span><span class='loop_title identifier id'>loop_title</span><span class='lparen token'>(</span><span class='nil nil kw'>nil</span><span class='comma token'>,</span> <span class='item identifier id'>item</span><span class='dot token'>.</span><span class='loop_items identifier id'>loop_items</span><span class='dot token'>.</span><span class='first identifier id'>first</span><span class='rparen token'>)</span><span class='rparen token'>)</span>
+    <span class='else else kw'>else</span>
+      <span class='next_row identifier id'>next_row</span><span class='lbrack token'>[</span><span class='integer val'>0</span><span class='rbrack token'>]</span> <span class='assign token'>=</span> <span class='string val'>&quot;--&quot;</span><span class='mult op'>*</span><span class='the_section identifier id'>the_section</span><span class='dot token'>.</span><span class='level identifier id'>level</span> <span class='plus op'>+</span> <span class='OrtSanitize constant id'>OrtSanitize</span><span class='dot token'>.</span><span class='white_space_cleanse identifier id'>white_space_cleanse</span><span class='lparen token'>(</span><span class='the_section identifier id'>the_section</span><span class='dot token'>.</span><span class='title identifier id'>title</span><span class='rparen token'>)</span>
+    <span class='end end kw'>end</span>
+    <span class='rows identifier id'>rows</span> <span class='lshft op'>&lt;&lt;</span> <span class='next_row identifier id'>next_row</span>
+  <span class='end end kw'>end</span>
+  <span class='the_section identifier id'>the_section</span><span class='dot token'>.</span><span class='questions identifier id'>questions</span><span class='dot token'>.</span><span class='each identifier id'>each</span> <span class='do do kw'>do</span> <span class='bitor op'>|</span><span class='q identifier id'>q</span><span class='bitor op'>|</span>
+    <span class='rows identifier id'>rows</span> <span class='opasgn op'>+=</span> <span class='q identifier id'>q</span><span class='dot token'>.</span><span class='to_csv identifier id'>to_csv</span><span class='lparen token'>(</span><span class='submitters_ids identifier id'>submitters_ids</span><span class='comma token'>,</span> <span class='loop_sources identifier id'>loop_sources</span><span class='comma token'>,</span> <span class='item identifier id'>item</span><span class='rparen token'>)</span>
+  <span class='end end kw'>end</span>
+  <span class='the_section identifier id'>the_section</span><span class='dot token'>.</span><span class='children identifier id'>children</span><span class='dot token'>.</span><span class='each identifier id'>each</span> <span class='do do kw'>do</span> <span class='bitor op'>|</span><span class='s identifier id'>s</span><span class='bitor op'>|</span>
+    <span class='if if kw'>if</span> <span class='s identifier id'>s</span><span class='dot token'>.</span><span class='looping? fid id'>looping?</span> <span class='andop op'>&amp;&amp;</span> <span class='notop op'>!</span><span class='s identifier id'>s</span><span class='dot token'>.</span><span class='loop_item_type identifier id'>loop_item_type</span><span class='dot token'>.</span><span class='filtering_field_id identifier id'>filtering_field_id</span><span class='dot token'>.</span><span class='present? fid id'>present?</span>
+      <span class='item_names identifier id'>item_names</span> <span class='assign token'>=</span> <span class='s identifier id'>s</span><span class='dot token'>.</span><span class='loop_item_type identifier id'>loop_item_type</span><span class='dot token'>.</span><span class='loop_item_names identifier id'>loop_item_names</span>
+      <span class='item_names identifier id'>item_names</span><span class='dot token'>.</span><span class='each identifier id'>each</span> <span class='do do kw'>do</span> <span class='bitor op'>|</span><span class='item identifier id'>item</span><span class='bitor op'>|</span>
+        <span class='loop_sources identifier id'>loop_sources</span><span class='lbrack token'>[</span><span class='s identifier id'>s</span><span class='dot token'>.</span><span class='loop_item_type identifier id'>loop_item_type</span><span class='dot token'>.</span><span class='root identifier id'>root</span><span class='dot token'>.</span><span class='loop_source identifier id'>loop_source</span><span class='dot token'>.</span><span class='id identifier id'>id</span><span class='dot token'>.</span><span class='to_s identifier id'>to_s</span><span class='rbrack token'>]</span> <span class='assign token'>=</span> <span class='item identifier id'>item</span>
+        <span class='rows identifier id'>rows</span> <span class='opasgn op'>+=</span> <span class='CsvMethods constant id'>CsvMethods</span><span class='dot token'>.</span><span class='export identifier id'>export</span><span class='lparen token'>(</span><span class='s identifier id'>s</span><span class='comma token'>,</span> <span class='submitters_ids identifier id'>submitters_ids</span><span class='comma token'>,</span> <span class='loop_sources identifier id'>loop_sources</span><span class='comma token'>,</span> <span class='item identifier id'>item</span><span class='rparen token'>)</span>
+      <span class='end end kw'>end</span>
+    <span class='else else kw'>else</span>
+      <span class='rows identifier id'>rows</span> <span class='opasgn op'>+=</span> <span class='CsvMethods constant id'>CsvMethods</span><span class='dot token'>.</span><span class='export identifier id'>export</span> <span class='s identifier id'>s</span><span class='comma token'>,</span> <span class='submitters_ids identifier id'>submitters_ids</span><span class='comma token'>,</span> <span class='loop_sources identifier id'>loop_sources</span><span class='comma token'>,</span> <span class='item identifier id'>item</span>
+    <span class='end end kw'>end</span>
+  <span class='end end kw'>end</span>
+  <span class='rows identifier id'>rows</span>
+<span class='end end kw'>end</span>
+</pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <p class="signature " id="fill_csv-class_method">
+  
+    + (<tt>Object</tt>) <strong>fill_csv</strong>(file_location, submitters, sections) 
+  
+
+  
+</p><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/modules/csv_methods.rb', line 3</span>
+
+<span class='def def kw'>def</span> <span class='self self kw'>self</span><span class='dot token'>.</span><span class='fill_csv identifier id'>fill_csv</span> <span class='file_location identifier id'>file_location</span><span class='comma token'>,</span> <span class='submitters identifier id'>submitters</span><span class='comma token'>,</span> <span class='sections identifier id'>sections</span>
+  <span class='puts identifier id'>puts</span> <span class='string val'>&quot;Generating CSV file&quot;</span>
+  <span class='puts identifier id'>puts</span> <span class='dstring node'>&quot;Opened file: #{file_location}&quot;</span>
+  <span class='FasterCSV constant id'>FasterCSV</span><span class='dot token'>.</span><span class='open identifier id'>open</span><span class='lparen token'>(</span><span class='file_location identifier id'>file_location</span><span class='comma token'>,</span> <span class='string val'>&quot;w&quot;</span><span class='rparen token'>)</span> <span class='do do kw'>do</span> <span class='bitor op'>|</span><span class='csv identifier id'>csv</span><span class='bitor op'>|</span>
+    <span class='comment val'>#first row has the id's of the users that are authorized to fill a questionnaire.</span>
+    <span class='submitters_ids identifier id'>submitters_ids</span> <span class='assign token'>=</span> <span class='submitters identifier id'>submitters</span><span class='dot token'>.</span><span class='sort identifier id'>sort</span><span class='lbrace token'>{</span><span class='bitor op'>|</span><span class='a identifier id'>a</span><span class='comma token'>,</span><span class='b identifier id'>b</span><span class='bitor op'>|</span> <span class='a identifier id'>a</span><span class='dot token'>.</span><span class='first_name identifier id'>first_name</span> <span class='cmp op'>&lt;=&gt;</span> <span class='b identifier id'>b</span><span class='dot token'>.</span><span class='first_name identifier id'>first_name</span><span class='rbrace token'>}</span><span class='dot token'>.</span><span class='map identifier id'>map</span><span class='lparen token'>(</span><span class='bitand op'>&amp;</span><span class='symbol val'>:id</span><span class='rparen token'>)</span> 
+    <span class='submitters_head_line identifier id'>submitters_head_line</span> <span class='assign token'>=</span> <span class='submitters identifier id'>submitters</span><span class='dot token'>.</span><span class='sort identifier id'>sort</span><span class='lbrace token'>{</span><span class='bitor op'>|</span><span class='a identifier id'>a</span><span class='comma token'>,</span><span class='b identifier id'>b</span><span class='bitor op'>|</span> <span class='a identifier id'>a</span><span class='dot token'>.</span><span class='first_name identifier id'>first_name</span> <span class='cmp op'>&lt;=&gt;</span> <span class='b identifier id'>b</span><span class='dot token'>.</span><span class='first_name identifier id'>first_name</span><span class='rbrace token'>}</span><span class='dot token'>.</span><span class='map identifier id'>map</span><span class='lbrace token'>{</span><span class='bitor op'>|</span><span class='a identifier id'>a</span><span class='bitor op'>|</span> <span class='dstring node'>&quot;#{a.full_name} - #{a.email}&quot;</span><span class='rbrace token'>}</span>
+    <span class='csv identifier id'>csv</span> <span class='lshft op'>&lt;&lt;</span> <span class='lbrack token'>[</span><span class='string val'>&quot;Section&quot;</span><span class='comma token'>,</span> <span class='string val'>&quot;Question&quot;</span><span class='rbrack token'>]</span> <span class='plus op'>+</span> <span class='submitters_head_line identifier id'>submitters_head_line</span>
+    <span class='Array constant id'>Array</span><span class='lparen token'>(</span><span class='sections identifier id'>sections</span><span class='rparen token'>)</span><span class='dot token'>.</span><span class='each identifier id'>each</span> <span class='do do kw'>do</span> <span class='bitor op'>|</span><span class='section identifier id'>section</span><span class='bitor op'>|</span>
+      <span class='loop_sources identifier id'>loop_sources</span> <span class='assign token'>=</span> <span class='lbrace token'>{</span><span class='rbrace token'>}</span>
+      <span class='if if kw'>if</span> <span class='section identifier id'>section</span><span class='dot token'>.</span><span class='looping? fid id'>looping?</span> <span class='andop op'>&amp;&amp;</span> <span class='notop op'>!</span><span class='section identifier id'>section</span><span class='dot token'>.</span><span class='loop_item_type identifier id'>loop_item_type</span><span class='dot token'>.</span><span class='filtering_field_id identifier id'>filtering_field_id</span><span class='dot token'>.</span><span class='present? fid id'>present?</span>
+        <span class='item_names identifier id'>item_names</span> <span class='assign token'>=</span> <span class='section identifier id'>section</span><span class='dot token'>.</span><span class='loop_item_type identifier id'>loop_item_type</span><span class='dot token'>.</span><span class='loop_item_names identifier id'>loop_item_names</span>
+        <span class='item_names identifier id'>item_names</span><span class='dot token'>.</span><span class='each identifier id'>each</span> <span class='do do kw'>do</span> <span class='bitor op'>|</span><span class='item identifier id'>item</span><span class='bitor op'>|</span>
+          <span class='loop_sources identifier id'>loop_sources</span><span class='lbrack token'>[</span><span class='section identifier id'>section</span><span class='dot token'>.</span><span class='loop_item_type identifier id'>loop_item_type</span><span class='dot token'>.</span><span class='root identifier id'>root</span><span class='dot token'>.</span><span class='loop_source identifier id'>loop_source</span><span class='dot token'>.</span><span class='id identifier id'>id</span><span class='dot token'>.</span><span class='to_s identifier id'>to_s</span><span class='rbrack token'>]</span> <span class='assign token'>=</span> <span class='item identifier id'>item</span>
+          <span class='rows identifier id'>rows</span> <span class='assign token'>=</span> <span class='CsvMethods constant id'>CsvMethods</span><span class='dot token'>.</span><span class='export identifier id'>export</span><span class='lparen token'>(</span><span class='section identifier id'>section</span><span class='comma token'>,</span> <span class='submitters_ids identifier id'>submitters_ids</span><span class='comma token'>,</span> <span class='loop_sources identifier id'>loop_sources</span><span class='comma token'>,</span> <span class='item identifier id'>item</span><span class='rparen token'>)</span>
+          <span class='rows identifier id'>rows</span><span class='dot token'>.</span><span class='each identifier id'>each</span> <span class='do do kw'>do</span> <span class='bitor op'>|</span><span class='row identifier id'>row</span><span class='bitor op'>|</span>
+            <span class='csv identifier id'>csv</span> <span class='lshft op'>&lt;&lt;</span> <span class='row identifier id'>row</span>
+          <span class='end end kw'>end</span>
+        <span class='end end kw'>end</span>
+      <span class='else else kw'>else</span>
+        <span class='rows identifier id'>rows</span> <span class='assign token'>=</span> <span class='CsvMethods constant id'>CsvMethods</span><span class='dot token'>.</span><span class='export identifier id'>export</span><span class='lparen token'>(</span><span class='section identifier id'>section</span><span class='comma token'>,</span> <span class='submitters_ids identifier id'>submitters_ids</span><span class='comma token'>,</span> <span class='loop_sources identifier id'>loop_sources</span><span class='comma token'>,</span> <span class='nil nil kw'>nil</span><span class='rparen token'>)</span>
+        <span class='rows identifier id'>rows</span><span class='dot token'>.</span><span class='each identifier id'>each</span> <span class='do do kw'>do</span> <span class='bitor op'>|</span><span class='row identifier id'>row</span><span class='bitor op'>|</span>
+          <span class='csv identifier id'>csv</span> <span class='lshft op'>&lt;&lt;</span> <span class='row identifier id'>row</span>
+        <span class='end end kw'>end</span>
+      <span class='end end kw'>end</span>
+    <span class='end end kw'>end</span>
+  <span class='end end kw'>end</span>
+  <span class='puts identifier id'>puts</span> <span class='dstring node'>&quot;CSV finished generating (#{file_location})&quot;</span>
+  <span class='true true kw'>true</span>
+<span class='end end kw'>end</span>
+</pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+  </div>
+
+</div>
+    
+    <div id="footer">
+  Generated on Fri Jul  8 14:33:37 2011 by 
+  <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
+  0.7.2 (ruby-1.8.7).
+</div>
+
+  </body>
+</html>

@@ -1,0 +1,1519 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>
+  Class: SectionsController
+  
+    &mdash; Documentation by YARD 0.7.2
+  
+</title>
+
+  <link rel="stylesheet" href="css/style.css" type="text/css" media="screen" charset="utf-8" />
+
+  <link rel="stylesheet" href="css/common.css" type="text/css" media="screen" charset="utf-8" />
+
+<script type="text/javascript" charset="utf-8">
+  relpath = '';
+  if (relpath != '') relpath += '/';
+</script>
+
+  <script type="text/javascript" charset="utf-8" src="js/jquery.js"></script>
+
+  <script type="text/javascript" charset="utf-8" src="js/app.js"></script>
+
+
+  </head>
+  <body>
+    <script type="text/javascript" charset="utf-8">
+      if (window.top.frames.main) document.body.className = 'frames';
+    </script>
+    
+    <div id="header">
+      <div id="menu">
+  
+    <a href="_index.html">Index (S)</a> &raquo; 
+    
+    
+    <span class="title">SectionsController</span>
+  
+  
+  <div class="noframes"><span class="title">(</span><a href="." target="_top">no frames</a><span class="title">)</span></div>
+</div>
+
+      <div id="search">
+  
+    <a id="class_list_link" href="#">Class List</a>
+  
+    <a id="method_list_link" href="#">Method List</a>
+  
+    <a id="file_list_link" href="#">File List</a>
+  
+</div>
+      <div class="clear"></div>
+    </div>
+    
+    <iframe id="search_frame"></iframe>
+    
+    <div id="content"><h1>Class: SectionsController
+  
+  
+  
+</h1>
+
+<dl class="box">
+  
+    <dt class="r1">Inherits:</dt>
+    <dd class="r1">
+      <span class="inheritName"><span class='object_link'><a href="ApplicationController.html" title="ApplicationController (class)">ApplicationController</a></span></span>
+      
+        <ul class="fullTree">
+          <li>Object</li>
+          
+            <li class="next">ActionController::Base</li>
+          
+            <li class="next"><span class='object_link'><a href="ApplicationController.html" title="ApplicationController (class)">ApplicationController</a></span></li>
+          
+            <li class="next">SectionsController</li>
+          
+        </ul>
+        <a href="#" class="inheritanceTree">show all</a>
+      
+      </dd>
+    
+  
+  
+    
+  
+    
+  
+  
+  
+    <dt class="r2 last">Defined in:</dt>
+    <dd class="r2 last">app/controllers/sections_controller.rb</dd>
+  
+</dl>
+<div class="clear"></div>
+
+
+
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+
+
+  
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <h2>
+      Instance Method Summary
+      <small>(<a href="#" class="summary_toggle">collapse</a>)</small>
+    </h2>
+
+    <ul class="summary">
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#create-instance_method" title="#create (instance method)">- (Object) <strong>create</strong> </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'><p>
+POST /sections POST /sections.xml.
+</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#define_dependency-instance_method" title="#define_dependency (instance method)">- (Object) <strong>define_dependency</strong> </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#delete-instance_method" title="#delete (instance method)">- (Object) <strong>delete</strong> </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'><p>
+GET /sections/1/delete.
+</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#destroy-instance_method" title="#destroy (instance method)">- (Object) <strong>destroy</strong> </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'><p>
+DELETE /sections/1 DELETE /sections/1.xml.
+</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#download_csv-instance_method" title="#download_csv (instance method)">- (Object) <strong>download_csv</strong> </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#edit-instance_method" title="#edit (instance method)">- (Object) <strong>edit</strong> </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'><p>
+GET /sections/1/edit.
+</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#load_lazy-instance_method" title="#load_lazy (instance method)">- (Object) <strong>load_lazy</strong> </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#loop_item_names-instance_method" title="#loop_item_names (instance method)">- (Object) <strong>loop_item_names</strong> </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'><p>
+Get all the loop item names of the section, if it is a looping section to
+create a delegation (delegates/new.html.erb).
+</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#preview-instance_method" title="#preview (instance method)">- (Object) <strong>preview</strong> </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'><h1>&gt; action to show preview of the section.</h1>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#questions-instance_method" title="#questions (instance method)">- (Object) <strong>questions</strong> </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#save_answers-instance_method" title="#save_answers (instance method)">- (Object) <strong>save_answers</strong> </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#set_dependency-instance_method" title="#set_dependency (instance method)">- (Object) <strong>set_dependency</strong> </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#show-instance_method" title="#show (instance method)">- (Object) <strong>show</strong> </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'><p>
+GET /sections/1 GET /sections/1.xml.
+</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#submission-instance_method" title="#submission (instance method)">- (Object) <strong>submission</strong> </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#to_csv-instance_method" title="#to_csv (instance method)">- (Object) <strong>to_csv</strong> </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#unset_dependency-instance_method" title="#unset_dependency (instance method)">- (Object) <strong>unset_dependency</strong> </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#update-instance_method" title="#update (instance method)">- (Object) <strong>update</strong> </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'><p>
+PUT /sections/1 PUT /sections/1.xml.
+</p>
+</div></span>
+  
+</li>
+
+      
+    </ul>
+  
+
+
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  <h3 class="inherited">Methods included from <span class='object_link'><a href="Authentication.html" title="Authentication (module)">Authentication</a></span></h3>
+  <p class="inherited"><span class='object_link'><a href="Authentication.html#current_user-instance_method" title="Authentication#current_user (method)">#current_user</a></span>, <span class='object_link'><a href="Authentication.html#current_user_session-instance_method" title="Authentication#current_user_session (method)">#current_user_session</a></span>, <span class='object_link'><a href="Authentication.html#included-class_method" title="Authentication.included (method)">included</a></span>, <span class='object_link'><a href="Authentication.html#logged_in%3F-instance_method" title="Authentication#logged_in? (method)">#logged_in?</a></span>, <span class='object_link'><a href="Authentication.html#login_required-instance_method" title="Authentication#login_required (method)">#login_required</a></span>, <span class='object_link'><a href="Authentication.html#redirect_to_target_or_default-instance_method" title="Authentication#redirect_to_target_or_default (method)">#redirect_to_target_or_default</a></span></p>
+
+  
+
+  <div id="instance_method_details" class="method_details_list">
+    <h2>Instance Method Details</h2>
+    
+    
+      <div class="method_details first">
+  <p class="signature first" id="create-instance_method">
+  
+    - (<tt>Object</tt>) <strong>create</strong> 
+  
+
+  
+</p><div class="docstring">
+  <div class="discussion">
+    <p>
+POST /sections POST /sections.xml
+</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'app/controllers/sections_controller.rb', line 28</span>
+
+<span class='def def kw'>def</span> <span class='create identifier id'>create</span>
+  <span class='@section ivar id'>@section</span> <span class='assign token'>=</span> <span class='Section constant id'>Section</span><span class='dot token'>.</span><span class='create_section_from identifier id'>create_section_from</span><span class='lparen token'>(</span><span class='params identifier id'>params</span><span class='rparen token'>)</span>
+  <span class='respond_to identifier id'>respond_to</span> <span class='do do kw'>do</span> <span class='bitor op'>|</span><span class='format identifier id'>format</span><span class='bitor op'>|</span>
+    <span class='if if kw'>if</span> <span class='@section ivar id'>@section</span><span class='dot token'>.</span><span class='save identifier id'>save</span>
+      <span class='flash identifier id'>flash</span><span class='lbrack token'>[</span><span class='symbol val'>:notice</span><span class='rbrack token'>]</span> <span class='assign token'>=</span> <span class='string val'>'Section was successfully created.'</span>
+      <span class='format identifier id'>format</span><span class='dot token'>.</span><span class='html identifier id'>html</span> <span class='lbrace token'>{</span> <span class='redirect_to identifier id'>redirect_to</span><span class='lparen token'>(</span><span class='@section ivar id'>@section</span><span class='rparen token'>)</span> <span class='rbrace token'>}</span>
+      <span class='format identifier id'>format</span><span class='dot token'>.</span><span class='js identifier id'>js</span>
+    <span class='else else kw'>else</span>
+      <span class='comment val'>#fetch the necessary data to present the new form filled and with the correct error messages.</span>
+      <span class='@questionnaire ivar id'>@questionnaire</span> <span class='assign token'>=</span> <span class='Questionnaire constant id'>Questionnaire</span><span class='dot token'>.</span><span class='find identifier id'>find</span><span class='lparen token'>(</span><span class='params identifier id'>params</span><span class='lbrack token'>[</span><span class='symbol val'>:section</span><span class='rbrack token'>]</span><span class='lbrack token'>[</span><span class='symbol val'>:questionnaire_id</span><span class='rbrack token'>]</span><span class='comma token'>,</span> <span class='symbol val'>:include</span> <span class='assign token'>=</span><span class='gt op'>&gt;</span> <span class='symbol val'>:questionnaire_fields</span><span class='rparen token'>)</span> <span class='if if_mod kw'>if</span> <span class='params identifier id'>params</span><span class='lbrack token'>[</span><span class='symbol val'>:section</span><span class='rbrack token'>]</span><span class='lbrack token'>[</span><span class='symbol val'>:questionnaire_id</span><span class='rbrack token'>]</span>
+      <span class='@parent ivar id'>@parent</span> <span class='assign token'>=</span> <span class='Section constant id'>Section</span><span class='dot token'>.</span><span class='find identifier id'>find</span><span class='lparen token'>(</span><span class='params identifier id'>params</span><span class='lbrack token'>[</span><span class='symbol val'>:section</span><span class='rbrack token'>]</span><span class='lbrack token'>[</span><span class='symbol val'>:parent_id</span><span class='rbrack token'>]</span><span class='rparen token'>)</span> <span class='if if_mod kw'>if</span> <span class='params identifier id'>params</span><span class='lbrack token'>[</span><span class='symbol val'>:section</span><span class='rbrack token'>]</span><span class='lbrack token'>[</span><span class='symbol val'>:parent_id</span><span class='rbrack token'>]</span>
+      <span class='@loop_sources ivar id'>@loop_sources</span> <span class='assign token'>=</span> <span class='nil nil kw'>nil</span>
+      <span class='@loop_sources ivar id'>@loop_sources</span> <span class='assign token'>=</span> <span class='@questionnaire ivar id'>@questionnaire</span> <span class='question op'>?</span> <span class='lparen token'>(</span> <span class='@questionnaire ivar id'>@questionnaire</span><span class='dot token'>.</span><span class='loop_sources identifier id'>loop_sources</span> <span class='if if_mod kw'>if</span> <span class='@questionnaire ivar id'>@questionnaire</span><span class='dot token'>.</span><span class='loop_sources identifier id'>loop_sources</span><span class='rparen token'>)</span> <span class='colon op'>:</span> <span class='lparen token'>(</span> <span class='@parent ivar id'>@parent</span><span class='dot token'>.</span><span class='root identifier id'>root</span><span class='dot token'>.</span><span class='questionnaire identifier id'>questionnaire</span><span class='dot token'>.</span><span class='loop_sources identifier id'>loop_sources</span> <span class='if if_mod kw'>if</span> <span class='@parent ivar id'>@parent</span><span class='dot token'>.</span><span class='root identifier id'>root</span><span class='dot token'>.</span><span class='questionnaire identifier id'>questionnaire</span><span class='dot token'>.</span><span class='loop_sources identifier id'>loop_sources</span> <span class='rparen token'>)</span>
+      <span class='format identifier id'>format</span><span class='dot token'>.</span><span class='html identifier id'>html</span> <span class='lbrace token'>{</span> <span class='render identifier id'>render</span> <span class='symbol val'>:action</span> <span class='assign token'>=</span><span class='gt op'>&gt;</span> <span class='string val'>&quot;new&quot;</span> <span class='rbrace token'>}</span>
+      <span class='format identifier id'>format</span><span class='dot token'>.</span><span class='js identifier id'>js</span>
+    <span class='end end kw'>end</span>
+  <span class='end end kw'>end</span>
+<span class='end end kw'>end</span>
+</pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <p class="signature " id="define_dependency-instance_method">
+  
+    - (<tt>Object</tt>) <strong>define_dependency</strong> 
+  
+
+  
+</p><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+111
+112
+113
+114
+115
+116
+117</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'app/controllers/sections_controller.rb', line 111</span>
+
+<span class='def def kw'>def</span> <span class='define_dependency identifier id'>define_dependency</span>
+  <span class='@section ivar id'>@section</span> <span class='assign token'>=</span> <span class='Section constant id'>Section</span><span class='dot token'>.</span><span class='find identifier id'>find</span><span class='lparen token'>(</span><span class='params identifier id'>params</span><span class='lbrack token'>[</span><span class='symbol val'>:id</span><span class='rbrack token'>]</span><span class='rparen token'>)</span>
+  <span class='respond_to identifier id'>respond_to</span> <span class='do do kw'>do</span> <span class='bitor op'>|</span><span class='format identifier id'>format</span><span class='bitor op'>|</span>
+    <span class='format identifier id'>format</span><span class='dot token'>.</span><span class='html identifier id'>html</span>
+    <span class='format identifier id'>format</span><span class='dot token'>.</span><span class='js identifier id'>js</span>
+  <span class='end end kw'>end</span>
+<span class='end end kw'>end</span>
+</pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <p class="signature " id="delete-instance_method">
+  
+    - (<tt>Object</tt>) <strong>delete</strong> 
+  
+
+  
+</p><div class="docstring">
+  <div class="discussion">
+    <p>
+GET /sections/1/delete
+</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+66
+67
+68
+69
+70
+71
+72
+73
+74
+75
+76
+77
+78</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'app/controllers/sections_controller.rb', line 66</span>
+
+<span class='def def kw'>def</span> <span class='delete identifier id'>delete</span>
+  <span class='@section ivar id'>@section</span> <span class='assign token'>=</span> <span class='Section constant id'>Section</span><span class='dot token'>.</span><span class='find identifier id'>find</span><span class='lparen token'>(</span><span class='params identifier id'>params</span><span class='lbrack token'>[</span><span class='symbol val'>:id</span><span class='rbrack token'>]</span><span class='comma token'>,</span> <span class='symbol val'>:include</span> <span class='assign token'>=</span><span class='gt op'>&gt;</span> <span class='symbol val'>:questionnaire_part</span><span class='rparen token'>)</span>
+  <span class='if if kw'>if</span> <span class='@section ivar id'>@section</span><span class='dot token'>.</span><span class='questionnaire identifier id'>questionnaire</span><span class='dot token'>.</span><span class='user identifier id'>user</span> <span class='neq op'>!=</span> <span class='current_user identifier id'>current_user</span>
+    <span class='raise identifier id'>raise</span> <span class='CanCan constant id'>CanCan</span><span class='colon2 op'>::</span><span class='AccessDenied constant id'>AccessDenied</span><span class='dot token'>.</span><span class='new identifier id'>new</span><span class='lparen token'>(</span><span class='t identifier id'>t</span><span class='lparen token'>(</span><span class='string val'>'flash_messages.not_authorized'</span><span class='rparen token'>)</span><span class='rparen token'>)</span>
+  <span class='elsif elsif kw'>elsif</span>  <span class='@section ivar id'>@section</span><span class='dot token'>.</span><span class='questionnaire identifier id'>questionnaire</span><span class='dot token'>.</span><span class='active? fid id'>active?</span>
+    <span class='flash identifier id'>flash</span><span class='lbrack token'>[</span><span class='symbol val'>:error</span><span class='rbrack token'>]</span> <span class='assign token'>=</span> <span class='string val'>&quot;This section's questionnaire is active, and so you can not delete its sections.&quot;</span>
+    <span class='redirect_to identifier id'>redirect_to</span> <span class='dashboard_questionnaire_path identifier id'>dashboard_questionnaire_path</span><span class='lparen token'>(</span><span class='@questionnaire ivar id'>@questionnaire</span><span class='rparen token'>)</span> <span class='and and kw'>and</span> <span class='return return kw'>return</span>
+  <span class='end end kw'>end</span>
+  <span class='respond_to identifier id'>respond_to</span> <span class='do do kw'>do</span> <span class='bitor op'>|</span><span class='format identifier id'>format</span><span class='bitor op'>|</span>
+    <span class='format identifier id'>format</span><span class='dot token'>.</span><span class='html identifier id'>html</span>
+    <span class='format identifier id'>format</span><span class='dot token'>.</span><span class='js identifier id'>js</span>
+  <span class='end end kw'>end</span>
+<span class='end end kw'>end</span>
+</pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <p class="signature " id="destroy-instance_method">
+  
+    - (<tt>Object</tt>) <strong>destroy</strong> 
+  
+
+  
+</p><div class="docstring">
+  <div class="discussion">
+    <p>
+DELETE /sections/1 DELETE /sections/1.xml
+</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+82
+83
+84
+85
+86
+87
+88
+89
+90
+91
+92
+93
+94
+95
+96
+97
+98
+99
+100</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'app/controllers/sections_controller.rb', line 82</span>
+
+<span class='def def kw'>def</span> <span class='destroy identifier id'>destroy</span>
+  <span class='@section ivar id'>@section</span> <span class='assign token'>=</span> <span class='Section constant id'>Section</span><span class='dot token'>.</span><span class='find identifier id'>find</span><span class='lparen token'>(</span><span class='params identifier id'>params</span><span class='lbrack token'>[</span><span class='symbol val'>:id</span><span class='rbrack token'>]</span><span class='comma token'>,</span> <span class='symbol val'>:include</span> <span class='assign token'>=</span><span class='gt op'>&gt;</span> <span class='symbol val'>:questionnaire_part</span><span class='rparen token'>)</span>
+  <span class='@questionnaire ivar id'>@questionnaire</span> <span class='assign token'>=</span> <span class='@section ivar id'>@section</span><span class='dot token'>.</span><span class='questionnaire identifier id'>questionnaire</span>
+  <span class='if if kw'>if</span> <span class='params identifier id'>params</span><span class='lbrack token'>[</span><span class='symbol val'>:cancel</span><span class='rbrack token'>]</span>
+    <span class='redirect_to identifier id'>redirect_to</span><span class='lparen token'>(</span><span class='dashboard_questionnaire_path identifier id'>dashboard_questionnaire_path</span><span class='lparen token'>(</span><span class='@questionnaire ivar id'>@questionnaire</span><span class='rparen token'>)</span><span class='rparen token'>)</span> <span class='and and kw'>and</span> <span class='return return kw'>return</span>
+  <span class='elsif elsif kw'>elsif</span> <span class='@questionnaire ivar id'>@questionnaire</span><span class='dot token'>.</span><span class='user identifier id'>user</span> <span class='neq op'>!=</span> <span class='current_user identifier id'>current_user</span>
+    <span class='raise identifier id'>raise</span> <span class='CanCan constant id'>CanCan</span><span class='colon2 op'>::</span><span class='AccessDenied constant id'>AccessDenied</span><span class='dot token'>.</span><span class='new identifier id'>new</span><span class='lparen token'>(</span><span class='t identifier id'>t</span><span class='lparen token'>(</span><span class='string val'>'flash_messages.not_authorized'</span><span class='rparen token'>)</span><span class='rparen token'>)</span>
+  <span class='elsif elsif kw'>elsif</span>  <span class='@questionnaire ivar id'>@questionnaire</span><span class='dot token'>.</span><span class='active? fid id'>active?</span>
+    <span class='flash identifier id'>flash</span><span class='lbrack token'>[</span><span class='symbol val'>:error</span><span class='rbrack token'>]</span> <span class='assign token'>=</span> <span class='string val'>&quot;This section's questionnaire is active, and so you can not delete its sections.&quot;</span>
+    <span class='redirect_to identifier id'>redirect_to</span> <span class='dashboard_questionnaire_path identifier id'>dashboard_questionnaire_path</span><span class='lparen token'>(</span><span class='@questionnaire ivar id'>@questionnaire</span><span class='rparen token'>)</span> <span class='and and kw'>and</span> <span class='return return kw'>return</span>
+  <span class='end end kw'>end</span>
+  <span class='@section ivar id'>@section</span><span class='dot token'>.</span><span class='delete_branch_questions! fid id'>delete_branch_questions!</span>
+  <span class='comment val'>#@section.questionnaire_part.destroy</span>
+  <span class='respond_to identifier id'>respond_to</span> <span class='do do kw'>do</span> <span class='bitor op'>|</span><span class='format identifier id'>format</span><span class='bitor op'>|</span>
+    <span class='flash identifier id'>flash</span><span class='lbrack token'>[</span><span class='symbol val'>:notice</span><span class='rbrack token'>]</span> <span class='assign token'>=</span> <span class='string val'>&quot;Section and descendants successfully removed!&quot;</span>
+    <span class='format identifier id'>format</span><span class='dot token'>.</span><span class='html identifier id'>html</span> <span class='lbrace token'>{</span> <span class='redirect_to identifier id'>redirect_to</span><span class='lparen token'>(</span><span class='questionnaire_path identifier id'>questionnaire_path</span><span class='lparen token'>(</span><span class='@questionnaire ivar id'>@questionnaire</span><span class='rparen token'>)</span><span class='rparen token'>)</span> <span class='rbrace token'>}</span>
+    <span class='format identifier id'>format</span><span class='dot token'>.</span><span class='js identifier id'>js</span> <span class='lbrace token'>{</span> <span class='render identifier id'>render</span> <span class='symbol val'>:layout</span> <span class='assign token'>=</span><span class='gt op'>&gt;</span> <span class='false false kw'>false</span> <span class='rbrace token'>}</span>
+  <span class='end end kw'>end</span>
+<span class='end end kw'>end</span>
+</pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <p class="signature " id="download_csv-instance_method">
+  
+    - (<tt>Object</tt>) <strong>download_csv</strong> 
+  
+
+  
+</p><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+251
+252
+253
+254
+255
+256
+257
+258
+259</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'app/controllers/sections_controller.rb', line 251</span>
+
+<span class='def def kw'>def</span> <span class='download_csv identifier id'>download_csv</span>
+  <span class='@section ivar id'>@section</span> <span class='assign token'>=</span> <span class='Section constant id'>Section</span><span class='dot token'>.</span><span class='find identifier id'>find</span><span class='lparen token'>(</span><span class='params identifier id'>params</span><span class='lbrack token'>[</span><span class='symbol val'>:id</span><span class='rbrack token'>]</span><span class='rparen token'>)</span>
+  <span class='if if kw'>if</span> <span class='@section ivar id'>@section</span><span class='dot token'>.</span><span class='csv_file identifier id'>csv_file</span><span class='dot token'>.</span><span class='present? fid id'>present?</span> <span class='andop op'>&amp;&amp;</span> <span class='File constant id'>File</span><span class='dot token'>.</span><span class='exists? fid id'>exists?</span><span class='lparen token'>(</span><span class='@section ivar id'>@section</span><span class='dot token'>.</span><span class='csv_file identifier id'>csv_file</span><span class='dot token'>.</span><span class='location identifier id'>location</span><span class='rparen token'>)</span>
+    <span class='send_file identifier id'>send_file</span> <span class='@section ivar id'>@section</span><span class='dot token'>.</span><span class='csv_file identifier id'>csv_file</span><span class='dot token'>.</span><span class='location identifier id'>location</span><span class='comma token'>,</span> <span class='symbol val'>:type</span> <span class='assign token'>=</span><span class='gt op'>&gt;</span> <span class='string val'>&quot;csv&quot;</span>
+  <span class='else else kw'>else</span>
+    <span class='flash identifier id'>flash</span><span class='lbrack token'>[</span><span class='symbol val'>:error</span><span class='rbrack token'>]</span> <span class='assign token'>=</span> <span class='string val'>&quot;It was not possible to download the requested file. Please generate the file again. Thank you.&quot;</span>
+    <span class='redirect_to identifier id'>redirect_to</span> <span class='questionnaires_path identifier id'>questionnaires_path</span>
+  <span class='end end kw'>end</span>
+<span class='end end kw'>end</span>
+</pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <p class="signature " id="edit-instance_method">
+  
+    - (<tt>Object</tt>) <strong>edit</strong> 
+  
+
+  
+</p><div class="docstring">
+  <div class="discussion">
+    <p>
+GET /sections/1/edit
+</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+16
+17
+18
+19
+20
+21
+22
+23
+24</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'app/controllers/sections_controller.rb', line 16</span>
+
+<span class='def def kw'>def</span> <span class='edit identifier id'>edit</span>
+  <span class='@section ivar id'>@section</span> <span class='assign token'>=</span> <span class='Section constant id'>Section</span><span class='dot token'>.</span><span class='find identifier id'>find</span><span class='lparen token'>(</span><span class='params identifier id'>params</span><span class='lbrack token'>[</span><span class='symbol val'>:id</span><span class='rbrack token'>]</span><span class='comma token'>,</span> <span class='symbol val'>:include</span> <span class='assign token'>=</span><span class='gt op'>&gt;</span> <span class='lbrack token'>[</span> <span class='symbol val'>:questionnaire_part</span><span class='comma token'>,</span> <span class='symbol val'>:section_fields</span><span class='comma token'>,</span> <span class='symbol val'>:answer_type</span> <span class='rbrack token'>]</span><span class='rparen token'>)</span>
+  <span class='@loop_sources ivar id'>@loop_sources</span> <span class='assign token'>=</span> <span class='nil nil kw'>nil</span>
+  <span class='@loop_sources ivar id'>@loop_sources</span> <span class='assign token'>=</span> <span class='@section ivar id'>@section</span><span class='dot token'>.</span><span class='questionnaire identifier id'>questionnaire</span><span class='dot token'>.</span><span class='loop_sources identifier id'>loop_sources</span> <span class='if if_mod kw'>if</span> <span class='@section ivar id'>@section</span><span class='dot token'>.</span><span class='questionnaire identifier id'>questionnaire</span><span class='dot token'>.</span><span class='loop_sources identifier id'>loop_sources</span><span class='dot token'>.</span><span class='present? fid id'>present?</span>
+  <span class='respond_to identifier id'>respond_to</span> <span class='do do kw'>do</span> <span class='bitor op'>|</span><span class='format identifier id'>format</span><span class='bitor op'>|</span>
+    <span class='format identifier id'>format</span><span class='dot token'>.</span><span class='html identifier id'>html</span>
+    <span class='format identifier id'>format</span><span class='dot token'>.</span><span class='js identifier id'>js</span>
+  <span class='end end kw'>end</span>
+<span class='end end kw'>end</span>
+</pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <p class="signature " id="load_lazy-instance_method">
+  
+    - (<tt>Object</tt>) <strong>load_lazy</strong> 
+  
+
+  
+</p><div class="docstring">
+  <div class="discussion">
+    
+
+  </div>
+</div>
+<div class="tags">
+  <h3>Raises:</h3>
+<ul class="raise">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>CanCan::AccessDenied</tt>)</span>
+      
+      
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+170
+171
+172
+173
+174
+175
+176
+177
+178
+179
+180
+181
+182
+183</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'app/controllers/sections_controller.rb', line 170</span>
+
+<span class='def def kw'>def</span> <span class='load_lazy identifier id'>load_lazy</span>
+  <span class='@section ivar id'>@section</span> <span class='assign token'>=</span> <span class='Section constant id'>Section</span><span class='dot token'>.</span><span class='find identifier id'>find</span><span class='lparen token'>(</span><span class='params identifier id'>params</span><span class='lbrack token'>[</span><span class='symbol val'>:id</span><span class='rbrack token'>]</span><span class='comma token'>,</span> <span class='symbol val'>:include</span> <span class='assign token'>=</span><span class='gt op'>&gt;</span> <span class='lbrack token'>[</span><span class='lbrace token'>{</span><span class='symbol val'>:questions</span> <span class='assign token'>=</span><span class='gt op'>&gt;</span> <span class='lbrack token'>[</span><span class='lbrace token'>{</span><span class='symbol val'>:answer_type</span> <span class='assign token'>=</span><span class='gt op'>&gt;</span> <span class='symbol val'>:answer_type_fields</span><span class='rbrace token'>}</span><span class='comma token'>,</span> <span class='symbol val'>:question_fields</span><span class='rbrack token'>]</span><span class='rbrace token'>}</span><span class='comma token'>,</span> <span class='symbol val'>:section_fields</span><span class='comma token'>,</span> <span class='symbol val'>:answer_type</span><span class='rbrack token'>]</span><span class='rparen token'>)</span>
+  <span class='@authorization ivar id'>@authorization</span> <span class='assign token'>=</span> <span class='current_user identifier id'>current_user</span> <span class='integer val'>? </span><span class='current_user identifier id'>current_user</span><span class='dot token'>.</span><span class='authorization_for identifier id'>authorization_for</span><span class='lparen token'>(</span><span class='@section ivar id'>@section</span><span class='rparen token'>)</span> <span class='colon op'>:</span> <span class='false false kw'>false</span>
+  <span class='raise identifier id'>raise</span> <span class='CanCan constant id'>CanCan</span><span class='colon2 op'>::</span><span class='AccessDenied constant id'>AccessDenied</span><span class='dot token'>.</span><span class='new identifier id'>new</span><span class='lparen token'>(</span><span class='t identifier id'>t</span><span class='lparen token'>(</span><span class='string val'>'flash_messages.not_authorized'</span><span class='rparen token'>)</span><span class='rparen token'>)</span> <span class='if if_mod kw'>if</span> <span class='notop op'>!</span><span class='@authorization ivar id'>@authorization</span>
+  <span class='I18n constant id'>I18n</span><span class='dot token'>.</span><span class='locale identifier id'>locale</span> <span class='assign token'>=</span> <span class='@authorization ivar id'>@authorization</span><span class='lbrack token'>[</span><span class='symbol val'>:language</span><span class='rbrack token'>]</span>
+  <span class='@fields ivar id'>@fields</span> <span class='assign token'>=</span> <span class='lbrace token'>{</span><span class='rbrace token'>}</span>
+  <span class='@details ivar id'>@details</span> <span class='assign token'>=</span> <span class='Section constant id'>Section</span><span class='dot token'>.</span><span class='fill_lazy_load_details identifier id'>fill_lazy_load_details</span><span class='lparen token'>(</span><span class='params identifier id'>params</span><span class='rparen token'>)</span>
+  <span class='@section ivar id'>@section</span><span class='dot token'>.</span><span class='objects_fields_in identifier id'>objects_fields_in</span><span class='lparen token'>(</span><span class='@authorization ivar id'>@authorization</span><span class='lbrack token'>[</span><span class='symbol val'>:language</span><span class='rbrack token'>]</span><span class='comma token'>,</span> <span class='@fields ivar id'>@fields</span><span class='rparen token'>)</span>
+  <span class='@fields ivar id'>@fields</span><span class='lbrack token'>[</span><span class='symbol val'>:answers</span><span class='rbrack token'>]</span> <span class='assign token'>=</span> <span class='@section ivar id'>@section</span><span class='dot token'>.</span><span class='section_and_descendants_answers_for identifier id'>section_and_descendants_answers_for</span><span class='lparen token'>(</span><span class='@authorization ivar id'>@authorization</span><span class='lbrack token'>[</span><span class='symbol val'>:user</span><span class='rbrack token'>]</span><span class='rparen token'>)</span>
+  <span class='@fields ivar id'>@fields</span><span class='lbrack token'>[</span><span class='symbol val'>:disabled</span><span class='rbrack token'>]</span> <span class='assign token'>=</span> <span class='notop op'>!</span><span class='lparen token'>(</span> <span class='notop op'>!</span><span class='@authorization ivar id'>@authorization</span><span class='lbrack token'>[</span><span class='symbol val'>:is_closed</span><span class='rbrack token'>]</span> <span class='andop op'>&amp;&amp;</span> <span class='lparen token'>(</span> <span class='notop op'>!</span><span class='@authorization ivar id'>@authorization</span><span class='lbrack token'>[</span><span class='symbol val'>:sections</span><span class='rbrack token'>]</span> <span class='orop op'>||</span> <span class='lparen token'>(</span> <span class='lparen token'>(</span><span class='@authorization ivar id'>@authorization</span><span class='lbrack token'>[</span><span class='symbol val'>:sections</span><span class='rbrack token'>]</span><span class='dot token'>.</span><span class='has_key? fid id'>has_key?</span><span class='lparen token'>(</span><span class='@section ivar id'>@section</span><span class='dot token'>.</span><span class='id identifier id'>id</span><span class='dot token'>.</span><span class='to_s identifier id'>to_s</span><span class='rparen token'>)</span> <span class='andop op'>&amp;&amp;</span> <span class='@authorization ivar id'>@authorization</span><span class='lbrack token'>[</span><span class='symbol val'>:sections</span><span class='rbrack token'>]</span><span class='lbrack token'>[</span><span class='@section ivar id'>@section</span><span class='dot token'>.</span><span class='id identifier id'>id</span><span class='dot token'>.</span><span class='to_s identifier id'>to_s</span><span class='rbrack token'>]</span><span class='dot token'>.</span><span class='empty? fid id'>empty?</span><span class='rparen token'>)</span> <span class='orop op'>||</span> <span class='lparen token'>(</span><span class='@authorization ivar id'>@authorization</span><span class='lbrack token'>[</span><span class='symbol val'>:sections</span><span class='rbrack token'>]</span><span class='dot token'>.</span><span class='has_key? fid id'>has_key?</span><span class='lparen token'>(</span><span class='@section ivar id'>@section</span><span class='dot token'>.</span><span class='id identifier id'>id</span><span class='dot token'>.</span><span class='to_s identifier id'>to_s</span><span class='rparen token'>)</span> <span class='andop op'>&amp;&amp;</span> <span class='@authorization ivar id'>@authorization</span><span class='lbrack token'>[</span><span class='symbol val'>:sections</span><span class='rbrack token'>]</span><span class='lbrack token'>[</span><span class='@section ivar id'>@section</span><span class='dot token'>.</span><span class='id identifier id'>id</span><span class='dot token'>.</span><span class='to_s identifier id'>to_s</span><span class='rbrack token'>]</span><span class='dot token'>.</span><span class='include? fid id'>include?</span><span class='lparen token'>(</span><span class='lparen token'>(</span><span class='@details ivar id'>@details</span><span class='lbrack token'>[</span><span class='symbol val'>:loop_item</span><span class='rbrack token'>]</span> <span class='question op'>?</span> <span class='@details ivar id'>@details</span><span class='lbrack token'>[</span><span class='symbol val'>:loop_item</span><span class='rbrack token'>]</span><span class='dot token'>.</span><span class='loop_item_name identifier id'>loop_item_name</span><span class='dot token'>.</span><span class='id identifier id'>id</span> <span class='colon op'>:</span> <span class='string val'>'-1'</span><span class='rparen token'>)</span><span class='rparen token'>)</span> <span class='rparen token'>)</span><span class='rparen token'>)</span> <span class='orop op'>||</span> <span class='notop op'>!</span><span class='@details ivar id'>@details</span><span class='lbrack token'>[</span><span class='symbol val'>:disabled</span><span class='rbrack token'>]</span> <span class='rparen token'>)</span> <span class='rparen token'>)</span>
+  <span class='respond_to identifier id'>respond_to</span> <span class='do do kw'>do</span> <span class='bitor op'>|</span><span class='format identifier id'>format</span><span class='bitor op'>|</span>
+    <span class='format identifier id'>format</span><span class='dot token'>.</span><span class='js identifier id'>js</span>
+  <span class='end end kw'>end</span>
+<span class='end end kw'>end</span>
+</pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <p class="signature " id="loop_item_names-instance_method">
+  
+    - (<tt>Object</tt>) <strong>loop_item_names</strong> 
+  
+
+  
+</p><div class="docstring">
+  <div class="discussion">
+    <p>
+Get all the loop item names of the section, if it is a looping section to
+create a delegation (delegates/new.html.erb)
+</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+231
+232
+233
+234
+235
+236
+237
+238</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'app/controllers/sections_controller.rb', line 231</span>
+
+<span class='def def kw'>def</span> <span class='loop_item_names identifier id'>loop_item_names</span>
+  <span class='@section ivar id'>@section</span> <span class='assign token'>=</span> <span class='Section constant id'>Section</span><span class='dot token'>.</span><span class='find identifier id'>find</span><span class='lparen token'>(</span><span class='params identifier id'>params</span><span class='lbrack token'>[</span><span class='symbol val'>:id</span><span class='rbrack token'>]</span><span class='rparen token'>)</span>
+  <span class='authorize! fid id'>authorize!</span> <span class='symbol val'>:questions</span><span class='comma token'>,</span> <span class='@section ivar id'>@section</span>
+  <span class='@item_names ivar id'>@item_names</span> <span class='assign token'>=</span> <span class='@section ivar id'>@section</span><span class='dot token'>.</span><span class='loop_item_names identifier id'>loop_item_names</span> <span class='if if_mod kw'>if</span> <span class='@section ivar id'>@section</span> <span class='andop op'>&amp;&amp;</span> <span class='@section ivar id'>@section</span><span class='dot token'>.</span><span class='looping? fid id'>looping?</span>  <span class='andop op'>&amp;&amp;</span> <span class='@section ivar id'>@section</span><span class='dot token'>.</span><span class='loop_item_type identifier id'>loop_item_type</span><span class='dot token'>.</span><span class='present? fid id'>present?</span>
+  <span class='respond_to identifier id'>respond_to</span> <span class='do do kw'>do</span> <span class='bitor op'>|</span><span class='format identifier id'>format</span><span class='bitor op'>|</span>
+    <span class='format identifier id'>format</span><span class='dot token'>.</span><span class='js identifier id'>js</span> <span class='lbrace token'>{</span><span class='render identifier id'>render</span> <span class='symbol val'>:json</span> <span class='assign token'>=</span><span class='gt op'>&gt;</span> <span class='lparen token'>(</span><span class='@item_names ivar id'>@item_names</span> <span class='question op'>?</span> <span class='@item_names ivar id'>@item_names</span><span class='dot token'>.</span><span class='to_json identifier id'>to_json</span> <span class='colon op'>:</span> <span class='nil nil kw'>nil</span><span class='rparen token'>)</span><span class='comma token'>,</span> <span class='symbol val'>:callback</span> <span class='assign token'>=</span><span class='gt op'>&gt;</span> <span class='params identifier id'>params</span><span class='lbrack token'>[</span><span class='symbol val'>:callback</span><span class='rbrack token'>]</span><span class='rbrace token'>}</span>
+  <span class='end end kw'>end</span>
+<span class='end end kw'>end</span>
+</pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <p class="signature " id="preview-instance_method">
+  
+    - (<tt>Object</tt>) <strong>preview</strong> 
+  
+
+  
+</p><div class="docstring">
+  <div class="discussion">
+    <h1>&gt; action to show preview of the section</h1>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+103
+104
+105
+106
+107
+108
+109</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'app/controllers/sections_controller.rb', line 103</span>
+
+<span class='def def kw'>def</span> <span class='preview identifier id'>preview</span>
+  <span class='@section ivar id'>@section</span> <span class='assign token'>=</span> <span class='Section constant id'>Section</span><span class='dot token'>.</span><span class='find identifier id'>find</span><span class='lparen token'>(</span><span class='params identifier id'>params</span><span class='lbrack token'>[</span><span class='symbol val'>:id</span><span class='rbrack token'>]</span><span class='comma token'>,</span> <span class='symbol val'>:include</span> <span class='assign token'>=</span><span class='gt op'>&gt;</span> <span class='lbrack token'>[</span> <span class='lbrace token'>{</span><span class='symbol val'>:questions</span> <span class='assign token'>=</span><span class='gt op'>&gt;</span> <span class='symbol val'>:answer_type</span><span class='rbrace token'>}</span><span class='comma token'>,</span> <span class='symbol val'>:questionnaire_part</span> <span class='rbrack token'>]</span><span class='rparen token'>)</span>
+  <span class='respond_to identifier id'>respond_to</span> <span class='do do kw'>do</span> <span class='bitor op'>|</span><span class='format identifier id'>format</span><span class='bitor op'>|</span>
+    <span class='format identifier id'>format</span><span class='dot token'>.</span><span class='html identifier id'>html</span>
+    <span class='format identifier id'>format</span><span class='dot token'>.</span><span class='js identifier id'>js</span>
+  <span class='end end kw'>end</span>
+<span class='end end kw'>end</span>
+</pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <p class="signature " id="questions-instance_method">
+  
+    - (<tt>Object</tt>) <strong>questions</strong> 
+  
+
+  
+</p><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+149
+150
+151
+152
+153
+154
+155</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'app/controllers/sections_controller.rb', line 149</span>
+
+<span class='def def kw'>def</span> <span class='questions identifier id'>questions</span>
+  <span class='@section ivar id'>@section</span> <span class='assign token'>=</span> <span class='Section constant id'>Section</span><span class='dot token'>.</span><span class='find identifier id'>find</span><span class='lparen token'>(</span><span class='params identifier id'>params</span><span class='lbrack token'>[</span><span class='symbol val'>:id</span><span class='rbrack token'>]</span><span class='comma token'>,</span> <span class='symbol val'>:include</span> <span class='assign token'>=</span><span class='gt op'>&gt;</span> <span class='lbrack token'>[</span><span class='lbrace token'>{</span><span class='symbol val'>:questions</span> <span class='assign token'>=</span><span class='gt op'>&gt;</span> <span class='lbrack token'>[</span><span class='lbrace token'>{</span><span class='symbol val'>:answer_type</span> <span class='assign token'>=</span><span class='gt op'>&gt;</span> <span class='symbol val'>:answer_type_fields</span><span class='rbrace token'>}</span><span class='comma token'>,</span> <span class='symbol val'>:question_fields</span><span class='rbrack token'>]</span><span class='rbrace token'>}</span><span class='rbrack token'>]</span><span class='rparen token'>)</span>
+  <span class='authorize! fid id'>authorize!</span> <span class='symbol val'>:questions</span><span class='comma token'>,</span> <span class='@section ivar id'>@section</span>
+  <span class='respond_to identifier id'>respond_to</span> <span class='do do kw'>do</span> <span class='bitor op'>|</span><span class='format identifier id'>format</span><span class='bitor op'>|</span>
+    <span class='format identifier id'>format</span><span class='dot token'>.</span><span class='js identifier id'>js</span>
+  <span class='end end kw'>end</span>
+<span class='end end kw'>end</span>
+</pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <p class="signature " id="save_answers-instance_method">
+  
+    - (<tt>Object</tt>) <strong>save_answers</strong> 
+  
+
+  
+</p><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+185
+186
+187
+188
+189
+190
+191
+192
+193
+194
+195
+196
+197
+198
+199
+200
+201
+202
+203
+204
+205
+206
+207
+208
+209
+210
+211
+212
+213
+214
+215
+216
+217
+218
+219
+220
+221
+222
+223
+224
+225
+226
+227</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'app/controllers/sections_controller.rb', line 185</span>
+
+<span class='def def kw'>def</span> <span class='save_answers identifier id'>save_answers</span>
+  <span class='if if kw'>if</span> <span class='params identifier id'>params</span><span class='lbrack token'>[</span><span class='symbol val'>:auto_save</span><span class='rbrack token'>]</span> <span class='eq op'>==</span> <span class='string val'>&quot;0&quot;</span> <span class='andop op'>&amp;&amp;</span> <span class='params identifier id'>params</span><span class='lbrack token'>[</span><span class='symbol val'>:timed_save</span><span class='rbrack token'>]</span> <span class='eq op'>==</span> <span class='string val'>&quot;0&quot;</span> <span class='andop op'>&amp;&amp;</span> <span class='params identifier id'>params</span><span class='lbrack token'>[</span><span class='symbol val'>:save_from_button</span><span class='rbrack token'>]</span> <span class='eq op'>==</span> <span class='string val'>&quot;0&quot;</span>
+    <span class='respond_to identifier id'>respond_to</span> <span class='do do kw'>do</span> <span class='bitor op'>|</span><span class='format identifier id'>format</span><span class='bitor op'>|</span>
+      <span class='format identifier id'>format</span><span class='dot token'>.</span><span class='html identifier id'>html</span> <span class='do do kw'>do</span>
+        <span class='render identifier id'>render</span> <span class='symbol val'>:nothing</span> <span class='assign token'>=</span><span class='gt op'>&gt;</span> <span class='true true kw'>true</span><span class='comma token'>,</span> <span class='symbol val'>:status</span> <span class='assign token'>=</span><span class='gt op'>&gt;</span> <span class='symbol val'>:ok</span>
+        <span class='return return kw'>return</span> <span class='true true kw'>true</span>
+      <span class='end end kw'>end</span>
+      <span class='format identifier id'>format</span><span class='dot token'>.</span><span class='js identifier id'>js</span>  <span class='do do kw'>do</span>
+        <span class='render identifier id'>render</span> <span class='symbol val'>:nothing</span> <span class='assign token'>=</span><span class='gt op'>&gt;</span> <span class='true true kw'>true</span><span class='comma token'>,</span> <span class='symbol val'>:status</span> <span class='assign token'>=</span><span class='gt op'>&gt;</span> <span class='symbol val'>:ok</span>
+        <span class='return return kw'>return</span> <span class='true true kw'>true</span>
+      <span class='end end kw'>end</span>
+    <span class='end end kw'>end</span>
+  <span class='else else kw'>else</span>
+    <span class='@result ivar id'>@result</span> <span class='assign token'>=</span> <span class='lbrace token'>{</span><span class='rbrace token'>}</span>
+    <span class='@result ivar id'>@result</span><span class='lbrack token'>[</span><span class='symbol val'>:section</span><span class='rbrack token'>]</span> <span class='assign token'>=</span> <span class='Section constant id'>Section</span><span class='dot token'>.</span><span class='find identifier id'>find</span><span class='lparen token'>(</span><span class='params identifier id'>params</span><span class='lbrack token'>[</span><span class='symbol val'>:section</span><span class='rbrack token'>]</span><span class='comma token'>,</span> <span class='symbol val'>:include</span> <span class='assign token'>=</span><span class='gt op'>&gt;</span> <span class='lbrack token'>[</span><span class='symbol val'>:questions</span><span class='comma token'>,</span> <span class='symbol val'>:submission_states</span><span class='rbrack token'>]</span><span class='rparen token'>)</span>
+    <span class='@authorization ivar id'>@authorization</span> <span class='assign token'>=</span> <span class='current_user identifier id'>current_user</span> <span class='integer val'>? </span><span class='current_user identifier id'>current_user</span><span class='dot token'>.</span><span class='authorization_for identifier id'>authorization_for</span><span class='lparen token'>(</span><span class='@result ivar id'>@result</span><span class='lbrack token'>[</span><span class='symbol val'>:section</span><span class='rbrack token'>]</span><span class='rparen token'>)</span> <span class='colon op'>:</span> <span class='false false kw'>false</span>
+    <span class='raise identifier id'>raise</span> <span class='CanCan constant id'>CanCan</span><span class='colon2 op'>::</span><span class='AccessDenied constant id'>AccessDenied</span><span class='dot token'>.</span><span class='new identifier id'>new</span><span class='lparen token'>(</span><span class='t identifier id'>t</span><span class='lparen token'>(</span><span class='string val'>'flash_messages.not_authorized'</span><span class='rparen token'>)</span><span class='rparen token'>)</span> <span class='if if_mod kw'>if</span> <span class='notop op'>!</span><span class='@authorization ivar id'>@authorization</span> <span class='orop op'>||</span> <span class='@authorization ivar id'>@authorization</span><span class='lbrack token'>[</span><span class='symbol val'>:is_closed</span><span class='rbrack token'>]</span>
+    <span class='I18n constant id'>I18n</span><span class='dot token'>.</span><span class='locale identifier id'>locale</span> <span class='assign token'>=</span> <span class='@authorization ivar id'>@authorization</span><span class='lbrack token'>[</span><span class='symbol val'>:language</span><span class='rbrack token'>]</span>
+    <span class='if if kw'>if</span> <span class='params identifier id'>params</span><span class='lbrack token'>[</span><span class='symbol val'>:answers</span><span class='rbrack token'>]</span><span class='dot token'>.</span><span class='present? fid id'>present?</span>
+      <span class='if if kw'>if</span> <span class='@result ivar id'>@result</span><span class='lbrack token'>[</span><span class='symbol val'>:section</span><span class='rbrack token'>]</span><span class='dot token'>.</span><span class='first_save? fid id'>first_save?</span><span class='lparen token'>(</span><span class='@authorization ivar id'>@authorization</span><span class='lbrack token'>[</span><span class='symbol val'>:user</span><span class='rbrack token'>]</span><span class='comma token'>,</span> <span class='@result ivar id'>@result</span><span class='lbrack token'>[</span><span class='symbol val'>:root_loop_item</span><span class='rbrack token'>]</span><span class='rparen token'>)</span>
+        <span class='loop_sources_items identifier id'>loop_sources_items</span> <span class='assign token'>=</span> <span class='lbrace token'>{</span><span class='rbrace token'>}</span>
+        <span class='loop_sources_items identifier id'>loop_sources_items</span><span class='lbrack token'>[</span><span class='@result ivar id'>@result</span><span class='lbrack token'>[</span><span class='symbol val'>:section</span><span class='rbrack token'>]</span><span class='dot token'>.</span><span class='loop_source identifier id'>loop_source</span><span class='dot token'>.</span><span class='id identifier id'>id</span><span class='dot token'>.</span><span class='to_s identifier id'>to_s</span><span class='rbrack token'>]</span> <span class='assign token'>=</span> <span class='@result ivar id'>@result</span><span class='lbrack token'>[</span><span class='symbol val'>:root_loop_item</span><span class='rbrack token'>]</span> <span class='if if_mod kw'>if</span> <span class='@result ivar id'>@result</span><span class='lbrack token'>[</span><span class='symbol val'>:root_loop_item</span><span class='rbrack token'>]</span>
+        <span class='@result ivar id'>@result</span><span class='lbrack token'>[</span><span class='symbol val'>:section</span><span class='rbrack token'>]</span><span class='dot token'>.</span><span class='initialise_tree_submission_states identifier id'>initialise_tree_submission_states</span><span class='lparen token'>(</span><span class='@authorization ivar id'>@authorization</span><span class='lbrack token'>[</span><span class='symbol val'>:user</span><span class='rbrack token'>]</span><span class='comma token'>,</span> <span class='loop_sources_items identifier id'>loop_sources_items</span><span class='comma token'>,</span> <span class='@result ivar id'>@result</span><span class='lbrack token'>[</span><span class='symbol val'>:root_loop_item</span><span class='rbrack token'>]</span><span class='rparen token'>)</span> 
+      <span class='end end kw'>end</span>
+      <span class='@result ivar id'>@result</span><span class='lbrack token'>[</span><span class='symbol val'>:result</span><span class='rbrack token'>]</span><span class='comma token'>,</span> <span class='@result ivar id'>@result</span><span class='lbrack token'>[</span><span class='symbol val'>:questions_saved</span><span class='rbrack token'>]</span><span class='comma token'>,</span> <span class='@result ivar id'>@result</span><span class='lbrack token'>[</span><span class='symbol val'>:fields_to_clear</span><span class='rbrack token'>]</span> <span class='assign token'>=</span> <span class='Answer constant id'>Answer</span><span class='dot token'>.</span><span class='save_answers identifier id'>save_answers</span><span class='lparen token'>(</span><span class='@result ivar id'>@result</span><span class='lbrack token'>[</span><span class='symbol val'>:section</span><span class='rbrack token'>]</span><span class='dot token'>.</span><span class='questionnaire identifier id'>questionnaire</span><span class='comma token'>,</span> <span class='@authorization ivar id'>@authorization</span><span class='lbrack token'>[</span><span class='symbol val'>:user</span><span class='rbrack token'>]</span><span class='comma token'>,</span> <span class='params identifier id'>params</span><span class='lbrack token'>[</span><span class='symbol val'>:answers</span><span class='rbrack token'>]</span><span class='comma token'>,</span> <span class='params identifier id'>params</span><span class='lbrack token'>[</span><span class='symbol val'>:hidden</span><span class='rbrack token'>]</span><span class='rparen token'>)</span>
+    <span class='else else kw'>else</span>
+      <span class='@result ivar id'>@result</span><span class='lbrack token'>[</span><span class='symbol val'>:result</span><span class='rbrack token'>]</span> <span class='assign token'>=</span> <span class='false false kw'>false</span>
+    <span class='end end kw'>end</span>
+    <span class='if if kw'>if</span> <span class='@result ivar id'>@result</span><span class='lbrack token'>[</span><span class='symbol val'>:result</span><span class='rbrack token'>]</span>
+      <span class='@result ivar id'>@result</span><span class='lbrack token'>[</span><span class='symbol val'>:section</span><span class='rbrack token'>]</span><span class='dot token'>.</span><span class='update_root_submission_state! fid id'>update_root_submission_state!</span><span class='lparen token'>(</span><span class='@authorization ivar id'>@authorization</span><span class='lbrack token'>[</span><span class='symbol val'>:user</span><span class='rbrack token'>]</span><span class='comma token'>,</span> <span class='lparen token'>(</span><span class='@result ivar id'>@result</span><span class='lbrack token'>[</span><span class='symbol val'>:root_loop_item</span><span class='rbrack token'>]</span><span class='dot token'>.</span><span class='present? fid id'>present?</span> <span class='integer val'>? </span><span class='@result ivar id'>@result</span><span class='lbrack token'>[</span><span class='symbol val'>:root_loop_item</span><span class='rbrack token'>]</span> <span class='colon op'>:</span> <span class='nil nil kw'>nil</span><span class='rparen token'>)</span><span class='rparen token'>)</span>
+      <span class='flash identifier id'>flash</span><span class='lbrack token'>[</span><span class='symbol val'>:notice</span><span class='rbrack token'>]</span> <span class='assign token'>=</span> <span class='dstring node'>&quot;#{@result[:section].value_in((@result[:section].root? ? :tab_title : :title), @authorization[:language], @result[:root_loop_item])}: #{t(&quot;flash_messages.saved_successfully&quot;, {:locale =&gt; @authorization[:language]})}&quot;</span>
+    <span class='elsif elsif kw'>elsif</span> <span class='notop op'>!</span><span class='@result ivar id'>@result</span><span class='lbrack token'>[</span><span class='symbol val'>:auto_save</span><span class='rbrack token'>]</span> <span class='andop op'>&amp;&amp;</span> <span class='notop op'>!</span><span class='@result ivar id'>@result</span><span class='lbrack token'>[</span><span class='symbol val'>:timed_save</span><span class='rbrack token'>]</span>
+      <span class='flash identifier id'>flash</span><span class='lbrack token'>[</span><span class='symbol val'>:error</span><span class='rbrack token'>]</span> <span class='assign token'>=</span> <span class='t identifier id'>t</span><span class='lparen token'>(</span><span class='string val'>&quot;flash_messages.nothing_to_save&quot;</span><span class='comma token'>,</span> <span class='lbrace token'>{</span><span class='symbol val'>:locale</span> <span class='assign token'>=</span><span class='gt op'>&gt;</span> <span class='@authorization ivar id'>@authorization</span><span class='lbrack token'>[</span><span class='symbol val'>:language</span><span class='rbrack token'>]</span><span class='rbrace token'>}</span><span class='rparen token'>)</span>
+    <span class='end end kw'>end</span>
+    <span class='respond_to identifier id'>respond_to</span>  <span class='do do kw'>do</span> <span class='bitor op'>|</span><span class='format identifier id'>format</span><span class='bitor op'>|</span>
+      <span class='format identifier id'>format</span><span class='dot token'>.</span><span class='html identifier id'>html</span> <span class='do do kw'>do</span>
+        <span class='render identifier id'>render</span> <span class='symbol val'>:nothing</span> <span class='assign token'>=</span><span class='gt op'>&gt;</span> <span class='true true kw'>true</span><span class='comma token'>,</span> <span class='symbol val'>:status</span> <span class='assign token'>=</span><span class='gt op'>&gt;</span> <span class='symbol val'>:ok</span>
+        <span class='return return kw'>return</span> <span class='true true kw'>true</span>
+      <span class='end end kw'>end</span>
+      <span class='format identifier id'>format</span><span class='dot token'>.</span><span class='js identifier id'>js</span>
+    <span class='end end kw'>end</span>
+  <span class='end end kw'>end</span>
+<span class='end end kw'>end</span>
+</pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <p class="signature " id="set_dependency-instance_method">
+  
+    - (<tt>Object</tt>) <strong>set_dependency</strong> 
+  
+
+  
+</p><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+119
+120
+121
+122
+123
+124
+125
+126
+127
+128
+129
+130
+131
+132
+133</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'app/controllers/sections_controller.rb', line 119</span>
+
+<span class='def def kw'>def</span> <span class='set_dependency identifier id'>set_dependency</span>
+  <span class='@section ivar id'>@section</span> <span class='assign token'>=</span> <span class='Section constant id'>Section</span><span class='dot token'>.</span><span class='find identifier id'>find</span><span class='lparen token'>(</span><span class='params identifier id'>params</span><span class='lbrack token'>[</span><span class='symbol val'>:id</span><span class='rbrack token'>]</span><span class='rparen token'>)</span>
+  <span class='@section ivar id'>@section</span><span class='dot token'>.</span><span class='depends_on_question_id identifier id'>depends_on_question_id</span> <span class='assign token'>=</span> <span class='params identifier id'>params</span><span class='lbrack token'>[</span><span class='symbol val'>:section</span><span class='rbrack token'>]</span><span class='lbrack token'>[</span><span class='symbol val'>:depends_on_question</span><span class='rbrack token'>]</span> <span class='if if_mod kw'>if</span> <span class='Question constant id'>Question</span><span class='dot token'>.</span><span class='find identifier id'>find</span><span class='lparen token'>(</span><span class='params identifier id'>params</span><span class='lbrack token'>[</span><span class='symbol val'>:section</span><span class='rbrack token'>]</span><span class='lbrack token'>[</span><span class='symbol val'>:depends_on_question</span><span class='rbrack token'>]</span><span class='rparen token'>)</span>
+  <span class='@section ivar id'>@section</span><span class='dot token'>.</span><span class='depends_on_option_id identifier id'>depends_on_option_id</span> <span class='assign token'>=</span> <span class='params identifier id'>params</span><span class='lbrack token'>[</span><span class='symbol val'>:section</span><span class='rbrack token'>]</span><span class='lbrack token'>[</span><span class='symbol val'>:depends_on_option</span><span class='rbrack token'>]</span> <span class='if if_mod kw'>if</span> <span class='MultiAnswerOption constant id'>MultiAnswerOption</span><span class='dot token'>.</span><span class='find identifier id'>find</span><span class='lparen token'>(</span><span class='params identifier id'>params</span><span class='lbrack token'>[</span><span class='symbol val'>:section</span><span class='rbrack token'>]</span><span class='lbrack token'>[</span><span class='symbol val'>:depends_on_option</span><span class='rbrack token'>]</span><span class='rparen token'>)</span>
+  <span class='@section ivar id'>@section</span><span class='dot token'>.</span><span class='depends_on_option_value identifier id'>depends_on_option_value</span> <span class='assign token'>=</span> <span class='params identifier id'>params</span><span class='lbrack token'>[</span><span class='symbol val'>:section</span><span class='rbrack token'>]</span><span class='lbrack token'>[</span><span class='symbol val'>:depends_on_option_value</span><span class='rbrack token'>]</span> <span class='eq op'>==</span> <span class='string val'>&quot;0&quot;</span> <span class='question op'>?</span> <span class='false false kw'>false</span> <span class='colon op'>:</span> <span class='true true kw'>true</span>
+  <span class='if if kw'>if</span> <span class='@section ivar id'>@section</span><span class='dot token'>.</span><span class='save! fid id'>save!</span>
+    <span class='respond_to identifier id'>respond_to</span> <span class='do do kw'>do</span> <span class='bitor op'>|</span><span class='format identifier id'>format</span><span class='bitor op'>|</span>
+      <span class='format identifier id'>format</span><span class='dot token'>.</span><span class='html identifier id'>html</span> <span class='lbrace token'>{</span>
+        <span class='flash identifier id'>flash</span><span class='lbrack token'>[</span><span class='symbol val'>:notice</span><span class='rbrack token'>]</span> <span class='assign token'>=</span> <span class='string val'>&quot;Dependency created.&quot;</span>
+        <span class='redirect_to identifier id'>redirect_to</span> <span class='section_path identifier id'>section_path</span><span class='lparen token'>(</span><span class='params identifier id'>params</span><span class='lbrack token'>[</span><span class='symbol val'>:id</span><span class='rbrack token'>]</span><span class='rparen token'>)</span>
+      <span class='rbrace token'>}</span>
+      <span class='format identifier id'>format</span><span class='dot token'>.</span><span class='js identifier id'>js</span>
+    <span class='end end kw'>end</span>
+  <span class='end end kw'>end</span>
+<span class='end end kw'>end</span>
+</pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <p class="signature " id="show-instance_method">
+  
+    - (<tt>Object</tt>) <strong>show</strong> 
+  
+
+  
+</p><div class="docstring">
+  <div class="discussion">
+    <p>
+GET /sections/1 GET /sections/1.xml
+</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+7
+8
+9
+10
+11
+12
+13</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'app/controllers/sections_controller.rb', line 7</span>
+
+<span class='def def kw'>def</span> <span class='show identifier id'>show</span>
+  <span class='@section ivar id'>@section</span> <span class='assign token'>=</span> <span class='Section constant id'>Section</span><span class='dot token'>.</span><span class='find identifier id'>find</span><span class='lparen token'>(</span><span class='params identifier id'>params</span><span class='lbrack token'>[</span><span class='symbol val'>:id</span><span class='rbrack token'>]</span><span class='comma token'>,</span> <span class='symbol val'>:include</span> <span class='assign token'>=</span><span class='gt op'>&gt;</span> <span class='lbrack token'>[</span><span class='symbol val'>:section_fields</span><span class='comma token'>,</span> <span class='symbol val'>:answer_type</span><span class='comma token'>,</span> <span class='symbol val'>:questionnaire_part</span><span class='rbrack token'>]</span> <span class='rparen token'>)</span>
+  <span class='respond_to identifier id'>respond_to</span> <span class='do do kw'>do</span> <span class='bitor op'>|</span><span class='format identifier id'>format</span><span class='bitor op'>|</span>
+    <span class='format identifier id'>format</span><span class='dot token'>.</span><span class='html identifier id'>html</span> <span class='comment val'># show.html.erb</span>
+    <span class='format identifier id'>format</span><span class='dot token'>.</span><span class='js identifier id'>js</span>
+  <span class='end end kw'>end</span>
+<span class='end end kw'>end</span>
+</pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <p class="signature " id="submission-instance_method">
+  
+    - (<tt>Object</tt>) <strong>submission</strong> 
+  
+
+  
+</p><div class="docstring">
+  <div class="discussion">
+    
+
+  </div>
+</div>
+<div class="tags">
+  <h3>Raises:</h3>
+<ul class="raise">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>CanCan::AccessDenied</tt>)</span>
+      
+      
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+157
+158
+159
+160
+161
+162
+163
+164
+165
+166
+167
+168</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'app/controllers/sections_controller.rb', line 157</span>
+
+<span class='def def kw'>def</span> <span class='submission identifier id'>submission</span>
+  <span class='@section ivar id'>@section</span> <span class='assign token'>=</span> <span class='Section constant id'>Section</span><span class='dot token'>.</span><span class='find identifier id'>find</span><span class='lparen token'>(</span><span class='params identifier id'>params</span><span class='lbrack token'>[</span><span class='symbol val'>:id</span><span class='rbrack token'>]</span><span class='comma token'>,</span> <span class='symbol val'>:include</span> <span class='assign token'>=</span><span class='gt op'>&gt;</span> <span class='lbrack token'>[</span><span class='lbrace token'>{</span><span class='symbol val'>:questions</span> <span class='assign token'>=</span><span class='gt op'>&gt;</span> <span class='lbrack token'>[</span><span class='lbrace token'>{</span><span class='symbol val'>:answer_type</span> <span class='assign token'>=</span><span class='gt op'>&gt;</span> <span class='symbol val'>:answer_type_fields</span><span class='rbrace token'>}</span><span class='comma token'>,</span> <span class='symbol val'>:question_fields</span><span class='rbrack token'>]</span><span class='rbrace token'>}</span><span class='comma token'>,</span> <span class='symbol val'>:section_fields</span><span class='comma token'>,</span> <span class='symbol val'>:answer_type</span><span class='rbrack token'>]</span><span class='rparen token'>)</span>
+  <span class='@authorization ivar id'>@authorization</span> <span class='assign token'>=</span> <span class='current_user identifier id'>current_user</span> <span class='integer val'>? </span><span class='current_user identifier id'>current_user</span><span class='dot token'>.</span><span class='authorization_for identifier id'>authorization_for</span><span class='lparen token'>(</span><span class='@section ivar id'>@section</span><span class='rparen token'>)</span> <span class='colon op'>:</span> <span class='false false kw'>false</span>
+  <span class='raise identifier id'>raise</span> <span class='CanCan constant id'>CanCan</span><span class='colon2 op'>::</span><span class='AccessDenied constant id'>AccessDenied</span><span class='dot token'>.</span><span class='new identifier id'>new</span><span class='lparen token'>(</span><span class='t identifier id'>t</span><span class='lparen token'>(</span><span class='string val'>'flash_messages.not_authorized'</span><span class='rparen token'>)</span><span class='rparen token'>)</span> <span class='if if_mod kw'>if</span> <span class='notop op'>!</span><span class='@authorization ivar id'>@authorization</span>
+  <span class='I18n constant id'>I18n</span><span class='dot token'>.</span><span class='locale identifier id'>locale</span> <span class='assign token'>=</span> <span class='@authorization ivar id'>@authorization</span><span class='lbrack token'>[</span><span class='symbol val'>:language</span><span class='rbrack token'>]</span>
+  <span class='@fields ivar id'>@fields</span> <span class='assign token'>=</span> <span class='lbrace token'>{</span><span class='rbrace token'>}</span>
+  <span class='@section ivar id'>@section</span><span class='dot token'>.</span><span class='objects_fields_in identifier id'>objects_fields_in</span><span class='lparen token'>(</span><span class='@authorization ivar id'>@authorization</span><span class='lbrack token'>[</span><span class='symbol val'>:language</span><span class='rbrack token'>]</span><span class='comma token'>,</span> <span class='@fields ivar id'>@fields</span><span class='rparen token'>)</span>
+  <span class='@fields ivar id'>@fields</span><span class='lbrack token'>[</span><span class='symbol val'>:answers</span><span class='rbrack token'>]</span> <span class='assign token'>=</span> <span class='@section ivar id'>@section</span><span class='dot token'>.</span><span class='section_and_descendants_answers_for identifier id'>section_and_descendants_answers_for</span><span class='lparen token'>(</span><span class='@authorization ivar id'>@authorization</span><span class='lbrack token'>[</span><span class='symbol val'>:user</span><span class='rbrack token'>]</span><span class='rparen token'>)</span>
+  <span class='@fields ivar id'>@fields</span><span class='lbrack token'>[</span><span class='symbol val'>:loop_item</span><span class='rbrack token'>]</span> <span class='assign token'>=</span> <span class='params identifier id'>params</span><span class='lbrack token'>[</span><span class='symbol val'>:loop_item_id</span><span class='rbrack token'>]</span> <span class='question op'>?</span> <span class='LoopItem constant id'>LoopItem</span><span class='dot token'>.</span><span class='find identifier id'>find</span><span class='lparen token'>(</span><span class='params identifier id'>params</span><span class='lbrack token'>[</span><span class='symbol val'>:loop_item_id</span><span class='rbrack token'>]</span><span class='rparen token'>)</span> <span class='colon op'>:</span> <span class='nil nil kw'>nil</span>
+  <span class='is_disabled identifier id'>is_disabled</span> <span class='assign token'>=</span> <span class='notop op'>!</span><span class='lparen token'>(</span> <span class='notop op'>!</span><span class='@authorization ivar id'>@authorization</span><span class='lbrack token'>[</span><span class='symbol val'>:is_closed</span><span class='rbrack token'>]</span> <span class='andop op'>&amp;&amp;</span> <span class='lparen token'>(</span> <span class='notop op'>!</span><span class='@authorization ivar id'>@authorization</span><span class='lbrack token'>[</span><span class='symbol val'>:sections</span><span class='rbrack token'>]</span> <span class='orop op'>||</span> <span class='@authorization ivar id'>@authorization</span><span class='lbrack token'>[</span><span class='symbol val'>:sections</span><span class='rbrack token'>]</span><span class='dot token'>.</span><span class='has_key? fid id'>has_key?</span><span class='lparen token'>(</span><span class='@section ivar id'>@section</span><span class='dot token'>.</span><span class='id identifier id'>id</span><span class='dot token'>.</span><span class='to_s identifier id'>to_s</span><span class='rparen token'>)</span> <span class='rparen token'>)</span> <span class='rparen token'>)</span>
+  <span class='render identifier id'>render</span> <span class='symbol val'>:partial</span> <span class='assign token'>=</span><span class='gt op'>&gt;</span> <span class='string val'>&quot;sections/submission&quot;</span><span class='comma token'>,</span> <span class='symbol val'>:locals</span> <span class='assign token'>=</span><span class='gt op'>&gt;</span> <span class='lbrace token'>{</span> <span class='symbol val'>:root</span> <span class='assign token'>=</span><span class='gt op'>&gt;</span> <span class='true true kw'>true</span><span class='comma token'>,</span> <span class='symbol val'>:loop_sources</span> <span class='assign token'>=</span><span class='gt op'>&gt;</span> <span class='@fields ivar id'>@fields</span><span class='lbrack token'>[</span><span class='symbol val'>:loop_item</span><span class='rbrack token'>]</span> <span class='question op'>?</span> <span class='lbrace token'>{</span> <span class='@fields ivar id'>@fields</span><span class='lbrack token'>[</span><span class='symbol val'>:loop_item</span><span class='rbrack token'>]</span><span class='dot token'>.</span><span class='loop_item_type identifier id'>loop_item_type</span><span class='dot token'>.</span><span class='root identifier id'>root</span><span class='dot token'>.</span><span class='loop_source identifier id'>loop_source</span><span class='dot token'>.</span><span class='id identifier id'>id</span><span class='dot token'>.</span><span class='to_s identifier id'>to_s</span> <span class='assign token'>=</span><span class='gt op'>&gt;</span> <span class='@fields ivar id'>@fields</span><span class='lbrack token'>[</span><span class='symbol val'>:loop_item</span><span class='rbrack token'>]</span> <span class='rbrace token'>}</span> <span class='colon op'>:</span> <span class='lbrace token'>{</span><span class='rbrace token'>}</span><span class='comma token'>,</span> <span class='symbol val'>:disabled</span> <span class='assign token'>=</span><span class='gt op'>&gt;</span> <span class='is_disabled identifier id'>is_disabled</span> <span class='rbrace token'>}</span>
+<span class='end end kw'>end</span>
+</pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <p class="signature " id="to_csv-instance_method">
+  
+    - (<tt>Object</tt>) <strong>to_csv</strong> 
+  
+
+  
+</p><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+240
+241
+242
+243
+244
+245
+246
+247
+248
+249</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'app/controllers/sections_controller.rb', line 240</span>
+
+<span class='def def kw'>def</span> <span class='to_csv identifier id'>to_csv</span>
+  <span class='@section ivar id'>@section</span> <span class='assign token'>=</span> <span class='Section constant id'>Section</span><span class='dot token'>.</span><span class='find identifier id'>find</span><span class='lparen token'>(</span><span class='params identifier id'>params</span><span class='lbrack token'>[</span><span class='symbol val'>:id</span><span class='rbrack token'>]</span><span class='rparen token'>)</span>
+  <span class='if if kw'>if</span> <span class='@section ivar id'>@section</span>
+    <span class='@section ivar id'>@section</span><span class='dot token'>.</span><span class='to_csv identifier id'>to_csv</span><span class='lparen token'>(</span><span class='current_user identifier id'>current_user</span><span class='rparen token'>)</span> <span class='comment val'>#automatically delayed</span>
+    <span class='flash identifier id'>flash</span><span class='lbrack token'>[</span><span class='symbol val'>:notice</span><span class='rbrack token'>]</span> <span class='assign token'>=</span> <span class='string val'>&quot;File is being generated. An email will be sent to you when it is ready for download from this page. Note that generating the file can take some minutes.&quot;</span>
+  <span class='end end kw'>end</span>
+  <span class='respond_to identifier id'>respond_to</span> <span class='do do kw'>do</span> <span class='bitor op'>|</span><span class='format identifier id'>format</span><span class='bitor op'>|</span>
+    <span class='format identifier id'>format</span><span class='dot token'>.</span><span class='js identifier id'>js</span>
+  <span class='end end kw'>end</span>
+<span class='end end kw'>end</span>
+</pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <p class="signature " id="unset_dependency-instance_method">
+  
+    - (<tt>Object</tt>) <strong>unset_dependency</strong> 
+  
+
+  
+</p><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+135
+136
+137
+138
+139
+140
+141
+142
+143
+144
+145
+146
+147</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'app/controllers/sections_controller.rb', line 135</span>
+
+<span class='def def kw'>def</span> <span class='unset_dependency identifier id'>unset_dependency</span>
+  <span class='@section ivar id'>@section</span> <span class='assign token'>=</span> <span class='Section constant id'>Section</span><span class='dot token'>.</span><span class='find identifier id'>find</span><span class='lparen token'>(</span><span class='params identifier id'>params</span><span class='lbrack token'>[</span><span class='symbol val'>:id</span><span class='rbrack token'>]</span><span class='rparen token'>)</span>
+  <span class='@section ivar id'>@section</span><span class='dot token'>.</span><span class='depends_on_option_id identifier id'>depends_on_option_id</span> <span class='assign token'>=</span> <span class='@section ivar id'>@section</span><span class='dot token'>.</span><span class='depends_on_option_value identifier id'>depends_on_option_value</span> <span class='assign token'>=</span> <span class='@section ivar id'>@section</span><span class='dot token'>.</span><span class='depends_on_question_id identifier id'>depends_on_question_id</span> <span class='assign token'>=</span> <span class='nil nil kw'>nil</span>
+  <span class='if if kw'>if</span> <span class='@section ivar id'>@section</span><span class='dot token'>.</span><span class='save! fid id'>save!</span>
+    <span class='respond_to identifier id'>respond_to</span> <span class='do do kw'>do</span> <span class='bitor op'>|</span><span class='format identifier id'>format</span><span class='bitor op'>|</span>
+      <span class='format identifier id'>format</span><span class='dot token'>.</span><span class='html identifier id'>html</span> <span class='lbrace token'>{</span>
+        <span class='flash identifier id'>flash</span><span class='lbrack token'>[</span><span class='symbol val'>:notice</span><span class='rbrack token'>]</span> <span class='assign token'>=</span> <span class='string val'>&quot;Dependency deleted.&quot;</span>
+        <span class='redirect_to identifier id'>redirect_to</span> <span class='section_path identifier id'>section_path</span><span class='lparen token'>(</span><span class='params identifier id'>params</span><span class='lbrack token'>[</span><span class='symbol val'>:id</span><span class='rbrack token'>]</span><span class='rparen token'>)</span>
+      <span class='rbrace token'>}</span>
+      <span class='format identifier id'>format</span><span class='dot token'>.</span><span class='js identifier id'>js</span>
+    <span class='end end kw'>end</span>
+  <span class='end end kw'>end</span>
+<span class='end end kw'>end</span>
+</pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <p class="signature " id="update-instance_method">
+  
+    - (<tt>Object</tt>) <strong>update</strong> 
+  
+
+  
+</p><div class="docstring">
+  <div class="discussion">
+    <p>
+PUT /sections/1 PUT /sections/1.xml
+</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60
+61
+62
+63</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'app/controllers/sections_controller.rb', line 49</span>
+
+<span class='def def kw'>def</span> <span class='update identifier id'>update</span>
+  <span class='clean_answer_types_from identifier id'>clean_answer_types_from</span> <span class='params identifier id'>params</span>
+  <span class='@section ivar id'>@section</span> <span class='assign token'>=</span> <span class='Section constant id'>Section</span><span class='dot token'>.</span><span class='section_update_from identifier id'>section_update_from</span><span class='lparen token'>(</span><span class='params identifier id'>params</span><span class='rparen token'>)</span>
+  <span class='params identifier id'>params</span><span class='lbrack token'>[</span><span class='symbol val'>:part</span><span class='rbrack token'>]</span><span class='lbrack token'>[</span><span class='symbol val'>:answer_type_type</span><span class='rbrack token'>]</span> <span class='assign token'>=</span> <span class='string val'>&quot;&quot;</span> <span class='unless unless_mod kw'>unless</span> <span class='params identifier id'>params</span><span class='lbrack token'>[</span><span class='symbol val'>:answer_type</span><span class='rbrack token'>]</span>
+  <span class='respond_to identifier id'>respond_to</span> <span class='do do kw'>do</span> <span class='bitor op'>|</span><span class='format identifier id'>format</span><span class='bitor op'>|</span>
+    <span class='if if kw'>if</span> <span class='@section ivar id'>@section</span><span class='dot token'>.</span><span class='update_attributes identifier id'>update_attributes</span><span class='lparen token'>(</span><span class='params identifier id'>params</span><span class='lbrack token'>[</span><span class='symbol val'>:part</span><span class='rbrack token'>]</span><span class='rparen token'>)</span>
+      <span class='flash identifier id'>flash</span><span class='lbrack token'>[</span><span class='symbol val'>:notice</span><span class='rbrack token'>]</span> <span class='assign token'>=</span> <span class='string val'>'Section was successfully updated.'</span>
+      <span class='format identifier id'>format</span><span class='dot token'>.</span><span class='html identifier id'>html</span> <span class='lbrace token'>{</span> <span class='redirect_to identifier id'>redirect_to</span><span class='lparen token'>(</span><span class='@section ivar id'>@section</span><span class='rparen token'>)</span> <span class='rbrace token'>}</span>
+      <span class='format identifier id'>format</span><span class='dot token'>.</span><span class='js identifier id'>js</span>
+    <span class='else else kw'>else</span>
+      <span class='format identifier id'>format</span><span class='dot token'>.</span><span class='html identifier id'>html</span> <span class='lbrace token'>{</span> <span class='render identifier id'>render</span> <span class='symbol val'>:action</span> <span class='assign token'>=</span><span class='gt op'>&gt;</span> <span class='string val'>&quot;edit&quot;</span> <span class='rbrace token'>}</span>
+      <span class='format identifier id'>format</span><span class='dot token'>.</span><span class='js identifier id'>js</span> <span class='lbrace token'>{</span> <span class='render identifier id'>render</span> <span class='symbol val'>:layout</span> <span class='assign token'>=</span><span class='gt op'>&gt;</span> <span class='false false kw'>false</span> <span class='rbrace token'>}</span>
+    <span class='end end kw'>end</span>
+  <span class='end end kw'>end</span>
+<span class='end end kw'>end</span>
+</pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+  </div>
+
+</div>
+    
+    <div id="footer">
+  Generated on Fri Jul  8 14:33:36 2011 by 
+  <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
+  0.7.2 (ruby-1.8.7).
+</div>
+
+  </body>
+</html>

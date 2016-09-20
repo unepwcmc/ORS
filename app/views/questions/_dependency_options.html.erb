@@ -1,4 +1,4 @@
-<li>
+<div class="group row padded">
   <%= label_tag :depends_on_option, "Option * #{info_tip("Dependency", "Here will be displayed the options of the Multi Options question that you selected above. Select the option that this section will depend on.")}".html_safe -%>
   <%= select :section, :depends_on_option, @answer_type.multi_answer_options.sort.map{|i| [i.option_text.size > 65 ? i.option_text[0,65]+ "..." : i.option_text, i.id]}, { :include_blank => "Choose an option" }, { :validate => "{required:true}"} %>
-</li>
+</div>

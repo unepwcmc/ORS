@@ -42,7 +42,7 @@ class DeadlinesController < ApplicationController
     @deadline.destroy
     flash[:notice] = "Successfully removed deadline."
     respond_to do |format|
-      format.html {redirect_to questionnaire_deadlines_path(@questionnaire)}
+      format.html { redirect_to questionnaire_deadlines_path(@questionnaire) }
     end
   end
 

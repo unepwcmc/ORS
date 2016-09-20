@@ -1,7 +1,7 @@
 class DelegatesController < ApplicationController
   def index
     @user = User.find(params[:user_id], :include => :created_users)
-    raise CanCan::AccessDenied.new(t('flash_messages.not_authorized')) if @user != current_user || (!@user.role?(:admin) && !@user.role?(:respondent))       
+    raise CanCan::AccessDenied.new(t('flash_messages.not_authorized')) if @user != current_user || (!@user.role?(:admin) && !@user.role?(:respondent))
     @delegates = @user.delegates
   end
 
@@ -19,7 +19,7 @@ class DelegatesController < ApplicationController
 
   def dashboard
     @delegate = User.find(params[:id], :include => [:delegated_tasks, :creator])
-    raise CanCan::AccessDenied.new(t('flash_messages.not_authorized')) if @delegate != current_user   
+    raise CanCan::AccessDenied.new(t('flash_messages.not_authorized')) if @delegate != current_user
     @delegated_tasks = @delegate.delegated_tasks
   end
 end

@@ -3,7 +3,7 @@
     <% the_id_for_col = the_id + ( queries_as_rows ? "_#{row_id}" : "_#{column.id}") -%>
     <% id = queries_as_rows ? column.id : row_id %>
     <% selected = queries_as_rows ? (selection[row_id] ? selection[row_id].key?(column.id.to_s) : false ) : ( selection[column.id.to_s] ? selection[column.id.to_s].key?(row_id) : false) %>
-    <td>
+    <td class="matrix-cell">
       <%= hidden_field_tag "answers[#{the_id_for_col}_#{id}]", "" %>
       <%= check_box_tag "answers[#{the_id_for_col}_#{id}]", id, selected, :disabled => disabled %>
     </td>

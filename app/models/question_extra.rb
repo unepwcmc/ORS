@@ -12,8 +12,8 @@ end
 # Table name: question_extras
 #
 #  id          :integer          not null, primary key
-#  question_id :integer
-#  extra_id    :integer
-#  created_at  :datetime
-#  updated_at  :datetime
+#  question_id :integer          not null
+#  extra_id    :integer          not null
+#  created_at  :datetime         not null
+#  updated_at  :datetime         not null
 #

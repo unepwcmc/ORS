@@ -1,17 +1,17 @@
 <%= fields_for :answer_type, type do |builder| -%>
-    <li>
+    <div class="row group padded">
       <%= render :partial => "answer_type_fields/form", :locals => {:f => builder, :answer_type_fields => type ? type.answer_type_fields : nil} %>
-    </li>
+    </div>
     <h4>Matrix Answer Type<%= info_tip("Matrix Answer Type", "This type of answer will present the user with a table that, depending on the matrix orientation that you choose, will have Queries as columns and Options as Rows.<br />This allows you to ask the same Query for different Options.<br />Besides the matrix orientation you need to choose the type of input field that you want to use to display the respondents' replies.<br />There are four available types: Text field, Check boxes, Radio buttons and Drop down list. For the Drop down list type you will also have to provide options to build the list.")%></h4>
-    <li>
+    <div class="row group padded">
       <%= builder.label :matrix_orientation, "Matrix orientation *" %>
       <% list_of_options = {"Queries (h) x Options (v)" => 0, "Queries (v) x  Options (h)" => 1 } -%>
       <%= builder.collection_select :matrix_orientation, list_of_options, :last, :first, {:prompt => true}, :class => "required"%>
-    </li>
-    <li>
+    </div>
+    <div class="row group padded">
       <%= builder.label :display_reply, "Display reply *" %>
       <%= builder.collection_select :display_reply, InputFieldType.to_a, :last, :first, {:prompt => true}, :class => "required"%>
-    </li>
+    </div>
     <h4>Queries<%= info_tip("Matrix Answer Queries", "Please enter the queries to which the user will have to choose an option for. To add text click on a cell, to confirm your input press enter.") %></h4>
     <div id="the_queries">
       <table id="queries_list"><tr><td>&nbsp;</td></tr></table>
@@ -77,7 +77,7 @@
                             id: "<%= j %>",
                             <% query_fields = type.matrix_answer_queries[i].matrix_answer_query_fields.sort_by{|a| a.is_default_language? ? 0 : 1} %>
                             <% query_fields.each_with_index do |qf, n| %>
-                              "<%= qf.language_english_name %>": "<%= escape_javascript(qf.title) %>"<%= "," if n < query_fields.size %> 
+                              "<%= qf.language_english_name %>": "<%= escape_javascript(qf.title) %>"<%= "," if n < query_fields.size %>
                             <% end %>
                             <%#= ", " + type.matrix_answer_queries[i].matrix_answer_query_fields.sort_by{ |a| a.is_default_language? ? 0 : 1 }.map{|a| "#{a.language_english_name} : '#{h(a.title)}'"}.join(', ') %>
                         }
@@ -94,7 +94,7 @@
                           id: "<%= j %>",
                           <% option_fields = type.matrix_answer_options[i].matrix_answer_option_fields.sort_by{|a| a.is_default_language? ? 0 : 1} %>
                           <% option_fields.each_with_index do |of, n| %>
-                            "<%= of.language_english_name %>": "<%= escape_javascript(of.title) %>"<%= "," if n < option_fields.size %> 
+                            "<%= of.language_english_name %>": "<%= escape_javascript(of.title) %>"<%= "," if n < option_fields.size %>
                           <% end %>
                           <%#= ", " + type.matrix_answer_options[i].matrix_answer_option_fields.sort_by{ |a| a.is_default_language? ? 0 : 1 }.map{|a| "#{a.language_english_name} : '#{h(a.title)}'"}.join(', ') %>
                         }
@@ -113,7 +113,7 @@
                             id: "<%= j %>",
                             <% drop_option_fields = type.matrix_answer_drop_options[i].matrix_answer_drop_option_fields.sort_by{|a| a.is_default_language? ? 0 : 1} %>
                             <% drop_option_fields.each_with_index do |dof, n| %>
-                              "<%= dof.language_english_name %>": "<%= escape_javascript(dof.option_text) %>"<%= "," if n < drop_option_fields.size %> 
+                              "<%= dof.language_english_name %>": "<%= escape_javascript(dof.option_text) %>"<%= "," if n < drop_option_fields.size %>
                             <% end %>
                             <%#= ", " + type.matrix_answer_drop_options[i].matrix_answer_drop_option_fields.sort_by{ |a| a.is_default_language? ? 0 : 1 }.map{|a| "#{a.language_english_name} : '#{h(a.option_text)}'"}.join(', ') %>
                         }

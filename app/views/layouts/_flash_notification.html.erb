@@ -1,0 +1,4 @@
+<% flash.each do |name, msg| -%>
+  <%= javascript_tag "flash_message('#{name}', '#{escape_javascript(msg)}')" %>
+  <% flash.delete(name) %>
+<% end -%>

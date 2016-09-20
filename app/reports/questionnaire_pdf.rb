@@ -4,64 +4,86 @@ class QuestionnairePdf < Prawn::Document
   CHECK_BOX = "\xE2\x98\x90"
   FILLED_CHECK_BOX = "\xE2\x98\x91"
 
-  #Generates a PDF file for questionnaire with the user's answers.
-  #If short_version is true it will only print the section and/or questions that have answers
+  attr_reader :logger
+
+  def initialize
+    super()
+    @coder = HTMLEntities.new
+    @logger = Logger.new("#{Rails.root}/log/sidekiq.log")
+  end
+
+  # Generates a PDF file for questionnaire with the user's answers.
+  # If short_version is true it will only print the section and/or questions that have answers
   def to_pdf  requester, user, questionnaire, url_prefix, short_version=false
     font_families.update(
       "DejaVuSans" => { # Using DejaVuSans because it provides the 'filled_check_box' and the 'check_box' icons.
-      :bold => "#{Rails.root}/public/data/fonts/DejaVuSans-Bold.ttf",
-      :bold_italic => "#{Rails.root}/public/data/fonts/DejaVuSans-BoldOblique.ttf",
-      :italic => "#{Rails.root}/public/data/fonts/DejaVuSans-Oblique.ttf",
-      :normal => "#{Prawn::BASEDIR}/data/fonts/DejaVuSans.ttf",
-    }
+        :bold => "#{Rails.root}/public/data/fonts/DejaVuSans-Bold.ttf",
+        :bold_italic => "#{Rails.root}/public/data/fonts/DejaVuSans-BoldOblique.ttf",
+        :italic => "#{Rails.root}/public/data/fonts/DejaVuSans-Oblique.ttf",
+        :normal => "#{Prawn::BASEDIR}/data/fonts/DejaVuSans.ttf"
+      }
     )
     font "DejaVuSans"
     self.font_size = 9
+
     #check_box = "\xE2\x98\x90"
     #filled_check_box = "\xE2\x98\x91"
-    logger = Logger.new("#{Rails.root}/log/sidekiq.log")
+
     banner = questionnaire.header.path
-    if banner.present? && File.exists?(banner)
+    if banner.present? && File.exist?(banner)
       image banner, :position => :left, :width => 550
     end
+
     move_down 20
+
     authorization = AuthorizedSubmitter.find_by_questionnaire_id_and_user_id(questionnaire.id, user.id)
     I18n.locale = authorization.language
     questionnaire_field = ( questionnaire.questionnaire_fields.find_by_language(authorization.language) || questionnaire.questionnaire_fields.find_by_is_default_language(true) )
-    text "#{questionnaire_field.title}", :size => 16, :style => :bold
+    text "#{questionnaire_field.title.html_safe}", :size => 16, :style => :bold
     #text "Language: #{questionnaire.language_english_name}"
+
     move_down 18
+
     text "#{OrtSanitize.white_space_cleanse(questionnaire_field.introductory_remarks).gsub("\n", "\n\n")}", :inline_format => true
+
     move_down 13
+
     fields = {}
+
     puts "#{Time.now} - Started generating #{short_version ? "short" : ""} PDF for - #{questionnaire_field.title} - for #{user.full_name}"
     logger.info "#{Time.now} - Started generating #{short_version ? "short" : ""} PDF for - #{questionnaire_field.title} - for #{user.full_name}"
+
     begin
       sections = questionnaire.sections
       sections.each_index do |i|
         fields.clear
         #answers = []
         sections[i].objects_fields_in authorization.language, fields
-        answers = sections[i].section_and_descendants_answers_for(user).select{|ans| ans.filled_answer?}
+        answers = sections[i].section_and_descendants_answers_for(user).select{ |ans| ans.filled_answer? }
         root_section_to_pdf(authorization.language, sections[i], user, fields, answers, url_prefix, short_version)
-        #new page for every new root section (if we're doing a short_version pdf only add the new page if the answers aren't empty)
-        #the last check on the if is related with checking if there is any content for the next page
+
+        # new page for every new root section (if we're doing a short_version pdf only add the new page if the answers aren't empty)
+        # the last check on the if is related with checking if there is any content for the next page
         if i < sections.size-1 && (!short_version || !answers.empty?) && page.content.stream !="/DeviceRGB cs\n0.000 0.000 0.000 scn\n/DeviceRGB CS\n0.000 0.000 0.000 SCN\nq\n" && cursor != 720.0
-          #puts "the cursor is here #{cursor}"
+          # puts "the cursor is here #{cursor}"
           start_new_page
         end
       end
+
       #footer [ margin_box.left, margin_box.bottom + 25 ] do
       repeat(:all, :dynamic => true) do
         draw_text "#{questionnaire_field.title} [#{user.full_name}]", :size => 7, :at => [0, -15]
         draw_text "Page #{page_number} of #{page_count}", :size => 8, :at => [500, (questionnaire.title.size > 50 ? -6 : -15)]
       end
+
       pdf_file = questionnaire.pdf_files.find_by_user_id_and_is_long(user.id, !short_version) || PdfFile.new(:questionnaire => questionnaire, :user => user, :is_long => !short_version)
-      if !pdf_file.new_record? && File.exists?(pdf_file.location)
+      if !pdf_file.new_record? && File.exist?(pdf_file.location)
         FileUtils.rm(pdf_file.location)
       end
+
       sanitized_title = questionnaire.title[0,35].strip.
         gsub!(/[^0-9A-Za-z.\-]/, '_')
+
       pdf_file.name = "#{sanitized_title}_#{short_version ? "short" : "long"}_#{DateTime.now.strftime("%d%m%Y")}.pdf"
       location_rel = "private/questionnaires/#{questionnaire.id}/users/#{user.id}/"
       location_abs = "#{Rails.root}/#{location_rel}"
@@ -71,21 +93,28 @@ class QuestionnairePdf < Prawn::Document
       pdf_file.location = location_rel + pdf_file.name
       pdf_file.save
       render_file pdf_file.location
+
       if File.directory?("#{Rails.root}/private/questionnaires/#{questionnaire.id}/users/#{user.id}/generating_#{short_version ? "short" : "long"}_pdf")
         FileUtils.rmdir("#{Rails.root}/private/questionnaires/#{questionnaire.id}/users/#{user.id}/generating_#{short_version ? "short" : "long"}_pdf")
       end
+
       puts "#{Time.now.to_s} - PDF Successfully generated - #{questionnaire_field.title} - for #{user.full_name}"
       logger.info "#{Time.now.to_s} - PDF Successfully generated - #{questionnaire_field.title} - for #{user.full_name}"
-    rescue Exception => e
+
+    rescue => e
       UserMailer.pdf_generation_failed(requester, user, questionnaire, e.message).deliver
+
       logger.info "#{Time.now.to_s} - PDF failed to generate - #{questionnaire_field.title} - for #{user.full_name} - with error: #{e.message}"
       logger.info e.backtrace
+
       if File.directory?("#{Rails.root}/private/questionnaires/#{questionnaire.id}/users/#{user.id}/generating_#{short_version ? "short" : "long"}_pdf")
         FileUtils.rmdir("#{Rails.root}/private/questionnaires/#{questionnaire.id}/users/#{user.id}/generating_#{short_version ? "short" : "long"}_pdf")
       end
+
       return
     end
-    #mail the requester about the pdf being generated. (can be the user or an admin)
+
+    # mail the requester about the pdf being generated. (can be the user or an admin)
     UserMailer.pdf_generated(requester, questionnaire, user).deliver
   end
 
@@ -139,7 +168,7 @@ class QuestionnairePdf < Prawn::Document
     section.questionnaire_part.children_parts_sorted.each do |child|
       if child.is_a?(Question)
         answer = conditions_met_or_inexistent ? Question.get_answer(answers, child.id, looping_identifier) : nil
-        unless short_version && answer.nil? 
+        unless short_version && answer.nil?
           question_to_pdf language, child, answer, loop_item, fields, loop_sources_items, url_prefix, short_version
         end
       else
@@ -195,7 +224,7 @@ class QuestionnairePdf < Prawn::Document
       when "TextAnswer"
         display_text_answer question.answer_type, answer, short_version
       when "MatrixAnswer"
-        display_matrix_answer question.answer_type, answer, fields 
+        display_matrix_answer question.answer_type, answer, fields
       end
     end
     if answer
@@ -230,7 +259,7 @@ class QuestionnairePdf < Prawn::Document
     end
     #get all the options ids from the answer's answer_parts
     if answer.present?
-      options_selected = answer.answer_parts.map{|a| a.field_type_id}
+      options_selected = answer.answer_parts.map{ |a| a.field_type_id }
     else
       options_selected = []
     end
@@ -293,12 +322,14 @@ class QuestionnairePdf < Prawn::Document
       if short_version
         if entered_answer
           the_height = string_height(entered_answer.answer_text)*20
-          text_field the_width, the_height, entered_answer.try(:answer_text) #entered_answer should always exist for a short version, otherwise it wouldn't get here
+          txt = @coder.decode(entered_answer.try(:answer_text))
+          text_field the_width, the_height, txt #entered_answer should always exist for a short version, otherwise it wouldn't get here
         end
       else
         answer_height = entered_answer ? string_height(entered_answer.answer_text) : 0
         the_height = ( [1, taf.rows || 0, answer_height].max ) * 20
-        text_field the_width, the_height, entered_answer.try(:answer_text)
+        txt = @coder.decode(entered_answer.try(:answer_text))
+        text_field the_width, the_height, txt
       end
       move_down 5
     end
@@ -317,11 +348,10 @@ class QuestionnairePdf < Prawn::Document
     count
   end
 
-
-  def display_matrix_answer answer_type, answer, fields 
+  def display_matrix_answer answer_type, answer, fields
     queries_as_rows = (answer_type.matrix_orientation == 0)
     columns_source = queries_as_rows ? answer_type.matrix_answer_options : answer_type.matrix_answer_queries
-    header = [""] + columns_source.map{|a| (queries_as_rows ? fields[:matrix_answer_option_field][a.id.to_s] : fields[:matrix_answer_query_field][a.id.to_s])}
+    header = [""] + columns_source.map{ |a| (queries_as_rows ? fields[:matrix_answer_option_field][a.id.to_s] : fields[:matrix_answer_query_field][a.id.to_s]) }
     data = []
     rows_source = queries_as_rows ? answer_type.matrix_answer_queries : answer_type.matrix_answer_options
     selection = {}
@@ -371,13 +401,13 @@ class QuestionnairePdf < Prawn::Document
 
   def display_images images_urls
     images_urls.each do |img|
-      if img.match(/(.*)\.jpg$/) || img.match(/(.*)\.jpeg$/) || img.match(/(.*)\.png$/)
+      if img.match(/(.*)\.(jpe?g|png)$/)
         begin
           image open("#{img}"), :position => :left, :height => 100
           move_down 5
-        rescue Exception => e
+        rescue => e
           puts "There was an error with this image #{img}: #{e.message}"
-          #continue with the rest.
+          # continue with the rest
         end
       end
     end
@@ -387,7 +417,8 @@ class QuestionnairePdf < Prawn::Document
     #bounding_box [5, cursor], :width => box_width, :height => box_rows do
     span(box_width) do
       if entered_text
-        text "› " + OrtSanitize.white_space_cleanse(entered_text)
+        txt = @coder.decode(OrtSanitize.white_space_cleanse(entered_text))
+        text "› " + txt
       else
         text "›"
       end
@@ -401,7 +432,7 @@ class QuestionnairePdf < Prawn::Document
       :bold => "#{Rails.root}/public/data/fonts/DejaVuSans-Bold.ttf",
       :bold_italic => "#{Rails.root}/public/data/fonts/DejaVuSans-BoldOblique.ttf",
       :italic => "#{Rails.root}/public/data/fonts/DejaVuSans-Oblique.ttf",
-      :normal => "#{Prawn::BASEDIR}/data/fonts/DejaVuSans.ttf",
+      :normal => "#{Prawn::BASEDIR}/data/fonts/DejaVuSans.ttf"
     }
     )
     font "DejaVuSans"
@@ -410,8 +441,8 @@ class QuestionnairePdf < Prawn::Document
     text "Questionnaire: #{questionnaire.title}", :size => 14, :style => :bold
     text "Language: #{questionnaire.language_english_name}"
     move_down 20
-    questionnaire.questionnaire_parts.sort{|a,b| a.lft <=> b.lft}.each do |questionnaire_part|
-      questionnaire_part.self_and_descendants.sort{|a,b| a.lft <=> b.lft}.map{|a| a.part}.each do |part|
+    questionnaire.questionnaire_parts.sort{ |a,b| a.lft <=> b.lft }.each do |questionnaire_part|
+      questionnaire_part.self_and_descendants.sort{ |a,b| a.lft <=> b.lft }.map{ |a| a.part }.each do |part|
         if part.is_a?(Section)
           if !part.is_hidden?
             text "#{OrtSanitize.white_space_cleanse(part.title)}", :size => 11, :style => :bold
@@ -469,10 +500,10 @@ class QuestionnairePdf < Prawn::Document
 
   def preview_matrix_display answer_type
     queries_as_rows = (answer_type.matrix_orientation == 0)
-    columns_source = queries_as_rows ? answer_type.matrix_answer_options.map{|a| a.title} : answer_type.matrix_answer_queries.map{|a| a.title}
+    columns_source = queries_as_rows ? answer_type.matrix_answer_options.map{ |a| a.title } : answer_type.matrix_answer_queries.map{ |a| a.title }
     header = [""] + columns_source
     data = []
-    rows_source = queries_as_rows ? answer_type.matrix_answer_queries.map{|a| a.title} : answer_type.matrix_answer_options.map{|a| a.title}
+    rows_source = queries_as_rows ? answer_type.matrix_answer_queries.map{ |a| a.title } : answer_type.matrix_answer_options.map{ |a| a.title }
     rows_source.each do |row|
       line = []
       line << row

@@ -3,7 +3,7 @@ lock '3.4.0'
 
 set :application, proc { fetch(:stage).split(':').reverse[1] }
 
-set :repo_url, 'git@github.com:unepwcmc/ORS.git'
+set :repo_url, 'git@github.com:unepwcmc/online_reporting_tool.git'
 
 set :rvm_type, :user
 set :rvm_ruby_version, 'ruby-2.2.3'

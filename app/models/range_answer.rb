@@ -32,7 +32,7 @@ class RangeAnswer < ActiveRecord::Base
         result = true
       end
     else #delete existing answer_part
-      ap = answer.answer_parts.first 
+      ap = answer.answer_parts.first
       if ap
         ap.delete
         result = true
@@ -51,7 +51,7 @@ end
 # Table name: range_answers
 #
 #  id          :integer          not null, primary key
-#  created_at  :datetime
-#  updated_at  :datetime
+#  created_at  :datetime         not null
+#  updated_at  :datetime         not null
 #  original_id :integer
 #

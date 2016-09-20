@@ -1,8 +1,37 @@
+# == Schema Information
+#
+# Table name: users
+#
+#  id                  :integer          not null, primary key
+#  email               :string(255)      not null
+#  persistence_token   :string(255)      not null
+#  crypted_password    :string(255)      not null
+#  password_salt       :string(255)      not null
+#  created_at          :datetime         not null
+#  updated_at          :datetime         not null
+#  login_count         :integer          default(0), not null
+#  failed_login_count  :integer          default(0), not null
+#  last_request_at     :datetime
+#  current_login_at    :datetime
+#  last_login_at       :datetime
+#  current_login_ip    :string(255)
+#  last_login_ip       :string(255)
+#  perishable_token    :string(255)      not null
+#  single_access_token :string(255)      not null
+#  first_name          :string(255)
+#  last_name           :string(255)
+#  creator_id          :integer          default(0)
+#  language            :string(255)      default("en")
+#  category            :string(255)
+#  region              :text             default("")
+#  country             :text             default("")
+#
+#
 require 'test_helper'
 
 class UserTest < ActiveSupport::TestCase
 
-  setup do 
+  setup do
     User.delete_all
   end
 
@@ -21,9 +50,8 @@ class UserTest < ActiveSupport::TestCase
     setup do
       User.delete_all
       @user = FactoryGirl.create(:user)
-      @questionnaire = FactoryGirl.create(:questionnaire)
-      questionnaire_field = FactoryGirl.create(:questionnaire_field)
-      @questionnaire.questionnaire_fields << questionnaire_field
+      @questionnaire = FactoryGirl.create(:questionnaire, user: @user, last_editor: @user)
+      questionnaire_field = FactoryGirl.create(:questionnaire_field, questionnaire: @questionnaire)
     end
 
     should "return false when checking if @user is an authorized submitter of @questionnaire" do
@@ -33,7 +61,7 @@ class UserTest < ActiveSupport::TestCase
 
   #Add user to a group and check if it was successfully added
   context "1 user to be added to group Test" do
-    subject{@user; @users}
+    subject{ @user; @users }
     setup do
       @user = FactoryGirl.create(:user)
       @user2 = FactoryGirl.create(:user, :first_name => "Mariana", :last_name =>"Domingos", :email => "mariana@domingos.pt")
@@ -52,30 +80,3 @@ class UserTest < ActiveSupport::TestCase
   end
 
 end
-
-# == Schema Information
-#
-# Table name: users
-#
-#  id                  :integer          not null, primary key
-#  email               :string(255)      not null
-#  persistence_token   :string(255)      not null
-#  crypted_password    :string(255)      not null
-#  password_salt       :string(255)      not null
-#  created_at          :datetime
-#  updated_at          :datetime
-#  login_count         :integer          default(0), not null
-#  failed_login_count  :integer          default(0), not null
-#  last_request_at     :datetime
-#  current_login_at    :datetime
-#  last_login_at       :datetime
-#  current_login_ip    :string(255)
-#  last_login_ip       :string(255)
-#  perishable_token    :string(255)      not null
-#  single_access_token :string(255)      not null
-#  first_name          :string(255)
-#  last_name           :string(255)
-#  creator_id          :integer          default(0)
-#  language            :string(255)      default("en")
-#  category            :string(255)
-#

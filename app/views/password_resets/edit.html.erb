@@ -1,0 +1,19 @@
+<h1>Update your password</h1>
+
+<p>Please enter the new password below and then press "Update Password".</p>
+
+<%= form_tag password_reset_path, :method => :put do %>
+  <div class="form-group">
+    <%= label_tag :password, nil, class: "col-3" %>
+    <div class="col-3">
+      <%= password_field_tag :password %>
+    </div>
+  </div>
+  <div class="form-group">
+    <%= label_tag :password_confirmation, nil, class: "col-3" %>
+    <div class="col-3">
+      <%= password_field_tag :password_confirmation %>
+    </div>
+  </div>
+  <%= submit_tag "Update Password" %>
+<% end %>

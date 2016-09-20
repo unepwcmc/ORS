@@ -1,26 +1,48 @@
+<div class="page-header">
+<h2>Structure Ordering</h2>
+</div>
+
+<p>
+<strong>Questionnaire:</strong>
+  <%= link_to @questionnaire.title, dashboard_questionnaire_path(@questionnaire) %>
+</p>
+
+<div class="row group">
+  <div class="col col-6 border-right">
+    <div class="page-header">
+      <h5>Rules for moving the tree nodes</h5>
+    </div>
+    <div class="moving-nodes-rules">
+      <ul>
+        <li>The root node can't be moved</li>
+        <li>All objects can be re-ordered with their siblings</li>
+        <li>Questions can not be moved to the root of the tree</li>
+        <li>Questions with loop item types or extra information regarding loop items associated can not change parent</li>
+        <li>Sections can not be moved inside their own descendants</li>
+        <li>Sections can not be moved if they are of looping type</li>
+        <li>Sections can not be moved if they have extra information regarding loop items associated with them</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="col col-6">
+    <div class="demo" id="demo"></div>
+  </div>
+</div>
+
+
 <div class="span-24 last">
   <div id="content_header">
-    <%= render :partial => "administration/breadcrumbs" -%>
     <%= render :partial => "administration/menu", :locals => {:header => "Questionnaire structure ordering", :include_options => "questionnaires"} -%>
   </div>
-  <div class="clear span-14 colborder" id="demo" class="demo"></div>
   <div id="questionnaire" class="no_dialog"></div>
   <div class="span-9 last" id="q_dashboard">
-    <h4>Rules for moving the tree nodes</h4>
-    <ol>
-      <li>The root node can't be moved</li>
-      <li>All objects can be re-ordered with their siblings</li>
-      <li>Questions can not be moved to the root of the tree</li>
-      <li>Questions with loop item types or extra information regarding loop items associated can not change parent</li>
-      <li>Sections can not be moved inside their own descendants</li>
-      <li>Sections can not be moved if they are of looping type</li>
-      <li>Sections can not be moved if they have extra information regarding loop items associated with them</li>
-    </ol>
-    <h4>Nodes info</h4>
+    <div class="page-header"><h5>Nodes info</h5></div>
     <div id="node_info_container">
     </div>
   </div>
 </div>
+
 <script type="text/javascript">
     $(function(){
         $("#demo").bind('move_node.jstree', function(e, data){
@@ -77,7 +99,7 @@
                     "url" : RAILS_ROOT + "/questionnaires/<%= @questionnaire.id %>/jstree"
                 }
             },
-            "plugins" : [ "themes", "types", "json_data", "ui", "crrm", "dnd", "contextmenu" ]
+            "plugins" : [ "themes", "types", "json_data", "ui", "crrm", "dnd"]//, "contextmenu" ]
         })
     })
 </script>

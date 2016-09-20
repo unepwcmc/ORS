@@ -1,7 +1,10 @@
 <% questionnaires ||= @questionnaires -%>
 <% set_update_page = false %>
+
 <div id="questionnaires_for_submission">
-  <h3><%= t('user_dashboard.table_title')%></h3>
+  <div class="page-header">
+    <h5><%= t('user_dashboard.table_title')%></h5>
+  </div>
   <table class="dashboard_table">
     <thead>
       <tr>
@@ -24,9 +27,9 @@
           <tr>
             <td><%= questionnaire.active? && @user.authorized_submitters.find_by_questionnaire_id(questionnaire.id).status == SubmissionStatus::UNDERWAY  ? (link_to ("<strong>"+h(questionnaire.title(current_user.language))+"</strong>").html_safe, submission_questionnaire_path(questionnaire)) : h(questionnaire.title)%></td>
             <td><%= h(questionnaire.user.full_name) %></td>
-            <td><%= l(questionnaire.created_at) %></td>
+            <td><%= questionnaire.created_at.strftime("%m/%d/%Y") %></td>
             <td>
-              <strong><%= questionnaire.inactive? ? t('user_dashboard.status_na').html_safe : questionnaire.active? ? (questionnaire.authorized_submitters.find_by_user_id(@user.id).status == 2 ? (t('user_dashboard.status_s') + " ").html_safe + link_to(t('generic.unsubmit'), new_questionnaire_unsubmission_request_path(questionnaire), :title => t("user_dashboard.unsubmit_title")) : t('user_dashboard.status_u')) : image_tag('icons/lock.png', :alt => t('user_dashboard.status_closed'), :title => t('user_dashboard.status_closed')) %></strong>
+              <strong><%= questionnaire.inactive? ? t('user_dashboard.status_na').html_safe : questionnaire.active? ? (questionnaire.authorized_submitters.find_by_user_id(@user.id).status == 2 ? (t('user_dashboard.status_s') + " ").html_safe + link_to(t('generic.unsubmit'), new_questionnaire_unsubmission_request_path(questionnaire), :title => t("user_dashboard.unsubmit_title")) : t('user_dashboard.status_u')) : fa_icon('lock', :alt => t('user_dashboard.status_closed'), :title => t('user_dashboard.status_closed'), class: 'background inverse info') %></strong>
             </td>
             <!--<td><%#= questionnaire.percentage_of_completion_for(current_user) %>%</td>-->
             <td id="pdf_for_<%= questionnaire.id %>">
@@ -62,4 +65,3 @@
     updateUserSubmissionPage("<%= @user.id %>");
   </script>
 <% end -%>
-

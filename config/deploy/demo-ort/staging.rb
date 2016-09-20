@@ -1,9 +1,10 @@
 set :stage, :staging
-set :branch, "master"
 
-server "ort-staging.linode.unep-wcmc.org", user: "wcmc", roles: %w{app web db}
+set :branch, "develop"
 
-set :domain, "ort-staging.linode.unep-wcmc.org"
+server "demo-ort.ort-staging.linode.unep-wcmc.org", user: "wcmc", roles: %w{app web db}
+
+set :domain, "demo-ort.ort-staging.linode.unep-wcmc.org"
 
 set :server_name, "#{fetch(:application)}.#{fetch(:domain)}"
 

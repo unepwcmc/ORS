@@ -1,6 +1,7 @@
 <li id="li_section_<%= append_identifier(section, nil) %>" class="<%= section.level == 0 ? "" : section.level > 3 ? "tab_level3" : "tab_level"+section.level.to_s %> <%= ( section.depends_on_option && !section.dependency_condition_met?(current_user, nil) ) ? "hide" : "" %>">
-  <span style="float:left; width:<%= section.level >= 3 ? "9em" : "10em" %>">
-    <%= link_to (section.level == 1 ? "► " : "") + OrtSanitize.white_space_cleanse(section.value_in((section.root? ? :tab_title : :title), @authorization[:language])), "#", :title=> "section content #{section.id.to_s}", :style=> 'width:9em' %>
+  <span id="img<%=section.id.to_s%>">
+    <%= link_to (section.level == 1 ? "► " : "") + OrtSanitize.white_space_cleanse(section.value_in((section.root? ? :tab_title : :title), @authorization[:language])), "#", :title=> "section content #{section.id.to_s}", class: 'section-link' %>
     </span>
-  <span id="img<%=section.id.to_s%>" style="padding-top:5px; padding-right: 5px; float:right;"></span>
+  <span id="img<%=section.id.to_s%> ___DISABLED___" style="padding-top:5px; padding-right: 5px; float:right;"></span>
+  <% # FIXME: Remove ___DISABLED___ from Id to reactivate icons %>
 </li>

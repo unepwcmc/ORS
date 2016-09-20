@@ -1,12 +1,12 @@
 <div class="option" style="display: block;">
   <li>Add the options in the questionnaire languages (click to display the fields):</li>
   <% the_id = ( f.object.id.nil? || f.object.id == 0 ) ? nil : f.object.id.to_s
-     main_lang = aux_builder.object.answer_type_fields.select{|l| l.is_default_language?}.first 
+     main_lang = aux_builder.object.answer_type_fields.select{|l| l.is_default_language?}.first
   -%>
   <li>
     <% #default language appears expanded %>
     <%= aux_builder.object.answer_type_fields.sort_by{ |a| a.is_default_language? ? 0 : 1 }.
-      map{|field| "<a href='#' class='display_lang' id='#{the_id.nil? ? "new_rank_answer_options" : the_id }_ranko_#{field.language}'>#{field.language_english_name} #{field.is_default_language? ? "-": "+"}</a> " }.
+      map{|field| "<a href='#' class='display_lang' id='#{the_id.nil? ? "new_rank_answer_options" : the_id }_ranko_#{field.language}'>#{field.language_english_name} #{field.is_default_language? ? "<i class='fa fa-caret-up'></i>" : "<i class='fa fa-caret-down'></i>"}</a> " }.
       join(" | ").html_safe %>
     |
     <a href="#" class="show_all_lang_fields">Expand all</a>

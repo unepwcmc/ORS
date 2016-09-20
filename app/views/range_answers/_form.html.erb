@@ -1,9 +1,9 @@
 <%= fields_for :answer_type, type do |builder| -%>
-    <li>
+    <div class="row group padded">
       <%= render :partial => "answer_type_fields/form", :locals => { :f => builder, :answer_type_fields => type.answer_type_fields } %>
-    </li>
+    </div>
     <div>
-      <p style="font-weight:600; font-size:13px">Range type question <%=info_tip("Range Type","<p>The range type question allows the definition of values, which occur within a range e.g. 0-10, 11-20, 21-30 etc..., and this makes it easier for analysis purposes. <br /><br /> Enter each range values in the table below by pressing the 'Add Option', and <span style='color:yellow'>make sure you press enter on the last entry, else it will not be included.</span></p>")%> </p>
+      <h4>Range type question <%=info_tip("Range Type","<p>The range type question allows the definition of values, which occur within a range e.g. 0-10, 11-20, 21-30 etc..., and this makes it easier for analysis purposes. <br /><br /> Enter each range values in the table below by pressing the 'Add Option', and make sure you press enter on the last entry, else it will not be included.</p>")%> </h4>
     </div>
     <div id="options_fields">
       <table id="options_list"><tr><td>&nbsp;</td></tr></table>
@@ -30,11 +30,11 @@
         <% if !type.new_record? -%>
             <% j = 0 %>
                 var optionsData = [
-                    <% type.range_answer_options.sort.each_index do |i| %>
+                    <% type.range_answer_options.sort.each_with_index do |range_answer, i| %>
                         {
                             id: "<%= j %>",
-                            Index: "<%= type.range_answer_options[i].sort_index %>" 
-                            <%= ", " + type.range_answer_options[i].range_answer_option_fields.sort_by{ |a| a.is_default_language? ? 0 : 1 }.map{|a| "#{a.language_english_name} : '#{h(a.option_text)}'"}.join(', ') %>
+                            Index: "<%= range_answer.sort_index %>"
+                            <%= (", " + range_answer.range_answer_option_fields.sort_by{ |a| a.is_default_language? ? 0 : 1 }.map{|a| "#{a.language_english_name} : \"#{h(a.option_text)}\""}.join(', ')).html_safe %>
                         }
                         <% if i < type.range_answer_options.size %>
                             ,

@@ -1,0 +1,2300 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>
+  Class: QuestionnairesController
+  
+    &mdash; Documentation by YARD 0.7.2
+  
+</title>
+
+  <link rel="stylesheet" href="css/style.css" type="text/css" media="screen" charset="utf-8" />
+
+  <link rel="stylesheet" href="css/common.css" type="text/css" media="screen" charset="utf-8" />
+
+<script type="text/javascript" charset="utf-8">
+  relpath = '';
+  if (relpath != '') relpath += '/';
+</script>
+
+  <script type="text/javascript" charset="utf-8" src="js/jquery.js"></script>
+
+  <script type="text/javascript" charset="utf-8" src="js/app.js"></script>
+
+
+  </head>
+  <body>
+    <script type="text/javascript" charset="utf-8">
+      if (window.top.frames.main) document.body.className = 'frames';
+    </script>
+    
+    <div id="header">
+      <div id="menu">
+  
+    <a href="_index.html">Index (Q)</a> &raquo; 
+    
+    
+    <span class="title">QuestionnairesController</span>
+  
+  
+  <div class="noframes"><span class="title">(</span><a href="." target="_top">no frames</a><span class="title">)</span></div>
+</div>
+
+      <div id="search">
+  
+    <a id="class_list_link" href="#">Class List</a>
+  
+    <a id="method_list_link" href="#">Method List</a>
+  
+    <a id="file_list_link" href="#">File List</a>
+  
+</div>
+      <div class="clear"></div>
+    </div>
+    
+    <iframe id="search_frame"></iframe>
+    
+    <div id="content"><h1>Class: QuestionnairesController
+  
+  
+  
+</h1>
+
+<dl class="box">
+  
+    <dt class="r1">Inherits:</dt>
+    <dd class="r1">
+      <span class="inheritName"><span class='object_link'><a href="ApplicationController.html" title="ApplicationController (class)">ApplicationController</a></span></span>
+      
+        <ul class="fullTree">
+          <li>Object</li>
+          
+            <li class="next">ActionController::Base</li>
+          
+            <li class="next"><span class='object_link'><a href="ApplicationController.html" title="ApplicationController (class)">ApplicationController</a></span></li>
+          
+            <li class="next">QuestionnairesController</li>
+          
+        </ul>
+        <a href="#" class="inheritanceTree">show all</a>
+      
+      </dd>
+    
+  
+  
+    
+  
+    
+  
+  
+  
+    <dt class="r2 last">Defined in:</dt>
+    <dd class="r2 last">app/controllers/questionnaires_controller.rb</dd>
+  
+</dl>
+<div class="clear"></div>
+
+
+
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+
+
+  
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <h2>
+      Instance Method Summary
+      <small>(<a href="#" class="summary_toggle">collapse</a>)</small>
+    </h2>
+
+    <ul class="summary">
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#activate-instance_method" title="#activate (instance method)">- (Object) <strong>activate</strong> </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'><p>
+Activate Questionnaire.
+</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#close-instance_method" title="#close (instance method)">- (Object) <strong>close</strong> </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'><p>
+Close Questionnaire.
+</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#create-instance_method" title="#create (instance method)">- (Object) <strong>create</strong> </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'><p>
+POST /questionnaires POST /questionnaires.xml.
+</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#dashboard-instance_method" title="#dashboard (instance method)">- (Object) <strong>dashboard</strong> </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#deactivate-instance_method" title="#deactivate (instance method)">- (Object) <strong>deactivate</strong> </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'><p>
+Deactivate Questionnaire.
+</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#delete-instance_method" title="#delete (instance method)">- (Object) <strong>delete</strong> </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'><p>
+GET /questionnaires/1/delete.
+</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#destroy-instance_method" title="#destroy (instance method)">- (Object) <strong>destroy</strong> </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'><p>
+DELETE /questionnaires/1 DELETE /questionnaires/1.xml.
+</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#download_csv-instance_method" title="#download_csv (instance method)">- (Object) <strong>download_csv</strong> </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#download_user_pdf-instance_method" title="#download_user_pdf (instance method)">- (Object) <strong>download_user_pdf</strong> </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#duplicate-instance_method" title="#duplicate (instance method)">- (Object) <strong>duplicate</strong> </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#edit-instance_method" title="#edit (instance method)">- (Object) <strong>edit</strong> </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'><p>
+GET /questionnaires/1/edit.
+</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#index-instance_method" title="#index (instance method)">- (Object) <strong>index</strong> </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'><p>
+GET /questionnaires GET /questionnaires.xml.
+</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#jstree-instance_method" title="#jstree (instance method)">- (Object) <strong>jstree</strong> </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'><p>
+get the questionnaire tree.
+</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#manage_languages-instance_method" title="#manage_languages (instance method)">- (Object) <strong>manage_languages</strong> </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#move_questionnaire_part-instance_method" title="#move_questionnaire_part (instance method)">- (Object) <strong>move_questionnaire_part</strong> </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#new-instance_method" title="#new (instance method)">- (Object) <strong>new</strong> </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'><p>
+GET /questionnaires/new GET /questionnaires/new.xml.
+</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#preview-instance_method" title="#preview (instance method)">- (Object) <strong>preview</strong> </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'><p>
+Preview Questionnaire.
+</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#respondents-instance_method" title="#respondents (instance method)">- (Object) <strong>respondents</strong> </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#send_deadline_warning-instance_method" title="#send_deadline_warning (instance method)">- (Object) <strong>send_deadline_warning</strong> </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#send_multiple_deadline_warnings-instance_method" title="#send_multiple_deadline_warnings (instance method)">- (Object) <strong>send_multiple_deadline_warnings</strong> </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#show-instance_method" title="#show (instance method)">- (Object) <strong>show</strong> </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'><p>
+GET /questionnaires/1 GET /questionnaires/1.xml.
+</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#structure_ordering-instance_method" title="#structure_ordering (instance method)">- (Object) <strong>structure_ordering</strong> </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#submission-instance_method" title="#submission (instance method)">- (Object) <strong>submission</strong> </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'><p>
+Access submission view of a Questionnaire.
+</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#submit-instance_method" title="#submit (instance method)">- (Object) <strong>submit</strong> </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#to_csv-instance_method" title="#to_csv (instance method)">- (Object) <strong>to_csv</strong> </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#to_pdf-instance_method" title="#to_pdf (instance method)">- (Object) <strong>to_pdf</strong> </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#tree-instance_method" title="#tree (instance method)">- (Object) <strong>tree</strong> </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#unsubmit-instance_method" title="#unsubmit (instance method)">- (Object) <strong>unsubmit</strong> </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#update-instance_method" title="#update (instance method)">- (Object) <strong>update</strong> </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'><p>
+PUT /questionnaires/1 PUT /questionnaires/1.xml.
+</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#update_languages-instance_method" title="#update_languages (instance method)">- (Object) <strong>update_languages</strong> </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+      
+    </ul>
+  
+
+
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  <h3 class="inherited">Methods included from <span class='object_link'><a href="Authentication.html" title="Authentication (module)">Authentication</a></span></h3>
+  <p class="inherited"><span class='object_link'><a href="Authentication.html#current_user-instance_method" title="Authentication#current_user (method)">#current_user</a></span>, <span class='object_link'><a href="Authentication.html#current_user_session-instance_method" title="Authentication#current_user_session (method)">#current_user_session</a></span>, <span class='object_link'><a href="Authentication.html#included-class_method" title="Authentication.included (method)">included</a></span>, <span class='object_link'><a href="Authentication.html#logged_in%3F-instance_method" title="Authentication#logged_in? (method)">#logged_in?</a></span>, <span class='object_link'><a href="Authentication.html#login_required-instance_method" title="Authentication#login_required (method)">#login_required</a></span>, <span class='object_link'><a href="Authentication.html#redirect_to_target_or_default-instance_method" title="Authentication#redirect_to_target_or_default (method)">#redirect_to_target_or_default</a></span></p>
+
+  
+
+  <div id="instance_method_details" class="method_details_list">
+    <h2>Instance Method Details</h2>
+    
+    
+      <div class="method_details first">
+  <p class="signature first" id="activate-instance_method">
+  
+    - (<tt>Object</tt>) <strong>activate</strong> 
+  
+
+  
+</p><div class="docstring">
+  <div class="discussion">
+    <p>
+Activate Questionnaire
+</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+155
+156
+157
+158
+159
+160
+161
+162
+163
+164
+165
+166
+167
+168</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'app/controllers/questionnaires_controller.rb', line 155</span>
+
+<span class='def def kw'>def</span> <span class='activate identifier id'>activate</span>
+  <span class='@errors ivar id'>@errors</span> <span class='assign token'>=</span> <span class='nil nil kw'>nil</span>
+  <span class='comment val'>#@questionnaire = Questionnaire.find(params[:id])</span>
+  <span class='if if kw'>if</span> <span class='@questionnaire ivar id'>@questionnaire</span><span class='dot token'>.</span><span class='activate! fid id'>activate!</span>
+    <span class='flash identifier id'>flash</span><span class='lbrack token'>[</span><span class='symbol val'>:notice</span><span class='rbrack token'>]</span> <span class='assign token'>=</span> <span class='string val'>&quot;Questionnaire successfully activated.&quot;</span>
+  <span class='else else kw'>else</span>
+    <span class='@errors ivar id'>@errors</span> <span class='assign token'>=</span> <span class='string val'>&quot;Questionnaire is closed, cannot be activated.&quot;</span>
+    <span class='flash identifier id'>flash</span><span class='lbrack token'>[</span><span class='symbol val'>:error</span><span class='rbrack token'>]</span> <span class='assign token'>=</span> <span class='string val'>&quot;Errors when activating the questionnaire. You can not activate a questionnaire that is closed or already active.&quot;</span>
+  <span class='end end kw'>end</span>
+  <span class='respond_to identifier id'>respond_to</span> <span class='do do kw'>do</span> <span class='bitor op'>|</span><span class='format identifier id'>format</span><span class='bitor op'>|</span>
+    <span class='format identifier id'>format</span><span class='dot token'>.</span><span class='html identifier id'>html</span> <span class='lbrace token'>{</span> <span class='redirect_to identifier id'>redirect_to</span><span class='lparen token'>(</span><span class='dashboard_questionnaire_path identifier id'>dashboard_questionnaire_path</span><span class='lparen token'>(</span><span class='@questionnaire ivar id'>@questionnaire</span><span class='rparen token'>)</span><span class='rparen token'>)</span><span class='rbrace token'>}</span>
+    <span class='format identifier id'>format</span><span class='dot token'>.</span><span class='js identifier id'>js</span>
+  <span class='end end kw'>end</span>
+<span class='end end kw'>end</span>
+</pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <p class="signature " id="close-instance_method">
+  
+    - (<tt>Object</tt>) <strong>close</strong> 
+  
+
+  
+</p><div class="docstring">
+  <div class="discussion">
+    <p>
+Close Questionnaire
+</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+186
+187
+188
+189
+190
+191
+192
+193
+194
+195
+196
+197</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'app/controllers/questionnaires_controller.rb', line 186</span>
+
+<span class='def def kw'>def</span> <span class='close identifier id'>close</span>
+  <span class='@result ivar id'>@result</span> <span class='assign token'>=</span> <span class='@questionnaire ivar id'>@questionnaire</span><span class='dot token'>.</span><span class='close! fid id'>close!</span>
+  <span class='if if kw'>if</span> <span class='@result ivar id'>@result</span>
+    <span class='flash identifier id'>flash</span><span class='lbrack token'>[</span><span class='symbol val'>:notice</span><span class='rbrack token'>]</span> <span class='assign token'>=</span> <span class='string val'>&quot;Questionnaire successfully closed!&quot;</span>
+  <span class='else else kw'>else</span>
+    <span class='flash identifier id'>flash</span><span class='lbrack token'>[</span><span class='symbol val'>:error</span><span class='rbrack token'>]</span> <span class='assign token'>=</span> <span class='string val'>&quot;Errors when closing questionnaire. You can only close a questionnaire that is active.&quot;</span>
+  <span class='end end kw'>end</span>
+  <span class='respond_to identifier id'>respond_to</span> <span class='do do kw'>do</span> <span class='bitor op'>|</span><span class='format identifier id'>format</span><span class='bitor op'>|</span>
+    <span class='format identifier id'>format</span><span class='dot token'>.</span><span class='html identifier id'>html</span> <span class='lbrace token'>{</span> <span class='redirect_to identifier id'>redirect_to</span><span class='lparen token'>(</span><span class='dashboard_questionnaire_path identifier id'>dashboard_questionnaire_path</span><span class='lparen token'>(</span><span class='@questionnaire ivar id'>@questionnaire</span><span class='rparen token'>)</span><span class='rparen token'>)</span><span class='rbrace token'>}</span>
+    <span class='format identifier id'>format</span><span class='dot token'>.</span><span class='js identifier id'>js</span>
+  <span class='end end kw'>end</span>
+<span class='end end kw'>end</span>
+</pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <p class="signature " id="create-instance_method">
+  
+    - (<tt>Object</tt>) <strong>create</strong> 
+  
+
+  
+</p><div class="docstring">
+  <div class="discussion">
+    <p>
+POST /questionnaires POST /questionnaires.xml
+</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60
+61
+62
+63
+64
+65
+66</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'app/controllers/questionnaires_controller.rb', line 50</span>
+
+<span class='def def kw'>def</span> <span class='create identifier id'>create</span>
+  <span class='@questionnaire ivar id'>@questionnaire</span><span class='dot token'>.</span><span class='last_editor identifier id'>last_editor</span> <span class='assign token'>=</span> <span class='current_user identifier id'>current_user</span>
+  <span class='@questionnaire ivar id'>@questionnaire</span><span class='dot token'>.</span><span class='user identifier id'>user</span> <span class='assign token'>=</span> <span class='current_user identifier id'>current_user</span>
+  <span class='respond_to identifier id'>respond_to</span> <span class='do do kw'>do</span> <span class='bitor op'>|</span><span class='format identifier id'>format</span><span class='bitor op'>|</span>
+    <span class='if if kw'>if</span> <span class='@questionnaire ivar id'>@questionnaire</span><span class='dot token'>.</span><span class='save identifier id'>save</span>
+      <span class='flash identifier id'>flash</span><span class='lbrack token'>[</span><span class='symbol val'>:notice</span><span class='rbrack token'>]</span> <span class='assign token'>=</span> <span class='string val'>'Questionnaire was successfully created.'</span>
+      <span class='format identifier id'>format</span><span class='dot token'>.</span><span class='html identifier id'>html</span> <span class='lbrace token'>{</span> <span class='redirect_to identifier id'>redirect_to</span><span class='lparen token'>(</span><span class='@questionnaire ivar id'>@questionnaire</span><span class='rparen token'>)</span> <span class='rbrace token'>}</span>
+      <span class='format identifier id'>format</span><span class='dot token'>.</span><span class='js identifier id'>js</span>  <span class='lbrace token'>{</span><span class='render identifier id'>render</span> <span class='symbol val'>:layout</span> <span class='assign token'>=</span><span class='gt op'>&gt;</span> <span class='false false kw'>false</span><span class='rbrace token'>}</span>
+    <span class='else else kw'>else</span>
+      <span class='comment val'>#fill variables need to the new.html.erb page</span>
+      <span class='@questionnaires_created ivar id'>@questionnaires_created</span> <span class='assign token'>=</span> <span class='Questionnaire constant id'>Questionnaire</span><span class='dot token'>.</span><span class='last_created identifier id'>last_created</span><span class='lparen token'>(</span><span class='integer val'>10</span><span class='rparen token'>)</span>
+      <span class='@questionnaire ivar id'>@questionnaire</span><span class='dot token'>.</span><span class='build_questionnaire_fields! fid id'>build_questionnaire_fields!</span>
+      <span class='format identifier id'>format</span><span class='dot token'>.</span><span class='html identifier id'>html</span> <span class='lbrace token'>{</span> <span class='render identifier id'>render</span> <span class='symbol val'>:action</span> <span class='assign token'>=</span><span class='gt op'>&gt;</span> <span class='string val'>&quot;new&quot;</span> <span class='rbrace token'>}</span>
+      <span class='format identifier id'>format</span><span class='dot token'>.</span><span class='js identifier id'>js</span>
+    <span class='end end kw'>end</span>
+  <span class='end end kw'>end</span>
+<span class='end end kw'>end</span>
+</pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <p class="signature " id="dashboard-instance_method">
+  
+    - (<tt>Object</tt>) <strong>dashboard</strong> 
+  
+
+  
+</p><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+18
+19
+20
+21
+22
+23</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'app/controllers/questionnaires_controller.rb', line 18</span>
+
+<span class='def def kw'>def</span> <span class='dashboard identifier id'>dashboard</span>
+  <span class='@questionnaire ivar id'>@questionnaire</span> <span class='assign token'>=</span> <span class='Questionnaire constant id'>Questionnaire</span><span class='dot token'>.</span><span class='find identifier id'>find</span><span class='lparen token'>(</span><span class='params identifier id'>params</span><span class='lbrack token'>[</span><span class='symbol val'>:id</span><span class='rbrack token'>]</span><span class='comma token'>,</span> <span class='symbol val'>:include</span> <span class='assign token'>=</span><span class='gt op'>&gt;</span> <span class='lbrack token'>[</span> <span class='lbrace token'>{</span><span class='symbol val'>:questionnaire_parts</span> <span class='assign token'>=</span><span class='gt op'>&gt;</span> <span class='symbol val'>:part</span><span class='rbrace token'>}</span><span class='comma token'>,</span> <span class='symbol val'>:questionnaire_fields</span><span class='comma token'>,</span> <span class='symbol val'>:user</span><span class='comma token'>,</span> <span class='symbol val'>:authorized_submitters</span><span class='comma token'>,</span> <span class='lbrace token'>{</span> <span class='symbol val'>:loop_sources</span> <span class='assign token'>=</span><span class='gt op'>&gt;</span> <span class='symbol val'>:loop_item_type</span> <span class='rbrace token'>}</span> <span class='rbrack token'>]</span><span class='rparen token'>)</span>
+  <span class='respond_to identifier id'>respond_to</span> <span class='do do kw'>do</span> <span class='bitor op'>|</span><span class='format identifier id'>format</span><span class='bitor op'>|</span>
+    <span class='format identifier id'>format</span><span class='dot token'>.</span><span class='html identifier id'>html</span>
+  <span class='end end kw'>end</span>
+<span class='end end kw'>end</span>
+</pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <p class="signature " id="deactivate-instance_method">
+  
+    - (<tt>Object</tt>) <strong>deactivate</strong> 
+  
+
+  
+</p><div class="docstring">
+  <div class="discussion">
+    <p>
+Deactivate Questionnaire
+</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+171
+172
+173
+174
+175
+176
+177
+178
+179
+180
+181
+182
+183</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'app/controllers/questionnaires_controller.rb', line 171</span>
+
+<span class='def def kw'>def</span> <span class='deactivate identifier id'>deactivate</span>
+  <span class='@errors ivar id'>@errors</span> <span class='assign token'>=</span> <span class='false false kw'>false</span>
+  <span class='if if kw'>if</span> <span class='@questionnaire ivar id'>@questionnaire</span><span class='dot token'>.</span><span class='deactivate! fid id'>deactivate!</span>
+    <span class='flash identifier id'>flash</span><span class='lbrack token'>[</span><span class='symbol val'>:notice</span><span class='rbrack token'>]</span> <span class='assign token'>=</span> <span class='string val'>&quot;Questionnaire successfully deactivated.&quot;</span>
+  <span class='else else kw'>else</span>
+    <span class='@errors ivar id'>@errors</span> <span class='assign token'>=</span> <span class='true true kw'>true</span>
+    <span class='flash identifier id'>flash</span><span class='lbrack token'>[</span><span class='symbol val'>:error</span><span class='rbrack token'>]</span> <span class='assign token'>=</span> <span class='string val'>&quot;Errors deactivating the questionnaire.&quot;</span>
+  <span class='end end kw'>end</span>
+  <span class='respond_to identifier id'>respond_to</span> <span class='do do kw'>do</span> <span class='bitor op'>|</span><span class='format identifier id'>format</span><span class='bitor op'>|</span>
+    <span class='format identifier id'>format</span><span class='dot token'>.</span><span class='html identifier id'>html</span> <span class='lbrace token'>{</span> <span class='redirect_to identifier id'>redirect_to</span><span class='lparen token'>(</span><span class='dashboard_questionnaire_path identifier id'>dashboard_questionnaire_path</span><span class='lparen token'>(</span><span class='@questionnaire ivar id'>@questionnaire</span><span class='rparen token'>)</span><span class='rparen token'>)</span><span class='rbrace token'>}</span>
+    <span class='format identifier id'>format</span><span class='dot token'>.</span><span class='js identifier id'>js</span>
+  <span class='end end kw'>end</span>
+<span class='end end kw'>end</span>
+</pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <p class="signature " id="delete-instance_method">
+  
+    - (<tt>Object</tt>) <strong>delete</strong> 
+  
+
+  
+</p><div class="docstring">
+  <div class="discussion">
+    <p>
+GET /questionnaires/1/delete
+</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+113
+114
+115
+116
+117
+118
+119
+120
+121
+122
+123
+124</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'app/controllers/questionnaires_controller.rb', line 113</span>
+
+<span class='def def kw'>def</span> <span class='delete identifier id'>delete</span>
+  <span class='if if kw'>if</span> <span class='@questionnaire ivar id'>@questionnaire</span><span class='dot token'>.</span><span class='user identifier id'>user</span> <span class='neq op'>!=</span> <span class='current_user identifier id'>current_user</span>
+    <span class='raise identifier id'>raise</span> <span class='CanCan constant id'>CanCan</span><span class='colon2 op'>::</span><span class='AccessDenied constant id'>AccessDenied</span><span class='dot token'>.</span><span class='new identifier id'>new</span><span class='lparen token'>(</span><span class='t identifier id'>t</span><span class='lparen token'>(</span><span class='string val'>'flash_messages.not_authorized'</span><span class='rparen token'>)</span><span class='rparen token'>)</span>
+  <span class='elsif elsif kw'>elsif</span> <span class='@questionnaire ivar id'>@questionnaire</span><span class='dot token'>.</span><span class='active? fid id'>active?</span>
+    <span class='flash identifier id'>flash</span><span class='lbrack token'>[</span><span class='symbol val'>:error</span><span class='rbrack token'>]</span> <span class='assign token'>=</span> <span class='string val'>&quot;The questionnaire is active, and so it can not be deleted.&quot;</span>
+    <span class='redirect_to identifier id'>redirect_to</span> <span class='dashboard_questionnaire_path identifier id'>dashboard_questionnaire_path</span><span class='lparen token'>(</span><span class='@questionnaire ivar id'>@questionnaire</span><span class='rparen token'>)</span> <span class='and and kw'>and</span> <span class='return return kw'>return</span>
+  <span class='end end kw'>end</span>
+  <span class='respond_to identifier id'>respond_to</span> <span class='do do kw'>do</span> <span class='bitor op'>|</span><span class='format identifier id'>format</span><span class='bitor op'>|</span>
+    <span class='format identifier id'>format</span><span class='dot token'>.</span><span class='html identifier id'>html</span>
+    <span class='format identifier id'>format</span><span class='dot token'>.</span><span class='js identifier id'>js</span>
+  <span class='end end kw'>end</span>
+<span class='end end kw'>end</span>
+</pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <p class="signature " id="destroy-instance_method">
+  
+    - (<tt>Object</tt>) <strong>destroy</strong> 
+  
+
+  
+</p><div class="docstring">
+  <div class="discussion">
+    <p>
+DELETE /questionnaires/1 DELETE /questionnaires/1.xml
+</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+128
+129
+130
+131
+132
+133
+134
+135
+136
+137
+138
+139
+140
+141
+142
+143</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'app/controllers/questionnaires_controller.rb', line 128</span>
+
+<span class='def def kw'>def</span> <span class='destroy identifier id'>destroy</span>
+  <span class='if if kw'>if</span> <span class='@questionnaire ivar id'>@questionnaire</span><span class='dot token'>.</span><span class='user identifier id'>user</span> <span class='neq op'>!=</span> <span class='current_user identifier id'>current_user</span>
+    <span class='raise identifier id'>raise</span> <span class='CanCan constant id'>CanCan</span><span class='colon2 op'>::</span><span class='AccessDenied constant id'>AccessDenied</span><span class='dot token'>.</span><span class='new identifier id'>new</span><span class='lparen token'>(</span><span class='t identifier id'>t</span><span class='lparen token'>(</span><span class='string val'>'flash_messages.not_authorized'</span><span class='rparen token'>)</span><span class='rparen token'>)</span>
+  <span class='elsif elsif kw'>elsif</span>  <span class='@questionnaire ivar id'>@questionnaire</span><span class='dot token'>.</span><span class='active? fid id'>active?</span>
+    <span class='flash identifier id'>flash</span><span class='lbrack token'>[</span><span class='symbol val'>:error</span><span class='rbrack token'>]</span> <span class='assign token'>=</span> <span class='string val'>&quot;The questionnaire is active, and so it can not be delete.&quot;</span>
+    <span class='redirect_to identifier id'>redirect_to</span> <span class='dashboard_questionnaire_path identifier id'>dashboard_questionnaire_path</span><span class='lparen token'>(</span><span class='@questionnaire ivar id'>@questionnaire</span><span class='rparen token'>)</span> <span class='and and kw'>and</span> <span class='return return kw'>return</span>
+  <span class='elsif elsif kw'>elsif</span> <span class='params identifier id'>params</span><span class='lbrack token'>[</span><span class='symbol val'>:cancel</span><span class='rbrack token'>]</span>
+    <span class='redirect_to identifier id'>redirect_to</span> <span class='dashboard_questionnaire_path identifier id'>dashboard_questionnaire_path</span><span class='lparen token'>(</span><span class='@questionnaire ivar id'>@questionnaire</span><span class='rparen token'>)</span> <span class='and and kw'>and</span> <span class='return return kw'>return</span>
+  <span class='end end kw'>end</span>
+  <span class='@questionnaire ivar id'>@questionnaire</span><span class='dot token'>.</span><span class='destroy_all_questionnaire_elements! fid id'>destroy_all_questionnaire_elements!</span>
+  <span class='flash identifier id'>flash</span><span class='lbrack token'>[</span><span class='symbol val'>:notice</span><span class='rbrack token'>]</span> <span class='assign token'>=</span> <span class='string val'>&quot;Questionnaire and components have been successfully deleted.&quot;</span>
+  <span class='respond_to identifier id'>respond_to</span> <span class='do do kw'>do</span> <span class='bitor op'>|</span><span class='format identifier id'>format</span><span class='bitor op'>|</span>
+    <span class='format identifier id'>format</span><span class='dot token'>.</span><span class='html identifier id'>html</span> <span class='lbrace token'>{</span> <span class='redirect_to identifier id'>redirect_to</span><span class='lparen token'>(</span><span class='questionnaires_url identifier id'>questionnaires_url</span><span class='rparen token'>)</span> <span class='rbrace token'>}</span>
+    <span class='format identifier id'>format</span><span class='dot token'>.</span><span class='xml identifier id'>xml</span> <span class='lbrace token'>{</span> <span class='head identifier id'>head</span> <span class='symbol val'>:ok</span> <span class='rbrace token'>}</span>
+  <span class='end end kw'>end</span>
+<span class='end end kw'>end</span>
+</pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <p class="signature " id="download_csv-instance_method">
+  
+    - (<tt>Object</tt>) <strong>download_csv</strong> 
+  
+
+  
+</p><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+307
+308
+309
+310
+311
+312
+313
+314</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'app/controllers/questionnaires_controller.rb', line 307</span>
+
+<span class='def def kw'>def</span> <span class='download_csv identifier id'>download_csv</span>
+  <span class='if if kw'>if</span> <span class='@questionnaire ivar id'>@questionnaire</span><span class='dot token'>.</span><span class='csv_file identifier id'>csv_file</span><span class='dot token'>.</span><span class='present? fid id'>present?</span> <span class='andop op'>&amp;&amp;</span> <span class='File constant id'>File</span><span class='dot token'>.</span><span class='exists? fid id'>exists?</span><span class='lparen token'>(</span><span class='@questionnaire ivar id'>@questionnaire</span><span class='dot token'>.</span><span class='csv_file identifier id'>csv_file</span><span class='dot token'>.</span><span class='location identifier id'>location</span><span class='rparen token'>)</span>
+    <span class='send_file identifier id'>send_file</span> <span class='@questionnaire ivar id'>@questionnaire</span><span class='dot token'>.</span><span class='csv_file identifier id'>csv_file</span><span class='dot token'>.</span><span class='location identifier id'>location</span><span class='comma token'>,</span> <span class='symbol val'>:type</span> <span class='assign token'>=</span><span class='gt op'>&gt;</span> <span class='string val'>&quot;csv&quot;</span>
+  <span class='else else kw'>else</span>
+    <span class='flash identifier id'>flash</span><span class='lbrack token'>[</span><span class='symbol val'>:error</span><span class='rbrack token'>]</span> <span class='assign token'>=</span> <span class='string val'>&quot;It was not possible to download the requested file. Please generate the file again. Thank you.&quot;</span>
+    <span class='redirect_to identifier id'>redirect_to</span> <span class='questionnaires_path identifier id'>questionnaires_path</span>
+  <span class='end end kw'>end</span>
+<span class='end end kw'>end</span>
+</pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <p class="signature " id="download_user_pdf-instance_method">
+  
+    - (<tt>Object</tt>) <strong>download_user_pdf</strong> 
+  
+
+  
+</p><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+286
+287
+288
+289
+290
+291
+292
+293</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'app/controllers/questionnaires_controller.rb', line 286</span>
+
+<span class='def def kw'>def</span> <span class='download_user_pdf identifier id'>download_user_pdf</span>
+  <span class='@questionnaire ivar id'>@questionnaire</span> <span class='assign token'>=</span> <span class='Questionnaire constant id'>Questionnaire</span><span class='dot token'>.</span><span class='find identifier id'>find</span><span class='lparen token'>(</span><span class='params identifier id'>params</span><span class='lbrack token'>[</span><span class='symbol val'>:questionnaire_id</span><span class='rbrack token'>]</span><span class='rparen token'>)</span>
+  <span class='user identifier id'>user</span> <span class='assign token'>=</span> <span class='User constant id'>User</span><span class='dot token'>.</span><span class='find identifier id'>find</span><span class='lparen token'>(</span><span class='params identifier id'>params</span><span class='lbrack token'>[</span><span class='symbol val'>:user_id</span><span class='rbrack token'>]</span><span class='rparen token'>)</span>
+  <span class='pdf_file identifier id'>pdf_file</span> <span class='assign token'>=</span> <span class='@questionnaire ivar id'>@questionnaire</span><span class='dot token'>.</span><span class='pdf_files identifier id'>pdf_files</span><span class='dot token'>.</span><span class='find_by_user_id_and_is_long identifier id'>find_by_user_id_and_is_long</span><span class='lparen token'>(</span><span class='user identifier id'>user</span><span class='comma token'>,</span> <span class='notop op'>!</span><span class='params identifier id'>params</span><span class='lbrack token'>[</span><span class='symbol val'>:is_short</span><span class='rbrack token'>]</span><span class='rparen token'>)</span>
+  <span class='if if kw'>if</span> <span class='pdf_file identifier id'>pdf_file</span><span class='dot token'>.</span><span class='present? fid id'>present?</span> <span class='andop op'>&amp;&amp;</span> <span class='File constant id'>File</span><span class='dot token'>.</span><span class='exists? fid id'>exists?</span><span class='lparen token'>(</span><span class='pdf_file identifier id'>pdf_file</span><span class='dot token'>.</span><span class='location identifier id'>location</span><span class='rparen token'>)</span>
+    <span class='send_file identifier id'>send_file</span> <span class='pdf_file identifier id'>pdf_file</span><span class='dot token'>.</span><span class='location identifier id'>location</span><span class='comma token'>,</span> <span class='symbol val'>:type</span> <span class='assign token'>=</span><span class='gt op'>&gt;</span> <span class='string val'>&quot;pdf&quot;</span>
+  <span class='end end kw'>end</span>
+<span class='end end kw'>end</span>
+</pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <p class="signature " id="duplicate-instance_method">
+  
+    - (<tt>Object</tt>) <strong>duplicate</strong> 
+  
+
+  
+</p><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+254
+255
+256
+257
+258
+259
+260</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'app/controllers/questionnaires_controller.rb', line 254</span>
+
+<span class='def def kw'>def</span> <span class='duplicate identifier id'>duplicate</span>
+  <span class='@questionnaires ivar id'>@questionnaires</span> <span class='assign token'>=</span> <span class='Questionnaire constant id'>Questionnaire</span><span class='dot token'>.</span><span class='find identifier id'>find</span><span class='lparen token'>(</span><span class='symbol val'>:all</span><span class='comma token'>,</span> <span class='symbol val'>:include</span> <span class='assign token'>=</span><span class='gt op'>&gt;</span> <span class='lbrack token'>[</span><span class='symbol val'>:questionnaire_fields</span><span class='comma token'>,</span> <span class='symbol val'>:user</span><span class='comma token'>,</span> <span class='symbol val'>:questionnaire_parts</span> <span class='rbrack token'>]</span><span class='rparen token'>)</span>
+  <span class='@questionnaire ivar id'>@questionnaire</span> <span class='assign token'>=</span> <span class='Questionnaire constant id'>Questionnaire</span><span class='dot token'>.</span><span class='new identifier id'>new</span>
+  <span class='respond_to identifier id'>respond_to</span> <span class='do do kw'>do</span> <span class='bitor op'>|</span><span class='format identifier id'>format</span><span class='bitor op'>|</span>
+    <span class='format identifier id'>format</span><span class='dot token'>.</span><span class='html identifier id'>html</span>
+  <span class='end end kw'>end</span>
+<span class='end end kw'>end</span>
+</pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <p class="signature " id="edit-instance_method">
+  
+    - (<tt>Object</tt>) <strong>edit</strong> 
+  
+
+  
+</p><div class="docstring">
+  <div class="discussion">
+    <p>
+GET /questionnaires/1/edit
+</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+69
+70
+71
+72
+73
+74</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'app/controllers/questionnaires_controller.rb', line 69</span>
+
+<span class='def def kw'>def</span> <span class='edit identifier id'>edit</span>
+  <span class='respond_to identifier id'>respond_to</span> <span class='do do kw'>do</span> <span class='bitor op'>|</span><span class='format identifier id'>format</span><span class='bitor op'>|</span>
+    <span class='format identifier id'>format</span><span class='dot token'>.</span><span class='html identifier id'>html</span>
+    <span class='format identifier id'>format</span><span class='dot token'>.</span><span class='js identifier id'>js</span>
+  <span class='end end kw'>end</span>
+<span class='end end kw'>end</span>
+</pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <p class="signature " id="index-instance_method">
+  
+    - (<tt>Object</tt>) <strong>index</strong> 
+  
+
+  
+</p><div class="docstring">
+  <div class="discussion">
+    <p>
+GET /questionnaires GET /questionnaires.xml
+</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+11
+12
+13
+14
+15
+16</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'app/controllers/questionnaires_controller.rb', line 11</span>
+
+<span class='def def kw'>def</span> <span class='index identifier id'>index</span>
+  <span class='respond_to identifier id'>respond_to</span> <span class='do do kw'>do</span> <span class='bitor op'>|</span><span class='format identifier id'>format</span><span class='bitor op'>|</span>
+    <span class='format identifier id'>format</span><span class='dot token'>.</span><span class='html identifier id'>html</span> <span class='comment val'># index.html.erb</span>
+    <span class='format identifier id'>format</span><span class='dot token'>.</span><span class='xml identifier id'>xml</span> <span class='lbrace token'>{</span> <span class='render identifier id'>render</span> <span class='symbol val'>:xml</span> <span class='assign token'>=</span><span class='gt op'>&gt;</span> <span class='@questionnaires ivar id'>@questionnaires</span> <span class='rbrace token'>}</span>
+  <span class='end end kw'>end</span>
+<span class='end end kw'>end</span>
+</pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <p class="signature " id="jstree-instance_method">
+  
+    - (<tt>Object</tt>) <strong>jstree</strong> 
+  
+
+  
+</p><div class="docstring">
+  <div class="discussion">
+    <p>
+get the questionnaire tree
+</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+354
+355
+356
+357
+358
+359</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'app/controllers/questionnaires_controller.rb', line 354</span>
+
+<span class='def def kw'>def</span> <span class='jstree identifier id'>jstree</span>
+  <span class='@obj ivar id'>@obj</span> <span class='assign token'>=</span> <span class='@questionnaire ivar id'>@questionnaire</span><span class='dot token'>.</span><span class='questionnaire_structure_for_js_tree identifier id'>questionnaire_structure_for_js_tree</span><span class='lparen token'>(</span><span class='params identifier id'>params</span><span class='rparen token'>)</span>
+  <span class='respond_to identifier id'>respond_to</span> <span class='do do kw'>do</span> <span class='bitor op'>|</span><span class='format identifier id'>format</span><span class='bitor op'>|</span>
+    <span class='format identifier id'>format</span><span class='dot token'>.</span><span class='js identifier id'>js</span> <span class='lbrace token'>{</span><span class='render identifier id'>render</span> <span class='symbol val'>:json</span> <span class='assign token'>=</span><span class='gt op'>&gt;</span> <span class='@obj ivar id'>@obj</span><span class='dot token'>.</span><span class='to_json identifier id'>to_json</span><span class='comma token'>,</span> <span class='symbol val'>:callback</span> <span class='assign token'>=</span><span class='gt op'>&gt;</span> <span class='params identifier id'>params</span><span class='lbrack token'>[</span><span class='symbol val'>:callback</span><span class='rbrack token'>]</span><span class='rbrace token'>}</span>
+  <span class='end end kw'>end</span>
+<span class='end end kw'>end</span>
+</pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <p class="signature " id="manage_languages-instance_method">
+  
+    - (<tt>Object</tt>) <strong>manage_languages</strong> 
+  
+
+  
+</p><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+91
+92
+93</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'app/controllers/questionnaires_controller.rb', line 91</span>
+
+<span class='def def kw'>def</span> <span class='manage_languages identifier id'>manage_languages</span>
+  <span class='@questionnaire ivar id'>@questionnaire</span><span class='dot token'>.</span><span class='build_questionnaire_fields! fid id'>build_questionnaire_fields!</span>
+<span class='end end kw'>end</span>
+</pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <p class="signature " id="move_questionnaire_part-instance_method">
+  
+    - (<tt>Object</tt>) <strong>move_questionnaire_part</strong> 
+  
+
+  
+</p><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+348
+349
+350
+351</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'app/controllers/questionnaires_controller.rb', line 348</span>
+
+<span class='def def kw'>def</span> <span class='move_questionnaire_part identifier id'>move_questionnaire_part</span>
+  <span class='@questionnaire ivar id'>@questionnaire</span><span class='dot token'>.</span><span class='move_the_questionnaire_part identifier id'>move_the_questionnaire_part</span><span class='lparen token'>(</span><span class='params identifier id'>params</span><span class='rparen token'>)</span>
+  <span class='render identifier id'>render</span> <span class='symbol val'>:nothing</span> <span class='assign token'>=</span><span class='gt op'>&gt;</span> <span class='true true kw'>true</span>
+<span class='end end kw'>end</span>
+</pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <p class="signature " id="new-instance_method">
+  
+    - (<tt>Object</tt>) <strong>new</strong> 
+  
+
+  
+</p><div class="docstring">
+  <div class="discussion">
+    <p>
+GET /questionnaires/new GET /questionnaires/new.xml
+</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+38
+39
+40
+41
+42
+43
+44
+45
+46</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'app/controllers/questionnaires_controller.rb', line 38</span>
+
+<span class='def def kw'>def</span> <span class='new identifier id'>new</span>
+  <span class='@questionnaire ivar id'>@questionnaire</span> <span class='assign token'>=</span> <span class='Questionnaire constant id'>Questionnaire</span><span class='dot token'>.</span><span class='new identifier id'>new</span><span class='lparen token'>(</span><span class='symbol val'>:questionnaire_date</span> <span class='assign token'>=</span><span class='gt op'>&gt;</span> <span class='Date constant id'>Date</span><span class='dot token'>.</span><span class='today identifier id'>today</span><span class='rparen token'>)</span>
+  <span class='@questionnaires_created ivar id'>@questionnaires_created</span> <span class='assign token'>=</span> <span class='Questionnaire constant id'>Questionnaire</span><span class='dot token'>.</span><span class='last_created identifier id'>last_created</span><span class='lparen token'>(</span><span class='integer val'>10</span><span class='rparen token'>)</span>
+  <span class='@questionnaire ivar id'>@questionnaire</span><span class='dot token'>.</span><span class='build_questionnaire_fields! fid id'>build_questionnaire_fields!</span>
+  <span class='respond_to identifier id'>respond_to</span> <span class='do do kw'>do</span> <span class='bitor op'>|</span><span class='format identifier id'>format</span><span class='bitor op'>|</span>
+    <span class='format identifier id'>format</span><span class='dot token'>.</span><span class='html identifier id'>html</span> <span class='comment val'># new.html.erb</span>
+    <span class='format identifier id'>format</span><span class='dot token'>.</span><span class='xml identifier id'>xml</span> <span class='lbrace token'>{</span> <span class='render identifier id'>render</span> <span class='symbol val'>:xml</span> <span class='assign token'>=</span><span class='gt op'>&gt;</span> <span class='@questionnaire ivar id'>@questionnaire</span> <span class='rbrace token'>}</span>
+  <span class='end end kw'>end</span>
+<span class='end end kw'>end</span>
+</pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <p class="signature " id="preview-instance_method">
+  
+    - (<tt>Object</tt>) <strong>preview</strong> 
+  
+
+  
+</p><div class="docstring">
+  <div class="discussion">
+    <p>
+Preview Questionnaire
+</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+146
+147
+148
+149
+150
+151
+152</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'app/controllers/questionnaires_controller.rb', line 146</span>
+
+<span class='def def kw'>def</span> <span class='preview identifier id'>preview</span>
+  <span class='@questionnaire ivar id'>@questionnaire</span> <span class='assign token'>=</span> <span class='Questionnaire constant id'>Questionnaire</span><span class='dot token'>.</span><span class='find identifier id'>find</span><span class='lparen token'>(</span><span class='params identifier id'>params</span><span class='lbrack token'>[</span><span class='symbol val'>:id</span><span class='rbrack token'>]</span><span class='comma token'>,</span> <span class='symbol val'>:include</span> <span class='assign token'>=</span><span class='gt op'>&gt;</span> <span class='lbrack token'>[</span><span class='symbol val'>:questionnaire_fields</span><span class='comma token'>,</span> <span class='lbrace token'>{</span><span class='symbol val'>:questionnaire_parts</span> <span class='assign token'>=</span><span class='gt op'>&gt;</span> <span class='symbol val'>:part</span><span class='rbrace token'>}</span><span class='comma token'>,</span> <span class='lbrace token'>{</span><span class='symbol val'>:loop_sources</span> <span class='assign token'>=</span><span class='gt op'>&gt;</span> <span class='lbrace token'>{</span><span class='symbol val'>:loop_item_type</span> <span class='assign token'>=</span><span class='gt op'>&gt;</span> <span class='lbrack token'>[</span><span class='symbol val'>:loop_items</span><span class='rbrack token'>]</span> <span class='rbrace token'>}</span><span class='rbrace token'>}</span><span class='rbrack token'>]</span><span class='rparen token'>)</span>
+  <span class='respond_to identifier id'>respond_to</span> <span class='do do kw'>do</span> <span class='bitor op'>|</span><span class='format identifier id'>format</span><span class='bitor op'>|</span>
+    <span class='format identifier id'>format</span><span class='dot token'>.</span><span class='html identifier id'>html</span>
+    <span class='format identifier id'>format</span><span class='dot token'>.</span><span class='js identifier id'>js</span>
+  <span class='end end kw'>end</span>
+<span class='end end kw'>end</span>
+</pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <p class="signature " id="respondents-instance_method">
+  
+    - (<tt>Object</tt>) <strong>respondents</strong> 
+  
+
+  
+</p><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+246
+247
+248
+249
+250
+251
+252</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'app/controllers/questionnaires_controller.rb', line 246</span>
+
+<span class='def def kw'>def</span> <span class='respondents identifier id'>respondents</span>
+  <span class='@questionnaire ivar id'>@questionnaire</span> <span class='assign token'>=</span> <span class='Questionnaire constant id'>Questionnaire</span><span class='dot token'>.</span><span class='find identifier id'>find</span><span class='lparen token'>(</span><span class='params identifier id'>params</span><span class='lbrack token'>[</span><span class='symbol val'>:id</span><span class='rbrack token'>]</span><span class='comma token'>,</span> <span class='symbol val'>:include</span> <span class='assign token'>=</span><span class='gt op'>&gt;</span> <span class='lbrack token'>[</span><span class='symbol val'>:questionnaire_fields</span><span class='comma token'>,</span> <span class='symbol val'>:user</span><span class='comma token'>,</span> <span class='symbol val'>:authorized_submitters</span><span class='comma token'>,</span> <span class='symbol val'>:submitters</span><span class='rbrack token'>]</span><span class='rparen token'>)</span>
+  <span class='comment val'>#@the_url = &quot;http://&quot; + request.host + (ActionController::Base.relative_url_root.present? ? ActionController::Base.relative_url_root : &quot;&quot;)</span>
+  <span class='respond_to identifier id'>respond_to</span> <span class='do do kw'>do</span> <span class='bitor op'>|</span><span class='format identifier id'>format</span><span class='bitor op'>|</span>
+    <span class='format identifier id'>format</span><span class='dot token'>.</span><span class='html identifier id'>html</span>
+  <span class='end end kw'>end</span>
+<span class='end end kw'>end</span>
+</pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <p class="signature " id="send_deadline_warning-instance_method">
+  
+    - (<tt>Object</tt>) <strong>send_deadline_warning</strong> 
+  
+
+  
+</p><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+316
+317
+318
+319
+320
+321
+322
+323
+324
+325</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'app/controllers/questionnaires_controller.rb', line 316</span>
+
+<span class='def def kw'>def</span> <span class='send_deadline_warning identifier id'>send_deadline_warning</span>
+  <span class='@questionnaire ivar id'>@questionnaire</span> <span class='assign token'>=</span> <span class='Questionnaire constant id'>Questionnaire</span><span class='dot token'>.</span><span class='find identifier id'>find</span><span class='lparen token'>(</span><span class='params identifier id'>params</span><span class='lbrack token'>[</span><span class='symbol val'>:questionnaire_id</span><span class='rbrack token'>]</span><span class='rparen token'>)</span>
+  <span class='user identifier id'>user</span> <span class='assign token'>=</span> <span class='User constant id'>User</span><span class='dot token'>.</span><span class='find identifier id'>find</span><span class='lparen token'>(</span><span class='params identifier id'>params</span><span class='lbrack token'>[</span><span class='symbol val'>:user_id</span><span class='rbrack token'>]</span><span class='rparen token'>)</span>
+  <span class='url identifier id'>url</span> <span class='assign token'>=</span> <span class='string val'>&quot;http://&quot;</span> <span class='plus op'>+</span> <span class='request identifier id'>request</span><span class='dot token'>.</span><span class='host identifier id'>host</span> <span class='plus op'>+</span> <span class='lparen token'>(</span><span class='ActionController constant id'>ActionController</span><span class='colon2 op'>::</span><span class='Base constant id'>Base</span><span class='dot token'>.</span><span class='relative_url_root identifier id'>relative_url_root</span><span class='dot token'>.</span><span class='present? fid id'>present?</span> <span class='integer val'>? </span><span class='ActionController constant id'>ActionController</span><span class='colon2 op'>::</span><span class='Base constant id'>Base</span><span class='dot token'>.</span><span class='relative_url_root identifier id'>relative_url_root</span> <span class='colon op'>:</span> <span class='string val'>&quot;&quot;</span><span class='rparen token'>)</span>
+  <span class='UserMailer constant id'>UserMailer</span><span class='dot token'>.</span><span class='deliver_questionnaire_due_warning identifier id'>deliver_questionnaire_due_warning</span><span class='lparen token'>(</span><span class='user identifier id'>user</span><span class='comma token'>,</span> <span class='@questionnaire ivar id'>@questionnaire</span><span class='comma token'>,</span> <span class='Time constant id'>Time</span><span class='dot token'>.</span><span class='now identifier id'>now</span><span class='comma token'>,</span> <span class='url identifier id'>url</span><span class='rparen token'>)</span>
+  <span class='flash identifier id'>flash</span><span class='lbrack token'>[</span><span class='symbol val'>:notice</span><span class='rbrack token'>]</span> <span class='assign token'>=</span> <span class='string val'>&quot;The requested e-mail has been sent.&quot;</span>
+  <span class='respond_to identifier id'>respond_to</span> <span class='do do kw'>do</span> <span class='bitor op'>|</span><span class='format identifier id'>format</span><span class='bitor op'>|</span>
+    <span class='format identifier id'>format</span><span class='dot token'>.</span><span class='js identifier id'>js</span>
+  <span class='end end kw'>end</span>
+<span class='end end kw'>end</span>
+</pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <p class="signature " id="send_multiple_deadline_warnings-instance_method">
+  
+    - (<tt>Object</tt>) <strong>send_multiple_deadline_warnings</strong> 
+  
+
+  
+</p><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+327
+328
+329
+330
+331
+332
+333
+334
+335
+336
+337
+338
+339
+340
+341
+342</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'app/controllers/questionnaires_controller.rb', line 327</span>
+
+<span class='def def kw'>def</span> <span class='send_multiple_deadline_warnings identifier id'>send_multiple_deadline_warnings</span>
+  <span class='if if kw'>if</span> <span class='params identifier id'>params</span><span class='lbrack token'>[</span><span class='symbol val'>:users</span><span class='rbrack token'>]</span><span class='dot token'>.</span><span class='present? fid id'>present?</span>
+    <span class='params identifier id'>params</span><span class='lbrack token'>[</span><span class='symbol val'>:users</span><span class='rbrack token'>]</span><span class='dot token'>.</span><span class='each identifier id'>each</span> <span class='do do kw'>do</span> <span class='bitor op'>|</span><span class='user_id identifier id'>user_id</span><span class='comma token'>,</span> <span class='bitor op'>|</span>
+      <span class='user identifier id'>user</span> <span class='assign token'>=</span> <span class='User constant id'>User</span><span class='dot token'>.</span><span class='find identifier id'>find</span><span class='lparen token'>(</span><span class='user_id identifier id'>user_id</span><span class='rparen token'>)</span>
+      <span class='if if kw'>if</span> <span class='user identifier id'>user</span>
+        <span class='UserMailer constant id'>UserMailer</span><span class='dot token'>.</span><span class='deliver_contact_questionnaire_users identifier id'>deliver_contact_questionnaire_users</span><span class='lparen token'>(</span><span class='user identifier id'>user</span><span class='comma token'>,</span> <span class='params identifier id'>params</span><span class='lbrack token'>[</span><span class='symbol val'>:subject</span><span class='rbrack token'>]</span><span class='comma token'>,</span> <span class='params identifier id'>params</span><span class='lbrack token'>[</span><span class='symbol val'>:body</span><span class='rbrack token'>]</span><span class='rparen token'>)</span>
+      <span class='end end kw'>end</span>
+    <span class='end end kw'>end</span>
+    <span class='flash identifier id'>flash</span><span class='lbrack token'>[</span><span class='symbol val'>:notice</span><span class='rbrack token'>]</span> <span class='assign token'>=</span> <span class='string val'>&quot;The requested emails have been sent.&quot;</span>
+  <span class='else else kw'>else</span>
+    <span class='flash identifier id'>flash</span><span class='lbrack token'>[</span><span class='symbol val'>:error</span><span class='rbrack token'>]</span> <span class='assign token'>=</span> <span class='string val'>&quot;Please select at least one user.&quot;</span>
+  <span class='end end kw'>end</span>
+  <span class='respond_to identifier id'>respond_to</span> <span class='do do kw'>do</span> <span class='bitor op'>|</span><span class='format identifier id'>format</span><span class='bitor op'>|</span>
+    <span class='format identifier id'>format</span><span class='dot token'>.</span><span class='js identifier id'>js</span> <span class='lbrace token'>{</span> <span class='render identifier id'>render</span> <span class='string val'>&quot;questionnaires/send_deadline_warning&quot;</span> <span class='rbrace token'>}</span>
+  <span class='end end kw'>end</span>
+<span class='end end kw'>end</span>
+</pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <p class="signature " id="show-instance_method">
+  
+    - (<tt>Object</tt>) <strong>show</strong> 
+  
+
+  
+</p><div class="docstring">
+  <div class="discussion">
+    <p>
+GET /questionnaires/1 GET /questionnaires/1.xml
+</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+27
+28
+29
+30
+31
+32
+33
+34</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'app/controllers/questionnaires_controller.rb', line 27</span>
+
+<span class='def def kw'>def</span> <span class='show identifier id'>show</span>
+  <span class='comment val'>#@questionnaire = Questionnaire.find(params[:id], :include =&gt; [:questionnaire_fields ])</span>
+  <span class='respond_to identifier id'>respond_to</span> <span class='do do kw'>do</span> <span class='bitor op'>|</span><span class='format identifier id'>format</span><span class='bitor op'>|</span>
+    <span class='format identifier id'>format</span><span class='dot token'>.</span><span class='html identifier id'>html</span> <span class='comment val'># show.html.erb</span>
+    <span class='format identifier id'>format</span><span class='dot token'>.</span><span class='xml identifier id'>xml</span> <span class='lbrace token'>{</span> <span class='render identifier id'>render</span> <span class='symbol val'>:xml</span> <span class='assign token'>=</span><span class='gt op'>&gt;</span> <span class='@questionnaire ivar id'>@questionnaire</span> <span class='rbrace token'>}</span>
+    <span class='format identifier id'>format</span><span class='dot token'>.</span><span class='js identifier id'>js</span>
+  <span class='end end kw'>end</span>
+<span class='end end kw'>end</span>
+</pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <p class="signature " id="structure_ordering-instance_method">
+  
+    - (<tt>Object</tt>) <strong>structure_ordering</strong> 
+  
+
+  
+</p><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+344
+345
+346</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'app/controllers/questionnaires_controller.rb', line 344</span>
+
+<span class='def def kw'>def</span> <span class='structure_ordering identifier id'>structure_ordering</span>
+  <span class='comment val'>#@questionnaire = Questionnaire.find(params[:id])</span>
+<span class='end end kw'>end</span>
+</pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <p class="signature " id="submission-instance_method">
+  
+    - (<tt>Object</tt>) <strong>submission</strong> 
+  
+
+  
+</p><div class="docstring">
+  <div class="discussion">
+    <p>
+Access submission view of a Questionnaire
+</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  <h3>Raises:</h3>
+<ul class="raise">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>CanCan::AccessDenied</tt>)</span>
+      
+      
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+200
+201
+202
+203
+204
+205
+206
+207
+208
+209
+210
+211
+212
+213
+214
+215
+216
+217</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'app/controllers/questionnaires_controller.rb', line 200</span>
+
+<span class='def def kw'>def</span> <span class='submission identifier id'>submission</span>
+  <span class='@authorization ivar id'>@authorization</span> <span class='assign token'>=</span> <span class='current_user identifier id'>current_user</span> <span class='integer val'>? </span><span class='current_user identifier id'>current_user</span><span class='dot token'>.</span><span class='authorization_for identifier id'>authorization_for</span><span class='lparen token'>(</span><span class='@questionnaire ivar id'>@questionnaire</span><span class='rparen token'>)</span> <span class='colon op'>:</span> <span class='false false kw'>false</span>
+  <span class='raise identifier id'>raise</span> <span class='CanCan constant id'>CanCan</span><span class='colon2 op'>::</span><span class='AccessDenied constant id'>AccessDenied</span><span class='dot token'>.</span><span class='new identifier id'>new</span><span class='lparen token'>(</span><span class='t identifier id'>t</span><span class='lparen token'>(</span><span class='string val'>'flash_messages.not_authorized'</span><span class='rparen token'>)</span><span class='comma token'>,</span> <span class='symbol val'>:submission</span><span class='comma token'>,</span> <span class='Questionnaire constant id'>Questionnaire</span><span class='rparen token'>)</span> <span class='if if_mod kw'>if</span> <span class='notop op'>!</span><span class='@authorization ivar id'>@authorization</span>
+  <span class='I18n constant id'>I18n</span><span class='dot token'>.</span><span class='locale identifier id'>locale</span> <span class='assign token'>=</span> <span class='@authorization ivar id'>@authorization</span><span class='lbrack token'>[</span><span class='symbol val'>:language</span><span class='rbrack token'>]</span>
+  <span class='comment val'>#if @questionnaire.active?</span>
+  <span class='comment val'>#Progress bar removed for the time being.</span>
+  <span class='comment val'>#if !@authorization_record.total_questions.present? || @authorization_record.total_questions == 0</span>
+  <span class='comment val'>#  #@authorization_record.count_available_questions</span>
+  <span class='comment val'>#  Delayed::Job.enqueue(CountQuestionsForUser.new(@authorization_record), 0, 1.seconds.from_now)</span>
+  <span class='comment val'>#end</span>
+  <span class='if if kw'>if</span> <span class='current_user identifier id'>current_user</span><span class='dot token'>.</span><span class='role? fid id'>role?</span><span class='lparen token'>(</span><span class='symbol val'>:delegate</span><span class='rparen token'>)</span>
+    <span class='@delegation ivar id'>@delegation</span> <span class='assign token'>=</span> <span class='current_user identifier id'>current_user</span><span class='dot token'>.</span><span class='delegated_tasks identifier id'>delegated_tasks</span><span class='dot token'>.</span><span class='find_by_questionnaire_id identifier id'>find_by_questionnaire_id</span><span class='lparen token'>(</span><span class='@questionnaire ivar id'>@questionnaire</span><span class='dot token'>.</span><span class='id identifier id'>id</span><span class='rparen token'>)</span>
+  <span class='end end kw'>end</span>
+  <span class='respond_to identifier id'>respond_to</span> <span class='do do kw'>do</span> <span class='bitor op'>|</span><span class='format identifier id'>format</span><span class='bitor op'>|</span>
+    <span class='format identifier id'>format</span><span class='dot token'>.</span><span class='html identifier id'>html</span>
+    <span class='format identifier id'>format</span><span class='dot token'>.</span><span class='js identifier id'>js</span>
+  <span class='end end kw'>end</span>
+<span class='end end kw'>end</span>
+</pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <p class="signature " id="submit-instance_method">
+  
+    - (<tt>Object</tt>) <strong>submit</strong> 
+  
+
+  
+</p><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+219
+220
+221
+222
+223
+224
+225
+226
+227
+228</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'app/controllers/questionnaires_controller.rb', line 219</span>
+
+<span class='def def kw'>def</span> <span class='submit identifier id'>submit</span>
+  <span class='@authorized_submitter ivar id'>@authorized_submitter</span> <span class='assign token'>=</span> <span class='AuthorizedSubmitter constant id'>AuthorizedSubmitter</span><span class='dot token'>.</span><span class='find_by_questionnaire_id_and_user_id identifier id'>find_by_questionnaire_id_and_user_id</span><span class='lparen token'>(</span><span class='@questionnaire ivar id'>@questionnaire</span><span class='dot token'>.</span><span class='id identifier id'>id</span><span class='comma token'>,</span> <span class='current_user identifier id'>current_user</span><span class='dot token'>.</span><span class='id identifier id'>id</span><span class='rparen token'>)</span>
+  <span class='@authorized_submitter ivar id'>@authorized_submitter</span><span class='dot token'>.</span><span class='status identifier id'>status</span> <span class='assign token'>=</span> <span class='SubmissionStatus constant id'>SubmissionStatus</span><span class='colon2 op'>::</span><span class='SUBMITTED constant id'>SUBMITTED</span>
+  <span class='if if kw'>if</span> <span class='@authorized_submitter ivar id'>@authorized_submitter</span><span class='dot token'>.</span><span class='save! fid id'>save!</span>
+    <span class='UserMailer constant id'>UserMailer</span><span class='dot token'>.</span><span class='deliver_questionnaire_submitted identifier id'>deliver_questionnaire_submitted</span><span class='lparen token'>(</span><span class='current_user identifier id'>current_user</span><span class='comma token'>,</span> <span class='@questionnaire ivar id'>@questionnaire</span><span class='rparen token'>)</span>
+    <span class='UserMailer constant id'>UserMailer</span><span class='dot token'>.</span><span class='deliver_admin_notification_questionnaire_submitted identifier id'>deliver_admin_notification_questionnaire_submitted</span><span class='lparen token'>(</span><span class='current_user identifier id'>current_user</span><span class='comma token'>,</span> <span class='@questionnaire ivar id'>@questionnaire</span><span class='rparen token'>)</span>
+  <span class='end end kw'>end</span>
+  <span class='flash identifier id'>flash</span><span class='lbrack token'>[</span><span class='symbol val'>:notice</span><span class='rbrack token'>]</span> <span class='assign token'>=</span> <span class='string val'>&quot;The questionnaire has been submitted, thank you.&quot;</span> <span class='if if_mod kw'>if</span> <span class='notop op'>!</span><span class='flash identifier id'>flash</span><span class='lbrack token'>[</span><span class='symbol val'>:error</span><span class='rbrack token'>]</span>
+  <span class='redirect_to identifier id'>redirect_to</span> <span class='user_path identifier id'>user_path</span><span class='lparen token'>(</span><span class='current_user identifier id'>current_user</span><span class='rparen token'>)</span>
+<span class='end end kw'>end</span>
+</pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <p class="signature " id="to_csv-instance_method">
+  
+    - (<tt>Object</tt>) <strong>to_csv</strong> 
+  
+
+  
+</p><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+295
+296
+297
+298
+299
+300
+301
+302
+303
+304
+305</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'app/controllers/questionnaires_controller.rb', line 295</span>
+
+<span class='def def kw'>def</span> <span class='to_csv identifier id'>to_csv</span>
+  <span class='@questionnaire ivar id'>@questionnaire</span> <span class='assign token'>=</span> <span class='Questionnaire constant id'>Questionnaire</span><span class='dot token'>.</span><span class='find identifier id'>find</span><span class='lparen token'>(</span><span class='params identifier id'>params</span><span class='lbrack token'>[</span><span class='symbol val'>:id</span><span class='rbrack token'>]</span><span class='comma token'>,</span> <span class='symbol val'>:include</span> <span class='assign token'>=</span><span class='gt op'>&gt;</span> <span class='lbrack token'>[</span> <span class='lbrace token'>{</span> <span class='symbol val'>:questionnaire_parts</span> <span class='assign token'>=</span><span class='gt op'>&gt;</span> <span class='symbol val'>:part</span> <span class='rbrace token'>}</span> <span class='comma token'>,</span> <span class='lbrace token'>{</span><span class='symbol val'>:submitters</span> <span class='assign token'>=</span><span class='gt op'>&gt;</span> <span class='lbrace token'>{</span> <span class='symbol val'>:answers</span> <span class='assign token'>=</span><span class='gt op'>&gt;</span> <span class='symbol val'>:answer_parts</span> <span class='rbrace token'>}</span><span class='rbrace token'>}</span><span class='comma token'>,</span> <span class='symbol val'>:csv_file</span><span class='rbrack token'>]</span><span class='rparen token'>)</span>
+  <span class='if if kw'>if</span> <span class='@questionnaire ivar id'>@questionnaire</span>
+    <span class='comment val'>#Delayed::Job.enqueue questionnaireSubmissionToCSV.new(@questionnaire)</span>
+    <span class='@questionnaire ivar id'>@questionnaire</span><span class='dot token'>.</span><span class='to_csv identifier id'>to_csv</span><span class='lparen token'>(</span><span class='current_user identifier id'>current_user</span><span class='rparen token'>)</span> <span class='comment val'>#automatically delayed</span>
+    <span class='flash identifier id'>flash</span><span class='lbrack token'>[</span><span class='symbol val'>:notice</span><span class='rbrack token'>]</span> <span class='assign token'>=</span> <span class='string val'>&quot;File is being generated. An email will be sent to you when it is ready for download from this page. Note that generating the file can take some minutes.&quot;</span>
+  <span class='end end kw'>end</span>
+  <span class='respond_to identifier id'>respond_to</span> <span class='do do kw'>do</span> <span class='bitor op'>|</span><span class='format identifier id'>format</span><span class='bitor op'>|</span>
+    <span class='format identifier id'>format</span><span class='dot token'>.</span><span class='js identifier id'>js</span>
+  <span class='end end kw'>end</span>
+<span class='end end kw'>end</span>
+</pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <p class="signature " id="to_pdf-instance_method">
+  
+    - (<tt>Object</tt>) <strong>to_pdf</strong> 
+  
+
+  
+</p><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+262
+263
+264
+265
+266
+267
+268
+269
+270
+271
+272
+273
+274
+275
+276
+277
+278
+279
+280
+281
+282
+283
+284</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'app/controllers/questionnaires_controller.rb', line 262</span>
+
+<span class='def def kw'>def</span> <span class='to_pdf identifier id'>to_pdf</span>
+  <span class='@user ivar id'>@user</span> <span class='assign token'>=</span> <span class='params identifier id'>params</span><span class='lbrack token'>[</span><span class='symbol val'>:user</span><span class='rbrack token'>]</span><span class='dot token'>.</span><span class='present? fid id'>present?</span> <span class='integer val'>? </span><span class='User constant id'>User</span><span class='dot token'>.</span><span class='find identifier id'>find</span><span class='lparen token'>(</span><span class='params identifier id'>params</span><span class='lbrack token'>[</span><span class='symbol val'>:user</span><span class='rbrack token'>]</span><span class='rparen token'>)</span> <span class='colon op'>:</span> <span class='current_user identifier id'>current_user</span>
+  <span class='if if kw'>if</span> <span class='notop op'>!</span><span class='params identifier id'>params</span><span class='lbrack token'>[</span><span class='symbol val'>:preview</span><span class='rbrack token'>]</span>
+    <span class='flash identifier id'>flash</span><span class='lbrack token'>[</span><span class='symbol val'>:notice</span><span class='rbrack token'>]</span> <span class='assign token'>=</span> <span class='string val'>&quot;File is being generated. An email will be sent to you when it is ready for download from this page. Note that generating the file can take some minutes.&quot;</span>
+    <span class='url_prefix identifier id'>url_prefix</span> <span class='assign token'>=</span> <span class='string val'>&quot;http://&quot;</span> <span class='plus op'>+</span> <span class='request identifier id'>request</span><span class='dot token'>.</span><span class='host identifier id'>host</span> <span class='plus op'>+</span> <span class='lparen token'>(</span><span class='ActionController constant id'>ActionController</span><span class='colon2 op'>::</span><span class='Base constant id'>Base</span><span class='dot token'>.</span><span class='relative_url_root identifier id'>relative_url_root</span><span class='dot token'>.</span><span class='present? fid id'>present?</span> <span class='integer val'>? </span><span class='ActionController constant id'>ActionController</span><span class='colon2 op'>::</span><span class='Base constant id'>Base</span><span class='dot token'>.</span><span class='relative_url_root identifier id'>relative_url_root</span> <span class='colon op'>:</span> <span class='string val'>&quot;&quot;</span><span class='rparen token'>)</span>
+    <span class='generating_place_holder identifier id'>generating_place_holder</span> <span class='assign token'>=</span> <span class='dstring node'>&quot;#{RAILS_ROOT}/private/questionnaires/#{@questionnaire.id.to_s}/users/#{@user.id}/generating_#{params[:is_short] ? &quot;short&quot; : &quot;long&quot;}_pdf&quot;</span>
+    <span class='if if kw'>if</span> <span class='notop op'>!</span><span class='File constant id'>File</span><span class='dot token'>.</span><span class='directory? fid id'>directory?</span> <span class='generating_place_holder identifier id'>generating_place_holder</span>
+      <span class='FileUtils constant id'>FileUtils</span><span class='dot token'>.</span><span class='mkdir_p identifier id'>mkdir_p</span><span class='lparen token'>(</span><span class='generating_place_holder identifier id'>generating_place_holder</span><span class='rparen token'>)</span>
+    <span class='end end kw'>end</span>
+    <span class='Delayed constant id'>Delayed</span><span class='colon2 op'>::</span><span class='Job constant id'>Job</span><span class='dot token'>.</span><span class='enqueue identifier id'>enqueue</span> <span class='QuestionnaireToPdf constant id'>QuestionnaireToPdf</span><span class='dot token'>.</span><span class='new identifier id'>new</span><span class='lparen token'>(</span><span class='@questionnaire ivar id'>@questionnaire</span><span class='comma token'>,</span> <span class='@user ivar id'>@user</span><span class='comma token'>,</span> <span class='url_prefix identifier id'>url_prefix</span><span class='comma token'>,</span> <span class='params identifier id'>params</span><span class='lbrack token'>[</span><span class='symbol val'>:is_short</span><span class='rbrack token'>]</span><span class='comma token'>,</span> <span class='current_user identifier id'>current_user</span><span class='rparen token'>)</span>
+    <span class='comment val'>#SubmissionQuestionnaire.new.to_pdf(@questionnaire, @user, url_prefix, params[:is_short])</span>
+  <span class='else else kw'>else</span>
+    <span class='output identifier id'>output</span> <span class='assign token'>=</span> <span class='SubmissionQuestionnaire constant id'>SubmissionQuestionnaire</span><span class='dot token'>.</span><span class='new identifier id'>new</span><span class='dot token'>.</span><span class='preview_pdf identifier id'>preview_pdf</span> <span class='@questionnaire ivar id'>@questionnaire</span>
+  <span class='end end kw'>end</span>
+  <span class='respond_to identifier id'>respond_to</span> <span class='do do kw'>do</span> <span class='bitor op'>|</span><span class='format identifier id'>format</span><span class='bitor op'>|</span>
+    <span class='format identifier id'>format</span><span class='dot token'>.</span><span class='pdf identifier id'>pdf</span> <span class='do do kw'>do</span>
+      <span class='if if kw'>if</span> <span class='output identifier id'>output</span>
+        <span class='send_data identifier id'>send_data</span> <span class='output identifier id'>output</span><span class='comma token'>,</span> <span class='symbol val'>:filename</span> <span class='assign token'>=</span><span class='gt op'>&gt;</span> <span class='@questionnaire ivar id'>@questionnaire</span><span class='dot token'>.</span><span class='title identifier id'>title</span><span class='lbrack token'>[</span><span class='integer val'>0</span><span class='comma token'>,</span><span class='integer val'>35</span><span class='rbrack token'>]</span> <span class='plus op'>+</span><span class='string val'>&quot;.pdf&quot;</span><span class='comma token'>,</span> <span class='symbol val'>:type</span> <span class='assign token'>=</span><span class='gt op'>&gt;</span> <span class='string val'>&quot;application/pdf&quot;</span>
+      <span class='end end kw'>end</span>
+    <span class='end end kw'>end</span>
+    <span class='format identifier id'>format</span><span class='dot token'>.</span><span class='js identifier id'>js</span>
+  <span class='end end kw'>end</span>
+<span class='end end kw'>end</span>
+</pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <p class="signature " id="tree-instance_method">
+  
+    - (<tt>Object</tt>) <strong>tree</strong> 
+  
+
+  
+</p><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+239
+240
+241
+242
+243
+244</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'app/controllers/questionnaires_controller.rb', line 239</span>
+
+<span class='def def kw'>def</span> <span class='tree identifier id'>tree</span>
+  <span class='@obj ivar id'>@obj</span> <span class='assign token'>=</span> <span class='@questionnaire ivar id'>@questionnaire</span><span class='dot token'>.</span><span class='questionnaire_structure identifier id'>questionnaire_structure</span><span class='lparen token'>(</span><span class='params identifier id'>params</span><span class='rparen token'>)</span>
+  <span class='respond_to identifier id'>respond_to</span> <span class='do do kw'>do</span> <span class='bitor op'>|</span><span class='format identifier id'>format</span><span class='bitor op'>|</span>
+    <span class='format identifier id'>format</span><span class='dot token'>.</span><span class='js identifier id'>js</span> <span class='lbrace token'>{</span><span class='render identifier id'>render</span> <span class='symbol val'>:json</span> <span class='assign token'>=</span><span class='gt op'>&gt;</span> <span class='@obj ivar id'>@obj</span><span class='dot token'>.</span><span class='to_json identifier id'>to_json</span><span class='comma token'>,</span> <span class='symbol val'>:callback</span> <span class='assign token'>=</span><span class='gt op'>&gt;</span> <span class='params identifier id'>params</span><span class='lbrack token'>[</span><span class='symbol val'>:callback</span><span class='rbrack token'>]</span><span class='rbrace token'>}</span>
+  <span class='end end kw'>end</span>
+<span class='end end kw'>end</span>
+</pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <p class="signature " id="unsubmit-instance_method">
+  
+    - (<tt>Object</tt>) <strong>unsubmit</strong> 
+  
+
+  
+</p><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+230
+231
+232
+233
+234
+235
+236
+237</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'app/controllers/questionnaires_controller.rb', line 230</span>
+
+<span class='def def kw'>def</span> <span class='unsubmit identifier id'>unsubmit</span>
+  <span class='@questionnaire ivar id'>@questionnaire</span> <span class='assign token'>=</span> <span class='Questionnaire constant id'>Questionnaire</span><span class='dot token'>.</span><span class='find identifier id'>find</span><span class='lparen token'>(</span><span class='params identifier id'>params</span><span class='lbrack token'>[</span><span class='symbol val'>:id</span><span class='rbrack token'>]</span><span class='rparen token'>)</span>
+  <span class='@authorized_submitter ivar id'>@authorized_submitter</span> <span class='assign token'>=</span> <span class='AuthorizedSubmitter constant id'>AuthorizedSubmitter</span><span class='dot token'>.</span><span class='find_by_questionnaire_id_and_user_id identifier id'>find_by_questionnaire_id_and_user_id</span><span class='lparen token'>(</span><span class='@questionnaire ivar id'>@questionnaire</span><span class='dot token'>.</span><span class='id identifier id'>id</span><span class='comma token'>,</span> <span class='params identifier id'>params</span><span class='lbrack token'>[</span><span class='symbol val'>:user_id</span><span class='rbrack token'>]</span><span class='rparen token'>)</span>
+  <span class='@authorized_submitter ivar id'>@authorized_submitter</span><span class='dot token'>.</span><span class='status identifier id'>status</span> <span class='assign token'>=</span> <span class='SubmissionStatus constant id'>SubmissionStatus</span><span class='colon2 op'>::</span><span class='UNDERWAY constant id'>UNDERWAY</span>
+  <span class='@authorized_submitter ivar id'>@authorized_submitter</span><span class='dot token'>.</span><span class='save! fid id'>save!</span>
+  <span class='flash identifier id'>flash</span><span class='lbrack token'>[</span><span class='symbol val'>:notice</span><span class='rbrack token'>]</span> <span class='assign token'>=</span> <span class='string val'>&quot;The questionnaire is again open for editing.&quot;</span>
+  <span class='redirect_to identifier id'>redirect_to</span> <span class='respondents_questionnaire_path identifier id'>respondents_questionnaire_path</span><span class='lparen token'>(</span><span class='@questionnaire ivar id'>@questionnaire</span><span class='rparen token'>)</span>
+<span class='end end kw'>end</span>
+</pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <p class="signature " id="update-instance_method">
+  
+    - (<tt>Object</tt>) <strong>update</strong> 
+  
+
+  
+</p><div class="docstring">
+  <div class="discussion">
+    <p>
+PUT /questionnaires/1 PUT /questionnaires/1.xml
+</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+78
+79
+80
+81
+82
+83
+84
+85
+86
+87
+88
+89</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'app/controllers/questionnaires_controller.rb', line 78</span>
+
+<span class='def def kw'>def</span> <span class='update identifier id'>update</span>
+  <span class='@questionnaire ivar id'>@questionnaire</span><span class='dot token'>.</span><span class='last_editor identifier id'>last_editor</span> <span class='assign token'>=</span> <span class='current_user identifier id'>current_user</span>
+  <span class='respond_to identifier id'>respond_to</span> <span class='do do kw'>do</span> <span class='bitor op'>|</span><span class='format identifier id'>format</span><span class='bitor op'>|</span>
+    <span class='if if kw'>if</span> <span class='@questionnaire ivar id'>@questionnaire</span><span class='dot token'>.</span><span class='update_attributes identifier id'>update_attributes</span><span class='lparen token'>(</span><span class='params identifier id'>params</span><span class='lbrack token'>[</span><span class='symbol val'>:questionnaire</span><span class='rbrack token'>]</span><span class='rparen token'>)</span>
+      <span class='flash identifier id'>flash</span><span class='lbrack token'>[</span><span class='symbol val'>:notice</span><span class='rbrack token'>]</span> <span class='assign token'>=</span> <span class='string val'>'Questionnaire was successfully updated.'</span>
+      <span class='format identifier id'>format</span><span class='dot token'>.</span><span class='html identifier id'>html</span> <span class='lbrace token'>{</span> <span class='redirect_to identifier id'>redirect_to</span><span class='lparen token'>(</span><span class='@questionnaire ivar id'>@questionnaire</span><span class='rparen token'>)</span> <span class='rbrace token'>}</span>
+      <span class='format identifier id'>format</span><span class='dot token'>.</span><span class='js identifier id'>js</span>
+    <span class='else else kw'>else</span>
+      <span class='format identifier id'>format</span><span class='dot token'>.</span><span class='html identifier id'>html</span> <span class='lbrace token'>{</span> <span class='render identifier id'>render</span> <span class='symbol val'>:action</span> <span class='assign token'>=</span><span class='gt op'>&gt;</span> <span class='string val'>&quot;edit&quot;</span> <span class='rbrace token'>}</span>
+    <span class='end end kw'>end</span>
+  <span class='end end kw'>end</span>
+<span class='end end kw'>end</span>
+</pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <p class="signature " id="update_languages-instance_method">
+  
+    - (<tt>Object</tt>) <strong>update_languages</strong> 
+  
+
+  
+</p><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+95
+96
+97
+98
+99
+100
+101
+102
+103
+104
+105
+106
+107
+108
+109
+110</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'app/controllers/questionnaires_controller.rb', line 95</span>
+
+<span class='def def kw'>def</span> <span class='update_languages identifier id'>update_languages</span>
+  <span class='old_languages identifier id'>old_languages</span> <span class='assign token'>=</span> <span class='@questionnaire ivar id'>@questionnaire</span><span class='dot token'>.</span><span class='questionnaire_fields identifier id'>questionnaire_fields</span><span class='dot token'>.</span><span class='map identifier id'>map</span><span class='lbrace token'>{</span><span class='bitor op'>|</span><span class='a identifier id'>a</span><span class='bitor op'>|</span> <span class='a identifier id'>a</span><span class='dot token'>.</span><span class='language identifier id'>language</span><span class='rbrace token'>}</span>
+  <span class='old_default identifier id'>old_default</span> <span class='assign token'>=</span> <span class='@questionnaire ivar id'>@questionnaire</span><span class='dot token'>.</span><span class='questionnaire_fields identifier id'>questionnaire_fields</span><span class='dot token'>.</span><span class='find_by_is_default_language identifier id'>find_by_is_default_language</span><span class='lparen token'>(</span><span class='true true kw'>true</span><span class='rparen token'>)</span><span class='dot token'>.</span><span class='language identifier id'>language</span>
+  <span class='if if kw'>if</span> <span class='@questionnaire ivar id'>@questionnaire</span><span class='dot token'>.</span><span class='update_attributes identifier id'>update_attributes</span><span class='lparen token'>(</span><span class='params identifier id'>params</span><span class='lbrack token'>[</span><span class='symbol val'>:questionnaire</span><span class='rbrack token'>]</span><span class='rparen token'>)</span>
+    <span class='@questionnaire ivar id'>@questionnaire</span><span class='dot token'>.</span><span class='propagate_languages_changes identifier id'>propagate_languages_changes</span><span class='lparen token'>(</span><span class='old_languages identifier id'>old_languages</span><span class='comma token'>,</span> <span class='old_default identifier id'>old_default</span><span class='rparen token'>)</span>
+    <span class='flash identifier id'>flash</span><span class='lbrack token'>[</span><span class='symbol val'>:notice</span><span class='rbrack token'>]</span> <span class='assign token'>=</span> <span class='string val'>&quot;Successfully updated questionnaire's languages&quot;</span>
+    <span class='@success ivar id'>@success</span> <span class='assign token'>=</span> <span class='true true kw'>true</span>
+  <span class='else else kw'>else</span>
+    <span class='@success ivar id'>@success</span> <span class='assign token'>=</span> <span class='false false kw'>false</span>
+    <span class='flash identifier id'>flash</span><span class='lbrack token'>[</span><span class='symbol val'>:error</span><span class='rbrack token'>]</span> <span class='assign token'>=</span> <span class='string val'>&quot;There was a problem updating the questionnaire's languages&quot;</span>
+  <span class='end end kw'>end</span>
+  <span class='respond_to identifier id'>respond_to</span> <span class='do do kw'>do</span> <span class='bitor op'>|</span><span class='format identifier id'>format</span><span class='bitor op'>|</span>
+    <span class='format identifier id'>format</span><span class='dot token'>.</span><span class='html identifier id'>html</span> <span class='lbrace token'>{</span> <span class='redirect_to identifier id'>redirect_to</span> <span class='dashboard_questionnaire_path identifier id'>dashboard_questionnaire_path</span><span class='lparen token'>(</span><span class='@questionnaire ivar id'>@questionnaire</span><span class='rparen token'>)</span> <span class='rbrace token'>}</span>
+    <span class='format identifier id'>format</span><span class='dot token'>.</span><span class='js identifier id'>js</span>
+  <span class='end end kw'>end</span>
+<span class='end end kw'>end</span>
+</pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+  </div>
+
+</div>
+    
+    <div id="footer">
+  Generated on Fri Jul  8 14:33:31 2011 by 
+  <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
+  0.7.2 (ruby-1.8.7).
+</div>
+
+  </body>
+</html>

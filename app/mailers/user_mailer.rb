@@ -40,7 +40,7 @@ class UserMailer < ActionMailer::Base
     @questionnaire = questionnaire
     mail(
       to: user.email,
-      subject: (questionnaire.email_subject(user.language) ? questionnaire.email_subject(user.language) + " " : "")+ I18n.t('user_mailer.authorisation_granted.subject')
+      subject: (questionnaire.email_subject(user.language) ? questionnaire.email_subject(user.language) + " - " : "")+ I18n.t('user_mailer.authorisation_granted.subject')
     )
   end
 
@@ -50,7 +50,7 @@ class UserMailer < ActionMailer::Base
     @questionnaire = questionnaire
     mail(
       to: user.email,
-      subject: (questionnaire.email_subject(user.language) ? questionnaire.email_subject(user.language) + " " : "") + I18n.t('user_mailer.questionnaire_submitted.subject')
+      subject: (questionnaire.email_subject(user.language) ? questionnaire.email_subject(user.language) + " - " : "") + I18n.t('user_mailer.questionnaire_submitted.subject')
     )
   end
 
@@ -61,7 +61,7 @@ class UserMailer < ActionMailer::Base
     @questionnaire = questionnaire
     mail(
       to: admin.email,
-      subject: (questionnaire.email_subject(user.language) ? questionnaire.email_subject(user.language) + " " : "") + I18n.t('user_mailer.questionnaire_submitted.admin_subject') + " " + user.full_name
+      subject: (questionnaire.email_subject(user.language) ? questionnaire.email_subject(user.language) + " - " : "") + I18n.t('user_mailer.questionnaire_submitted.admin_subject') + " " + user.full_name
     )
   end
 
@@ -108,7 +108,7 @@ class UserMailer < ActionMailer::Base
     @requester = requester
     mail(
       to: user.email,
-      subject: (questionnaire.email_subject(requester.language) ? questionnaire.email_subject(requester.language) + " " : "") + I18n.t('user_mailer.pdf_generated.subject')
+      subject: (questionnaire.email_subject(requester.language) ? questionnaire.email_subject(requester.language) + " - " : "") + I18n.t('user_mailer.pdf_generated.subject')
     )
   end
 
@@ -120,7 +120,7 @@ class UserMailer < ActionMailer::Base
     @error_message = error_message
     mail(
       to: user.email,
-      subject: (questionnaire.email_subject(requester.language) ? questionnaire.email_subject(requester.language) + " " : "") + I18n.t('user_mailer.pdf_generation_failed.subject')
+      subject: (questionnaire.email_subject(requester.language) ? questionnaire.email_subject(requester.language) + " - " : "") + I18n.t('user_mailer.pdf_generation_failed.subject')
     )
   end
 
@@ -131,7 +131,7 @@ class UserMailer < ActionMailer::Base
     @section = section
     mail(
       to: user.email,
-      subject: (questionnaire.email_subject(user.language) ? questionnaire.email_subject(user.language) + " " : "") + I18n.t('user_mailer.csv_file_generated.subject')
+      subject: (questionnaire.email_subject(user.language) ? questionnaire.email_subject(user.language) + " - " : "") + I18n.t('user_mailer.csv_file_generated.subject')
     )
   end
 
@@ -143,7 +143,7 @@ class UserMailer < ActionMailer::Base
     @error = error
     mail(
       to: user.email,
-      subject: (questionnaire.email_subject(user.language) ? questionnaire.email_subject(user.language) + " " : "") + I18n.t('user_mailer.csv_generation_failed.subject')
+      subject: (questionnaire.email_subject(user.language) ? questionnaire.email_subject(user.language) + " - " : "") + I18n.t('user_mailer.csv_generation_failed.subject')
     )
   end
 
@@ -215,9 +215,8 @@ class UserMailer < ActionMailer::Base
     @url = url
     mail(
       to: user.email,
-      subject: (questionnaire.email_subject(user.language) ? questionnaire.email_subject(user.language) : "") + I18n.t('user_mailer.questionnaire_duplicated.subject')
+      subject: (( questionnaire.email_subject(user.language) ? questionnaire.email_subject(user.language) : "" ) + I18n.t('user_mailer.questionnaire_duplicated.subject'))
     )
-
   end
 
   # Rails 3 compatible.
@@ -232,5 +231,10 @@ class UserMailer < ActionMailer::Base
       to: @user.email,
       subject: @subject
     )
+  end
+
+  def deliver_password_reset_instructions(user)
+    @user = user
+    mail(to: user.email, subject: "Online Reporting System - password reset instructions" )
   end
 end

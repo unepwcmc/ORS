@@ -1,0 +1,447 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>
+  Class: AuthorizedSubmittersController
+  
+    &mdash; Documentation by YARD 0.7.2
+  
+</title>
+
+  <link rel="stylesheet" href="css/style.css" type="text/css" media="screen" charset="utf-8" />
+
+  <link rel="stylesheet" href="css/common.css" type="text/css" media="screen" charset="utf-8" />
+
+<script type="text/javascript" charset="utf-8">
+  relpath = '';
+  if (relpath != '') relpath += '/';
+</script>
+
+  <script type="text/javascript" charset="utf-8" src="js/jquery.js"></script>
+
+  <script type="text/javascript" charset="utf-8" src="js/app.js"></script>
+
+
+  </head>
+  <body>
+    <script type="text/javascript" charset="utf-8">
+      if (window.top.frames.main) document.body.className = 'frames';
+    </script>
+    
+    <div id="header">
+      <div id="menu">
+  
+    <a href="_index.html">Index (A)</a> &raquo; 
+    
+    
+    <span class="title">AuthorizedSubmittersController</span>
+  
+  
+  <div class="noframes"><span class="title">(</span><a href="." target="_top">no frames</a><span class="title">)</span></div>
+</div>
+
+      <div id="search">
+  
+    <a id="class_list_link" href="#">Class List</a>
+  
+    <a id="method_list_link" href="#">Method List</a>
+  
+    <a id="file_list_link" href="#">File List</a>
+  
+</div>
+      <div class="clear"></div>
+    </div>
+    
+    <iframe id="search_frame"></iframe>
+    
+    <div id="content"><h1>Class: AuthorizedSubmittersController
+  
+  
+  
+</h1>
+
+<dl class="box">
+  
+    <dt class="r1">Inherits:</dt>
+    <dd class="r1">
+      <span class="inheritName"><span class='object_link'><a href="ApplicationController.html" title="ApplicationController (class)">ApplicationController</a></span></span>
+      
+        <ul class="fullTree">
+          <li>Object</li>
+          
+            <li class="next">ActionController::Base</li>
+          
+            <li class="next"><span class='object_link'><a href="ApplicationController.html" title="ApplicationController (class)">ApplicationController</a></span></li>
+          
+            <li class="next">AuthorizedSubmittersController</li>
+          
+        </ul>
+        <a href="#" class="inheritanceTree">show all</a>
+      
+      </dd>
+    
+  
+  
+    
+  
+    
+  
+  
+  
+    <dt class="r2 last">Defined in:</dt>
+    <dd class="r2 last">app/controllers/authorized_submitters_controller.rb</dd>
+  
+</dl>
+<div class="clear"></div>
+
+
+
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+
+
+  
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <h2>
+      Instance Method Summary
+      <small>(<a href="#" class="summary_toggle">collapse</a>)</small>
+    </h2>
+
+    <ul class="summary">
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#authorize-instance_method" title="#authorize (instance method)">- (Object) <strong>authorize</strong> </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#change_language-instance_method" title="#change_language (instance method)">- (Object) <strong>change_language</strong> </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#index-instance_method" title="#index (instance method)">- (Object) <strong>index</strong> </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'><p>
+GET /questionnaires/:questionnaire_id/authorized_submitters.
+</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#remove-instance_method" title="#remove (instance method)">- (Object) <strong>remove</strong> </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+      
+    </ul>
+  
+
+
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  <h3 class="inherited">Methods included from <span class='object_link'><a href="Authentication.html" title="Authentication (module)">Authentication</a></span></h3>
+  <p class="inherited"><span class='object_link'><a href="Authentication.html#current_user-instance_method" title="Authentication#current_user (method)">#current_user</a></span>, <span class='object_link'><a href="Authentication.html#current_user_session-instance_method" title="Authentication#current_user_session (method)">#current_user_session</a></span>, <span class='object_link'><a href="Authentication.html#included-class_method" title="Authentication.included (method)">included</a></span>, <span class='object_link'><a href="Authentication.html#logged_in%3F-instance_method" title="Authentication#logged_in? (method)">#logged_in?</a></span>, <span class='object_link'><a href="Authentication.html#login_required-instance_method" title="Authentication#login_required (method)">#login_required</a></span>, <span class='object_link'><a href="Authentication.html#redirect_to_target_or_default-instance_method" title="Authentication#redirect_to_target_or_default (method)">#redirect_to_target_or_default</a></span></p>
+
+  
+
+  <div id="instance_method_details" class="method_details_list">
+    <h2>Instance Method Details</h2>
+    
+    
+      <div class="method_details first">
+  <p class="signature first" id="authorize-instance_method">
+  
+    - (<tt>Object</tt>) <strong>authorize</strong> 
+  
+
+  
+</p><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'app/controllers/authorized_submitters_controller.rb', line 19</span>
+
+<span class='def def kw'>def</span> <span class='authorize identifier id'>authorize</span>
+  <span class='questionnaire identifier id'>questionnaire</span> <span class='assign token'>=</span> <span class='Questionnaire constant id'>Questionnaire</span><span class='dot token'>.</span><span class='find identifier id'>find</span><span class='lparen token'>(</span><span class='params identifier id'>params</span><span class='lbrack token'>[</span><span class='symbol val'>:questionnaire_id</span><span class='rbrack token'>]</span><span class='rparen token'>)</span>
+  <span class='url identifier id'>url</span> <span class='assign token'>=</span> <span class='string val'>&quot;http://&quot;</span> <span class='plus op'>+</span> <span class='request identifier id'>request</span><span class='dot token'>.</span><span class='host identifier id'>host</span> <span class='plus op'>+</span> <span class='lparen token'>(</span><span class='ActionController constant id'>ActionController</span><span class='colon2 op'>::</span><span class='Base constant id'>Base</span><span class='dot token'>.</span><span class='relative_url_root identifier id'>relative_url_root</span><span class='dot token'>.</span><span class='present? fid id'>present?</span> <span class='integer val'>? </span><span class='ActionController constant id'>ActionController</span><span class='colon2 op'>::</span><span class='Base constant id'>Base</span><span class='dot token'>.</span><span class='relative_url_root identifier id'>relative_url_root</span> <span class='colon op'>:</span> <span class='string val'>&quot;&quot;</span><span class='rparen token'>)</span>
+  <span class='@users ivar id'>@users</span> <span class='assign token'>=</span> <span class='AuthorizedSubmitter constant id'>AuthorizedSubmitter</span><span class='dot token'>.</span><span class='authorize_from_array_of_users identifier id'>authorize_from_array_of_users</span><span class='lparen token'>(</span><span class='params identifier id'>params</span><span class='lbrack token'>[</span><span class='symbol val'>:users</span><span class='rbrack token'>]</span><span class='comma token'>,</span> <span class='questionnaire identifier id'>questionnaire</span><span class='comma token'>,</span> <span class='url identifier id'>url</span><span class='rparen token'>)</span> <span class='if if_mod kw'>if</span> <span class='params identifier id'>params</span><span class='lbrack token'>[</span><span class='symbol val'>:users</span><span class='rbrack token'>]</span>
+  <span class='if if kw'>if</span> <span class='@users ivar id'>@users</span><span class='dot token'>.</span><span class='present? fid id'>present?</span>
+    <span class='flash identifier id'>flash</span><span class='lbrack token'>[</span><span class='symbol val'>:notice</span><span class='rbrack token'>]</span> <span class='assign token'>=</span> <span class='string val'>&quot;Authorisation successfully granted&quot;</span>
+  <span class='end end kw'>end</span>
+  <span class='respond_to identifier id'>respond_to</span> <span class='do do kw'>do</span> <span class='bitor op'>|</span><span class='format identifier id'>format</span><span class='bitor op'>|</span>
+    <span class='format identifier id'>format</span><span class='dot token'>.</span><span class='js identifier id'>js</span>
+  <span class='end end kw'>end</span>
+<span class='end end kw'>end</span>
+</pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <p class="signature " id="change_language-instance_method">
+  
+    - (<tt>Object</tt>) <strong>change_language</strong> 
+  
+
+  
+</p><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'app/controllers/authorized_submitters_controller.rb', line 42</span>
+
+<span class='def def kw'>def</span> <span class='change_language identifier id'>change_language</span>
+  <span class='@questionnaire ivar id'>@questionnaire</span> <span class='assign token'>=</span> <span class='Questionnaire constant id'>Questionnaire</span><span class='dot token'>.</span><span class='find identifier id'>find</span><span class='lparen token'>(</span><span class='params identifier id'>params</span><span class='lbrack token'>[</span><span class='symbol val'>:questionnaire_id</span><span class='rbrack token'>]</span><span class='rparen token'>)</span>
+  <span class='if if kw'>if</span> <span class='@questionnaire ivar id'>@questionnaire</span>
+    <span class='authorized_submitter identifier id'>authorized_submitter</span> <span class='assign token'>=</span> <span class='AuthorizedSubmitter constant id'>AuthorizedSubmitter</span><span class='dot token'>.</span><span class='find_by_questionnaire_id_and_user_id identifier id'>find_by_questionnaire_id_and_user_id</span><span class='lparen token'>(</span><span class='@questionnaire ivar id'>@questionnaire</span><span class='comma token'>,</span> <span class='current_user identifier id'>current_user</span><span class='rparen token'>)</span>
+    <span class='if if kw'>if</span> <span class='authorized_submitter identifier id'>authorized_submitter</span>
+      <span class='authorized_submitter identifier id'>authorized_submitter</span><span class='dot token'>.</span><span class='language identifier id'>language</span> <span class='assign token'>=</span> <span class='params identifier id'>params</span><span class='lbrack token'>[</span><span class='symbol val'>:language</span><span class='rbrack token'>]</span><span class='dot token'>.</span><span class='to_s identifier id'>to_s</span>
+      <span class='authorized_submitter identifier id'>authorized_submitter</span><span class='dot token'>.</span><span class='save identifier id'>save</span>
+      <span class='respond_to identifier id'>respond_to</span> <span class='do do kw'>do</span> <span class='bitor op'>|</span><span class='format identifier id'>format</span><span class='bitor op'>|</span>
+        <span class='format identifier id'>format</span><span class='dot token'>.</span><span class='html identifier id'>html</span> <span class='lbrace token'>{</span> <span class='redirect_to identifier id'>redirect_to</span> <span class='submission_questionnaire_path identifier id'>submission_questionnaire_path</span><span class='lparen token'>(</span><span class='@questionnaire ivar id'>@questionnaire</span><span class='rparen token'>)</span><span class='rbrace token'>}</span>
+      <span class='end end kw'>end</span>
+    <span class='else else kw'>else</span>
+      <span class='raise identifier id'>raise</span> <span class='CanCan constant id'>CanCan</span><span class='colon2 op'>::</span><span class='AccessDenied constant id'>AccessDenied</span><span class='dot token'>.</span><span class='new identifier id'>new</span><span class='lparen token'>(</span><span class='t identifier id'>t</span><span class='lparen token'>(</span><span class='string val'>'flash_messages.not_authorized'</span><span class='rparen token'>)</span><span class='rparen token'>)</span>
+    <span class='end end kw'>end</span>
+  <span class='end end kw'>end</span>
+<span class='end end kw'>end</span>
+</pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <p class="signature " id="index-instance_method">
+  
+    - (<tt>Object</tt>) <strong>index</strong> 
+  
+
+  
+</p><div class="docstring">
+  <div class="discussion">
+    <p>
+GET /questionnaires/:questionnaire_id/authorized_submitters
+</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+8
+9
+10
+11
+12
+13
+14
+15
+16</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'app/controllers/authorized_submitters_controller.rb', line 8</span>
+
+<span class='def def kw'>def</span> <span class='index identifier id'>index</span>
+  <span class='@questionnaire ivar id'>@questionnaire</span> <span class='assign token'>=</span> <span class='Questionnaire constant id'>Questionnaire</span><span class='dot token'>.</span><span class='find identifier id'>find</span><span class='lparen token'>(</span><span class='params identifier id'>params</span><span class='lbrack token'>[</span><span class='symbol val'>:questionnaire_id</span><span class='rbrack token'>]</span><span class='rparen token'>)</span>
+  <span class='@users ivar id'>@users</span> <span class='assign token'>=</span> <span class='User constant id'>User</span><span class='dot token'>.</span><span class='submitters identifier id'>submitters</span> <span class='comment val'>#=&gt; all submitters</span>
+  <span class='@groups ivar id'>@groups</span> <span class='assign token'>=</span> <span class='User constant id'>User</span><span class='dot token'>.</span><span class='group_counts identifier id'>group_counts</span>
+  <span class='respond_to identifier id'>respond_to</span> <span class='do do kw'>do</span> <span class='bitor op'>|</span><span class='format identifier id'>format</span><span class='bitor op'>|</span>
+    <span class='format identifier id'>format</span><span class='dot token'>.</span><span class='html identifier id'>html</span> <span class='comment val'># index.html.erb</span>
+    <span class='format identifier id'>format</span><span class='dot token'>.</span><span class='js identifier id'>js</span>
+  <span class='end end kw'>end</span>
+<span class='end end kw'>end</span>
+</pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <p class="signature " id="remove-instance_method">
+  
+    - (<tt>Object</tt>) <strong>remove</strong> 
+  
+
+  
+</p><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'app/controllers/authorized_submitters_controller.rb', line 31</span>
+
+<span class='def def kw'>def</span> <span class='remove identifier id'>remove</span>
+  <span class='questionnaire identifier id'>questionnaire</span> <span class='assign token'>=</span> <span class='Questionnaire constant id'>Questionnaire</span><span class='dot token'>.</span><span class='find identifier id'>find</span><span class='lparen token'>(</span><span class='params identifier id'>params</span><span class='lbrack token'>[</span><span class='symbol val'>:questionnaire_id</span><span class='rbrack token'>]</span><span class='rparen token'>)</span>
+  <span class='@users ivar id'>@users</span> <span class='assign token'>=</span> <span class='AuthorizedSubmitter constant id'>AuthorizedSubmitter</span><span class='dot token'>.</span><span class='remove_authorization_from_array_of_users identifier id'>remove_authorization_from_array_of_users</span><span class='lparen token'>(</span><span class='params identifier id'>params</span><span class='lbrack token'>[</span><span class='symbol val'>:users</span><span class='rbrack token'>]</span><span class='comma token'>,</span> <span class='questionnaire identifier id'>questionnaire</span><span class='rparen token'>)</span> <span class='if if_mod kw'>if</span> <span class='params identifier id'>params</span><span class='lbrack token'>[</span><span class='symbol val'>:users</span><span class='rbrack token'>]</span>
+  <span class='if if kw'>if</span> <span class='@users ivar id'>@users</span><span class='dot token'>.</span><span class='present? fid id'>present?</span>
+    <span class='flash identifier id'>flash</span><span class='lbrack token'>[</span><span class='symbol val'>:notice</span><span class='rbrack token'>]</span> <span class='assign token'>=</span> <span class='string val'>&quot;Authorisation successfully removed&quot;</span>
+  <span class='end end kw'>end</span>
+  <span class='respond_to identifier id'>respond_to</span> <span class='do do kw'>do</span> <span class='bitor op'>|</span><span class='format identifier id'>format</span><span class='bitor op'>|</span>
+    <span class='format identifier id'>format</span><span class='dot token'>.</span><span class='js identifier id'>js</span>
+  <span class='end end kw'>end</span>
+<span class='end end kw'>end</span>
+</pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+  </div>
+
+</div>
+    
+    <div id="footer">
+  Generated on Fri Jul  8 14:33:33 2011 by 
+  <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
+  0.7.2 (ruby-1.8.7).
+</div>
+
+  </body>
+</html>

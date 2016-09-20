@@ -5,10 +5,10 @@
     <th>Created by</th>
     <th>Created at</th>
     <% info_tip_text = "<p>The available actions are:</p>
-               <p>" + image_tag('icons/key.png', size: '15x15') + " Let's you close a questionnaire, so that the respondents will not be able to make further changes to their answers.</p>
-               <p>" + image_tag('icons/lock.png', size: '15x15') + " Indicates that a questionnaire is closed.</p>
-               <p>" + image_tag('icons/stop.png', size: '15x15') + " Deactivates a questionnaire, making it available for editing and unavailable for the respondents to fill in their answers.</p>
-               <p>" + image_tag('icons/start.png', size: '15x15') + " Activates a questionnaire, making it available for respondents to fill in their answers.</p>" -%>
+               <p>" + fa_icon('unlock-alt', class: 'background inverse info') + " Let's you close a questionnaire, so that the respondents will not be able to make further changes to their answers.</p>
+               <p>" + fa_icon('lock', class: 'background inverse info') + " Indicates that a questionnaire is closed.</p>
+               <p>" + fa_icon('stop', class: 'background inverse error') + " Deactivates a questionnaire, making it available for editing and unavailable for the respondents to fill in their answers.</p>
+               <p>" + fa_icon('play', class: 'background inverse success') + " Activates a questionnaire, making it available for respondents to fill in their answers.</p>" -%>
     <th style="width:70px">Actions <%= info_tip("Actions", info_tip_text) %></th>
   </tr>
   </thead>
@@ -17,12 +17,12 @@
       <tr>
         <td><%= link_to h(questionnaire.title), dashboard_questionnaire_path(questionnaire) %></td>
         <td><%= link_to h(questionnaire.user.full_name), user_path(questionnaire.user) %></td>
-        <td><%= questionnaire.created_at.strftime("%B %d, %Y") %></td>
-        <td class="questionnaire_<%= questionnaire.id.to_s %>"><%= questionnaire.active? ? (link_to image_tag('icons/stop.png', :alt => "Deactivate", :title => "Deactivate questionnaire.", :size => "16x16"), deactivate_questionnaire_path(questionnaire), :class => :put) : questionnaire.closed? ? image_tag('icons/lock.png', :alt => "Questionnaire closed", :title => "Questionnaire is closed") : (link_to image_tag('icons/start.png', :title => 'Activate questionnaire', :alt => 'Activate questionnaire', :size => "16x16"), activate_questionnaire_path(questionnaire), :class => "put") %></td>
+        <td><%= questionnaire.created_at.strftime("%m/%d/%Y") %></td>
+        <td class="questionnaire_<%= questionnaire.id.to_s %>"><%= questionnaire.active? ? (link_to fa_icon('stop', alt: "Deactivate", title: "Deactivate Questionnaire", class: 'background inverse error'), deactivate_questionnaire_path(questionnaire), :class => :put) : questionnaire.closed? ? fa_icon('lock', :alt => "Questionnaire closed", :title => "Questionnaire is closed", class: 'background inverse info') : (link_to fa_icon('play', alt: 'Activate Questionnaire', title: 'Activate Questionnaire', class: 'background inverse success'), activate_questionnaire_path(questionnaire), :class => "put") %></td>
       </tr>
   <% end -%>
   </tbody>
 </table>
 <p style="text-align: right; padding-right: 5px">
-  <%= link_to "See all", questionnaires_path(:params => {:order => "created_at" }) -%>
+  <%= link_to "See all", questionnaires_path(:params => {:order => "created_at" }), class: 'btn' -%>
 </p>

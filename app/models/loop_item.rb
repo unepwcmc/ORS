@@ -10,15 +10,13 @@ class LoopItem < ActiveRecord::Base
   ###
   acts_as_nested_set :dependent => :destroy
 
-
   ###
   ###   Relationships
   ###
   belongs_to :loop_item_type
   belongs_to :loop_item_name
-  has_many :answers
-  has_many :user_section_submission_states
-
+  has_many :answers, dependent: :destroy
+  has_many :user_section_submission_states, dependent: :destroy
 
   ###
   ###   Methods
@@ -103,8 +101,8 @@ class LoopItem < ActiveRecord::Base
       if loop_item_type.root?
         loop_items << loop_item_name.loop_items.where(loop_item_type_id: loop_item_type.id).first
       else
-        parent_loop_item_type = loop_item_types.select{|l| l.id == loop_item_type.parent_id}.first
-        parent_loop_item = parent_loop_item_type && loop_items.select{|g| g.loop_item_type_id == parent_loop_item_type.id}.first
+        parent_loop_item_type = loop_item_types.select{ |l| l.id == loop_item_type.parent_id }.first
+        parent_loop_item = parent_loop_item_type && loop_items.select{ |g| g.loop_item_type_id == parent_loop_item_type.id }.first
         loop_item = parent_loop_item && loop_item_name.loop_items.where(loop_item_type_id: loop_item_type.id).find_by_parent_id(parent_loop_item.id)
         loop_items << loop_item unless loop_item.nil?
       end

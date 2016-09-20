@@ -30,13 +30,13 @@ end
 # Table name: documents
 #
 #  id               :integer          not null, primary key
-#  answer_id        :integer
-#  doc_file_name    :string(255)
+#  answer_id        :integer          not null
+#  doc_file_name    :text             not null
 #  doc_content_type :string(255)
 #  doc_file_size    :integer
 #  doc_updated_at   :datetime
-#  created_at       :datetime
-#  updated_at       :datetime
+#  created_at       :datetime         not null
+#  updated_at       :datetime         not null
 #  description      :text
 #  original_id      :integer
 #

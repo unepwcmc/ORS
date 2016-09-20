@@ -13,10 +13,10 @@ end
 #  title          :string(255)
 #  details        :text
 #  timestamp      :datetime
-#  user_id        :integer
+#  user_id        :integer          not null
 #  errorable_type :string(255)
 #  errorable_id   :integer
 #  user_ip        :string(255)
-#  created_at     :datetime
-#  updated_at     :datetime
+#  created_at     :datetime         not null
+#  updated_at     :datetime         not null
 #

@@ -72,7 +72,7 @@ class SectionsController < ApplicationController
   def delete
     @section = Section.find(params[:id], :include => :questionnaire_part)
     questionnaire = @section.questionnaire
-    if @section.questionnaire.user != current_user
+    if !current_user.role? :admin
       raise CanCan::AccessDenied.new(t('flash_messages.not_authorized'))
     elsif  @section.questionnaire.active?
       flash[:error] = "This section's questionnaire is active, and so you can not delete its sections."
@@ -92,7 +92,7 @@ class SectionsController < ApplicationController
     @questionnaire = @section.questionnaire
     if params[:cancel]
       redirect_to(dashboard_questionnaire_path(@questionnaire)) and return
-    elsif @questionnaire.user != current_user
+    elsif !current_user.role? :admin
       raise CanCan::AccessDenied.new(t('flash_messages.not_authorized'))
     elsif  @questionnaire.active?
       flash[:error] = "This section's questionnaire is active, and so you can not delete its sections."
@@ -168,7 +168,7 @@ class SectionsController < ApplicationController
 
   def questions
     @section = Section.find(params[:id],
-        :include => [ :questions, { :loop_item_type => { :loop_item_names => :loop_item_name_fields } }])
+        :include => [ :questions, {:loop_item_type => {:loop_item_names => :loop_item_name_fields}}])
     @questions = @section.questions
     respond_to do |format|
       format.js
@@ -185,7 +185,7 @@ class SectionsController < ApplicationController
     @fields[:answers] = @section.section_and_descendants_answers_for(@authorization[:user])
     @fields[:loop_item] = params[:loop_item_id] ? LoopItem.find(params[:loop_item_id]) : nil
     is_disabled = !( !@authorization[:is_closed] && ( !@authorization[:sections] || @authorization[:sections].has_key?(@section.id.to_s) ) )
-    render :partial => "sections/submission", :locals => { :root => true, :loop_sources => @fields[:loop_item] ? { @fields[:loop_item].loop_item_type.root.loop_source.id.to_s => @fields[:loop_item] } : {}, :disabled => is_disabled }
+    render :partial => "sections/submission", :locals => {:root => true, :loop_sources => @fields[:loop_item] ? {@fields[:loop_item].loop_item_type.root.loop_source.id.to_s => @fields[:loop_item]} : {}, :disabled => is_disabled}
   end
 
   def load_lazy
@@ -255,7 +255,7 @@ class SectionsController < ApplicationController
     authorize! :questions, @section
     @item_names = @section.loop_item_names if @section && @section.looping?  && @section.loop_item_type.present?
     respond_to do |format|
-      format.js {render :json => (@item_names ? @item_names.to_json : nil), :callback => params[:callback]}
+      format.js { render :json => (@item_names ? @item_names.to_json : nil), :callback => params[:callback] }
     end
   end
 
@@ -274,7 +274,7 @@ class SectionsController < ApplicationController
 
   def download_csv
     @section = Section.find(params[:id])
-    if @section.csv_file.present? && File.exists?(@section.csv_file.location)
+    if @section.csv_file.present? && File.exist?(@section.csv_file.location)
       send_file @section.csv_file.location, :type => "csv"
     else
       flash[:error] = "It was not possible to download the requested file. Please generate the file again. Thank you."

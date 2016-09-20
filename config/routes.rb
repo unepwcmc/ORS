@@ -8,11 +8,13 @@ OnlineReportingTool::Application.routes.draw do
   match 'loop_sources/:id/item_types/edit/:section_id' => 'loop_sources#item_types', :as => :loop_source_item_types
   match 'questionnaires/:questionnaire_id/authorized_submitters/add/:users' => 'authorized_submitters#add', :as => :authorize_submitter, :method => 'post'
   match 'questionnaires/:questionnaire_id/authorized_submitters/remove/:user_id' => 'authorized_submitters#remove', :as => :remove_authorized_submitter, :method => 'post'
-  
+
   mount Sidekiq::Web => '/sidekiq'
 
   resources :alerts
   resources :answer_parts
+
+  get 'answers/:answer_id/documents/:id', to: 'documents#show'
 
   resources :answers do
     member do
@@ -144,7 +146,7 @@ OnlineReportingTool::Application.routes.draw do
     member do
       get :dashboard
     end
-  
+
     resources :delegations do
       resources :delegation_sections
     end
@@ -170,7 +172,7 @@ OnlineReportingTool::Application.routes.draw do
       member do
         get :dashboard
       end
-    
+
       resources :delegations do
         resources :delegation_sections
       end
@@ -184,6 +186,8 @@ OnlineReportingTool::Application.routes.draw do
     resources :delegation_sections
   end
   resources :user_sessions
+
+  resources :password_resets, only: [:new, :create, :edit, :update ]
 
   root to: "home#index"
   match '/' => 'home#index'

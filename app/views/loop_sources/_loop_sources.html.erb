@@ -1,17 +1,15 @@
-<div id="looping_sources" class="hide">
-  <li>
-    <% if @loop_sources.present? %>
-        <label>Available Loop Sources:</label>
-        <%#= select_tag :section_source_selection, options_from_collection_for_select(questionnaire.loop_sources, :id, :name) %>
-        <%= f.collection_select :loop_source_id, @loop_sources, :id, :name, {:include_blank => true }, :validate => "{required:\"#looping_sources:visible\", messages:{required:'Please choose a loop source'}}"  %>
-        <% text = "Select a loop source from the drop down list. This will provide the source for this looping type section. - You should then
-            choose one of the loop item types, the headers of your source file, for which the section will loop. - After you activate your questionnaire a section will be
-            generated for each of the items that have the chosen type."  %>
-        <%= info_tip("Loop Sources", text) %>
-        <%#= image_tag('qmark.png', :size => "20x20", :title => title, :class => "obj_tooltip") -%>
-    <% else %>
-        No Sources to display. Please upload sources first.
-    <% end %>
-  </li>
+<div id="looping_sources" class="row group padded hide">
+  <% if @loop_sources.present? %>
+      <label>Available Loop Sources:</label>
+      <%#= select_tag :section_source_selection, options_from_collection_for_select(questionnaire.loop_sources, :id, :name) %>
+      <%= f.collection_select :loop_source_id, @loop_sources, :id, :name, {:include_blank => true }, :validate => "{required:\"#looping_sources:visible\", messages:{required:'Please choose a loop source'}}"  %>
+      <% text = "Select a loop source from the drop down list. This will provide the source for this looping type section. - You should then
+          choose one of the loop item types, the headers of your source file, for which the section will loop. - After you activate your questionnaire a section will be
+          generated for each of the items that have the chosen type."  %>
+      <%= info_tip("Loop Sources", text) %>
+      <%#= image_tag('qmark.png', :size => "20x20", :title => title, :class => "obj_tooltip") -%>
+  <% else %>
+      No Sources to display. Please upload sources first.
+  <% end %>
   <div id="looping_categories" class="hide"></div><!-- /looping_categories -->
 </div><!-- /looping_sources -->

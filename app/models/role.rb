@@ -5,9 +5,9 @@ class Role < ActiveRecord::Base
   ###
   ###   Relationships
   ###
-  
+
   has_many :users, :through => :assignments
-  has_many :assignments, :dependent => :nullify
+  has_many :assignments, :dependent => :destroy
 end
 
 # == Schema Information
@@ -15,7 +15,7 @@ end
 # Table name: roles
 #
 #  id         :integer          not null, primary key
-#  name       :string(255)
-#  created_at :datetime
-#  updated_at :datetime
+#  name       :string(255)      not null
+#  created_at :datetime         not null
+#  updated_at :datetime         not null
 #

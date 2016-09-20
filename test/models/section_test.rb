@@ -7,10 +7,10 @@ class SectionTest < ActiveSupport::TestCase
       @section = FactoryGirl.create(:section, :section_type => "2")
       @answer_type = FactoryGirl.create(:text_answer)
       @answer_type.sections << @section
-      
+
       params = {
               :id => @section.id,
-              :section => {:section_type=>"3", :name=>"TEste1", :help_text=>"Asdas", :answer_type_type=>""} 
+              :section => {:section_type=>"3", :name=>"TEste1", :help_text=>"Asdas", :answer_type_type=>""}
               #:section=>{:name=>"Sample Section 12", :section_type=>"3", :help_text=>"Just a general section."}#,
                            #:answer_type_type=>"MultiAnswer"}
                #:answer=>{:display_type=>"", :help_text=>"asasdas", :multi_answer_options_attributes=>{:new_multi_answer_options=>{:option_help=>"", :option_text=>"", :_destroy=>""}},
@@ -42,7 +42,6 @@ class SectionTest < ActiveSupport::TestCase
       @result = Section.section_update(params)
     end
 
-
 #    should "have type 2 as section_type after updated" do
 #       assert_equal 2, @result.section_type
 #    end
@@ -55,7 +54,7 @@ class SectionTest < ActiveSupport::TestCase
 #      assert_raises(ActiveRecord::RecordNotFound) { TextAnswer.find(@answer_type.id) }
 #    end
   end
-  
+
 end
 
 # == Schema Information
@@ -63,10 +62,10 @@ end
 # Table name: sections
 #
 #  id                      :integer          not null, primary key
-#  created_at              :datetime
-#  updated_at              :datetime
+#  created_at              :datetime         not null
+#  updated_at              :datetime         not null
 #  last_edited             :datetime
-#  section_type            :integer
+#  section_type            :integer          not null
 #  answer_type_id          :integer
 #  answer_type_type        :string(255)
 #  loop_source_id          :integer

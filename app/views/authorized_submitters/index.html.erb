@@ -14,18 +14,67 @@
                     <p>If you want to go back to the full list you can clear your search by clicking in 'Clear Search'.</p>
                     <p>To see all the details of a specific user you can click on its name.</p>" %>
   <%= render :partial => "administration/menu", :locals => {:header => ("Manage Respondents " + info_tip("Manage Respondents", info_tip_text)).html_safe, :include_options => "questionnaires"} -%>
-  <h3>Questionnaire: <%= link_to h(@questionnaire.title), dashboard_questionnaire_path(@questionnaire) %></h3>
+
+
   <%= form_tag({:controller => :authorized_submitters}, :class => "ajaxForm", :id => "manage") do %>
+  <div class="page-header-with-buttons">
+    <div class="page-header-with-buttons__title">
+      <h2>Manage Respondents</h2>
+      <h5>Questionnaire: <%= link_to h(@questionnaire.title), dashboard_questionnaire_path(@questionnaire) %></h5>
+    </div>
+    <div class="page-header-with-buttons__buttons">
+      <%= link_to add_list_users_path do %>
+        <%= fa_icon 'plus-circle' %> Add list of users
+      <% end %>
+      <a href="#" id="add_new_user"><%= fa_icon 'plus-circle' %> Add user</a>
+    </div>
+  </div>
+
+  <div class="manage-groups">
+    <div class="manage-groups__help-text"><p>
+      <p>To add users to an existing or new group. For more information visit the <a href="http://orssupport.unep-wcmc.org/kb/article/26-adding-users-to-groups
+      " target="_blank">Adding users to groups article</a> on the Support Centre.</p>
+      </p>
+    </div>
+    <div class="manage-groups__title">Add users to group</div>
+    <div class="manage-groups__body">
+      <%= select_tag("groups", options_for_select(@groups.sort{|x,y| x.name <=> y.name}.collect {|p| [ p.name, p.name ] }), { :prompt => 'Select existing group' }) %>
+      Or
+      <%= text_field_tag "group", nil, placeholder: "Enter name for new group" %>
+      <button type="button" name="group" class="authorization_buttons btn">Add</button>
+    </div>
+  </div>
+
+  <div class="datatable-filters">
+    <div class="datatable-filters__left">
+      <% if @questionnaire %>
+       Filter by
+        <%= select_tag :authorized_filter, options_for_select([['All',''],['Authorized', 'Yes'],[ 'Not Authorized', 'No'],['Authorizing', 'Authorizing']]) %>
+
+        <button type="button" name="authorize" class="authorization_buttons btn">Authorize</button>
+        <button type="button" name="remove" class="authorization_buttons btn">De-authorize</button>
+      <% end %>
+    </div>
+    <div class="datatable-filters__right">
+      <input type="text" name="filter" id="filter" value="" placeholder="Type your search here... " size="25"/>
+      <a href="#" id="clear_search" class="btn">Clear Search</a><br>
+    </div>
+  </div>
+
+  <div class="disable-emails">
+    <%= label_tag :disable_emails, "Disable authorization email notifications" %>
+    <%= hidden_field_tag :disable_emails, false %>
+    <%= check_box_tag :disable_emails, "on", false %>
+  </div>
+
+
       <%= hidden_field_tag "questionnaire_id", @questionnaire.id %>
-      <div id="menu">
-        <%= render :partial => "users/manage_users" %>
-      </div><!-- /menu -->
       <div id="the_table">
         <table id="myTable" class="tablesorter">
           <thead>
           <tr>
-            <th></th>
-            <th>Authorise</th>
+            <th><%= check_box_tag :select_all, nil, false, class: 'select-all-checkbox' %></th>
+            <th>Authorized</th>
             <th>Name</th>
             <th>E-mail</th>
             <th>Groups</th>
@@ -50,9 +99,9 @@
                         <span id='g_<%= h(name)+ "_"  + user.id.to_s %>'>
                           <%= h(name) %>
                           <%= link_to "x", remove_group_user_path(
-                            :id => user.id, 
+                            :id => user.id,
                             :group_name => name,
-                            :format => :js), 
+                            :format => :js),
                             :method => 'put',
                             :remote => true %>
                         </span>

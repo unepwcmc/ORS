@@ -10,7 +10,7 @@ class RangeAnswerOption < ActiveRecord::Base
   belongs_to :range_answer
   has_many :answer_parts, :as => :field_type, :dependent => :destroy
   has_many :range_answer_option_fields, :dependent => :destroy
-  accepts_nested_attributes_for :range_answer_option_fields, :reject_if => lambda { |a| a.values.all?(&:blank?)}, :allow_destroy => true #
+  accepts_nested_attributes_for :range_answer_option_fields, :reject_if => lambda { |a| a.values.all?(&:blank?) }, :allow_destroy => true #
 
   ###
   ###   Validations
@@ -33,9 +33,9 @@ end
 # Table name: range_answer_options
 #
 #  id              :integer          not null, primary key
-#  range_answer_id :integer
-#  sort_index      :integer
-#  created_at      :datetime
-#  updated_at      :datetime
+#  range_answer_id :integer          not null
+#  sort_index      :integer          default(0), not null
+#  created_at      :datetime         not null
+#  updated_at      :datetime         not null
 #  original_id     :integer
 #

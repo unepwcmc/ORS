@@ -1,29 +1,32 @@
 <% selection = answer ? answer.answer_parts.sort.map{|a| a.field_type}.reject(&:nil?) : [] %>
 <% the_id = append_identifier(question, looping_identifier) -%>
-<div class="rank_answer span-15 last" >
-  <div class="span-7 colborder">
-    <p><strong><%= t('submission_pages.rank_options_t') %></strong> <%= t('submission_pages.rank_options_info') %> <%= if answer_type.maximum_choices != -1 then "#{t('submission_pages.rank_limit')} #{pluralize(answer_type.maximum_choices, t('submission_pages.rank_limit_word_s'), t('submission_pages.rank_limit_word_p'))}" end -%></p>
-    <ul id="options_<%= the_id %>" class='droptrue'>
-      <% answer_type.rank_answer_options.each do |option| -%>
-          <% unless selection.include?(option) -%>
-              <li class="ui-state-default" id="<%= the_id + "_obj_" + option.id.to_s %>"><%= h(@fields[:rank_answer_option_field][option.id.to_s]) %></li>
-          <% end -%>
-      <% end -%>
-    </ul>
-  </div>
-  <div class="span-7 last">
-    <p><strong><%= t('submission_pages.rank_choices_t') %></strong> <%= t('submission_pages.rank_choices_info') %></p>
-    <ul id="choices_<%= the_id %>" class='droptrue'>
-      <% position = 0 %>
-      <% saved = {} %>
-      <% if selection.present? -%>
-          <% selection.each do |selected_option| %>
-              <li class="ui-state-default" id="<%= the_id + "_obj_" + selected_option.id.to_s %>"><%= h(@fields[:rank_answer_option_field][selected_option.id.to_s]) %></li>
-              <% saved[position.to_s] = selected_option.id %>
-              <% position += 1 %>
-          <% end -%>
-      <% end -%>
-    </ul>
+<div class="rank-answer span-15 last" >
+  <div class="row group padded flex">
+    <div class="col col-4 colborder">
+      <p><strong><%= t('submission_pages.rank_options_t') %></strong> <i>(<%= t('submission_pages.rank_options_info') %> <%= if answer_type.maximum_choices != -1 then "#{t('submission_pages.rank_limit')} #{pluralize(answer_type.maximum_choices, t('submission_pages.rank_limit_word_s'), t('submission_pages.rank_limit_word_p'))}" end -%>)</i></p>
+      <ul id="options_<%= the_id %>" class='droptrue'>
+        <% answer_type.rank_answer_options.each do |option| -%>
+            <% unless selection.include?(option) -%>
+                <li class="rank-option" id="<%= the_id + "_obj_" + option.id.to_s %>"><%= h(@fields[:rank_answer_option_field][option.id.to_s]) %></li>
+            <% end -%>
+        <% end -%>
+      </ul>
+    </div>
+    <div class="col vertical-separator"></div>
+    <div class="col col-4 last">
+      <p><strong><%= t('submission_pages.rank_choices_t') %></strong> <i>(<%= t('submission_pages.rank_choices_info') %>)</i></p>
+      <ul id="choices_<%= the_id %>" class='droptrue'>
+        <% position = 0 %>
+        <% saved = {} %>
+        <% if selection.present? -%>
+            <% selection.each do |selected_option| %>
+                <li class="rank-option" id="<%= the_id + "_obj_" + selected_option.id.to_s %>"><%= h(@fields[:rank_answer_option_field][selected_option.id.to_s]) %></li>
+                <% saved[position.to_s] = selected_option.id %>
+                <% position += 1 %>
+            <% end -%>
+        <% end -%>
+      </ul>
+    </div>
   </div>
   <% saved.each do |pos, value| -%>
     <%= hidden_field_tag "answers[#{the_id}_#{pos}]", value, :class => "#{the_id}_ranked_answers" %>
@@ -33,6 +36,7 @@
     <%= hidden_field_tag "answers[#{the_id}_#{i.to_s}]", nil, :class => "#{the_id}_ranked_answers" %>
   <% end %>
 </div><!-- End rank answer -->
+<div class="separator"></div>
 
 <script type="text/javascript">
     $(function(){

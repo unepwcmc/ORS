@@ -26,12 +26,12 @@ end
 # Table name: question_fields
 #
 #  id                  :integer          not null, primary key
-#  language            :string(255)
+#  language            :string(255)      not null
 #  title               :text
 #  short_title         :string(255)
 #  description         :text
-#  question_id         :integer
-#  created_at          :datetime
-#  updated_at          :datetime
-#  is_default_language :boolean          default(FALSE)
+#  question_id         :integer          not null
+#  created_at          :datetime         not null
+#  updated_at          :datetime         not null
+#  is_default_language :boolean          default(FALSE), not null
 #

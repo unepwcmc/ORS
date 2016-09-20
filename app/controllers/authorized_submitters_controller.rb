@@ -1,8 +1,6 @@
 class AuthorizedSubmittersController < ApplicationController
 
-
   authorize_resource
-
 
   # GET /questionnaires/:questionnaire_id/authorized_submitters
   def index
@@ -15,11 +13,10 @@ class AuthorizedSubmittersController < ApplicationController
     end
   end
 
-
   def authorize
     @questionnaire = Questionnaire.find(params[:questionnaire_id])
     url = "http://" + request.host + (ActionController::Base.relative_url_root.present? ? ActionController::Base.relative_url_root : "")
-    @users = AuthorizedSubmitter.authorize_from_array_of_users(params[:users], @questionnaire, url) if params[:users]
+    @users = AuthorizedSubmitter.authorize_from_array_of_users(params[:users], @questionnaire, url, params[:disable_emails]) if params[:users]
     if @users.present?
       flash[:notice] = "Authorisation successfully granted"
     end
@@ -48,7 +45,7 @@ class AuthorizedSubmittersController < ApplicationController
         authorized_submitter.language = params[:language][0]
         authorized_submitter.save
         respond_to do |format|
-          format.html { redirect_to submission_questionnaire_path(@questionnaire)}
+          format.html { redirect_to submission_questionnaire_path(@questionnaire) }
         end
       else
         raise CanCan::AccessDenied.new(t('flash_messages.not_authorized'))

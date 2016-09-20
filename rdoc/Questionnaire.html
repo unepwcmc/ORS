@@ -1,0 +1,2017 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>
+  Class: Questionnaire
+  
+    &mdash; Documentation by YARD 0.7.2
+  
+</title>
+
+  <link rel="stylesheet" href="css/style.css" type="text/css" media="screen" charset="utf-8" />
+
+  <link rel="stylesheet" href="css/common.css" type="text/css" media="screen" charset="utf-8" />
+
+<script type="text/javascript" charset="utf-8">
+  relpath = '';
+  if (relpath != '') relpath += '/';
+</script>
+
+  <script type="text/javascript" charset="utf-8" src="js/jquery.js"></script>
+
+  <script type="text/javascript" charset="utf-8" src="js/app.js"></script>
+
+
+  </head>
+  <body>
+    <script type="text/javascript" charset="utf-8">
+      if (window.top.frames.main) document.body.className = 'frames';
+    </script>
+    
+    <div id="header">
+      <div id="menu">
+  
+    <a href="_index.html">Index (Q)</a> &raquo; 
+    
+    
+    <span class="title">Questionnaire</span>
+  
+  
+  <div class="noframes"><span class="title">(</span><a href="." target="_top">no frames</a><span class="title">)</span></div>
+</div>
+
+      <div id="search">
+  
+    <a id="class_list_link" href="#">Class List</a>
+  
+    <a id="method_list_link" href="#">Method List</a>
+  
+    <a id="file_list_link" href="#">File List</a>
+  
+</div>
+      <div class="clear"></div>
+    </div>
+    
+    <iframe id="search_frame"></iframe>
+    
+    <div id="content"><h1>Class: Questionnaire
+  
+  
+  
+</h1>
+
+<dl class="box">
+  
+    <dt class="r1">Inherits:</dt>
+    <dd class="r1">
+      <span class="inheritName">ActiveRecord::Base</span>
+      
+        <ul class="fullTree">
+          <li>Object</li>
+          
+            <li class="next">ActiveRecord::Base</li>
+          
+            <li class="next">Questionnaire</li>
+          
+        </ul>
+        <a href="#" class="inheritanceTree">show all</a>
+      
+      </dd>
+    
+  
+  
+    
+  
+    
+      <dt class="r2">Includes:</dt>
+      <dd class="r2">EnumerateIt, <span class='object_link'><a href="LanguageMethods.html" title="LanguageMethods (module)">LanguageMethods</a></span></dd>
+      
+    
+  
+  
+  
+    <dt class="r1 last">Defined in:</dt>
+    <dd class="r1 last">app/models/questionnaire.rb</dd>
+  
+</dl>
+<div class="clear"></div>
+
+
+
+  
+  
+  
+  
+  
+  
+
+
+  
+  
+  
+  
+  
+
+  
+    <h2>
+      Instance Method Summary
+      <small>(<a href="#" class="summary_toggle">collapse</a>)</small>
+    </h2>
+
+    <ul class="summary">
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#activate%21-instance_method" title="#activate! (instance method)">- (Object) <strong>activate!</strong> </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#available_languages-instance_method" title="#available_languages (instance method)">- (Object) <strong>available_languages</strong> </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#build_questionnaire_fields%21-instance_method" title="#build_questionnaire_fields! (instance method)">- (Object) <strong>build_questionnaire_fields!</strong> </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'><p>
+build questionnaire_field objects for the languages missing from the 6
+existing languages.
+</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#cloning-instance_method" title="#cloning (instance method)">- (Object) <strong>cloning</strong>(copy_answers = false) </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#close%21-instance_method" title="#close! (instance method)">- (Object) <strong>close!</strong> </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#count_questions_available_for-instance_method" title="#count_questions_available_for (instance method)">- (Object) <strong>count_questions_available_for</strong>(user) </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#deactivate%21-instance_method" title="#deactivate! (instance method)">- (Object) <strong>deactivate!</strong> </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#destroy_all_questionnaire_elements%21-instance_method" title="#destroy_all_questionnaire_elements! (instance method)">- (Object) <strong>destroy_all_questionnaire_elements!</strong> </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'><p>
+destroy sections, questions &amp;&amp; answer_types of a questionnaire
+TODO: destroy answers?.
+</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#has_questions%3F-instance_method" title="#has_questions? (instance method)">- (Boolean) <strong>has_questions?</strong> </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'><p>
+check if a questionnaire has at least one question.
+</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#introductory_remarks-instance_method" title="#introductory_remarks (instance method)">- (Object) <strong>introductory_remarks</strong> </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#is_closed%3F-instance_method" title="#is_closed? (instance method)">- (Boolean) <strong>is_closed?</strong> </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#language-instance_method" title="#language (instance method)">- (Object) <strong>language</strong> </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#move_the_questionnaire_part-instance_method" title="#move_the_questionnaire_part (instance method)">- (Object) <strong>move_the_questionnaire_part</strong>(params) </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#percentage_of_completion_for-instance_method" title="#percentage_of_completion_for (instance method)">- (Object) <strong>percentage_of_completion_for</strong>(user) </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'><p>
+calculate the percentage of completion of a questionnaire by a specific
+user.
+</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#propagate_languages_changes-instance_method" title="#propagate_languages_changes (instance method)">- (Object) <strong>propagate_languages_changes</strong>(old_languages, old_default_language) </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'><p>
+Methods.
+</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#questionnaire_structure-instance_method" title="#questionnaire_structure (instance method)">- (Object) <strong>questionnaire_structure</strong>(params) </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'><p>
+to display the questionnaire in the dynatree.
+</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#questionnaire_structure_for_js_tree-instance_method" title="#questionnaire_structure_for_js_tree (instance method)">- (Object) <strong>questionnaire_structure_for_js_tree</strong>(params) </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'><p>
+to display the questionnaire in the dynatree.
+</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#questions_count-instance_method" title="#questions_count (instance method)">- (Object) <strong>questions_count</strong> </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'><p>
+get the number of questions from a questionnaire.
+</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#sections-instance_method" title="#sections (instance method)">- (Object) <strong>sections</strong> </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'><p>
+Returns an array with all the root sections, obtained through questionnaire
+parts.
+</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#sections_count-instance_method" title="#sections_count (instance method)">- (Object) <strong>sections_count</strong> </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#sections_to_display_in_tab-instance_method" title="#sections_to_display_in_tab (instance method)">- (Object) <strong>sections_to_display_in_tab</strong> </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#title-instance_method" title="#title (instance method)">- (Object) <strong>title</strong>(lang = nil) </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'><p>
+Method to facilitate the printing of the Questionnaire Title by printing
+the title in the default language.
+</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#to_csv-instance_method" title="#to_csv (instance method)">- (Object) <strong>to_csv</strong>(user) </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'><p>
+Convert Questionnaire&#8217;s submission side and existing answers to csv
+default location: private/questionnaires/questionnaire_id/.
+</p>
+</div></span>
+  
+</li>
+
+      
+    </ul>
+  
+
+
+  
+  
+  
+  
+  
+  
+  
+  
+  <h3 class="inherited">Methods included from <span class='object_link'><a href="LanguageMethods.html" title="LanguageMethods (module)">LanguageMethods</a></span></h3>
+  <p class="inherited"><span class='object_link'><a href="LanguageMethods.html#append_features-class_method" title="LanguageMethods.append_features (method)">append_features</a></span>, <span class='object_link'><a href="LanguageMethods.html#language_code-class_method" title="LanguageMethods.language_code (method)">language_code</a></span></p>
+
+  
+
+  <div id="instance_method_details" class="method_details_list">
+    <h2>Instance Method Details</h2>
+    
+    
+      <div class="method_details first">
+  <p class="signature first" id="activate!-instance_method">
+  
+    - (<tt>Object</tt>) <strong>activate!</strong> 
+  
+
+  
+</p><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+230
+231
+232
+233
+234
+235</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'app/models/questionnaire.rb', line 230</span>
+
+<span class='def def kw'>def</span> <span class='activate! fid id'>activate!</span>
+  <span class='return return kw'>return</span> <span class='false false kw'>false</span> <span class='if if_mod kw'>if</span> <span class='notop op'>!</span><span class='self self kw'>self</span><span class='dot token'>.</span><span class='inactive? fid id'>inactive?</span>
+  <span class='self self kw'>self</span><span class='dot token'>.</span><span class='status identifier id'>status</span> <span class='assign token'>=</span> <span class='QuestionnaireStatus constant id'>QuestionnaireStatus</span><span class='colon2 op'>::</span><span class='ACTIVE constant id'>ACTIVE</span>
+  <span class='self self kw'>self</span><span class='dot token'>.</span><span class='activated_at identifier id'>activated_at</span><span class='assign token'>=</span> <span class='Time constant id'>Time</span><span class='dot token'>.</span><span class='now identifier id'>now</span>
+  <span class='self self kw'>self</span><span class='dot token'>.</span><span class='save! fid id'>save!</span>
+<span class='end end kw'>end</span>
+</pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <p class="signature " id="available_languages-instance_method">
+  
+    - (<tt>Object</tt>) <strong>available_languages</strong> 
+  
+
+  
+</p><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+100
+101
+102</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'app/models/questionnaire.rb', line 100</span>
+
+<span class='def def kw'>def</span> <span class='available_languages identifier id'>available_languages</span>
+  <span class='self self kw'>self</span><span class='dot token'>.</span><span class='questionnaire_fields identifier id'>questionnaire_fields</span><span class='dot token'>.</span><span class='map identifier id'>map</span><span class='lbrace token'>{</span><span class='bitor op'>|</span><span class='qf identifier id'>qf</span><span class='bitor op'>|</span> <span class='qf identifier id'>qf</span><span class='dot token'>.</span><span class='language identifier id'>language</span><span class='rbrace token'>}</span>
+<span class='end end kw'>end</span>
+</pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <p class="signature " id="build_questionnaire_fields!-instance_method">
+  
+    - (<tt>Object</tt>) <strong>build_questionnaire_fields!</strong> 
+  
+
+  
+</p><div class="docstring">
+  <div class="discussion">
+    <p>
+build questionnaire_field objects for the languages missing from the 6
+existing languages
+</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+152
+153
+154
+155
+156
+157
+158</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'app/models/questionnaire.rb', line 152</span>
+
+<span class='def def kw'>def</span> <span class='build_questionnaire_fields! fid id'>build_questionnaire_fields!</span>
+  <span class='languages identifier id'>languages</span> <span class='assign token'>=</span> <span class='lbrack token'>[</span><span class='string val'>'ar'</span><span class='comma token'>,</span> <span class='string val'>'zh'</span><span class='comma token'>,</span> <span class='string val'>'en'</span><span class='comma token'>,</span> <span class='string val'>'es'</span><span class='comma token'>,</span> <span class='string val'>'fr'</span><span class='comma token'>,</span> <span class='string val'>'ru'</span><span class='rbrack token'>]</span> <span class='minus op'>-</span> <span class='self self kw'>self</span><span class='dot token'>.</span><span class='questionnaire_fields identifier id'>questionnaire_fields</span><span class='dot token'>.</span><span class='map identifier id'>map</span><span class='lbrace token'>{</span><span class='bitor op'>|</span><span class='a identifier id'>a</span><span class='bitor op'>|</span> <span class='a identifier id'>a</span><span class='dot token'>.</span><span class='language identifier id'>language</span><span class='rbrace token'>}</span><span class='comment val'>#&amp;:language</span>
+  <span class='languages identifier id'>languages</span><span class='dot token'>.</span><span class='each identifier id'>each</span> <span class='do do kw'>do</span> <span class='bitor op'>|</span><span class='lang identifier id'>lang</span><span class='bitor op'>|</span>
+    <span class='self self kw'>self</span><span class='dot token'>.</span><span class='questionnaire_fields identifier id'>questionnaire_fields</span><span class='dot token'>.</span><span class='build identifier id'>build</span><span class='lparen token'>(</span><span class='symbol val'>:language</span> <span class='assign token'>=</span><span class='gt op'>&gt;</span> <span class='lang identifier id'>lang</span><span class='rparen token'>)</span>
+  <span class='end end kw'>end</span>
+  <span class='self self kw'>self</span><span class='dot token'>.</span><span class='questionnaire_fields identifier id'>questionnaire_fields</span><span class='dot token'>.</span><span class='sort! fid id'>sort!</span><span class='lbrace token'>{</span> <span class='bitor op'>|</span><span class='a identifier id'>a</span><span class='comma token'>,</span><span class='b identifier id'>b</span><span class='bitor op'>|</span> <span class='a identifier id'>a</span><span class='dot token'>.</span><span class='language identifier id'>language</span> <span class='cmp op'>&lt;=&gt;</span> <span class='b identifier id'>b</span><span class='dot token'>.</span><span class='language identifier id'>language</span> <span class='rbrace token'>}</span>
+<span class='end end kw'>end</span>
+</pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <p class="signature " id="cloning-instance_method">
+  
+    - (<tt>Object</tt>) <strong>cloning</strong>(copy_answers = false) 
+  
+
+  
+</p><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+246
+247
+248
+249
+250
+251
+252
+253
+254
+255
+256
+257
+258
+259
+260
+261
+262
+263
+264
+265
+266
+267
+268
+269
+270
+271
+272
+273
+274
+275
+276
+277
+278
+279
+280
+281
+282
+283
+284
+285
+286
+287
+288
+289
+290
+291
+292
+293
+294
+295
+296
+297
+298
+299
+300
+301
+302
+303</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'app/models/questionnaire.rb', line 246</span>
+
+<span class='def def kw'>def</span> <span class='cloning identifier id'>cloning</span> <span class='copy_answers identifier id'>copy_answers</span><span class='assign token'>=</span><span class='false false kw'>false</span>
+  <span class='comment val'>#to keep the link between questions and their clones [so that dependent sections are cloned with the dependency]</span>
+  <span class='questions_link identifier id'>questions_link</span> <span class='assign token'>=</span> <span class='lbrace token'>{</span><span class='rbrace token'>}</span>
+  <span class='options_link identifier id'>options_link</span> <span class='assign token'>=</span> <span class='lbrace token'>{</span><span class='rbrace token'>}</span>
+  <span class='text_fields_link identifier id'>text_fields_link</span> <span class='assign token'>=</span> <span class='lbrace token'>{</span><span class='rbrace token'>}</span>
+  <span class='numeric_answers_link identifier id'>numeric_answers_link</span> <span class='assign token'>=</span> <span class='lbrace token'>{</span><span class='rbrace token'>}</span>
+  <span class='cloned_sections identifier id'>cloned_sections</span> <span class='assign token'>=</span> <span class='lbrace token'>{</span><span class='rbrace token'>}</span>
+  <span class='cloned_questionnaire_parts identifier id'>cloned_questionnaire_parts</span> <span class='assign token'>=</span> <span class='lbrace token'>{</span><span class='rbrace token'>}</span>
+  <span class='loop_sources_link identifier id'>loop_sources_link</span> <span class='assign token'>=</span> <span class='lbrace token'>{</span><span class='rbrace token'>}</span>
+  <span class='loop_item_types_link identifier id'>loop_item_types_link</span> <span class='assign token'>=</span> <span class='lbrace token'>{</span><span class='rbrace token'>}</span>
+  <span class='loop_items_link identifier id'>loop_items_link</span> <span class='assign token'>=</span> <span class='lbrace token'>{</span><span class='rbrace token'>}</span>
+  <span class='loop_item_names_link identifier id'>loop_item_names_link</span> <span class='assign token'>=</span> <span class='lbrace token'>{</span><span class='rbrace token'>}</span>
+  <span class='extras_link identifier id'>extras_link</span> <span class='assign token'>=</span> <span class='lbrace token'>{</span><span class='rbrace token'>}</span>
+  <span class='comment val'>#questionnaire attributes</span>
+  <span class='new_questionnaire identifier id'>new_questionnaire</span> <span class='assign token'>=</span> <span class='self self kw'>self</span><span class='dot token'>.</span><span class='clone_object identifier id'>clone_object</span><span class='lparen token'>(</span><span class='lbrack token'>[</span><span class='symbol val'>:administrator_remarks</span><span class='comma token'>,</span> <span class='symbol val'>:questionnaire_date</span><span class='comma token'>,</span> <span class='symbol val'>:header</span><span class='comma token'>,</span> <span class='symbol val'>:submitters</span><span class='comma token'>,</span> <span class='symbol val'>:delegation_enabled</span><span class='comma token'>,</span> <span class='symbol val'>:help_pages</span><span class='comma token'>,</span> <span class='symbol val'>:email</span><span class='comma token'>,</span> <span class='symbol val'>:translator_visible</span><span class='comma token'>,</span> <span class='symbol val'>:email_subject</span><span class='comma token'>,</span> <span class='symbol val'>:private_documents</span> <span class='rbrack token'>]</span><span class='rparen token'>)</span>
+  <span class='comment val'>#set source_questionnaire</span>
+  <span class='new_questionnaire identifier id'>new_questionnaire</span><span class='dot token'>.</span><span class='source_questionnaire identifier id'>source_questionnaire</span> <span class='assign token'>=</span> <span class='self self kw'>self</span>
+  <span class='comment val'>#clone the questionnaire_fields</span>
+  <span class='self self kw'>self</span><span class='dot token'>.</span><span class='questionnaire_fields identifier id'>questionnaire_fields</span><span class='dot token'>.</span><span class='each identifier id'>each</span> <span class='do do kw'>do</span> <span class='bitor op'>|</span><span class='field identifier id'>field</span><span class='bitor op'>|</span>
+    <span class='new_questionnaire identifier id'>new_questionnaire</span><span class='dot token'>.</span><span class='questionnaire_fields identifier id'>questionnaire_fields</span> <span class='lshft op'>&lt;&lt;</span> <span class='field identifier id'>field</span><span class='dot token'>.</span><span class='clone_object identifier id'>clone_object</span><span class='lparen token'>(</span><span class='lbrack token'>[</span><span class='symbol val'>:language</span><span class='comma token'>,</span> <span class='symbol val'>:title</span><span class='comma token'>,</span> <span class='symbol val'>:introductory_remarks</span><span class='comma token'>,</span> <span class='symbol val'>:is_default_language</span><span class='rbrack token'>]</span><span class='rparen token'>)</span>
+  <span class='end end kw'>end</span>
+  <span class='comment val'>#clone questionnaire loop_sources</span>
+  <span class='self self kw'>self</span><span class='dot token'>.</span><span class='loop_sources identifier id'>loop_sources</span><span class='dot token'>.</span><span class='each identifier id'>each</span> <span class='do do kw'>do</span> <span class='bitor op'>|</span><span class='source identifier id'>source</span><span class='bitor op'>|</span>
+    <span class='new_questionnaire identifier id'>new_questionnaire</span><span class='dot token'>.</span><span class='loop_sources identifier id'>loop_sources</span> <span class='lshft op'>&lt;&lt;</span> <span class='source identifier id'>source</span><span class='dot token'>.</span><span class='clone_loop_source identifier id'>clone_loop_source</span><span class='lparen token'>(</span><span class='loop_sources_link identifier id'>loop_sources_link</span><span class='comma token'>,</span> <span class='loop_item_types_link identifier id'>loop_item_types_link</span><span class='comma token'>,</span> <span class='loop_items_link identifier id'>loop_items_link</span><span class='comma token'>,</span> <span class='loop_item_names_link identifier id'>loop_item_names_link</span><span class='comma token'>,</span> <span class='extras_link identifier id'>extras_link</span><span class='rparen token'>)</span>
+  <span class='end end kw'>end</span>
+  <span class='comment val'>#clone questionnaire's filtering_fields</span>
+  <span class='self self kw'>self</span><span class='dot token'>.</span><span class='filtering_fields identifier id'>filtering_fields</span><span class='dot token'>.</span><span class='each identifier id'>each</span> <span class='do do kw'>do</span> <span class='bitor op'>|</span><span class='filtering_field identifier id'>filtering_field</span><span class='bitor op'>|</span>
+    <span class='new_filtering_field identifier id'>new_filtering_field</span> <span class='assign token'>=</span> <span class='filtering_field identifier id'>filtering_field</span><span class='dot token'>.</span><span class='clone_object identifier id'>clone_object</span><span class='lparen token'>(</span><span class='lbrack token'>[</span><span class='symbol val'>:name</span><span class='rbrack token'>]</span><span class='rparen token'>)</span>
+    <span class='filtering_field identifier id'>filtering_field</span><span class='dot token'>.</span><span class='loop_item_types identifier id'>loop_item_types</span><span class='dot token'>.</span><span class='each identifier id'>each</span> <span class='do do kw'>do</span> <span class='bitor op'>|</span><span class='loop_item_type identifier id'>loop_item_type</span><span class='bitor op'>|</span>
+      <span class='new_filtering_field identifier id'>new_filtering_field</span><span class='dot token'>.</span><span class='loop_item_types identifier id'>loop_item_types</span> <span class='lshft op'>&lt;&lt;</span> <span class='loop_item_types_link identifier id'>loop_item_types_link</span><span class='lbrack token'>[</span><span class='loop_item_type identifier id'>loop_item_type</span><span class='dot token'>.</span><span class='id identifier id'>id</span><span class='dot token'>.</span><span class='to_s identifier id'>to_s</span><span class='rbrack token'>]</span>
+    <span class='end end kw'>end</span>
+    <span class='new_questionnaire identifier id'>new_questionnaire</span><span class='dot token'>.</span><span class='filtering_fields identifier id'>filtering_fields</span> <span class='lshft op'>&lt;&lt;</span> <span class='new_filtering_field identifier id'>new_filtering_field</span>
+  <span class='end end kw'>end</span>
+
+  <span class='comment val'>#clone questionnaire_parts</span>
+  <span class='self self kw'>self</span><span class='dot token'>.</span><span class='questionnaire_parts identifier id'>questionnaire_parts</span><span class='dot token'>.</span><span class='sort! fid id'>sort!</span><span class='lbrace token'>{</span><span class='bitor op'>|</span><span class='a identifier id'>a</span><span class='comma token'>,</span><span class='b identifier id'>b</span><span class='bitor op'>|</span> <span class='a identifier id'>a</span><span class='dot token'>.</span><span class='lft identifier id'>lft</span> <span class='cmp op'>&lt;=&gt;</span> <span class='b identifier id'>b</span><span class='dot token'>.</span><span class='lft identifier id'>lft</span><span class='rbrace token'>}</span><span class='dot token'>.</span><span class='each identifier id'>each</span> <span class='do do kw'>do</span> <span class='bitor op'>|</span><span class='qpart identifier id'>qpart</span><span class='bitor op'>|</span>
+    <span class='new_questionnaire identifier id'>new_questionnaire</span><span class='dot token'>.</span><span class='questionnaire_parts identifier id'>questionnaire_parts</span> <span class='lshft op'>&lt;&lt;</span> <span class='qpart identifier id'>qpart</span><span class='dot token'>.</span><span class='clone_qpart_tree identifier id'>clone_qpart_tree</span><span class='lparen token'>(</span><span class='cloned_questionnaire_parts identifier id'>cloned_questionnaire_parts</span><span class='comma token'>,</span> <span class='questions_link identifier id'>questions_link</span><span class='comma token'>,</span> <span class='options_link identifier id'>options_link</span><span class='comma token'>,</span> <span class='cloned_sections identifier id'>cloned_sections</span><span class='comma token'>,</span> <span class='text_fields_link identifier id'>text_fields_link</span><span class='comma token'>,</span> <span class='numeric_answers_link identifier id'>numeric_answers_link</span><span class='comma token'>,</span> <span class='loop_sources_link identifier id'>loop_sources_link</span><span class='comma token'>,</span> <span class='loop_item_types_link identifier id'>loop_item_types_link</span><span class='comma token'>,</span> <span class='extras_link identifier id'>extras_link</span><span class='rparen token'>)</span>
+  <span class='end end kw'>end</span>
+  <span class='comment val'>#clone sections dependency</span>
+  <span class='self self kw'>self</span><span class='dot token'>.</span><span class='sections identifier id'>sections</span><span class='dot token'>.</span><span class='each identifier id'>each</span> <span class='do do kw'>do</span> <span class='bitor op'>|</span><span class='section identifier id'>section</span><span class='bitor op'>|</span>
+    <span class='section identifier id'>section</span><span class='dot token'>.</span><span class='self_and_descendants identifier id'>self_and_descendants</span><span class='dot token'>.</span><span class='each identifier id'>each</span> <span class='do do kw'>do</span> <span class='bitor op'>|</span><span class='s identifier id'>s</span><span class='bitor op'>|</span>
+      <span class='if if kw'>if</span> <span class='s identifier id'>s</span><span class='dot token'>.</span><span class='depends_on_question identifier id'>depends_on_question</span><span class='dot token'>.</span><span class='present? fid id'>present?</span>
+        <span class='get_clone identifier id'>get_clone</span> <span class='assign token'>=</span> <span class='cloned_sections identifier id'>cloned_sections</span><span class='lbrack token'>[</span><span class='s identifier id'>s</span><span class='dot token'>.</span><span class='id identifier id'>id</span><span class='dot token'>.</span><span class='to_s identifier id'>to_s</span><span class='rbrack token'>]</span>
+        <span class='get_clone identifier id'>get_clone</span><span class='dot token'>.</span><span class='depends_on_question identifier id'>depends_on_question</span> <span class='assign token'>=</span> <span class='questions_link identifier id'>questions_link</span><span class='lbrack token'>[</span><span class='s identifier id'>s</span><span class='dot token'>.</span><span class='depends_on_question identifier id'>depends_on_question</span><span class='dot token'>.</span><span class='id identifier id'>id</span><span class='dot token'>.</span><span class='to_s identifier id'>to_s</span><span class='rbrack token'>]</span>
+        <span class='get_clone identifier id'>get_clone</span><span class='dot token'>.</span><span class='depends_on_option identifier id'>depends_on_option</span> <span class='assign token'>=</span> <span class='options_link identifier id'>options_link</span><span class='lbrack token'>[</span><span class='s identifier id'>s</span><span class='dot token'>.</span><span class='depends_on_option identifier id'>depends_on_option</span><span class='dot token'>.</span><span class='id identifier id'>id</span><span class='dot token'>.</span><span class='to_s identifier id'>to_s</span><span class='rbrack token'>]</span>
+        <span class='get_clone identifier id'>get_clone</span><span class='dot token'>.</span><span class='depends_on_option_value identifier id'>depends_on_option_value</span> <span class='assign token'>=</span> <span class='s identifier id'>s</span><span class='dot token'>.</span><span class='depends_on_option_value identifier id'>depends_on_option_value</span>
+      <span class='end end kw'>end</span>
+    <span class='end end kw'>end</span>
+  <span class='end end kw'>end</span>
+
+  <span class='if if kw'>if</span> <span class='copy_answers identifier id'>copy_answers</span> <span class='eq op'>==</span> <span class='string val'>&quot;1&quot;</span>
+    <span class='comment val'>#clone answers</span>
+    <span class='self self kw'>self</span><span class='dot token'>.</span><span class='answers identifier id'>answers</span><span class='dot token'>.</span><span class='each identifier id'>each</span> <span class='do do kw'>do</span> <span class='bitor op'>|</span><span class='answer identifier id'>answer</span><span class='bitor op'>|</span>
+      <span class='new_questionnaire identifier id'>new_questionnaire</span><span class='dot token'>.</span><span class='answers identifier id'>answers</span> <span class='lshft op'>&lt;&lt;</span> <span class='answer identifier id'>answer</span><span class='dot token'>.</span><span class='clone_answer_details identifier id'>clone_answer_details</span><span class='lparen token'>(</span><span class='questions_link identifier id'>questions_link</span><span class='comma token'>,</span> <span class='options_link identifier id'>options_link</span><span class='comma token'>,</span> <span class='text_fields_link identifier id'>text_fields_link</span><span class='comma token'>,</span> <span class='numeric_answers_link identifier id'>numeric_answers_link</span><span class='comma token'>,</span> <span class='loop_items_link identifier id'>loop_items_link</span><span class='rparen token'>)</span>
+    <span class='end end kw'>end</span>
+  <span class='end end kw'>end</span>
+  <span class='new_questionnaire identifier id'>new_questionnaire</span>
+<span class='end end kw'>end</span>
+</pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <p class="signature " id="close!-instance_method">
+  
+    - (<tt>Object</tt>) <strong>close!</strong> 
+  
+
+  
+</p><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+224
+225
+226
+227
+228</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'app/models/questionnaire.rb', line 224</span>
+
+<span class='def def kw'>def</span> <span class='close! fid id'>close!</span>
+  <span class='return return kw'>return</span> <span class='false false kw'>false</span> <span class='if if_mod kw'>if</span> <span class='notop op'>!</span><span class='self self kw'>self</span><span class='dot token'>.</span><span class='active? fid id'>active?</span>
+  <span class='self self kw'>self</span><span class='dot token'>.</span><span class='status identifier id'>status</span> <span class='assign token'>=</span> <span class='QuestionnaireStatus constant id'>QuestionnaireStatus</span><span class='colon2 op'>::</span><span class='CLOSED constant id'>CLOSED</span>
+  <span class='self self kw'>self</span><span class='dot token'>.</span><span class='save! fid id'>save!</span>
+<span class='end end kw'>end</span>
+</pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <p class="signature " id="count_questions_available_for-instance_method">
+  
+    - (<tt>Object</tt>) <strong>count_questions_available_for</strong>(user) 
+  
+
+  
+</p><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+184
+185
+186
+187
+188
+189
+190
+191
+192
+193</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'app/models/questionnaire.rb', line 184</span>
+
+<span class='def def kw'>def</span> <span class='count_questions_available_for identifier id'>count_questions_available_for</span> <span class='user identifier id'>user</span>
+  <span class='info_holder identifier id'>info_holder</span> <span class='assign token'>=</span> <span class='lbrace token'>{</span><span class='rbrace token'>}</span>
+  <span class='info_holder identifier id'>info_holder</span><span class='lbrack token'>[</span><span class='symbol val'>:available_questions</span><span class='rbrack token'>]</span> <span class='assign token'>=</span> <span class='integer val'>0</span>
+  <span class='self self kw'>self</span><span class='dot token'>.</span><span class='sections identifier id'>sections</span><span class='dot token'>.</span><span class='each identifier id'>each</span> <span class='do do kw'>do</span> <span class='bitor op'>|</span><span class='section identifier id'>section</span><span class='bitor op'>|</span>
+    <span class='if if kw'>if</span> <span class='notop op'>!</span><span class='section identifier id'>section</span><span class='dot token'>.</span><span class='depends_on_question identifier id'>depends_on_question</span><span class='dot token'>.</span><span class='present? fid id'>present?</span>
+      <span class='section identifier id'>section</span><span class='dot token'>.</span><span class='count_self_and_descendants_questions identifier id'>count_self_and_descendants_questions</span><span class='lparen token'>(</span><span class='user identifier id'>user</span><span class='comma token'>,</span> <span class='info_holder identifier id'>info_holder</span><span class='rparen token'>)</span>
+    <span class='end end kw'>end</span>
+  <span class='end end kw'>end</span>
+  <span class='info_holder identifier id'>info_holder</span><span class='lbrack token'>[</span><span class='symbol val'>:available_questions</span><span class='rbrack token'>]</span>
+<span class='end end kw'>end</span>
+</pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <p class="signature " id="deactivate!-instance_method">
+  
+    - (<tt>Object</tt>) <strong>deactivate!</strong> 
+  
+
+  
+</p><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+237
+238
+239
+240</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'app/models/questionnaire.rb', line 237</span>
+
+<span class='def def kw'>def</span> <span class='deactivate! fid id'>deactivate!</span>
+  <span class='self self kw'>self</span><span class='dot token'>.</span><span class='status identifier id'>status</span> <span class='assign token'>=</span> <span class='QuestionnaireStatus constant id'>QuestionnaireStatus</span><span class='colon2 op'>::</span><span class='INACTIVE constant id'>INACTIVE</span>
+  <span class='self self kw'>self</span><span class='dot token'>.</span><span class='save! fid id'>save!</span>
+<span class='end end kw'>end</span>
+</pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <p class="signature " id="destroy_all_questionnaire_elements!-instance_method">
+  
+    - (<tt>Object</tt>) <strong>destroy_all_questionnaire_elements!</strong> 
+  
+
+  
+</p><div class="docstring">
+  <div class="discussion">
+    <p>
+destroy sections, questions &amp;&amp; answer_types of a questionnaire
+TODO: destroy answers?
+</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+106
+107
+108
+109
+110
+111
+112
+113
+114
+115
+116
+117
+118
+119
+120
+121
+122
+123
+124
+125
+126
+127
+128
+129
+130
+131
+132
+133
+134
+135
+136
+137
+138
+139
+140
+141
+142
+143
+144
+145
+146
+147
+148
+149</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'app/models/questionnaire.rb', line 106</span>
+
+<span class='def def kw'>def</span> <span class='destroy_all_questionnaire_elements! fid id'>destroy_all_questionnaire_elements!</span>
+  <span class='comment val'>#    puts &quot;###########System Totals##########&quot;</span>
+  <span class='comment val'>#    puts &quot;Total sections of the System: #{Section.count}&quot;</span>
+  <span class='comment val'>#    puts &quot;Total questions of the System: #{Question.count}&quot;</span>
+  <span class='comment val'>#    puts &quot;Total loop sources of the System: #{LoopSource.count}&quot;</span>
+  <span class='comment val'>#    puts &quot;Total loop item names of the System: #{LoopItemName.count}&quot;</span>
+  <span class='comment val'>#    puts &quot;Total loop item of the System: #{LoopItem.count}&quot;</span>
+  <span class='comment val'>#    puts &quot;Total loop item type of the System: #{LoopItemType.count}&quot;</span>
+  <span class='comment val'>#    puts &quot;Total multi answers of the System: #{MultiAnswer.count}&quot;</span>
+  <span class='comment val'>#    puts &quot;Total multi answer options of the System: #{MultiAnswerOption.count}&quot;</span>
+  <span class='comment val'>#    puts &quot;Total text answers of the System: #{TextAnswer.count}&quot;</span>
+  <span class='comment val'>#    puts &quot;Total numeric answers of the System: #{NumericAnswer.count}&quot;</span>
+  <span class='comment val'>#    puts &quot;Total questionnaire parts of the System: #{QuestionnairePart.count}&quot;</span>
+  <span class='comment val'>#    puts &quot;###########Questionnaire Totals#############&quot;</span>
+  <span class='comment val'>#    counting_things = {}</span>
+  <span class='comment val'>#    self.count_questionnaire_elements(counting_things)</span>
+  <span class='comment val'>#    puts &quot;Total sections of the Questionnaire: #{counting_things[:sections]}&quot;</span>
+  <span class='comment val'>#    puts &quot;Total questions of the Questionnaire: #{counting_things[:questions]}&quot;</span>
+  <span class='comment val'>#    puts &quot;Total loop sources of the Questionnaire: #{counting_things[:loop_sources]}&quot;</span>
+  <span class='comment val'>#    puts &quot;Total loop item names of the Questionnaire: #{counting_things[:loop_item_names]}&quot;</span>
+  <span class='comment val'>#    puts &quot;Total loop item of the Questionnaire: #{counting_things[:loop_items]}&quot;</span>
+  <span class='comment val'>#    puts &quot;Total loop item type of the Questionnaire: #{counting_things[:loop_item_types]}&quot;</span>
+  <span class='comment val'>#    puts &quot;Total multi answers of the Questionnaire: #{counting_things[:multi_answer]}&quot;</span>
+  <span class='comment val'>#    puts &quot;Total multi answer options of the Questionnaire: #{counting_things[:multi_answer_options]}&quot;</span>
+  <span class='comment val'>#    puts &quot;Total text answers of the Questionnaire: #{ counting_things[:text_answer]}&quot;</span>
+  <span class='comment val'>#    puts &quot;Total numeric answers of the Questionnaire: #{ counting_things[:numeric_answer]}&quot;</span>
+  <span class='comment val'>#    puts &quot;Total questionnaire parts of the Questionnaire: #{counting_things[:questionnaire_parts]}&quot;</span>
+  <span class='self self kw'>self</span><span class='dot token'>.</span><span class='questionnaire_parts identifier id'>questionnaire_parts</span><span class='dot token'>.</span><span class='each identifier id'>each</span> <span class='do do kw'>do</span> <span class='bitor op'>|</span><span class='qpart identifier id'>qpart</span><span class='bitor op'>|</span>
+    <span class='qpart identifier id'>qpart</span><span class='dot token'>.</span><span class='destroy_branch identifier id'>destroy_branch</span>
+  <span class='end end kw'>end</span>
+  <span class='self self kw'>self</span><span class='dot token'>.</span><span class='destroy identifier id'>destroy</span>
+  <span class='comment val'>#    puts &quot;###########System Totals - After deleting the stuff ##########&quot;</span>
+  <span class='comment val'>#    puts &quot;Total sections of the System: #{Section.count}&quot;</span>
+  <span class='comment val'>#    puts &quot;Total questions of the System: #{Question.count}&quot;</span>
+  <span class='comment val'>#    puts &quot;Total loop sources of the System: #{LoopSource.count}&quot;</span>
+  <span class='comment val'>#    puts &quot;Total loop item names of the System: #{LoopItemName.count}&quot;</span>
+  <span class='comment val'>#    puts &quot;Total loop item of the System: #{LoopItem.count}&quot;</span>
+  <span class='comment val'>#    puts &quot;Total loop item type of the System: #{LoopItemType.count}&quot;</span>
+  <span class='comment val'>#    puts &quot;Total multi answers of the System: #{MultiAnswer.count}&quot;</span>
+  <span class='comment val'>#    puts &quot;Total multi answer options of the System: #{MultiAnswerOption.count}&quot;</span>
+  <span class='comment val'>#    puts &quot;Total text answers of the System: #{TextAnswer.count}&quot;</span>
+  <span class='comment val'>#    puts &quot;Total numeric answers of the System: #{NumericAnswer.count}&quot;</span>
+  <span class='comment val'>#    puts &quot;Total questionnaire parts of the System: #{QuestionnairePart.count}&quot;</span>
+<span class='end end kw'>end</span>
+</pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <p class="signature " id="has_questions?-instance_method">
+  
+    - (<tt>Boolean</tt>) <strong>has_questions?</strong> 
+  
+
+  
+</p><div class="docstring">
+  <div class="discussion">
+    <p>
+check if a questionnaire has at least one question
+</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  <h3>Returns:</h3>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>Boolean</tt>)</span>
+      
+      
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+196
+197
+198
+199
+200
+201
+202
+203
+204
+205</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'app/models/questionnaire.rb', line 196</span>
+
+<span class='def def kw'>def</span> <span class='has_questions? fid id'>has_questions?</span>
+  <span class='self self kw'>self</span><span class='dot token'>.</span><span class='sections identifier id'>sections</span><span class='dot token'>.</span><span class='each identifier id'>each</span> <span class='do do kw'>do</span> <span class='bitor op'>|</span><span class='section identifier id'>section</span><span class='bitor op'>|</span>
+    <span class='section identifier id'>section</span><span class='dot token'>.</span><span class='self_and_descendants identifier id'>self_and_descendants</span> <span class='do do kw'>do</span> <span class='bitor op'>|</span><span class='s identifier id'>s</span><span class='bitor op'>|</span>
+      <span class='if if kw'>if</span> <span class='s identifier id'>s</span><span class='dot token'>.</span><span class='questions identifier id'>questions</span><span class='dot token'>.</span><span class='present? fid id'>present?</span>
+        <span class='return return kw'>return</span> <span class='true true kw'>true</span>
+      <span class='end end kw'>end</span>
+    <span class='end end kw'>end</span>
+  <span class='end end kw'>end</span>
+  <span class='false false kw'>false</span>
+<span class='end end kw'>end</span>
+</pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <p class="signature " id="introductory_remarks-instance_method">
+  
+    - (<tt>Object</tt>) <strong>introductory_remarks</strong> 
+  
+
+  
+</p><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+173
+174
+175</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'app/models/questionnaire.rb', line 173</span>
+
+<span class='def def kw'>def</span> <span class='introductory_remarks identifier id'>introductory_remarks</span>
+  <span class='self self kw'>self</span><span class='dot token'>.</span><span class='questionnaire_fields identifier id'>questionnaire_fields</span><span class='dot token'>.</span><span class='find_by_is_default_language identifier id'>find_by_is_default_language</span><span class='lparen token'>(</span><span class='true true kw'>true</span><span class='rparen token'>)</span><span class='dot token'>.</span><span class='introductory_remarks identifier id'>introductory_remarks</span>
+<span class='end end kw'>end</span>
+</pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <p class="signature " id="is_closed?-instance_method">
+  
+    - (<tt>Boolean</tt>) <strong>is_closed?</strong> 
+  
+
+  
+</p><div class="docstring">
+  <div class="discussion">
+    
+
+  </div>
+</div>
+<div class="tags">
+  <h3>Returns:</h3>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>Boolean</tt>)</span>
+      
+      
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+242
+243
+244</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'app/models/questionnaire.rb', line 242</span>
+
+<span class='def def kw'>def</span> <span class='is_closed? fid id'>is_closed?</span>
+  <span class='self self kw'>self</span><span class='dot token'>.</span><span class='status identifier id'>status</span> <span class='eq op'>==</span> <span class='integer val'>2</span>
+<span class='end end kw'>end</span>
+</pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <p class="signature " id="language-instance_method">
+  
+    - (<tt>Object</tt>) <strong>language</strong> 
+  
+
+  
+</p><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+169
+170
+171</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'app/models/questionnaire.rb', line 169</span>
+
+<span class='def def kw'>def</span> <span class='language identifier id'>language</span>
+  <span class='self self kw'>self</span><span class='dot token'>.</span><span class='questionnaire_fields identifier id'>questionnaire_fields</span><span class='dot token'>.</span><span class='find_by_is_default_language identifier id'>find_by_is_default_language</span><span class='lparen token'>(</span><span class='true true kw'>true</span><span class='rparen token'>)</span><span class='dot token'>.</span><span class='language identifier id'>language</span>
+<span class='end end kw'>end</span>
+</pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <p class="signature " id="move_the_questionnaire_part-instance_method">
+  
+    - (<tt>Object</tt>) <strong>move_the_questionnaire_part</strong>(params) 
+  
+
+  
+</p><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+393
+394
+395
+396
+397
+398
+399
+400
+401
+402
+403
+404
+405
+406
+407
+408
+409
+410
+411
+412
+413
+414
+415
+416
+417
+418
+419
+420
+421</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'app/models/questionnaire.rb', line 393</span>
+
+<span class='def def kw'>def</span> <span class='move_the_questionnaire_part identifier id'>move_the_questionnaire_part</span> <span class='params identifier id'>params</span>
+  <span class='part_to_move identifier id'>part_to_move</span> <span class='assign token'>=</span> <span class='QuestionnairePart constant id'>QuestionnairePart</span><span class='dot token'>.</span><span class='find identifier id'>find</span><span class='lparen token'>(</span><span class='params identifier id'>params</span><span class='lbrack token'>[</span><span class='symbol val'>:node_id</span><span class='rbrack token'>]</span><span class='rparen token'>)</span>
+  <span class='if if kw'>if</span> <span class='params identifier id'>params</span><span class='lbrack token'>[</span><span class='symbol val'>:new_parent</span><span class='rbrack token'>]</span> <span class='eq op'>==</span> <span class='string val'>&quot;root&quot;</span>
+    <span class='if if kw'>if</span> <span class='self self kw'>self</span><span class='dot token'>.</span><span class='questionnaire_parts identifier id'>questionnaire_parts</span><span class='dot token'>.</span><span class='size identifier id'>size</span> <span class='neq op'>!=</span> <span class='params identifier id'>params</span><span class='lbrack token'>[</span><span class='symbol val'>:position_index</span><span class='rbrack token'>]</span><span class='dot token'>.</span><span class='to_i identifier id'>to_i</span>
+      <span class='gonna_be_right_sibling identifier id'>gonna_be_right_sibling</span> <span class='assign token'>=</span> <span class='self self kw'>self</span><span class='dot token'>.</span><span class='questionnaire_parts identifier id'>questionnaire_parts</span><span class='dot token'>.</span><span class='sort identifier id'>sort</span><span class='lbrack token'>[</span><span class='params identifier id'>params</span><span class='lbrack token'>[</span><span class='symbol val'>:position_index</span><span class='rbrack token'>]</span><span class='dot token'>.</span><span class='to_i identifier id'>to_i</span><span class='rbrack token'>]</span>
+      <span class='part_to_move identifier id'>part_to_move</span><span class='dot token'>.</span><span class='move_to_left_of identifier id'>move_to_left_of</span> <span class='gonna_be_right_sibling identifier id'>gonna_be_right_sibling</span>
+    <span class='else else kw'>else</span>
+      <span class='part_to_move identifier id'>part_to_move</span><span class='dot token'>.</span><span class='move_to_right_of identifier id'>move_to_right_of</span> <span class='self self kw'>self</span><span class='dot token'>.</span><span class='questionnaire_parts identifier id'>questionnaire_parts</span><span class='dot token'>.</span><span class='sort identifier id'>sort</span><span class='dot token'>.</span><span class='last identifier id'>last</span>
+    <span class='end end kw'>end</span>
+  <span class='else else kw'>else</span>
+    <span class='parent_destination identifier id'>parent_destination</span> <span class='assign token'>=</span> <span class='QuestionnairePart constant id'>QuestionnairePart</span><span class='dot token'>.</span><span class='find identifier id'>find</span><span class='lparen token'>(</span><span class='params identifier id'>params</span><span class='lbrack token'>[</span><span class='symbol val'>:new_parent</span><span class='rbrack token'>]</span><span class='rparen token'>)</span>
+    <span class='if if kw'>if</span> <span class='parent_destination identifier id'>parent_destination</span><span class='dot token'>.</span><span class='children identifier id'>children</span><span class='dot token'>.</span><span class='size identifier id'>size</span> <span class='neq op'>!=</span> <span class='params identifier id'>params</span><span class='lbrack token'>[</span><span class='symbol val'>:position_index</span><span class='rbrack token'>]</span><span class='dot token'>.</span><span class='to_i identifier id'>to_i</span>
+      <span class='gonna_be_right_sibling identifier id'>gonna_be_right_sibling</span> <span class='assign token'>=</span> <span class='parent_destination identifier id'>parent_destination</span><span class='dot token'>.</span><span class='children identifier id'>children</span><span class='dot token'>.</span><span class='sort identifier id'>sort</span><span class='lbrack token'>[</span><span class='params identifier id'>params</span><span class='lbrack token'>[</span><span class='symbol val'>:position_index</span><span class='rbrack token'>]</span><span class='dot token'>.</span><span class='to_i identifier id'>to_i</span><span class='rbrack token'>]</span>
+      <span class='part_to_move identifier id'>part_to_move</span><span class='dot token'>.</span><span class='move_to_left_of identifier id'>move_to_left_of</span> <span class='gonna_be_right_sibling identifier id'>gonna_be_right_sibling</span>
+    <span class='else else kw'>else</span>
+      <span class='if if kw'>if</span> <span class='parent_destination identifier id'>parent_destination</span><span class='dot token'>.</span><span class='children identifier id'>children</span><span class='dot token'>.</span><span class='present? fid id'>present?</span>
+        <span class='part_to_move identifier id'>part_to_move</span><span class='dot token'>.</span><span class='move_to_right_of identifier id'>move_to_right_of</span> <span class='parent_destination identifier id'>parent_destination</span><span class='dot token'>.</span><span class='children identifier id'>children</span><span class='dot token'>.</span><span class='sort identifier id'>sort</span><span class='dot token'>.</span><span class='last identifier id'>last</span>
+      <span class='else else kw'>else</span>
+        <span class='part_to_move identifier id'>part_to_move</span><span class='dot token'>.</span><span class='move_to_child_of identifier id'>move_to_child_of</span> <span class='parent_destination identifier id'>parent_destination</span>
+      <span class='end end kw'>end</span>
+    <span class='end end kw'>end</span>
+  <span class='end end kw'>end</span>
+  <span class='if if kw'>if</span> <span class='part_to_move identifier id'>part_to_move</span><span class='dot token'>.</span><span class='root? fid id'>root?</span>
+    <span class='part_to_move identifier id'>part_to_move</span><span class='dot token'>.</span><span class='questionnaire identifier id'>questionnaire</span> <span class='assign token'>=</span> <span class='self self kw'>self</span>
+  <span class='else else kw'>else</span>
+    <span class='part_to_move identifier id'>part_to_move</span><span class='dot token'>.</span><span class='questionnaire identifier id'>questionnaire</span> <span class='assign token'>=</span> <span class='nil nil kw'>nil</span>
+  <span class='end end kw'>end</span>
+  <span class='part_to_move identifier id'>part_to_move</span><span class='dot token'>.</span><span class='save! fid id'>save!</span>
+<span class='end end kw'>end</span>
+</pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <p class="signature " id="percentage_of_completion_for-instance_method">
+  
+    - (<tt>Object</tt>) <strong>percentage_of_completion_for</strong>(user) 
+  
+
+  
+</p><div class="docstring">
+  <div class="discussion">
+    <p>
+calculate the percentage of completion of a questionnaire by a specific
+user
+</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+178
+179
+180
+181
+182</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'app/models/questionnaire.rb', line 178</span>
+
+<span class='def def kw'>def</span> <span class='percentage_of_completion_for identifier id'>percentage_of_completion_for</span> <span class='user identifier id'>user</span>
+  <span class='authorization identifier id'>authorization</span> <span class='assign token'>=</span> <span class='AuthorizedSubmitter constant id'>AuthorizedSubmitter</span><span class='dot token'>.</span><span class='find_by_questionnaire_id_and_user_id identifier id'>find_by_questionnaire_id_and_user_id</span><span class='lparen token'>(</span><span class='self self kw'>self</span><span class='dot token'>.</span><span class='id identifier id'>id</span><span class='comma token'>,</span> <span class='user identifier id'>user</span><span class='dot token'>.</span><span class='id identifier id'>id</span><span class='rparen token'>)</span>
+  <span class='return return kw'>return</span> <span class='integer val'>0</span><span class='integer val'>.00</span> <span class='if if_mod kw'>if</span> <span class='authorization identifier id'>authorization</span><span class='dot token'>.</span><span class='answered_questions identifier id'>answered_questions</span> <span class='eq op'>==</span> <span class='integer val'>0</span> <span class='orop op'>||</span> <span class='authorization identifier id'>authorization</span><span class='dot token'>.</span><span class='total_questions identifier id'>total_questions</span> <span class='eq op'>==</span> <span class='integer val'>0</span>
+  <span class='lparen token'>(</span> <span class='string val'>&quot;%.2f&quot;</span> <span class='mod op'>%</span> <span class='lparen token'>(</span><span class='lparen token'>(</span><span class='authorization identifier id'>authorization</span><span class='dot token'>.</span><span class='answered_questions identifier id'>answered_questions</span><span class='dot token'>.</span><span class='to_f identifier id'>to_f</span> <span class='div op'>/</span> <span class='authorization identifier id'>authorization</span><span class='dot token'>.</span><span class='total_questions identifier id'>total_questions</span><span class='dot token'>.</span><span class='to_f identifier id'>to_f</span><span class='rparen token'>)</span> <span class='mult op'>*</span> <span class='integer val'>100</span><span class='rparen token'>)</span> <span class='rparen token'>)</span>
+<span class='end end kw'>end</span>
+</pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <p class="signature " id="propagate_languages_changes-instance_method">
+  
+    - (<tt>Object</tt>) <strong>propagate_languages_changes</strong>(old_languages, old_default_language) 
+  
+
+  
+</p><div class="docstring">
+  <div class="discussion">
+    <p>
+Methods
+</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+63
+64
+65
+66
+67
+68
+69
+70
+71
+72
+73
+74
+75
+76
+77
+78
+79
+80</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'app/models/questionnaire.rb', line 63</span>
+
+<span class='def def kw'>def</span> <span class='propagate_languages_changes identifier id'>propagate_languages_changes</span> <span class='old_languages identifier id'>old_languages</span><span class='comma token'>,</span> <span class='old_default_language identifier id'>old_default_language</span>
+  <span class='questionnaire_languages identifier id'>questionnaire_languages</span> <span class='assign token'>=</span> <span class='self self kw'>self</span><span class='dot token'>.</span><span class='questionnaire_fields identifier id'>questionnaire_fields</span><span class='dot token'>.</span><span class='reject identifier id'>reject</span><span class='lbrace token'>{</span><span class='bitor op'>|</span><span class='a identifier id'>a</span><span class='bitor op'>|</span> <span class='a identifier id'>a</span><span class='dot token'>.</span><span class='marked_for_destruction? fid id'>marked_for_destruction?</span><span class='rbrace token'>}</span><span class='dot token'>.</span><span class='map identifier id'>map</span><span class='lbrace token'>{</span><span class='bitor op'>|</span><span class='a identifier id'>a</span><span class='bitor op'>|</span> <span class='a identifier id'>a</span><span class='dot token'>.</span><span class='language identifier id'>language</span><span class='rbrace token'>}</span>
+  <span class='new_default identifier id'>new_default</span> <span class='assign token'>=</span> <span class='self self kw'>self</span><span class='dot token'>.</span><span class='questionnaire_fields identifier id'>questionnaire_fields</span><span class='dot token'>.</span><span class='find_by_is_default_language identifier id'>find_by_is_default_language</span><span class='lparen token'>(</span><span class='true true kw'>true</span><span class='rparen token'>)</span><span class='dot token'>.</span><span class='language identifier id'>language</span>
+  <span class='langs_to_remove identifier id'>langs_to_remove</span> <span class='assign token'>=</span> <span class='old_languages identifier id'>old_languages</span> <span class='minus op'>-</span> <span class='questionnaire_languages identifier id'>questionnaire_languages</span>
+  <span class='langs_to_add identifier id'>langs_to_add</span> <span class='assign token'>=</span> <span class='questionnaire_languages identifier id'>questionnaire_languages</span> <span class='minus op'>-</span> <span class='old_languages identifier id'>old_languages</span>
+  <span class='return return kw'>return</span> <span class='if if_mod kw'>if</span> <span class='langs_to_remove identifier id'>langs_to_remove</span><span class='dot token'>.</span><span class='empty? fid id'>empty?</span> <span class='andop op'>&amp;&amp;</span> <span class='langs_to_add identifier id'>langs_to_add</span><span class='dot token'>.</span><span class='empty? fid id'>empty?</span> <span class='andop op'>&amp;&amp;</span> <span class='new_default identifier id'>new_default</span> <span class='eq op'>==</span> <span class='old_default_language identifier id'>old_default_language</span>
+  <span class='self self kw'>self</span><span class='dot token'>.</span><span class='questionnaire_parts identifier id'>questionnaire_parts</span><span class='dot token'>.</span><span class='each identifier id'>each</span> <span class='do do kw'>do</span> <span class='bitor op'>|</span><span class='qpart identifier id'>qpart</span><span class='bitor op'>|</span>
+    <span class='qpart identifier id'>qpart</span><span class='dot token'>.</span><span class='propagate_languages_changes identifier id'>propagate_languages_changes</span><span class='lparen token'>(</span><span class='langs_to_remove identifier id'>langs_to_remove</span><span class='comma token'>,</span> <span class='langs_to_add identifier id'>langs_to_add</span><span class='comma token'>,</span> <span class='lparen token'>(</span><span class='new_default identifier id'>new_default</span> <span class='eq op'>==</span> <span class='old_default_language identifier id'>old_default_language</span> <span class='integer val'>? </span><span class='nil nil kw'>nil</span> <span class='colon op'>:</span> <span class='new_default identifier id'>new_default</span><span class='rparen token'>)</span><span class='rparen token'>)</span>
+  <span class='end end kw'>end</span>
+  <span class='self self kw'>self</span><span class='dot token'>.</span><span class='loop_sources identifier id'>loop_sources</span><span class='dot token'>.</span><span class='each identifier id'>each</span> <span class='do do kw'>do</span> <span class='bitor op'>|</span><span class='source identifier id'>source</span><span class='bitor op'>|</span>
+    <span class='source identifier id'>source</span><span class='dot token'>.</span><span class='loop_item_names identifier id'>loop_item_names</span><span class='dot token'>.</span><span class='each identifier id'>each</span> <span class='do do kw'>do</span> <span class='bitor op'>|</span><span class='litem_name identifier id'>litem_name</span><span class='bitor op'>|</span>
+      <span class='litem_name identifier id'>litem_name</span><span class='dot token'>.</span><span class='propagate_languages_changes identifier id'>propagate_languages_changes</span><span class='lparen token'>(</span><span class='langs_to_remove identifier id'>langs_to_remove</span><span class='comma token'>,</span> <span class='langs_to_add identifier id'>langs_to_add</span><span class='comma token'>,</span> <span class='lparen token'>(</span><span class='new_default identifier id'>new_default</span> <span class='eq op'>==</span> <span class='old_default_language identifier id'>old_default_language</span> <span class='integer val'>? </span><span class='nil nil kw'>nil</span> <span class='colon op'>:</span> <span class='new_default identifier id'>new_default</span><span class='rparen token'>)</span><span class='rparen token'>)</span>
+      <span class='litem_name identifier id'>litem_name</span><span class='dot token'>.</span><span class='item_extras identifier id'>item_extras</span><span class='dot token'>.</span><span class='each identifier id'>each</span> <span class='do do kw'>do</span> <span class='bitor op'>|</span><span class='item_extra identifier id'>item_extra</span><span class='bitor op'>|</span>
+        <span class='item_extra identifier id'>item_extra</span><span class='dot token'>.</span><span class='propagate_languages_changes identifier id'>propagate_languages_changes</span><span class='lparen token'>(</span><span class='langs_to_remove identifier id'>langs_to_remove</span><span class='comma token'>,</span> <span class='langs_to_add identifier id'>langs_to_add</span><span class='comma token'>,</span> <span class='lparen token'>(</span><span class='new_default identifier id'>new_default</span> <span class='eq op'>==</span> <span class='old_default_language identifier id'>old_default_language</span> <span class='integer val'>? </span><span class='nil nil kw'>nil</span> <span class='colon op'>:</span> <span class='new_default identifier id'>new_default</span><span class='rparen token'>)</span><span class='rparen token'>)</span>
+      <span class='end end kw'>end</span>
+    <span class='end end kw'>end</span>
+  <span class='end end kw'>end</span>
+<span class='end end kw'>end</span>
+</pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <p class="signature " id="questionnaire_structure-instance_method">
+  
+    - (<tt>Object</tt>) <strong>questionnaire_structure</strong>(params) 
+  
+
+  
+</p><div class="docstring">
+  <div class="discussion">
+    <p>
+to display the questionnaire in the dynatree
+</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+82
+83
+84
+85
+86
+87
+88
+89
+90
+91
+92
+93
+94
+95
+96
+97
+98</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'app/models/questionnaire.rb', line 82</span>
+
+<span class='def def kw'>def</span> <span class='questionnaire_structure identifier id'>questionnaire_structure</span> <span class='lparen token'>(</span><span class='params identifier id'>params</span><span class='rparen token'>)</span> <span class='comment val'># to display the questionnaire in the dynatree</span>
+  <span class='@obj ivar id'>@obj</span> <span class='assign token'>=</span> <span class='lbrack token'>[</span><span class='rbrack token'>]</span>
+  <span class='self self kw'>self</span><span class='dot token'>.</span><span class='questionnaire_parts identifier id'>questionnaire_parts</span><span class='dot token'>.</span><span class='sort identifier id'>sort</span><span class='dot token'>.</span><span class='each identifier id'>each</span> <span class='do do kw'>do</span> <span class='bitor op'>|</span><span class='qpart identifier id'>qpart</span><span class='bitor op'>|</span>
+    <span class='children identifier id'>children</span> <span class='assign token'>=</span> <span class='qpart identifier id'>qpart</span><span class='dot token'>.</span><span class='children identifier id'>children</span>
+    <span class='the_title identifier id'>the_title</span> <span class='assign token'>=</span> <span class='Sanitize constant id'>Sanitize</span><span class='dot token'>.</span><span class='clean identifier id'>clean</span><span class='lparen token'>(</span><span class='qpart identifier id'>qpart</span><span class='dot token'>.</span><span class='display_title identifier id'>display_title</span><span class='rparen token'>)</span><span class='dot token'>.</span><span class='strip identifier id'>strip</span><span class='dot token'>.</span><span class='gsub identifier id'>gsub</span><span class='lparen token'>(</span><span class='string val'>&quot;\n\n&quot;</span><span class='comma token'>,</span> <span class='string val'>&quot;&quot;</span><span class='rparen token'>)</span>
+    <span class='@obj ivar id'>@obj</span> <span class='opasgn op'>+=</span> <span class='lbrack token'>[</span> <span class='lbrace token'>{</span>
+      <span class='symbol val'>:title</span> <span class='assign token'>=</span><span class='gt op'>&gt;</span> <span class='the_title identifier id'>the_title</span><span class='lbrack token'>[</span><span class='integer val'>0</span><span class='comma token'>,</span><span class='integer val'>25</span><span class='rbrack token'>]</span> <span class='plus op'>+</span> <span class='lparen token'>(</span><span class='the_title identifier id'>the_title</span><span class='dot token'>.</span><span class='size identifier id'>size</span> <span class='gt op'>&gt;</span> <span class='integer val'>25</span> <span class='question op'>?</span> <span class='string val'>&quot;...&quot;</span> <span class='colon op'>:</span> <span class='string val'>&quot;&quot;</span><span class='rparen token'>)</span><span class='comma token'>,</span>
+      <span class='symbol val'>:tooltip</span> <span class='assign token'>=</span><span class='gt op'>&gt;</span> <span class='the_title identifier id'>the_title</span><span class='comma token'>,</span>
+      <span class='symbol val'>:isFolder</span> <span class='assign token'>=</span><span class='gt op'>&gt;</span> <span class='qpart identifier id'>qpart</span><span class='dot token'>.</span><span class='part identifier id'>part</span><span class='dot token'>.</span><span class='is_a? fid id'>is_a?</span><span class='lparen token'>(</span><span class='Section constant id'>Section</span><span class='rparen token'>)</span><span class='comma token'>,</span>
+      <span class='symbol val'>:key</span> <span class='assign token'>=</span><span class='gt op'>&gt;</span> <span class='qpart identifier id'>qpart</span><span class='dot token'>.</span><span class='part identifier id'>part</span><span class='dot token'>.</span><span class='is_a? fid id'>is_a?</span><span class='lparen token'>(</span><span class='Section constant id'>Section</span><span class='rparen token'>)</span> <span class='question op'>?</span> <span class='qpart identifier id'>qpart</span><span class='dot token'>.</span><span class='part_id identifier id'>part_id</span><span class='dot token'>.</span><span class='to_s identifier id'>to_s</span> <span class='colon op'>:</span> <span class='string val'>&quot;q&quot;</span><span class='plus op'>+</span><span class='qpart identifier id'>qpart</span><span class='dot token'>.</span><span class='part_id identifier id'>part_id</span><span class='dot token'>.</span><span class='to_s identifier id'>to_s</span><span class='comma token'>,</span>
+      <span class='symbol val'>:expand</span> <span class='assign token'>=</span><span class='gt op'>&gt;</span> <span class='false false kw'>false</span><span class='comma token'>,</span>
+      <span class='symbol val'>:activate</span> <span class='assign token'>=</span><span class='gt op'>&gt;</span> <span class='lparen token'>(</span> <span class='params identifier id'>params</span><span class='lbrack token'>[</span><span class='symbol val'>:activate</span><span class='rbrack token'>]</span> <span class='andop op'>&amp;&amp;</span> <span class='params identifier id'>params</span><span class='lbrack token'>[</span><span class='symbol val'>:activate</span><span class='rbrack token'>]</span><span class='dot token'>.</span><span class='to_i identifier id'>to_i</span> <span class='eq op'>==</span> <span class='qpart identifier id'>qpart</span><span class='dot token'>.</span><span class='part_id identifier id'>part_id</span> <span class='rparen token'>)</span> <span class='question op'>?</span> <span class='true true kw'>true</span> <span class='colon op'>:</span> <span class='false false kw'>false</span><span class='comma token'>,</span>
+      <span class='symbol val'>:children</span> <span class='assign token'>=</span><span class='gt op'>&gt;</span> <span class='QuestionnairePart constant id'>QuestionnairePart</span><span class='dot token'>.</span><span class='add_children_info identifier id'>add_children_info</span><span class='lparen token'>(</span><span class='children identifier id'>children</span><span class='comma token'>,</span> <span class='params identifier id'>params</span><span class='rparen token'>)</span>
+    <span class='rbrace token'>}</span> <span class='rbrack token'>]</span>
+  <span class='end end kw'>end</span>
+  <span class='@obj ivar id'>@obj</span>
+<span class='end end kw'>end</span>
+</pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <p class="signature " id="questionnaire_structure_for_js_tree-instance_method">
+  
+    - (<tt>Object</tt>) <strong>questionnaire_structure_for_js_tree</strong>(params) 
+  
+
+  
+</p><div class="docstring">
+  <div class="discussion">
+    <p>
+to display the questionnaire in the dynatree
+</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+359
+360
+361
+362
+363
+364
+365
+366
+367
+368
+369
+370
+371
+372
+373
+374
+375
+376
+377
+378
+379
+380
+381
+382
+383
+384
+385
+386
+387
+388
+389
+390
+391</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'app/models/questionnaire.rb', line 359</span>
+
+<span class='def def kw'>def</span> <span class='questionnaire_structure_for_js_tree identifier id'>questionnaire_structure_for_js_tree</span> <span class='lparen token'>(</span><span class='params identifier id'>params</span><span class='rparen token'>)</span> <span class='comment val'># to display the questionnaire in the dynatree</span>
+  <span class='tree_children identifier id'>tree_children</span> <span class='assign token'>=</span> <span class='lbrack token'>[</span><span class='rbrack token'>]</span>
+  <span class='self self kw'>self</span><span class='dot token'>.</span><span class='questionnaire_parts identifier id'>questionnaire_parts</span><span class='dot token'>.</span><span class='sort identifier id'>sort</span><span class='dot token'>.</span><span class='each identifier id'>each</span> <span class='do do kw'>do</span> <span class='bitor op'>|</span><span class='qpart identifier id'>qpart</span><span class='bitor op'>|</span>
+    <span class='children identifier id'>children</span> <span class='assign token'>=</span> <span class='qpart identifier id'>qpart</span><span class='dot token'>.</span><span class='children identifier id'>children</span>
+    <span class='the_title identifier id'>the_title</span> <span class='assign token'>=</span> <span class='Sanitize constant id'>Sanitize</span><span class='dot token'>.</span><span class='clean identifier id'>clean</span><span class='lparen token'>(</span><span class='qpart identifier id'>qpart</span><span class='dot token'>.</span><span class='display_title identifier id'>display_title</span><span class='rparen token'>)</span><span class='dot token'>.</span><span class='strip identifier id'>strip</span><span class='dot token'>.</span><span class='gsub identifier id'>gsub</span><span class='lparen token'>(</span><span class='string val'>&quot;\n\n&quot;</span><span class='comma token'>,</span> <span class='string val'>&quot;&quot;</span><span class='rparen token'>)</span>
+    <span class='tree_children identifier id'>tree_children</span> <span class='opasgn op'>+=</span> <span class='lbrack token'>[</span> <span class='lbrace token'>{</span>
+      <span class='symbol val'>:data</span> <span class='assign token'>=</span><span class='gt op'>&gt;</span> <span class='lbrace token'>{</span>
+      <span class='symbol val'>:title</span> <span class='assign token'>=</span><span class='gt op'>&gt;</span> <span class='the_title identifier id'>the_title</span><span class='comma token'>,</span>
+      <span class='symbol val'>:icon</span> <span class='assign token'>=</span><span class='gt op'>&gt;</span> <span class='qpart identifier id'>qpart</span><span class='dot token'>.</span><span class='part identifier id'>part</span><span class='dot token'>.</span><span class='is_a? fid id'>is_a?</span><span class='lparen token'>(</span><span class='Section constant id'>Section</span><span class='rparen token'>)</span> <span class='question op'>?</span> <span class='string val'>&quot;folder&quot;</span> <span class='colon op'>:</span> <span class='string val'>&quot;/javascripts/jstree/themes/default/ltDoc.gif&quot;</span>
+    <span class='rbrace token'>}</span><span class='comma token'>,</span>
+      <span class='comment val'>#:tooltip =&gt; the_title,</span>
+      <span class='comment val'>#:isFolder =&gt; qpart.part.is_a?(Section),</span>
+      <span class='comment val'>#:key =&gt; qpart.part.is_a?(Section) ? qpart.part_id.to_s : &quot;q&quot;+qpart.part_id.to_s,</span>
+      <span class='symbol val'>:attr</span> <span class='assign token'>=</span><span class='gt op'>&gt;</span> <span class='lbrace token'>{</span> <span class='symbol val'>:id</span> <span class='assign token'>=</span><span class='gt op'>&gt;</span> <span class='qpart identifier id'>qpart</span><span class='dot token'>.</span><span class='id identifier id'>id</span><span class='dot token'>.</span><span class='to_s identifier id'>to_s</span><span class='comma token'>,</span> <span class='symbol val'>:movable</span> <span class='assign token'>=</span><span class='gt op'>&gt;</span> <span class='string val'>&quot;true&quot;</span><span class='comma token'>,</span> <span class='symbol val'>:targetable</span> <span class='assign token'>=</span><span class='gt op'>&gt;</span> <span class='string val'>&quot;true&quot;</span><span class='comma token'>,</span> <span class='symbol val'>:is_question</span> <span class='assign token'>=</span><span class='gt op'>&gt;</span> <span class='string val'>&quot;false&quot;</span><span class='comma token'>,</span> <span class='symbol val'>:looping_branch</span> <span class='assign token'>=</span><span class='gt op'>&gt;</span> <span class='qpart identifier id'>qpart</span><span class='dot token'>.</span><span class='part identifier id'>part</span><span class='dot token'>.</span><span class='loop_source identifier id'>loop_source</span><span class='dot token'>.</span><span class='present? fid id'>present?</span><span class='comma token'>,</span>
+        <span class='symbol val'>:display_in_tab</span> <span class='assign token'>=</span><span class='gt op'>&gt;</span> <span class='string val'>&quot;true&quot;</span><span class='rbrace token'>}</span><span class='comma token'>,</span>
+        <span class='symbol val'>:state</span> <span class='assign token'>=</span><span class='gt op'>&gt;</span> <span class='children identifier id'>children</span><span class='dot token'>.</span><span class='present? fid id'>present?</span> <span class='integer val'>? </span><span class='string val'>&quot;closed&quot;</span> <span class='colon op'>:</span> <span class='string val'>&quot;leaf&quot;</span><span class='comma token'>,</span>
+        <span class='comment val'>#:activate =&gt; ( params[:activate] &amp;&amp; params[:activate].to_i == qpart.part_id ) ? true : false,</span>
+        <span class='symbol val'>:children</span> <span class='assign token'>=</span><span class='gt op'>&gt;</span> <span class='QuestionnairePart constant id'>QuestionnairePart</span><span class='dot token'>.</span><span class='add_children_info_to_jstree identifier id'>add_children_info_to_jstree</span><span class='lparen token'>(</span><span class='children identifier id'>children</span><span class='comma token'>,</span> <span class='params identifier id'>params</span><span class='comma token'>,</span> <span class='notop op'>!</span><span class='qpart identifier id'>qpart</span><span class='dot token'>.</span><span class='part identifier id'>part</span><span class='dot token'>.</span><span class='loop_source_id identifier id'>loop_source_id</span><span class='dot token'>.</span><span class='present? fid id'>present?</span><span class='rparen token'>)</span>
+    <span class='rbrace token'>}</span> <span class='rbrack token'>]</span>
+  <span class='end end kw'>end</span>
+  <span class='obj identifier id'>obj</span> <span class='assign token'>=</span> <span class='lbrack token'>[</span>
+    <span class='lbrace token'>{</span>
+    <span class='symbol val'>:data</span> <span class='assign token'>=</span><span class='gt op'>&gt;</span> <span class='lbrace token'>{</span>
+    <span class='symbol val'>:title</span> <span class='assign token'>=</span><span class='gt op'>&gt;</span> <span class='self self kw'>self</span><span class='dot token'>.</span><span class='title identifier id'>title</span><span class='comma token'>,</span>
+    <span class='symbol val'>:icon</span> <span class='assign token'>=</span><span class='gt op'>&gt;</span> <span class='string val'>&quot;folder&quot;</span>
+  <span class='rbrace token'>}</span><span class='comma token'>,</span>
+    <span class='symbol val'>:attr</span> <span class='assign token'>=</span><span class='gt op'>&gt;</span> <span class='lbrace token'>{</span> <span class='symbol val'>:id</span> <span class='assign token'>=</span><span class='gt op'>&gt;</span> <span class='string val'>&quot;root&quot;</span><span class='comma token'>,</span> <span class='symbol val'>:targetable</span> <span class='assign token'>=</span><span class='gt op'>&gt;</span> <span class='string val'>&quot;true&quot;</span><span class='rbrace token'>}</span><span class='comma token'>,</span>
+    <span class='symbol val'>:state</span> <span class='assign token'>=</span><span class='gt op'>&gt;</span> <span class='string val'>&quot;open&quot;</span><span class='comma token'>,</span>
+    <span class='symbol val'>:children</span> <span class='assign token'>=</span><span class='gt op'>&gt;</span> <span class='tree_children identifier id'>tree_children</span>
+  <span class='rbrace token'>}</span>
+  <span class='rbrack token'>]</span>
+  <span class='obj identifier id'>obj</span>
+<span class='end end kw'>end</span>
+</pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <p class="signature " id="questions_count-instance_method">
+  
+    - (<tt>Object</tt>) <strong>questions_count</strong> 
+  
+
+  
+</p><div class="docstring">
+  <div class="discussion">
+    <p>
+get the number of questions from a questionnaire
+</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+208
+209
+210
+211
+212
+213
+214</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'app/models/questionnaire.rb', line 208</span>
+
+<span class='def def kw'>def</span> <span class='questions_count identifier id'>questions_count</span>
+  <span class='total_questions identifier id'>total_questions</span> <span class='assign token'>=</span> <span class='integer val'>0</span>
+  <span class='self self kw'>self</span><span class='dot token'>.</span><span class='questionnaire_parts identifier id'>questionnaire_parts</span><span class='dot token'>.</span><span class='each identifier id'>each</span> <span class='do do kw'>do</span> <span class='bitor op'>|</span><span class='qpart identifier id'>qpart</span><span class='bitor op'>|</span>
+    <span class='total_questions identifier id'>total_questions</span> <span class='opasgn op'>+=</span> <span class='qpart identifier id'>qpart</span><span class='dot token'>.</span><span class='self_and_descendants identifier id'>self_and_descendants</span><span class='dot token'>.</span><span class='map identifier id'>map</span><span class='lparen token'>(</span><span class='bitand op'>&amp;</span><span class='symbol val'>:part</span><span class='rparen token'>)</span><span class='dot token'>.</span><span class='delete_if identifier id'>delete_if</span><span class='lbrace token'>{</span><span class='bitor op'>|</span><span class='a identifier id'>a</span><span class='bitor op'>|</span> <span class='notop op'>!</span><span class='a identifier id'>a</span><span class='dot token'>.</span><span class='is_a? fid id'>is_a?</span><span class='lparen token'>(</span><span class='Question constant id'>Question</span><span class='rparen token'>)</span><span class='rbrace token'>}</span><span class='dot token'>.</span><span class='count identifier id'>count</span>
+  <span class='end end kw'>end</span>
+  <span class='total_questions identifier id'>total_questions</span>
+<span class='end end kw'>end</span>
+</pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <p class="signature " id="sections-instance_method">
+  
+    - (<tt>Object</tt>) <strong>sections</strong> 
+  
+
+  
+</p><div class="docstring">
+  <div class="discussion">
+    <p>
+Returns an array with all the root sections, obtained through questionnaire
+parts.
+</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+342
+343
+344
+345</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'app/models/questionnaire.rb', line 342</span>
+
+<span class='def def kw'>def</span> <span class='sections identifier id'>sections</span>
+  <span class='comment val'>#self.questionnaire_parts.map{|a| a.part}.reject{|a| a.is_a?(Question)}</span>
+  <span class='self self kw'>self</span><span class='dot token'>.</span><span class='questionnaire_parts identifier id'>questionnaire_parts</span><span class='dot token'>.</span><span class='sort identifier id'>sort</span><span class='dot token'>.</span><span class='map identifier id'>map</span><span class='lbrace token'>{</span><span class='bitor op'>|</span><span class='a identifier id'>a</span><span class='bitor op'>|</span> <span class='a identifier id'>a</span><span class='dot token'>.</span><span class='part identifier id'>part</span><span class='rbrace token'>}</span><span class='dot token'>.</span><span class='reject identifier id'>reject</span><span class='lbrace token'>{</span><span class='bitor op'>|</span><span class='a identifier id'>a</span><span class='bitor op'>|</span> <span class='notop op'>!</span><span class='a identifier id'>a</span><span class='dot token'>.</span><span class='is_a? fid id'>is_a?</span><span class='lparen token'>(</span><span class='Section constant id'>Section</span><span class='rparen token'>)</span><span class='rbrace token'>}</span>
+<span class='end end kw'>end</span>
+</pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <p class="signature " id="sections_count-instance_method">
+  
+    - (<tt>Object</tt>) <strong>sections_count</strong> 
+  
+
+  
+</p><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+216
+217
+218
+219
+220
+221
+222</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'app/models/questionnaire.rb', line 216</span>
+
+<span class='def def kw'>def</span> <span class='sections_count identifier id'>sections_count</span>
+  <span class='total_sections identifier id'>total_sections</span> <span class='assign token'>=</span> <span class='integer val'>0</span>
+  <span class='self self kw'>self</span><span class='dot token'>.</span><span class='questionnaire_parts identifier id'>questionnaire_parts</span><span class='dot token'>.</span><span class='each identifier id'>each</span> <span class='do do kw'>do</span> <span class='bitor op'>|</span><span class='qpart identifier id'>qpart</span><span class='bitor op'>|</span>
+    <span class='total_sections identifier id'>total_sections</span> <span class='opasgn op'>+=</span> <span class='qpart identifier id'>qpart</span><span class='dot token'>.</span><span class='self_and_descendants identifier id'>self_and_descendants</span><span class='dot token'>.</span><span class='map identifier id'>map</span><span class='lparen token'>(</span><span class='bitand op'>&amp;</span><span class='symbol val'>:part</span><span class='rparen token'>)</span><span class='dot token'>.</span><span class='delete_if identifier id'>delete_if</span><span class='lbrace token'>{</span><span class='bitor op'>|</span><span class='a identifier id'>a</span><span class='bitor op'>|</span> <span class='notop op'>!</span><span class='a identifier id'>a</span><span class='dot token'>.</span><span class='is_a? fid id'>is_a?</span><span class='lparen token'>(</span><span class='Section constant id'>Section</span><span class='rparen token'>)</span><span class='rbrace token'>}</span><span class='dot token'>.</span><span class='count identifier id'>count</span>
+  <span class='end end kw'>end</span>
+  <span class='total_sections identifier id'>total_sections</span>
+<span class='end end kw'>end</span>
+</pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <p class="signature " id="sections_to_display_in_tab-instance_method">
+  
+    - (<tt>Object</tt>) <strong>sections_to_display_in_tab</strong> 
+  
+
+  
+</p><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+347
+348
+349
+350
+351
+352
+353
+354
+355
+356
+357</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'app/models/questionnaire.rb', line 347</span>
+
+<span class='def def kw'>def</span> <span class='sections_to_display_in_tab identifier id'>sections_to_display_in_tab</span>
+  <span class='root_sections identifier id'>root_sections</span> <span class='assign token'>=</span> <span class='self self kw'>self</span><span class='dot token'>.</span><span class='sections identifier id'>sections</span>
+  <span class='to_add identifier id'>to_add</span> <span class='assign token'>=</span> <span class='lbrace token'>{</span><span class='rbrace token'>}</span>
+  <span class='root_sections identifier id'>root_sections</span><span class='dot token'>.</span><span class='each identifier id'>each</span> <span class='do do kw'>do</span> <span class='bitor op'>|</span><span class='section identifier id'>section</span><span class='bitor op'>|</span>
+    <span class='to_add identifier id'>to_add</span><span class='lbrack token'>[</span><span class='root_sections identifier id'>root_sections</span><span class='dot token'>.</span><span class='index identifier id'>index</span><span class='lparen token'>(</span><span class='section identifier id'>section</span><span class='rparen token'>)</span><span class='dot token'>.</span><span class='to_s identifier id'>to_s</span><span class='rbrack token'>]</span> <span class='assign token'>=</span> <span class='section identifier id'>section</span><span class='dot token'>.</span><span class='descendants identifier id'>descendants</span><span class='dot token'>.</span><span class='reject identifier id'>reject</span><span class='lbrace token'>{</span><span class='bitor op'>|</span><span class='s identifier id'>s</span><span class='bitor op'>|</span> <span class='notop op'>!</span><span class='s identifier id'>s</span><span class='dot token'>.</span><span class='display_in_tab? fid id'>display_in_tab?</span><span class='rbrace token'>}</span>
+  <span class='end end kw'>end</span>
+  <span class='to_add identifier id'>to_add</span><span class='dot token'>.</span><span class='each identifier id'>each</span> <span class='do do kw'>do</span> <span class='bitor op'>|</span><span class='index identifier id'>index</span><span class='comma token'>,</span> <span class='sections identifier id'>sections</span><span class='bitor op'>|</span>
+    <span class='root_sections identifier id'>root_sections</span><span class='dot token'>.</span><span class='insert identifier id'>insert</span><span class='lparen token'>(</span><span class='index identifier id'>index</span><span class='dot token'>.</span><span class='to_i identifier id'>to_i</span> <span class='plus op'>+</span> <span class='integer val'>1</span><span class='comma token'>,</span> <span class='sections identifier id'>sections</span><span class='rparen token'>)</span>
+  <span class='end end kw'>end</span>
+  <span class='root_sections identifier id'>root_sections</span><span class='dot token'>.</span><span class='flatten identifier id'>flatten</span><span class='dot token'>.</span><span class='sort identifier id'>sort</span><span class='lbrace token'>{</span><span class='bitor op'>|</span><span class='a identifier id'>a</span><span class='comma token'>,</span><span class='b identifier id'>b</span><span class='bitor op'>|</span> <span class='a identifier id'>a</span><span class='dot token'>.</span><span class='questionnaire_part identifier id'>questionnaire_part</span><span class='dot token'>.</span><span class='lft identifier id'>lft</span> <span class='cmp op'>&lt;=&gt;</span> <span class='b identifier id'>b</span><span class='dot token'>.</span><span class='questionnaire_part identifier id'>questionnaire_part</span><span class='dot token'>.</span><span class='lft identifier id'>lft</span><span class='rbrace token'>}</span>
+<span class='end end kw'>end</span>
+</pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <p class="signature " id="title-instance_method">
+  
+    - (<tt>Object</tt>) <strong>title</strong>(lang = nil) 
+  
+
+  
+</p><div class="docstring">
+  <div class="discussion">
+    <p>
+Method to facilitate the printing of the Questionnaire Title by printing
+the title in the default language
+</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+163
+164
+165
+166
+167</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'app/models/questionnaire.rb', line 163</span>
+
+<span class='def def kw'>def</span> <span class='title identifier id'>title</span> <span class='lang identifier id'>lang</span><span class='assign token'>=</span><span class='nil nil kw'>nil</span>
+  <span class='field identifier id'>field</span> <span class='assign token'>=</span> <span class='lang identifier id'>lang</span> <span class='integer val'>? </span><span class='self self kw'>self</span><span class='dot token'>.</span><span class='questionnaire_fields identifier id'>questionnaire_fields</span><span class='dot token'>.</span><span class='find_by_language identifier id'>find_by_language</span><span class='lparen token'>(</span><span class='lang identifier id'>lang</span><span class='rparen token'>)</span> <span class='colon op'>:</span> <span class='nil nil kw'>nil</span>
+  <span class='the_title identifier id'>the_title</span> <span class='assign token'>=</span> <span class='field identifier id'>field</span> <span class='integer val'>? </span><span class='field identifier id'>field</span><span class='dot token'>.</span><span class='title identifier id'>title</span> <span class='colon op'>:</span> <span class='self self kw'>self</span><span class='dot token'>.</span><span class='questionnaire_fields identifier id'>questionnaire_fields</span><span class='dot token'>.</span><span class='find_by_is_default_language identifier id'>find_by_is_default_language</span><span class='lparen token'>(</span><span class='true true kw'>true</span><span class='rparen token'>)</span><span class='dot token'>.</span><span class='title identifier id'>title</span>
+  <span class='the_title identifier id'>the_title</span> <span class='integer val'>? </span><span class='the_title identifier id'>the_title</span> <span class='colon op'>:</span> <span class='string val'>&quot;#Not Specified#&quot;</span>
+<span class='end end kw'>end</span>
+</pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <p class="signature " id="to_csv-instance_method">
+  
+    - (<tt>Object</tt>) <strong>to_csv</strong>(user) 
+  
+
+  
+</p><div class="docstring">
+  <div class="discussion">
+    <p>
+Convert Questionnaire&#8217;s submission side and existing answers to csv
+default location: private/questionnaires/questionnaire_id/
+</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+307
+308
+309
+310
+311
+312
+313
+314
+315
+316
+317
+318
+319
+320
+321
+322
+323
+324
+325
+326
+327
+328
+329
+330
+331
+332
+333
+334
+335
+336
+337
+338</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'app/models/questionnaire.rb', line 307</span>
+
+<span class='def def kw'>def</span> <span class='to_csv identifier id'>to_csv</span><span class='lparen token'>(</span><span class='user identifier id'>user</span><span class='rparen token'>)</span>
+  <span class='file_location identifier id'>file_location</span> <span class='assign token'>=</span> <span class='dstring node'>&quot;#{RAILS_ROOT}/private/questionnaires/#{self.id.to_s}/&quot;</span>
+  <span class='if if kw'>if</span> <span class='notop op'>!</span><span class='File constant id'>File</span><span class='dot token'>.</span><span class='directory? fid id'>directory?</span> <span class='file_location identifier id'>file_location</span>
+    <span class='FileUtils constant id'>FileUtils</span><span class='dot token'>.</span><span class='mkdir_p identifier id'>mkdir_p</span><span class='lparen token'>(</span><span class='file_location identifier id'>file_location</span><span class='rparen token'>)</span>
+  <span class='end end kw'>end</span>
+  <span class='file_location identifier id'>file_location</span> <span class='lshft op'>&lt;&lt;</span> <span class='string val'>&quot;questionnaire_generating.csv&quot;</span>
+
+  <span class='if if kw'>if</span> <span class='File constant id'>File</span><span class='dot token'>.</span><span class='exists? fid id'>exists?</span><span class='lparen token'>(</span><span class='file_location identifier id'>file_location</span><span class='rparen token'>)</span> <span class='andop op'>&amp;&amp;</span> <span class='File constant id'>File</span><span class='dot token'>.</span><span class='atime identifier id'>atime</span><span class='lparen token'>(</span><span class='file_location identifier id'>file_location</span><span class='rparen token'>)</span> <span class='lt op'>&lt;</span> <span class='float val'>30</span><span class='dot token'>.</span><span class='minutes identifier id'>minutes</span><span class='dot token'>.</span><span class='ago identifier id'>ago</span>
+    <span class='return return kw'>return</span> <span class='false false kw'>false</span>
+  <span class='end end kw'>end</span>
+  <span class='begin begin kw'>begin</span>
+    <span class='CsvMethods constant id'>CsvMethods</span><span class='dot token'>.</span><span class='fill_csv identifier id'>fill_csv</span> <span class='file_location identifier id'>file_location</span><span class='comma token'>,</span> <span class='self self kw'>self</span><span class='dot token'>.</span><span class='submitters identifier id'>submitters</span><span class='comma token'>,</span> <span class='self self kw'>self</span><span class='dot token'>.</span><span class='sections identifier id'>sections</span>
+    <span class='comment val'>#move file to the final destination</span>
+    <span class='file_record identifier id'>file_record</span> <span class='assign token'>=</span> <span class='self self kw'>self</span><span class='dot token'>.</span><span class='csv_file identifier id'>csv_file</span> <span class='orop op'>||</span> <span class='CsvFile constant id'>CsvFile</span><span class='dot token'>.</span><span class='new identifier id'>new</span><span class='lparen token'>(</span><span class='symbol val'>:entity</span> <span class='assign token'>=</span><span class='gt op'>&gt;</span> <span class='self self kw'>self</span><span class='rparen token'>)</span>
+    <span class='if if kw'>if</span> <span class='notop op'>!</span><span class='file_record identifier id'>file_record</span><span class='dot token'>.</span><span class='new_record? fid id'>new_record?</span> <span class='andop op'>&amp;&amp;</span> <span class='File constant id'>File</span><span class='dot token'>.</span><span class='exists? fid id'>exists?</span><span class='lparen token'>(</span><span class='file_record identifier id'>file_record</span><span class='dot token'>.</span><span class='location identifier id'>location</span><span class='rparen token'>)</span>
+      <span class='FileUtils constant id'>FileUtils</span><span class='dot token'>.</span><span class='rm identifier id'>rm</span><span class='lparen token'>(</span><span class='file_record identifier id'>file_record</span><span class='dot token'>.</span><span class='location identifier id'>location</span><span class='rparen token'>)</span>
+    <span class='end end kw'>end</span>
+    <span class='file_record identifier id'>file_record</span><span class='dot token'>.</span><span class='name identifier id'>name</span> <span class='assign token'>=</span> <span class='self self kw'>self</span><span class='dot token'>.</span><span class='title identifier id'>title</span><span class='lbrack token'>[</span><span class='integer val'>0</span><span class='comma token'>,</span><span class='integer val'>35</span><span class='rbrack token'>]</span> <span class='plus op'>+</span> <span class='dstring node'>&quot;_#{DateTime.now.strftime(&quot;%d%m%Y&quot;)}.csv&quot;</span>
+    <span class='file_record identifier id'>file_record</span><span class='dot token'>.</span><span class='location identifier id'>location</span> <span class='assign token'>=</span> <span class='dstring node'>&quot;#{RAILS_ROOT}/private/questionnaires/#{self.id.to_s}/&quot;</span><span class='plus op'>+</span> <span class='file_record identifier id'>file_record</span><span class='dot token'>.</span><span class='name identifier id'>name</span>
+    <span class='file_record identifier id'>file_record</span><span class='dot token'>.</span><span class='save identifier id'>save</span>
+    <span class='FileUtils constant id'>FileUtils</span><span class='dot token'>.</span><span class='move identifier id'>move</span><span class='lparen token'>(</span><span class='file_location identifier id'>file_location</span><span class='comma token'>,</span> <span class='file_record identifier id'>file_record</span><span class='dot token'>.</span><span class='location identifier id'>location</span><span class='rparen token'>)</span>
+    <span class='FileUtils constant id'>FileUtils</span><span class='dot token'>.</span><span class='touch identifier id'>touch</span> <span class='file_record identifier id'>file_record</span><span class='dot token'>.</span><span class='location identifier id'>location</span>
+    <span class='comment val'>#send notifying e-mail</span>
+    <span class='UserMailer constant id'>UserMailer</span><span class='dot token'>.</span><span class='deliver_csv_file_generated identifier id'>deliver_csv_file_generated</span><span class='lparen token'>(</span><span class='user identifier id'>user</span><span class='comma token'>,</span> <span class='self self kw'>self</span><span class='rparen token'>)</span>
+  <span class='rescue rescue kw'>rescue</span> <span class='Exception constant id'>Exception</span> <span class='assign token'>=</span><span class='gt op'>&gt;</span> <span class='e identifier id'>e</span>
+    <span class='UserMailer constant id'>UserMailer</span><span class='dot token'>.</span><span class='deliver_csv_generation_failed identifier id'>deliver_csv_generation_failed</span><span class='lparen token'>(</span><span class='user identifier id'>user</span><span class='comma token'>,</span> <span class='self self kw'>self</span><span class='comma token'>,</span> <span class='e identifier id'>e</span><span class='rparen token'>)</span>
+    <span class='if if kw'>if</span> <span class='File constant id'>File</span><span class='dot token'>.</span><span class='exists? fid id'>exists?</span><span class='lparen token'>(</span><span class='file_location identifier id'>file_location</span><span class='rparen token'>)</span>
+      <span class='FileUtils constant id'>FileUtils</span><span class='dot token'>.</span><span class='rm identifier id'>rm</span><span class='lparen token'>(</span><span class='file_location identifier id'>file_location</span><span class='rparen token'>)</span>
+    <span class='end end kw'>end</span>
+  <span class='end end kw'>end</span>
+  <span class='true true kw'>true</span>
+<span class='end end kw'>end</span>
+</pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+  </div>
+
+</div>
+    
+    <div id="footer">
+  Generated on Fri Jul  8 14:33:29 2011 by 
+  <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
+  0.7.2 (ruby-1.8.7).
+</div>
+
+  </body>
+</html>

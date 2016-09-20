@@ -1,11 +1,29 @@
 <div id="delegates_list" class="span-24 last">
-  <%= render :partial => "options" %>
-  <h1><%= t('manage_delegates.title') %></h1>
+  <%= render 'users/options' %>
+
+  <div class="page-header">
+    <h2><%= t('manage_delegates.title') %></h2>
+  </div>
+
+<% @user ||= (current_user || nil) %>
+  <ul>
+    <% if @user && can?( :update, @user) %>
+      <li class="<%= 'active' if controller_name == 'user_delegates' && action_name == 'new' %>"><%= link_to t('user_new.add_delegate'), new_user_user_delegate_path(current_user), class: 'btn' %></li>
+    <% end %>
+  </ul>
+
+
   <div id="manage_delegates">
-    <h3><%=t('generic.help')%>:</h3>
+    <div class="page-header">
+      <h4><%=t('generic.help')%></h4>
+    </div>
     <%= raw t('manage_delegates.help_line') %>
   </div>
-  <h4><%=t('manage_delegates.u_have_delegates') %></h4>
+
+  <div class="page-header">
+    <h4><%=t('manage_delegates.u_have_delegates') %></h4>
+  </div>
+
   <table id="delegates_index">
     <thead>
       <tr>
@@ -19,7 +37,7 @@
       <% @user_delegates.reject{|ud| ud.delegate.nil?}.each do |user_delegate| -%>
         <tr>
           <td><%= h("#{user_delegate.delegate.first_name} #{user_delegate.delegate.last_name}" || user_delegate.delegate.email) %></td>
-          <td><%= l(user_delegate.created_at) %></td>
+          <td><%= user_delegate.created_at.strftime('%m/%d/%Y') %></td>
           <td><%= mail_to h(user_delegate.delegate.email)%></td>
           <td>
             <%= link_to t('generic.show'), user_delegate_path(user_delegate) %>

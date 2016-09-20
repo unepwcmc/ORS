@@ -33,7 +33,7 @@ class RemindersController < ApplicationController
       flash[:notice] = "Successfully updated reminder."
       @reminder.update_associated_deadlines(params[:deadlines]) if params[:deadlines].present?
       respond_to do |format|
-        format.html {redirect_to @reminder}
+        format.html { redirect_to @reminder }
       end
     else
       redirect_to edit_reminder_path(@reminder)
