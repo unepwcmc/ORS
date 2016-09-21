@@ -60,3 +60,5 @@ set :passenger_restart_with_touch, false
 # Default value for keep_releases is 5
 # set :keep_releases, 5
 
+
+require 'appsignal/capistrano'
