@@ -43,8 +43,6 @@ gem 'sidekiq-status'
 gem 'sinatra', :require => nil
 gem 'mocha'
 
-gem 'exception_notification', :git => 'https://github.com/smartinez87/exception_notification.git'
-gem 'slack-notifier', '~> 1.0'
 gem 'dotenv-rails'
 gem 'rails-secrets'
 

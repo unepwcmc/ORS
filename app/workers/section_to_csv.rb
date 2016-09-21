@@ -42,7 +42,7 @@ class SectionToCsv
       if File.exist?(file_location)
         FileUtils.rm(file_location)
       end
-      ExceptionNotifier.notify_exception(e)
+      Appsignal.add_exception(e)
     end
     true
   end
