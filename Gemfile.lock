@@ -375,7 +375,6 @@ DEPENDENCIES
   rails (= 3.2.22)
   rails-secrets
   rake (= 10.0.3)
-  rdoc
   redis
   rubocop
   ruby-prof
