@@ -14,9 +14,9 @@ class MatrixAnswerOptionField < ActiveRecord::Base
   ###   Validations
   ###
   validates_uniqueness_of :language, :scope => :matrix_answer_option_id
-  
+
   attr_accessible :language, :is_default_language, :title, :matrix_answer_option_id
-  
+
 end
 
 # == Schema Information
@@ -24,10 +24,10 @@ end
 # Table name: matrix_answer_option_fields
 #
 #  id                      :integer          not null, primary key
-#  matrix_answer_option_id :integer
-#  language                :string(255)
+#  matrix_answer_option_id :integer          not null
+#  language                :string(255)      not null
 #  title                   :text
-#  is_default_language     :boolean
-#  created_at              :datetime
-#  updated_at              :datetime
+#  is_default_language     :boolean          default(FALSE), not null
+#  created_at              :datetime         not null
+#  updated_at              :datetime         not null
 #

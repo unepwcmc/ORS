@@ -1,8 +1,8 @@
 $(function(){
     var $node_info_container = $("#node_info_container");
     $node_info_container.empty()
-            .append("<p><strong>Node type</strong><%= escape_javascript(@part.class.to_s) %></p>"+
-                    "<p><strong>Title</strong><%= escape_javascript(Sanitize.clean(@part.is_a?(Section) ? (@part.tab_title.present? ? @part.tab_title : @part.title) : @part.title ))%></p>");
+      .append("<div class='row padded'><div class='col col-2'><strong>Node type</strong></div><div class='col col-10 border-left'><%= escape_javascript(@part.class.to_s) %></div></div>"+
+          "<div class='row padded'><div class='col col-2'><strong>Title</strong></div><div class='col col-10 border-left'><%= escape_javascript(Sanitize.clean(@part.is_a?(Section) ? (@part.tab_title.present? ? @part.tab_title : @part.title) : @part.title ))%></div>");
     $node_info_container.append("<ul>");
     <% if @part.is_a?(Section) -%>
         <% if @part.looping? -%>

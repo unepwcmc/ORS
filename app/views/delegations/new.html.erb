@@ -1,38 +1,40 @@
 <div class="span-24 last">
-  <%= render :partial => "user_delegates/options"%>
-  <h1><%= t('manage_delegates.delegate_task') %></h1>
+  <%= render :partial => "users/options"%>
+  <h2><%= t('manage_delegates.delegate_task') %></h2>
   <%= form_for [@user_delegate, @delegation], :url => user_delegate_delegations_path(@user_delegate), :html => { :class => "formtastic normal", :id => "generator_form" } do |f| -%>
       <div id="error_container" class="error_container">
         <h5>There are some errors in your form submission, please see details below</h5>
         <ul id="error_messages"></ul>
       </div>
       <fieldset>
-        <legend><%= t('generic.delegate') %></legend>
+        <!--<legend><%#= t('generic.delegate') %></legend> -->
         <%= f.hidden_field :user_delegate_id %>
         <%= f.hidden_field :from_submission, :value => false %>
-        <ol>
-          <li>
-            <%= label_tag t('generic.delegator') %>
-            <%=h @delegator.full_name %>
-          </li>
-          <li>
-            <%= label_tag t('generic.delegate') %>
-            <%=h @user_delegate.delegate.full_name %>
-          </li>
-          <li>
-            <%= f.label :remarks, t('generic.remarks') %>
-            <%= f.text_area :remarks, :cols => 50, :rows => 5, :class => "grow" %>
-          </li>
-          <li>
-            <%= f.label :questionnaire, t('manage_delegates.available_q') %>
-            <%= select "delegation", "questionnaire_id", @available_questionnaires.collect{|p| [h(p.title(I18n.locale.to_s)[0,50])+"...", p.id] }, { :include_blank => t('manage_delegates.select_a_q') } %>
-          </li>
-          <li>
-            <%= f.label :can_view_all_questionnaire, 'Delegate can view the entire questionnaire but edit only delegated sections' %>
-            <%= f.check_box :can_view_all_questionnaire %>
-          </li>
-          <p id="submit_p"><%= f.submit t('generic.delegate') %></p>
-        </ol>
+        <div class="row group padded">
+          <strong><%= label_tag t('generic.delegator') %>: </strong>
+          <%=h @delegator.full_name %>
+        </div>
+        <div class="row group padded">
+          <strong><%= label_tag t('generic.delegate') %>: </strong>
+          <%=h @user_delegate.delegate.full_name %>
+        </div>
+        <div class="row group padded">
+          <strong><%= f.label :remarks, t('generic.remarks') %></strong>
+        </div>
+        <div class="row group padded">
+          <%= f.text_area :remarks, :cols => 50, :rows => 5, :class => "grow" %>
+        </div>
+        <div class="row group padded">
+          <strong><%= f.label :questionnaire, t('manage_delegates.available_q') %></strong>
+        </div>
+        <div class="row group padded">
+          <%= select "delegation", "questionnaire_id", @available_questionnaires.collect{|p| [h(p.title(I18n.locale.to_s)[0,50])+"...", p.id] }, { :include_blank => t('manage_delegates.select_a_q') } %>
+        </div>
+        <div class="row group padded">
+          <%= f.check_box :can_view_all_questionnaire %>
+          <%= f.label :can_view_all_questionnaire, 'Delegate can view the entire questionnaire but edit only delegated sections' %>
+        </div>
+        <p id="submit_p"><%= f.submit t('generic.delegate') %></p>
       </fieldset>
       <div class="error_container">
         <h5>There are errors in your form submission, please see details above the form!</h5>

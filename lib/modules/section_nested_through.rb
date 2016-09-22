@@ -2,7 +2,7 @@ module SectionNestedThrough #questionnaire_parts
   ###
   ###     Nested Set functions . Section is a nested set through "questionnaire_part".
   ###
-  
+
   def self.append_features(base)
     super
     self.class_eval do

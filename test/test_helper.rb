@@ -12,6 +12,7 @@ require 'database_cleaner'
 DatabaseCleaner.strategy = :truncation
 
 require 'complex_questionnaire_helper'
+require 'big_questionnaire_helper'
 
 module ActiveSupport
   class TestCase
@@ -22,6 +23,22 @@ end
 require "authlogic/test_case"
 include Authlogic::TestCase
 activate_authlogic
+
+def log_in_user attributes = {}
+  log_in_as FactoryGirl.create(:user, attributes)
+end
+
+def log_in_admin_user attributes = {}
+  log_in_as FactoryGirl.create(:admin, attributes)
+end
+
+def log_in_respondent attributes = {}
+  log_in_as FactoryGirl.create(:respondent, attributes)
+end
+
+def log_in_as user
+  UserSession.create user
+end
 
 def irl_respondent_login attributes = {}
   password = (attributes[:password] || 'boats')
@@ -67,11 +84,11 @@ def factory_section_questionnaire attributes={}
     :part => section
   )
   section_field = FactoryGirl.create(:section_field,
+    section: section,
     :is_default_language => true,
     :tab_title => title,
     :title => title
   )
-  questionnaire_part.part.section_fields << section_field
   questionnaire.questionnaire_parts << questionnaire_part
   return section, questionnaire
 end
@@ -79,10 +96,11 @@ end
 def factory_questionnaire attributes={}
   user = attributes[:user] || FactoryGirl.create(:user)
   questionnaire = attributes[:questionnaire] || FactoryGirl.create(
-    :questionnaire, :user => user)
-  questionnaire.questionnaire_fields << FactoryGirl.create(
+    :questionnaire, user: user, last_editor: user)
+  FactoryGirl.create(
     :questionnaire_field,
-    :language => "en"
+    :language => "en",
+    questionnaire: questionnaire
   )
   questionnaire.last_editor = user
   questionnaire.save!
@@ -145,12 +163,12 @@ end
 def factory_question_for_section section, questionnaire, answer_type
   question = FactoryGirl.create(:question,
     is_mandatory: "0",
-    answer_type_type: answer_type.class.name
+    answer_type_type: answer_type.class.name,
+    section: section
   )
 
   question_field = FactoryGirl.create(:question_field,
-    is_default_language: true)
-  question.question_fields << question_field
+    is_default_language: true, question: question)
   question.answer_type = answer_type
 
   question.answer_type.answer_type_fields = [
@@ -158,9 +176,6 @@ def factory_question_for_section section, questionnaire, answer_type
   ]
 
   question.save!
-
-  section.questions << question
-  section.save!
 
   FactoryGirl.create(:questionnaire_part,
     part_id: question.id,
@@ -247,7 +262,9 @@ def create_respondents
 end
 
 def create_answer question, user, field_type, answered = false
-  FactoryGirl.create(:answer, user: user, answer_parts: [FactoryGirl.create(:answer_part, field_type: field_type)], question: question, questionnaire: question.questionnaire, question_answered: answered)
+  answer = FactoryGirl.create(:answer, user: user, question: question, questionnaire: question.questionnaire, question_answered: answered)
+  FactoryGirl.create(:answer_part, answer: answer, field_type: field_type)
+  answer
 end
 
 def factory_questionnaire_respondents questionnaire

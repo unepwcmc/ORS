@@ -1,0 +1,27 @@
+<div class="row group padded answer-details">
+  <div class="help-attachments">
+    <% if answer_type_help_text -%>
+      <%= tooltip((field_to_use && field_to_use.short_title ? field_to_use.short_title : ""), answer_type_help_text) %> <% end -%>
+    <% if question.allow_attachments? -%>
+      <%= link_to fa_icon('paperclip', alt: 't("submission_pages.attach_files")) + " " + t("submission_pages.attach_files")', class: 'background inverse info'), add_document_answer_path(question, :looping_identifier => looping_identifier, :user_delegate => @current_user_delegate.try(:id)), :class => "get" %>
+
+      <%= link_to fa_icon('link', alt: "t('submission_pages.attach_links')", class: 'background inverse info'), add_links_answer_path(question, :looping_identifier => looping_identifier, :user_delegate => @current_user_delegate.try(:id)), :class => "get" %>
+    <% end -%>
+  </div>
+
+  <% if answer -%>
+    <p class="tooltips">
+      Answered by:
+      <% editor = answer.user %>
+      <span><%= editor.id != current_user.id ? (link_to h(editor.full_name)[0,30], user_path(editor), :title => h(editor.full_name)) : 'You' -%></span>
+      <span>(<%= answer.updated_at %>)</span>
+    </p>
+  <% end -%>
+
+  <% if answer && answer.user_id == current_user.id %>
+    <div class="row padded">
+      <%= hidden_field_tag "question_answered[#{answer.id}]", "" %>
+      <%= (check_box_tag "question_answered[#{answer.id}]", true, answer.question_answered) + 'Mark question as answered' %>
+    </div>
+  <% end %>
+</div>

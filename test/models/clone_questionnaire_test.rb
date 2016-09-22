@@ -11,8 +11,8 @@ class CloneQuestionnaireTest < ActiveSupport::TestCase
       assert_equal 1, Questionnaire.all.size
     end
 
-    should "questionnaire should have 3 answers" do
-      assert_equal 3, @questionnaire.answers.size
+    should "questionnaire should have 5 answers" do
+      assert_equal 5, @questionnaire.answers.size
     end
 
     should "@root_section should have 3 text_answer questions in the questionnaires" do
@@ -38,8 +38,7 @@ class CloneQuestionnaireTest < ActiveSupport::TestCase
 
     should "@root_section2 have 1 multi_answer question" do
       assert @questionnaire.sections.include?(@root_section2)
-      assert_equal 1, @root_section2.questions.size
-      assert_equal "MultiAnswer", @root_section2.questions[0].answer_type_type
+      assert_equal 1, @root_section2.questions.find(:all, conditions: {answer_type_type: 'MultiAnswer'}).size
     end
 
     should "have 1 question and 1 answer for @root_child2" do
@@ -47,6 +46,12 @@ class CloneQuestionnaireTest < ActiveSupport::TestCase
       assert_equal 1, @root_child2.questions.map(&:answers).flatten.size
       assert_equal 1, @root_child2.questions.map(&:answers).flatten.
         map(&:answer_parts).flatten.size
+    end
+
+    should "have 1 delegation section and 1 delegated loop item name for @looping_section" do
+      delegation_sections = @looping_section.delegation_sections
+      assert_equal 1, delegation_sections.size
+      assert_equal 1, delegation_sections.first.delegated_loop_item_names.size
     end
 
     context "clone the questionnaire with answers" do
@@ -112,6 +117,18 @@ class CloneQuestionnaireTest < ActiveSupport::TestCase
         assert_equal matrix_answer.matrix_answer_options.size, mapped_matrix.matrix_answer_options.size
         assert_equal matrix_answer.matrix_answer_options.first.title,
           mapped_matrix.matrix_answer_options.first.title
+      end
+
+      should "copy delegation" do
+        mapped_delegation = Delegation.find(:first, conditions: {original_id: @delegation.id})
+        assert mapped_delegation.present?
+      end
+
+      should "have 1 delegation section and 1 delegated loop item name for copy of @looping_section" do
+        mapped_looping_section = Section.find(:first, conditions: {original_id: @looping_section.id})
+        delegation_sections = mapped_looping_section.delegation_sections(true)
+        assert_equal 1, delegation_sections.size
+        assert_equal 1, delegation_sections.first.delegated_loop_item_names.size
       end
     end
   end

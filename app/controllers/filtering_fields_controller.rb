@@ -73,8 +73,8 @@ class FilteringFieldsController < ApplicationController
         loop_item_type = LoopItemType.find(item_type_id.to_i)
         @filtering_field.loop_item_types << loop_item_type unless loop_item_type.filtering_field.present?
       else
-        possibly_to_remove = LoopSource.find(loop_source_id, :include => :loop_item_type).loop_item_type.self_and_descendants.map{|a| a.id}
-        item_type_to_remove = LoopItemType.find_by_id((possibly_to_remove & @filtering_field.loop_item_types.map{|a| a.id})[0])
+        possibly_to_remove = LoopSource.find(loop_source_id, :include => :loop_item_type).loop_item_type.self_and_descendants.map{ |a| a.id }
+        item_type_to_remove = LoopItemType.find_by_id((possibly_to_remove & @filtering_field.loop_item_types.map{ |a| a.id })[0])
         if item_type_to_remove
           item_type_to_remove.filtering_field_id = nil
           item_type_to_remove.save

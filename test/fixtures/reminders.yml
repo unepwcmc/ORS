@@ -15,9 +15,9 @@ two:
 # Table name: reminders
 #
 #  id         :integer          not null, primary key
-#  title      :string(255)
+#  title      :text             not null
 #  body       :text
-#  created_at :datetime
-#  updated_at :datetime
+#  created_at :datetime         not null
+#  updated_at :datetime         not null
 #  days       :integer
 #

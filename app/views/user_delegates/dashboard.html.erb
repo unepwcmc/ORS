@@ -1,16 +1,26 @@
+<%= render "users/options" %>
 <div class="span-24 last" id="content" style="display: block">
-  <h1><%=t('user_dashboard.welcome_msg')%> <%= h(@delegate.full_name)%></h1>
+  <h2><%=t('user_dashboard.welcome_msg')%> <%= h(@delegate.full_name)%></h2>
   <div class="span-24 last">
     <% if @delegated_tasks.present? -%>
-      <h3><%= t('delegate_dashboard.title')%></h3>
+      <div class="row group padded">
+        <%= t('delegate_dashboard.title')%>:
+      </div>
       <div id="q_dashboard">
         <% @delegated_tasks.each do |delegation| -%>
-          <p><strong><%=t('generic.questionnaire')%></strong><%= link_to h(delegation.questionnaire.title), submission_questionnaire_path(delegation.questionnaire, user_delegate: delegation.user_delegate_id) %></p>
-          <p><strong><%=t('generic.delegator')%></strong> <%= h delegation.user.full_name %></p>
-          <p><strong><%=t('delegate_dashboard.delegator_remarks')%></strong><%= delegation.remarks.present? ? h(delegation.remarks) : "-" %></p>
-          <p><strong><%=t('generic.details')%></strong>
+          <div class="row group padded">
+            <%= cannot_submit_message(delegation.questionnaire) %>
+            <strong><%=t('generic.questionnaire')%>: </strong><%= link_to h(delegation.questionnaire.title), submission_questionnaire_path(delegation.questionnaire, user_delegate: delegation.user_delegate_id) %>
+          </div>
+          <div class="row group padded">
+            <strong><%=t('generic.delegator')%>: </strong> <%= h delegation.user.full_name %>
+          </div>
+          <div class="row group padded">
+            <strong><%=t('delegate_dashboard.delegator_remarks')%>: </strong><%= delegation.remarks.present? ? h(delegation.remarks) : "-" %>
+          </div>
+          <strong><%=t('generic.details')%>: </strong>
           <% if delegation.sections.present? -%>
-            <%= pluralize(delegation.sections.count, "section")%> <%= t('delegate_dashboard.to_fill') %> <a href="#" id="show_details_<%= delegation.id %>"><%=t('generic.details')%></a>
+            <%= pluralize(delegation.sections.count, "section")%> <%= t('delegate_dashboard.to_fill') %> <a href="#" id="show_details_<%= delegation.id %>">Show</a>
           <% else -%>
             <%= t('delegate_dashboard.fill_all') %>
           <% end -%>

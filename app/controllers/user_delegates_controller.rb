@@ -53,7 +53,7 @@ class UserDelegatesController < ApplicationController
     if success
       redirect_to user_user_delegates_path(current_user)
     else
-      flash[:error] = delegate.errors.messages.map{|key, value| "#{key} #{value}"}.join("<br/>")
+      flash[:error] = delegate.errors.messages.map{ |key, value| "#{key} #{value}" }.join("<br/>")
       render :action => "new"
     end
   end
@@ -74,6 +74,6 @@ class UserDelegatesController < ApplicationController
   def dashboard
     @delegate = User.find(params[:id], :include => [:delegated_tasks])
     raise CanCan::AccessDenied.new(t('flash_messages.not_authorized')) if @delegate != current_user
-    @delegated_tasks = @delegate.delegated_tasks.reject{|d| d.questionnaire.nil?}
+    @delegated_tasks = @delegate.delegated_tasks.reject{ |d| d.questionnaire.nil? }
   end
 end

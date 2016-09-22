@@ -1,3 +1,6 @@
+<div class="page-header">
+  <h2>Manage Languages</h2>
+</div>
 <div class="span-24 last">
   <div id="content_header">
     <% info_tip_text = ("<p>In this page you can add, remove languages, and change the default language of the questionnaire.</p>
@@ -8,15 +11,15 @@
     <strong>Questionnaire:</strong>
     <%= link_to @questionnaire.title, dashboard_questionnaire_path(@questionnaire) %>
   </p>
-  <%= form_for @questionnaire, :as => :questionnaire, 
-    :url => update_languages_questionnaire_path(@questionnaire), 
+  <%= form_for @questionnaire, :as => :questionnaire,
+    :url => update_languages_questionnaire_path(@questionnaire),
     :html => {:method => :post, :class => "formtastic normal", :id => "generator_form"} do |f| %>
       <div id="error_container" class="error_container">
         <h5>There are some errors in your form submission, please see details below</h5>
         <ul id="error_messages"></ul>
       </div>
       <fieldset>
-        <legend>Choose the languages of this questionnaire</legend>
+        <p>Choose the languages of this questionnaire</p>
         <table>
           <thead>
           <tr>
@@ -27,28 +30,29 @@
           </thead>
           <tbody>
           <%= f.fields_for :questionnaire_fields do |field| %>
+            <% next if field.object.language == "zh" # Remove this line to reactivate chinese language %>
               <tr>
                 <%= field.hidden_field :language, :value => field.object.language -%>
                 <td><%= field.object.language_english_name %></td>
                 <td>
                   <%= field.hidden_field :_destroy, :value => !field.object.new_record? ? 0 : 1 -%>
-                  <%= check_box_tag "include_languages[#{field.object.language}]", 
-                    field.object.language, 
-                    !field.object.new_record?, 
+                  <%= check_box_tag "include_languages[#{field.object.language}]",
+                    field.object.language,
+                    !field.object.new_record?,
                     :class => "include_languages_check_box" %>
                 </td>
                 <td>
-                  <%= field.hidden_field :is_default_language, 
+                  <%= field.hidden_field :is_default_language,
                     :value => field.object.is_default_language? ? true : false, :class => "default_language_hidden_fields" %>
-                  <%= radio_button_tag "default_language", 
-                    field.object.language, 
+                  <%= radio_button_tag "default_language",
+                    field.object.language,
                     field.object.is_default_language?, :validate => "{required:true, messages:{required:'You must select a default language.'}}" %>
                 </td>
               </tr>
           <% end -%>
           </tbody>
         </table>
-        <h3 style="color:red">Removing a language from the questionnaire will cause all the data that has been previously inputted in that language to be removed.</h3>
+        <p style="color:red;">Removing a language from the questionnaire will cause all the data that has been previously inputted in that language to be removed.</p>
         <%= f.submit "Save changes" %>
       </fieldset>
       <div class="error_container">

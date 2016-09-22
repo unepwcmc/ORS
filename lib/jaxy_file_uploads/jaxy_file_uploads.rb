@@ -1,10 +1,10 @@
 module JaxyFileUploads
 
-  def self.included(base) 
+  def self.included(base)
     base.after_filter :format_response_for_ajax_file_uploads
-  end 
-  
-  private 
+  end
+
+  private
 
     def format_response_for_ajax_file_uploads
       # made to work with jquery-form and jquery-jaxy

@@ -5,42 +5,42 @@
   </div>
   <%= form_for( @questionnaire, :html => { :multipart => true, :class => "formtastic normal", :id => "generator_form" }) do |f| %>
     <fieldset>
-      <legend>Communication Details</legend>
+      <div class="page-header"><h2>Communication Details</h2></div>
       <ol>
+        <li><strong>Questionnaire:</strong> <%= link_to @questionnaire.title, dashboard_questionnaire_path(@questionnaire) %></li>
+        <br>
         <li>Manage communication details in the following languages (click to display the fields):</li>
         <li>
         <%= f.object.questionnaire_fields.sort_by{ |a| a.is_default_language? ? 0 : 1 }.
-          map{|field| "<a href='#' class='display_lang' id='quest_#{field.language}'>#{field.language_english_name} #{field.is_default_language? ? "-" : "+" }</a> " }.
+          map{|field| "<a href='#' class='display_lang btn' id='quest_#{field.language}'>#{field.language_english_name} #{field.is_default_language? ? "<i class='fa fa-caret-up'></i>" : "<i class='fa fa-caret-down'></i>" }</a> " }.
           join(" | ").html_safe %>
-        |
-        <a href="#" class="show_all_lang_fields">Expand all</a>
-        /
-        <a href="#" class="hide_all_lang_fields">Collapse all</a>
+        <a href="#" class="show_all_lang_fields btn">Expand all</a>
+        <a href="#" class="hide_all_lang_fields btn">Collapse all</a>
         </li>
         <li>
         <%= f.fields_for :questionnaire_fields, f.object.questionnaire_fields.sort_by{ |a| a.is_default_language? ? 0 : 1 } do |field| -%>
           <div class="<%= field.object.is_default_language? ? "" : "hide"%> lang_fields" id="fields_for_quest_<%= field.object.language %>">
             <fieldset>
-              <legend><%=h field.object.language_english_name %></legend>
+              <div class="page-header"><h5><%=h field.object.language_english_name %></h5></div>
               <ol>
                 <%= field.hidden_field :language, :value => field.object.language %>
                 <%= field.hidden_field :is_default_language,:value => field.object.is_default_language %>
-                <li>
-                  <%= field.label :email_subject, "Email subject #{info_tip("Email text", "Default email subject that will be used by the system when automatically emailing users about this questionnaire (e.g.: in emails regarding authorisation to access a questionnaire)")}".html_safe %>
-                  <%= field.text_field :email_subject, :size => 58 %>
-                </li>
-                <li>
-                  <%= field.label :email, "Email text #{info_tip("Email text", "Default email text that will be sent to users when the administrator needs to alert them about a deadline.")}".html_safe %>
-                  <%= field.text_area :email, :rows => 5, :cols => 55 %>
-                </li>
-                <li>
-                  <%= field.label :email_footer, "Email footer #{info_tip("Email footer", "Default email footer that will be used by the system when automatically emailing users about this questionnaire (e.g.: in emails regarding authorisation to access a questionnaire).")}".html_safe %>
-                  <%= field.text_field :email_footer, :size => 58 %>
-                </li>
-                <li>
-                  <%= field.label :submit_info_tip, "Submit info for respondents #{info_tip("Submit info", "Write a help text about the submission of your questionnaire. It will be displayed in the introductory page of the questionnaire submission page.")}".html_safe %>
-                  <%= field.text_field :submit_info_tip, :size => 58 %>
-                </li>
+                <div class="row padded">
+                  <div class="col col-4"><%= field.label :email_subject, "Email subject #{info_tip("Email text", "Default email subject that will be used by the system when automatically emailing users about this questionnaire (e.g.: in emails regarding authorisation to access a questionnaire)")}".html_safe %></div>
+                  <div class="col col-8 border-left"><%= field.text_field :email_subject, :size => 58 %></div>
+                </div>
+                <div class="row padded">
+                  <div class="col col-4"><%= field.label :email, "Email text #{info_tip("Email text", "Default email text that will be sent to users when the administrator needs to alert them about a deadline.")}".html_safe %></div>
+                  <div class="col col-8 border-left"><%= field.text_area :email, :rows => 8, :cols => 46 %></div>
+                </div>
+                <div class="row padded">
+                  <div class="col col-4"><%= field.label :email_footer, "Email footer #{info_tip("Email footer", "Default email footer that will be used by the system when automatically emailing users about this questionnaire (e.g.: in emails regarding authorisation to access a questionnaire).")}".html_safe %></div>
+                  <div class="col col-8 border-left"><%= field.text_field :email_footer, :size => 58 %></div>
+                </div>
+                <div class="row padded">
+                  <div class="col col-4"><%= field.label :submit_info_tip, "Submit info for respondents #{info_tip("Submit info", "Write a help text about the submission of your questionnaire. It will be displayed in the introductory page of the questionnaire submission page.")}".html_safe %></div>
+                  <div class="col col-8 border-left"><%= field.text_field :submit_info_tip, :size => 58 %></div>
+                </div>
               </ol>
             </fieldset>
           </div>

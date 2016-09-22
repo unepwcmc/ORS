@@ -36,7 +36,7 @@ BEGIN
   JOIN tmp_rank_answers
   ON tmp_rank_answers.original_id = t.rank_answer_id;
 
-  INSERT INTO rank_answer_option_fields (
+  INSERT INTO tmp_rank_answer_option_fields (
     rank_answer_option_id,
     language,
     option_text,

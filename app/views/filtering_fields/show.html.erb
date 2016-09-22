@@ -12,9 +12,21 @@
     <%= render :partial => "administration/menu", :locals => {:header => "Filtering field " + info_tip("Filtering field", info_tip_text), :include_options => "questionnaires"} -%>
   </div>
   <div class="clear" id="q_dashboard">
-    <p><strong>Questionnaire</strong><%= link_to @questionnaire.title, dashboard_questionnaire_path(@questionnaire) %></p>
-    <p><strong>Name</strong><%=h @filtering_field.name %> (<%= link_to 'Edit', edit_questionnaire_filtering_field_path(@questionnaire,@filtering_field) %> | <%= link_to "All filtering_fields", questionnaire_filtering_fields_path(@questionnaire) %>)</p>
-    <p><strong>Associated loop items</strong> <%= @filtering_field.loop_item_types.sort{|a,b| a.name <=> b.name}.map{|a| (link_to h(a.name), loop_item_type_path(a))}.join(', ').html_safe.presence || "none" %></p>
-    <p><strong>Associated loop sources</strong> <%= @filtering_field.loop_item_types.map{|a| a.root? ? a.loop_source : a.root.loop_source}.sort{|a,b| a.name <=> b.name}.map{|a| (link_to h(a.name), loop_source_path(a))}.join(', ').html_safe.presence || "none" %></p>
+    <div class="row padded group">
+      <div class="col col-3">Questionnaire</div>
+      <div class="col col-9 border-left"><%= link_to @questionnaire.title, dashboard_questionnaire_path(@questionnaire) %></div>
+    </div>
+    <div class="row padded group">
+      <div class="col col-3">Name</div>
+      <div class="col col-9 border-left"><%=h @filtering_field.name %> (<%= link_to 'Edit', edit_questionnaire_filtering_field_path(@questionnaire,@filtering_field) %> | <%= link_to "All filtering_fields", questionnaire_filtering_fields_path(@questionnaire) %>)</div>
+    </div>
+    <div class="row padded group">
+      <div class="col col-3">Associated loop items</div>
+      <div class="col col-9 border-left"><%= @filtering_field.loop_item_types.sort{|a,b| a.name <=> b.name}.map{|a| (link_to h(a.name), loop_item_type_path(a))}.join(', ').html_safe.presence || "none" %></div>
+    </div>
+    <div class="row padded group">
+      <div class="col col-3">Associated loop sources</div>
+      <div class="col col-9 border-left"><%= @filtering_field.loop_item_types.map{|a| a.root? ? a.loop_source : a.root.loop_source}.sort{|a,b| a.name <=> b.name}.map{|a| (link_to h(a.name), loop_source_path(a))}.join(', ').html_safe.presence || "none" %></div>
+    </div>
   </div>
 </div>

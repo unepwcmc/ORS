@@ -105,7 +105,7 @@ class QuestionsController < ApplicationController
   def answers
     question = Question.find(params[:id],
       :include => [ :answers,
-      { :questionnaire_part => {:questionnaire => { :authorized_submitters => :user }}}])
+      {:questionnaire_part => {:questionnaire => {:authorized_submitters => :user}}}])
     @users = question.questionnaire.submitters.
       all(:order => "(users.first_name || ' ' || users.last_name) ASC")
     if params[:looping_selection]
@@ -113,7 +113,7 @@ class QuestionsController < ApplicationController
         build_looping_identifier_for_responses_page params[:looping_selection]
       @answers = question.answers.
         find(:all,
-         :conditions => ["answers.looping_identifier = ?", looping_identifier], 
+         :conditions => ["answers.looping_identifier = ?", looping_identifier],
          :include => [:user, :answer_parts])
     else
       @answers = question.answers.all(:include => :user)

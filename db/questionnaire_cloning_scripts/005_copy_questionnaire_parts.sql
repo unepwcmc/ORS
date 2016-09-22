@@ -50,9 +50,9 @@ BEGIN
   PERFORM copy_loop_items_start(old_questionnaire_id, new_questionnaire_id);
   PERFORM copy_sections_start(old_questionnaire_id);
   PERFORM copy_questions_start(old_questionnaire_id);
-
-  PERFORM copy_extras(old_questionnaire_id, new_questionnaire_id);
-  PERFORM copy_delegations(old_questionnaire_id, new_questionnaire_id);
+  PERFORM resolve_dependent_sections_start();
+  PERFORM copy_extras_start(old_questionnaire_id, new_questionnaire_id);
+  PERFORM copy_delegations_start(old_questionnaire_id, new_questionnaire_id);
 
   UPDATE tmp_questionnaire_parts
   SET part_id = tmp_sections.id
@@ -75,11 +75,14 @@ CREATE OR REPLACE FUNCTION copy_questionnaire_parts_end()
 RETURNS VOID
 LANGUAGE plpgsql AS $$
 BEGIN
-  PERFORM copy_questions_end();
-  PERFORM copy_sections_end();
-  PERFORM copy_loop_items_end();
   PERFORM copy_loop_sources_and_item_types_end();
   PERFORM copy_answer_types_end();
+  PERFORM copy_sections_end();
+  PERFORM copy_questions_end();
+  PERFORM resolve_dependent_sections_end();
+  PERFORM copy_loop_items_end();
+  PERFORM copy_extras_end();
+  PERFORM copy_delegations_end();
 
   -- insert into questionnaire_parts
   INSERT INTO questionnaire_parts SELECT * FROM tmp_questionnaire_parts;

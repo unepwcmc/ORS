@@ -6,9 +6,9 @@
     <th>Created by</th>
     <th>Activated at</th>
     <% info_tip_text = "<p>The available actions are:</p>
-                        <p>" + image_tag('icons/cog.png', size: '15x15') + " Takes you to the Manage Respondents page, where you can grant or take access from a user to a questionnaire.</p>
-                        <p>" + image_tag('icons/pencil.png', size: '15x15') + " Clicking on this icon will take you to the submission page of this questionnaire.</p>
-                        <p>" + image_tag('icons/table.png', size: '15x15') + " Takes you to a page where you can see the state of completion of a questionnaire for each of its respondents</p>"%>
+                        <p>" + fa_icon('users', class: 'background inverse info') + " Takes you to the Manage Respondents page, where you can grant or take access from a user to a questionnaire.</p>
+                        <p>" + fa_icon('pencil-square-o', class: 'background inverse info') + " Clicking on this icon will take you to the submission page of this questionnaire.</p>
+                        <p>" + fa_icon('table', class: 'background inverse info') + " Takes you to a page where you can see the state of completion of a questionnaire for each of its respondents</p>"%>
     <th style="width:70px">Actions <%= info_tip("Actions", info_tip_text) %></th>
   </tr>
   </thead>
@@ -17,17 +17,17 @@
       <tr id="active_questionnaire_<%= questionnaire.id.to_s %>">
         <td><%= link_to h(questionnaire.title), dashboard_questionnaire_path(questionnaire) %></td>
         <td><%= link_to h(questionnaire.user.full_name), user_path(questionnaire.user) %></td>
-        <td><%= questionnaire.activated_at.strftime("%B %d, %Y") %></td>
+        <td><%= questionnaire.activated_at.strftime("%m/%d/%Y") %></td>
         <td>
-          <%= link_to image_tag('icons/stop.png', :alt => "Deactivate", :title => "Deactivate questionnaire.", :size => "16x16"), deactivate_questionnaire_path(questionnaire), :class => :put %>
-          <%= link_to image_tag('icons/cog.png', :title => 'Manage respondents', :alt => 'Manage respondents'), questionnaire_authorized_submitters_path(questionnaire)%>
-          <%= link_to image_tag('icons/pencil.png', :title => 'Answer questionnaire', :alt => 'Answer questionnaire'), submission_questionnaire_path(questionnaire) %>
-          <%= link_to image_tag('icons/table.png', :title => 'Feedback summary', :alt => 'Feedback summary'), respondents_questionnaire_path(questionnaire) %>
+          <%= link_to fa_icon('stop', alt: "Deactivate", title: "Deactivate Questionnaire", class: 'background inverse error'), deactivate_questionnaire_path(questionnaire), :class => :put %>
+          <%= link_to fa_icon('users', alt: 'Manage Respondents', title: 'Manage Respondents', class: 'background inverse info'), questionnaire_authorized_submitters_path(questionnaire)%>
+          <%= link_to fa_icon('pencil-square-o', alt: 'Answer Questionnaire', title: 'Answer Questionnaire', class: 'background inverse info'), submission_questionnaire_path(questionnaire) %>
+          <%= link_to fa_icon('bar-chart', alt: 'Feedback Summary', title: 'Feedback Summary', class: 'background inverse info'), respondents_questionnaire_path(questionnaire) %>
         </td>
       </tr>
   <% end -%>
   </tbody>
 </table>
 <p style="text-align: right; padding-right: 5px">
-  <%= link_to "See all", active_questionnaires_path %>
+  <%= link_to "See all", questionnaires_path(:params => {:active => "true"}), class: 'btn' %>
 </p>

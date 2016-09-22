@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title><%= h(yield(:title) || t('title')) -%></title>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+
+  <%#= stylesheet_link_tag 'blueprint/screen.css', :media => "screen, projection" %>
+  <%#= stylesheet_link_tag 'blueprint/print.css', :media => "print" %>
+  <!--[if lt IE 8]><%= stylesheet_link_tag "blueprint/ie.css", :media =>"screen, projection" %><![endif]-->
+
+  <%= stylesheet_link_tag "application" %>
+  <%= javascript_include_tag "respondent" %>
+  <%= javascript_tag "var RAILS_ROOT = '#{ActionController::Base.relative_url_root}';" -%>
+
+  <%= render 'layouts/ga' %>
+  <%= yield(:head) -%>
+</head>
+<body>
+  <%= render 'layouts/header' %>
+  <%= render 'layouts/navigation' %>
+  <%= render 'layouts/flash_notification' %>
+
+  <div class="container app-content">
+    <%= yield(:header) %>
+    <div class="row group">
+      <div class="col col-3 sidebar">
+        <%= yield(:sidebar) %>
+      </div>
+
+      <div class="col col-9 questionnaire">
+        <%= yield -%>
+      </div>
+    </div>
+    <div id="requests_dialog">
+      <h6><%= t("welcome_page.please_wait") %></h6>
+      <%= image_tag("loader_new.gif", size: "80x80", alt: "Loading, please wait") %>
+    </div>
+  </div>
+  <%= render 'layouts/footer' %>
+</body>
+</html>

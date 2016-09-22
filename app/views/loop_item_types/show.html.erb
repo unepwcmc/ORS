@@ -1,3 +1,6 @@
+<div class="page-header">
+<h2>Loop item: <%= @loop_item_type.name %></h2>
+</div>
 <% title "Loop item type - "+ h(@loop_item_type.name) %>
 <div class="span-24 last" id="content">
 
@@ -6,13 +9,37 @@
     <%= render :partial => "administration/menu", :locals => {:header => "Loop item type " + info_tip('Loop item type', info_tip_text), :include_options => "questionnaires"} -%>
   </div>
   <div id="q_dashboard" class="clear">
-    <p><strong>Questionnaire</strong><%= link_to h(@questionnaire.title), dashboard_questionnaire_path(@questionnaire) %></p>
-    <p><strong>Default Language</strong><%= @questionnaire.questionnaire_fields.find_by_is_default_language(true).language_english_name %></p>
-    <p><strong>Languages</strong> <%= @questionnaire.questionnaire_fields.map{|qf| "#{qf.language_english_name} (#{qf.language})"}.join(", ") %></p>
-    <p><strong>Source name</strong><%= link_to h(@loop_item_type.root.loop_source.name), loop_source_path(@loop_item_type.root.loop_source) %></p>
-    <p><strong>Hierarchy</strong><%= raw @loop_item_type.root.self_and_descendants.sort!{|a, b| a.level <=> b.level}.map{|a| a == @loop_item_type ? "<em>#{h(a.name)}</em>" : (link_to h(a.name), loop_item_type_path(a))}.join(" >> ") %></p>
+
+    <div class="row padded group">
+      <div class="col col-3">Questionnaire</div>
+      <div class="col col-9 border-left"><%= link_to h(@questionnaire.title), dashboard_questionnaire_path(@questionnaire) %></div>
+    </div>
+
+    <div class="row padded group">
+      <div class="col col-3">Default language</div>
+      <div class="col col-9 border-left"><%= @questionnaire.questionnaire_fields.find_by_is_default_language(true).language_english_name %></div>
+    </div>
+
+    <div class="row padded group">
+      <div class="col col-3">Languages</div>
+      <div class="col col-9 border-left"><%= @questionnaire.questionnaire_fields.map{|qf| "#{qf.language_english_name} (#{qf.language})"}.join(", ") %></div>
+    </div>
+
+    <div class="row padded group">
+      <div class="col col-3">Source name</div>
+      <div class="col col-9 border-left"><%= link_to h(@loop_item_type.root.loop_source.name), loop_source_path(@loop_item_type.root.loop_source) %></div>
+    </div>
+
+    <div class="row padded group">
+      <div class="col col-3">Hierarchy</div>
+      <div class="col col-9 border-left"><%= raw @loop_item_type.root.self_and_descendants.sort!{|a, b| a.level <=> b.level}.map{|a| a == @loop_item_type ? "<em>#{h(a.name)}</em>" : (link_to h(a.name), loop_item_type_path(a))}.join(" >> ") %></div>
+    </div>
+
     <% if @loop_item_type.is_filtering_field? -%>
-        <p><strong>Filtering field</strong><%= link_to h(@loop_item_type.filtering_field.name), [@questionnaire,@loop_item_type.filtering_field] %></p>
+      <div class="row padded group">
+        <div class="col col-3">Filtering field</div>
+        <div class="col col-9 border-left"><%= link_to h(@loop_item_type.filtering_field.name), [@questionnaire,@loop_item_type.filtering_field] %></div>
+      </div>
     <% end -%>
   </div>
   <div id="extra_fields">
@@ -104,7 +131,7 @@
             <% @loop_item_type.extras.sort!{|a,b| a.created_at <=> b.created_at}.each do |e| -%>
                 <td>
                   <% if e.item_extras.find_by_loop_item_name_id(item.id) -%>
-                      <%= e.item_extras.find_by_loop_item_name_id(item.id).item_extra_fields.map{|a| "#{h(a.value)} (#{a.language + (a.is_default_language? ? "<span style='color:red' title='Default language'>*</span>" : "")})"}.join(", ") %>
+                      <%= e.item_extras.find_by_loop_item_name_id(item.id).item_extra_fields.map{|a| "#{h(a.value)} (#{a.language + (a.is_default_language? ? "<span style='color:red' title='Default language'>*</span>" : "")})"}.join(", ").html_safe %>
                   <% else -%>
                       -
                   <% end -%>
@@ -117,7 +144,7 @@
   </div>
 </div>
 <script type="text/javascript">
-    $("#add_item_name_other_languages").click(function(e){
+    $("#item_names_table").on("click","#add_item_name_other_languages", function(e){
         e.preventDefault();
         $("#add_extra").hide('slow').empty();
         $("#add_extra_source").hide('slow').empty();

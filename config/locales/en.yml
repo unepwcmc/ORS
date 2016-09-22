@@ -42,6 +42,8 @@ en:
     send: "Send"
     title: "Title"
     of: "of"
+    region: 'Region'
+    country: 'Country'
   questionnaire_feedback:
     state0: "All questions unanswered"
     state1: "There are mandatory questions without an answer (questions with a red *)"
@@ -55,8 +57,8 @@ en:
     submission_success: "The questionnaire has been submitted, thank you."
     submission_failure: "You can not submit the questionnaire before answering all the mandatory questions. Please check for the 'danger' sign on the left side tabs"
     title: "Title"
-    default_lang: "Default language"
-    available_lang: "Available languages"
+    default_lang: "Default Language"
+    available_lang: "Available Languages"
     year: "Year of creation"
     q_displayed_in: "Questionnaire displayed in"
     been_submitted: "You have submitted this questionnaire."
@@ -71,7 +73,7 @@ en:
     collapse: "Collapse"
     expand: "Expand"
     clear_answer: "Clear answer"
-    numeric_note: "Note: You can only enter numeric values in this field."
+    numeric_note: "<strong>Note:</strong> <i>You can only enter numeric values in this field.</i>"
     numeric_min: "Minimum value is:"
     numeric_max: "Maximum value is:"
   tab_details: #tab details
@@ -132,7 +134,7 @@ en:
     add_sections: "Add sections"
     delegations_show_t: "Delegated task details"
     delegations_show_sl: "Delegated sections"
-    help_line: "<p>A delegate is a user that can help you fill your questionnaires. A delegate can be assigned with all the sections of your questionnaires or a subset of sections.You can add a delegate by clicking on the 'Add delegate' button.</p><p>For each of your delegates, listed in the table below, you have two available options: <strong>Show</strong>, and <strong>Remove</strong>. The <strong>Remove</strong> option will remove that delegate and all the delegations that were associated with it. The <strong>Show</strong> option will take you to a page with the details of the delegate, including the questionnaires that you have delegated it to.<br />You can associate a delegate with a questionnaire directly from the questionnaire's submission page.<br />Bare in mind that not all questionnaires have the delegation feature enabled.</p>"
+    help_line: "<p>A delegate is a user that can help you fill your questionnaires. A delegate can be assigned with all the sections of your questionnaires or a subset of sections.You can add a delegate by clicking on the 'Add delegate' button.</p><p>For each of your delegates, listed in the table below, you have two available options: <strong>Show</strong>, and <strong>Remove</strong>. The <strong>Remove</strong> option will remove that delegate and all the delegations that were associated with it. The <strong>Show</strong> option will take you to a page with the details of the delegate, including the questionnaires that you have delegated it to.<p/><p>You can associate a delegate with a questionnaire directly from the questionnaire's submission page. Bare in mind that not all questionnaires have the delegation feature enabled.</p>"
     delegate_show_help: "You will be able to answer questionnaires on his behalf. See below a list of the questionnaires that you are authorised to answer."
   flash_messages:
     nothing_to_save: "Nothing to save"
@@ -187,7 +189,7 @@ en:
     lang_change_title:  "Change language"
     lang_change_text: "<p>Questionnaires can have more than one language available, in which case you can choose which language to see it in.</p><p>You can change language at any point without jeopardizing your answers. The language you choose will be defined as your default language for this questionnaire.</p>"
     s_guidance_title: "Filling the questionnaire"
-    s_guidance_text:  "<p>On the left are listed the main sections of the questionnaire. You can access a section by clicking on its tab. Clicking on a tab will load the corresponding section on the main panel. You will then be able to see the subsections and questions that are part of the selected section.</p><p>The icon on the right side of a tab represents the state of completion of its section. There are five different icons.</p><p><img src='/assets/submissionstate/fidelitybyagapeh/4.png' alt='New section' width='20px' height='20px'/>: new section which you have not yet visited<br /><img src='/assets/submissionstate/fidelitybyagapeh/3.png' alt='All questions answered' width='20px' height='20px'/>: all questions answered<br /><img src='/assets/submissionstate/fidelitybyagapeh/2.png' alt='Some questions unanswered' width='20px' height='20px'/>: Some questions remain unanswered <br /><img src='/assets/submissionstate/fidelitybyagapeh/1.png' alt='Mandatory unanswered' width='20px' height='20px'/>: There are mandatory questions unanswered <br /><img src='/assets/submissionstate/fidelitybyagapeh/0.png' alt='All unanswered' width='20px' height='20px'/>: All questions unanswered </p><p>There is no fixed order to fill the questionnaire. You can always change your answers unless you have submitted the questionnaire.</p>"
+    s_guidance_text:  "<p>On the left are listed the main sections of the questionnaire. You can access a section by clicking on its tab. Clicking on a tab will load the corresponding section on the main panel. You will then be able to see the subsections and questions that are part of the selected section.</p><p>The icon on the right side of a tab represents the state of completion of its section. There are five different icons.</p><p><i class='fa fa-asterisk'></i><img src='/assets/submissionstate/fidelitybyagapeh/4.png' alt='New section' width='20px' height='20px'/>: new section which you have not yet visited<br /><img src='/assets/submissionstate/fidelitybyagapeh/3.png' alt='All questions answered' width='20px' height='20px'/>: all questions answered<br /><img src='/assets/submissionstate/fidelitybyagapeh/2.png' alt='Some questions unanswered' width='20px' height='20px'/>: Some questions remain unanswered <br /><img src='/assets/submissionstate/fidelitybyagapeh/1.png' alt='Mandatory unanswered' width='20px' height='20px'/>: There are mandatory questions unanswered <br /><img src='/assets/submissionstate/fidelitybyagapeh/0.png' alt='All unanswered' width='20px' height='20px'/>: All questions unanswered </p><p>There is no fixed order to fill the questionnaire. You can always change your answers unless you have submitted the questionnaire.</p>"
     dashboard_title:  "Dashboard"
     dashboard_text: "<p>This link will take you to your dashboard. In there you will find a list of all your questionnaires and you will be able to download a PDF version of each of them.</p>"
     choose_loop_item_helptext: "<p>The items from the list that have answers associated with them are marked with <strong>**</strong>, and color-coded in certain browsers.</p>"
@@ -198,7 +200,7 @@ en:
     pdf_title: "PDF Download"
     pdf_text: "<p>This version of the pdf outputs all the questions in the questionnaire, even if unanswered. </p> <p>Before being able to download the questionnaire in PDF format it will have to be generated. To do so you should click on 'Generate'. The generation of the PDF takes place in the background and once it is finished you will be notified by e-mail.</p><p>After being generated the file will then be available for download in this same page and you will be able to do so by clicking the PDF icon.</p><p>The file can be re-generated to include your most recent changes, you can do so by clicking on the 'Regenerate' link. The date displayed by the PDF icon refers to the last time the file was generated. Regeneration of a PDF will erase the previously generated file.</p>"
     options_title: "Options"
-    options_text: "<p>In this column you will find a list of actions to preform.</p><p><img src='assets/icons/pencil.png' width='15px' height='15px' alt='Pencil' />: Clicking on this icon will take you to the submission page of this questionnaire.</p>"
+    options_text: "<p>In this column you will find a list of actions to preform.</p><p><%= fa_icon('pencil-square-o', alt: 'Answer Questionnaire', title: 'Answer Questionnaire', class: 'background inverse info') %>: Clicking on this icon will take you to the submission page of this questionnaire.</p>"
     pdf_small_title: "Small PDF download"
     pdf_small_text: "<p> This short version of the pdf only outputs the questions for which there are answers.</p>"
   administration_help:
@@ -211,8 +213,8 @@ en:
   user_dashboard:
     welcome_msg: "Welcome"
     table_title: "Questionnaires for submission"
-    edit_u: "Edit user"
-    manage_d: "Delegation dashboard"
+    edit_u: "Edit User"
+    manage_d: "Delegations"
     submission_d: "Submission dashboard"
     help_p: "Help pages"
     quest_title: "Questionnaire Title"
@@ -239,6 +241,7 @@ en:
     sign_up: "Sign up"
   welcome_page:
     restriction: "This tool is only available to registered users."
+    forgotten_password: "Forgotten your password?"
     please_login: "Please login"
     or_signup: "Or sign up"
     signup_instructions1: "To do so you will need to provide an email address, choose a password and input some details about yourself."
@@ -267,9 +270,9 @@ en:
     first_n: "First name"
     last_n: "Last name"
     roles: "Roles"
-  
+
   user_mailer:
-    greetings: 'Best regards,'
+    greetings: 'Kind regards,'
     access: 'You can access the website through the following link:'
     login: 'Your log in details are as follows:'
     registration: 'Registration'
@@ -280,11 +283,11 @@ en:
       subject: "You have been added as a delegate"
     user_registration:
       subject: 'You have been successfully registered.'
-      first_line: "thank you for registering in the"
+      first_line: "Thank you for registering in the"
       admin_first_line: "A new user has just registered in the %{title}, with the following details:"
     new_delegate:
       subject: "Delegate registration"
-      first_line: "you have been registered as a delegate in the"
+      first_line: "You have been registered as a delegate in the"
     section_delegated:
       subject: "Section delegated"
       intro: 'You have been delegated with the following section:'
@@ -298,51 +301,51 @@ en:
       dashboard: 'It will also be available from your dashboard.'
     new_respondent:
       subject: "You have been added to the Online Reporting System"
-      first_line: "you have been registered as a respondent in the"
+      first_line: "You have been registered as a respondent in the"
     authorisation_granted:
       subject: "You have been granted access to a questionnaire"
       first_line: "You have been granted access to the following questionnaire:"
       start_filling: "You can start filling this questionnaire at"
-      available_from_dashboard: "It will also be available in your dashboard."
+      available_from_dashboard: "It will also be available in your submission dashboard."
     questionnaire_submitted:
       subject: "Questionnaire successfully submitted"
-      first_line: "the questionnaire with title '%{questionnaire}' has been successfully submitted."
+      first_line: "The questionnaire with the title '%{questionnaire}' has been successfully submitted."
       second_line: "Thank you for taking the time to fill it in."
       admin_subject: "Questionnaire submitted by"
-      admin_line: "The user %{user} has submitted the questionnaire with title '%{questionnaire}'."
+      admin_line: "%{user} has submitted the questionnaire with the title '%{questionnaire}'."
     unsubmission_request:
-      first_line: "the user, %{user}, has requested that you revert this submission of the questionnaire with title: '%{questionnaire}'."
-      start_message: "The user wrote the following message:"
+      first_line: "%{user} has requested that you revert their submission of the questionnaire with the title: '%{questionnaire}'."
+      start_message: "%{user} wrote the following message:"
       end_message: "End of user message"
-      guidance: "To revert his submission you can visit the <a href='%{link}'>questionnaire's respondents page</a>"
+      guidance: "To revert their submission you can visit the <a href='%{link}'>questionnaire's respondents page</a>."
       user_details: "The user details are:"
       administrator_footer: "You have received this email because you are the administrator of this questionnaire."
     pdf_generated:
-      subject: "Your PDF is finished"
-      first_line: "the PDF file for the questionnaire with title '%{questionnaire}' has been successfully generated"
+      subject: "Your PDF is available to download"
+      first_line: "The PDF for the questionnaire with the title '%{questionnaire}' has been successfully generated"
       first_line_user: "for the user"
       download: "You can now download it from your dashboard."
     pdf_generation_failed:
-      subject: "PDF file failed to generate"
-      first_line: "the PDF file for the questionnaire with title '%{questionnaire}'%{for_user} has not been generated due to the following error:"
+      subject: "PDF failed to generate"
+      first_line: "The PDF for the questionnaire with the title '%{questionnaire}'%{for_user} has not been generated due to the following error:"
       first_line_3: "has not been generated due to the following error:"
     csv_file_generated:
       subject: "CSV file generated successfully"
-      first_line: "the CSV file for %{section}the questionnaire with title '%{questionnaire}' has been successfully generated."
+      first_line: "The CSV file for %{section}the questionnaire with the title '%{questionnaire}' has been successfully generated."
       download: "You can download it from the 'Questionnaires Management' page."
     csv_generation_failed:
       subject: "CSV file failed to generate"
-      first_line: "the CSV file for %{section}the questionnaire with title '%{questionnaire}' has not been generated due to the following error:"
+      first_line: "The CSV file for %{section}the questionnaire with the title '%{questionnaire}' has not been generated due to the following error:"
     delegate_request:
       subject: "You were added as a delegate"
       first_line: "The user %{user} has added you as one of its delegates."
     questionnaire_duplicated:
       subject: "Questionnaire successfully duplicated"
-      first_line: "the questionnaire with title '%{questionnaire}' has been successfully duplicated."
+      first_line: "The questionnaire with the title '%{questionnaire}' has been successfully duplicated."
       second_line: "You can find the new questionnaire in your dashboard or through this link <a href='%{link}>%{link}</a>."
     questionnaire_duplication_failed:
       subject: "Questionnaire duplication failed"
-      first_line: "the duplication of the questionnaire with title '%{questionnaire}' was not successful due to the following error:"
+      first_line: "The duplication of the questionnaire with the title '%{questionnaire}' was not successful due to the following error:"
   languages:
     arabic: "Arabic"
     chinese: "Chinese"
@@ -350,7 +353,7 @@ en:
     french: "French"
     russian: "Russian"
     spanish: "Spanish"
-  
+
   date:
     formats:
       default: "%d/%m/%Y"

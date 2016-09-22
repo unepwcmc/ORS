@@ -20,7 +20,7 @@ class QuestionnairesController < ApplicationController
   end
 
   def dashboard
-    @questionnaire = Questionnaire.find(params[:id], :include => [ {:questionnaire_parts => :part}, :questionnaire_fields, :user, :authorized_submitters, { :loop_sources => :loop_item_type } ])
+    @questionnaire = Questionnaire.find(params[:id], :include => [ {:questionnaire_parts => :part}, :questionnaire_fields, :user, :authorized_submitters, {:loop_sources => :loop_item_type} ])
     respond_to do |format|
       format.html
     end
@@ -62,7 +62,7 @@ class QuestionnairesController < ApplicationController
         if @questionnaire.save
           flash[:notice] = 'Questionnaire was successfully created.'
           format.html { redirect_to(@questionnaire) }
-          format.js  {render :layout => false}
+          format.js  { render :layout => false }
         else
           #fill variables need to the new.html.erb page
           @questionnaires_created = Questionnaire.last_created(10)
@@ -108,7 +108,7 @@ class QuestionnairesController < ApplicationController
   end
 
   def update_languages
-    old_languages = @questionnaire.questionnaire_fields.map{|a| a.language}
+    old_languages = @questionnaire.questionnaire_fields.map{ |a| a.language }
     old_default = @questionnaire.questionnaire_fields.find_by_is_default_language(true).language
     if @questionnaire.update_attributes(params[:questionnaire])
       @questionnaire.propagate_languages_changes(old_languages, old_default)
@@ -150,16 +150,17 @@ class QuestionnairesController < ApplicationController
       redirect_to dashboard_questionnaire_path(@questionnaire) and return
     end
     @questionnaire.destroy_all_questionnaire_elements!
+    @questionnaire.destroy
     flash[:notice] = "Questionnaire and components have been successfully deleted."
     respond_to do |format|
-      format.html { redirect_to(questionnaires_url) }
+      format.html { redirect_to questionnaires_path }
       format.xml { head :ok }
     end
   end
 
   #Preview Questionnaire
   def preview
-    @questionnaire = Questionnaire.find(params[:id], :include => [:questionnaire_fields, {:questionnaire_parts => :part}, {:loop_sources => {:loop_item_type => [:loop_items] }}])
+    @questionnaire = Questionnaire.find(params[:id], :include => [:questionnaire_fields, {:questionnaire_parts => :part}, {:loop_sources => {:loop_item_type => [:loop_items]}}])
     respond_to do |format|
       format.html
       format.js
@@ -177,7 +178,7 @@ class QuestionnairesController < ApplicationController
       flash[:error] = "Errors when activating the questionnaire. You can not activate a questionnaire that is closed or already active."
     end
     respond_to do |format|
-      format.html { redirect_to(dashboard_questionnaire_path(@questionnaire))}
+      format.html { redirect_to(dashboard_questionnaire_path(@questionnaire)) }
       format.js
     end
   end
@@ -192,7 +193,7 @@ class QuestionnairesController < ApplicationController
       flash[:error] = "Errors deactivating the questionnaire."
     end
     respond_to do |format|
-      format.html { redirect_to(dashboard_questionnaire_path(@questionnaire))}
+      format.html { redirect_to(dashboard_questionnaire_path(@questionnaire)) }
       format.js
     end
   end
@@ -207,7 +208,7 @@ class QuestionnairesController < ApplicationController
       flash[:error] = "Errors when closing questionnaire. You can only close a questionnaire that is active."
     end
     respond_to do |format|
-      format.html { redirect_to(dashboard_questionnaire_path(@questionnaire))}
+      format.html { redirect_to(dashboard_questionnaire_path(@questionnaire)) }
       format.js
     end
   end
@@ -222,7 +223,7 @@ class QuestionnairesController < ApplicationController
       flash[:error] = "Errors when closing questionnaire. You can only open a questionnaire that is closed."
     end
     respond_to do |format|
-      format.html { redirect_to(dashboard_questionnaire_path(@questionnaire))}
+      format.html { redirect_to(dashboard_questionnaire_path(@questionnaire)) }
       format.js
     end
   end
@@ -234,6 +235,29 @@ class QuestionnairesController < ApplicationController
     I18n.locale = @authorization[:language]
     if current_user.role?(:delegate)
       @delegation = current_user.delegated_tasks.find_by_questionnaire_id(@questionnaire.id)
+    end
+    @sections_to_display_in_tab = @questionnaire.sections_to_display_in_tab.
+      includes(
+        {loop_item_type: {loop_items: {loop_item_name: :loop_item_name_fields}}},
+        :submission_states
+      )
+    @sections_to_display_in_tab_loops_expanded = []
+    @sections_to_display_in_tab.each do |section|
+      if section.looping? && section.loop_item_type
+        section.loop_item_type.loop_items.each do |loop_item|
+          if section.available_for? current_user, loop_item
+            submission_state = section.submission_states.find do |s|
+              s.user_id == @authorization[:user].id && s.loop_item_id == loop_item.id
+            end
+            @sections_to_display_in_tab_loops_expanded << [section, loop_item, submission_state.try(:section_state) || SubmissionStatus::DEFAULT]
+          end
+        end
+      else
+        submission_state = section.submission_states.find do |s|
+          s.user_id == @authorization[:user].id
+        end
+        @sections_to_display_in_tab_loops_expanded << [section, nil, submission_state.try(:section_state) || SubmissionStatus::DEFAULT]
+      end
     end
     respond_to do |format|
       format.html
@@ -275,7 +299,7 @@ class QuestionnairesController < ApplicationController
   def tree
     @obj = @questionnaire.questionnaire_structure(params)
     respond_to do |format|
-      format.js {render :json => @obj.to_json, :callback => params[:callback]}
+      format.js { render :json => @obj.to_json, :callback => params[:callback] }
     end
   end
 
@@ -320,7 +344,7 @@ class QuestionnairesController < ApplicationController
     @questionnaire = Questionnaire.find(params[:questionnaire_id])
     user = User.find(params[:user_id])
     pdf_file = @questionnaire.pdf_files.find_by_user_id_and_is_long(user, !params[:is_short])
-    if pdf_file.present? && File.exists?(pdf_file.location)
+    if pdf_file.present? && File.exist?(pdf_file.location)
       send_file pdf_file.location, :type => "pdf"
     end
   end
@@ -340,7 +364,7 @@ class QuestionnairesController < ApplicationController
   end
 
   def download_csv
-    if @questionnaire.csv_file.present? && File.exists?(@questionnaire.csv_file.location)
+    if @questionnaire.csv_file.present? && File.exist?(@questionnaire.csv_file.location)
       send_file @questionnaire.csv_file.location, :type => "csv"
     else
       flash[:error] = "It was not possible to download the requested file. Please generate the file again. Thank you."
@@ -391,7 +415,7 @@ class QuestionnairesController < ApplicationController
   def jstree
     @obj = @questionnaire.questionnaire_structure_for_js_tree(params)
     respond_to do |format|
-      format.js {render :json => @obj.to_json, :callback => params[:callback]}
+      format.js { render :json => @obj.to_json, :callback => params[:callback] }
     end
   end
 
@@ -438,8 +462,10 @@ class QuestionnairesController < ApplicationController
   def fill_index
     if params[:order]
       @questionnaires = Questionnaire.find(:all, :order => "#{params[:order]} DESC", :include => [:questionnaire_fields, :user, :csv_file])
+    elsif params[:active]
+      @questionnaires = Questionnaire.where(status: QuestionnaireStatus::ACTIVE).order("created_at DESC")
     else
-      @questionnaires = Questionnaire.find(:all, :include => [:questionnaire_fields, :user, :csv_file])
+      @questionnaires = Questionnaire.order("created_at DESC").find(:all, :include => [:questionnaire_fields, :user, :csv_file])
     end
   end
 

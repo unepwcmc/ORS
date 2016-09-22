@@ -24,7 +24,7 @@ BEGIN
   ON t.answer_type_id = matrix_answers.id;
 
   WITH copied_matrix_answer_options AS (
-    INSERT INTO matrix_answer_options (
+    INSERT INTO tmp_matrix_answer_options (
       matrix_answer_id,
       created_at,
       updated_at,
@@ -40,7 +40,7 @@ BEGIN
     ON tmp_matrix_answers.original_id = t.matrix_answer_id
     RETURNING *
   )
-  INSERT INTO matrix_answer_option_fields (
+  INSERT INTO tmp_matrix_answer_option_fields (
     matrix_answer_option_id,
     language,
     title,
@@ -60,7 +60,7 @@ BEGIN
   ON copied_matrix_answer_options.original_id = t.matrix_answer_option_id;
 
   WITH copied_matrix_answer_drop_options AS (
-    INSERT INTO matrix_answer_drop_options (
+    INSERT INTO tmp_matrix_answer_drop_options (
       matrix_answer_id,
       created_at,
       updated_at,
@@ -76,7 +76,7 @@ BEGIN
     ON tmp_matrix_answers.original_id = t.matrix_answer_id
     RETURNING *
   )
-  INSERT INTO matrix_answer_drop_option_fields (
+  INSERT INTO tmp_matrix_answer_drop_option_fields (
     matrix_answer_drop_option_id,
     language,
     is_default_language,
@@ -110,7 +110,7 @@ BEGIN
   JOIN tmp_matrix_answers
   ON tmp_matrix_answers.original_id = t.matrix_answer_id;
 
-  INSERT INTO matrix_answer_query_fields (
+  INSERT INTO tmp_matrix_answer_query_fields (
     matrix_answer_query_id,
     language,
     title,

@@ -29,9 +29,9 @@ end
 #
 #  id                     :integer          not null, primary key
 #  answer_text            :text
-#  answer_id              :integer
-#  created_at             :datetime
-#  updated_at             :datetime
+#  answer_id              :integer          not null
+#  created_at             :datetime         not null
+#  updated_at             :datetime         not null
 #  field_type_type        :string(255)
 #  field_type_id          :integer
 #  details_text           :text

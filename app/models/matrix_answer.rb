@@ -70,6 +70,7 @@ class MatrixAnswer < ActiveRecord::Base
         apmo.matrix_answer_drop_option_id = val.to_i
       end
       if apmo && apmo.changed?
+        apmo.answer_part_id = ap.id
         apmo.save
         result = true
         saved << apmo
@@ -106,7 +107,7 @@ class MatrixAnswer < ActiveRecord::Base
           end
         end
 
-        result = answer_results.map{|k,v| "#{k}=[#{v}]"}.join('&')
+        result = answer_results.map{ |k,v| "#{k}=[#{v}]" }.join('&')
         result += " [[timestamp: #{answer_from_submitter.updated_at}]]" if answer_from_submitter
         row[i+2] = result
       end
@@ -120,9 +121,9 @@ end
 # Table name: matrix_answers
 #
 #  id                 :integer          not null, primary key
-#  display_reply      :integer
-#  created_at         :datetime
-#  updated_at         :datetime
-#  matrix_orientation :integer
+#  display_reply      :integer          not null
+#  created_at         :datetime         not null
+#  updated_at         :datetime         not null
+#  matrix_orientation :integer          not null
 #  original_id        :integer
 #

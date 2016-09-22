@@ -1,6 +1,5 @@
 module LanguageMethods
 
-
   def self.language_code title
     case title
       when "Arabic"
@@ -81,7 +80,7 @@ module LanguageMethods
         langs_to_add.each do |to_add|
           fields_name.each do |field_name|
             if !self.send(field_name).find_by_language(to_add)
-              self.send(field_name) << (field_name).classify.constantize.create(:language => to_add)
+              self.send(field_name).create(:language => to_add)
             end
           end
         end
@@ -121,19 +120,16 @@ module LanguageMethods
 
       def value_in value, language, loop_item=nil
         #classes where the *_fields class doesn't have the name of the original class in it
-        if [NumericAnswer,TextAnswer, MultiAnswer, RankAnswer, MatrixAnswer, RangeAnswer].include?(self.class)
-          fields = self.answer_type_fields
+        fields = if [NumericAnswer,TextAnswer, MultiAnswer, RankAnswer, MatrixAnswer, RangeAnswer].include?(self.class)
+          self.answer_type_fields
         else #all other classes
-          fields = self.send(self.class.to_s.underscore.downcase+"_fields")
+          self.send(self.class.to_s.underscore.downcase+"_fields")
         end
-        #get the field by language
-        field = fields.find_by_language(language)
+        # get the field by language
+        field = fields.find{ |f| f.language == language }
         #if the field exists and the value is present send that, otherwise send the default
-        if field and field.send(value.to_s).present?
-          result = field.send value.to_s
-        else
-          result = fields.find_by_is_default_language(true).send value.to_s
-        end
+        field ||= fields.find{ |f| f.is_default_language }
+        result = field && field.send(value.to_s)
         if loop_item
           if self.is_a?(Question)
             self.loop_item_types.each do |item_type|
@@ -149,7 +145,7 @@ module LanguageMethods
             result = new_result.present? ? new_result : result
           end
         end
-        result
+        result || 'No translation found'
       end
 
       def loop_title loop_sources, loop_item=nil

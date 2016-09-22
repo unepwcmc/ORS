@@ -1,24 +1,35 @@
 $(document).ready(function() {
+
   // All non-GET requests will add the authenticity token
   $(document).ajaxSend(function(event, request, settings) {
-  if (typeof(window.AUTH_TOKEN) == "undefined") return;
+    if (typeof(window.AUTH_TOKEN) == 'undefined') return;
+
     // IE6 fix for http://dev.jquery.com/ticket/3155
     if (settings.type == 'GET' || settings.type == 'get') return;
 
-    settings.data = settings.data || "";
-    settings.data += (settings.data ? "&" : "") + "authenticity_token=" + encodeURIComponent(window.AUTH_TOKEN);
+    settings.data = settings.data || '';
+    settings.data += (settings.data ? '&' : '') + 'authenticity_token=' + encodeURIComponent(window.AUTH_TOKEN);
   });
+
   initializeToolTips();
   hideFlashMessages();
   ajaxLinks();
   ajaxRequestsUnderway();
+
   $('ul.sf-menu').superfish();
-  if($("#toggle_help").length > 0){
-    $("#toggle_help").click(function(e){
+
+  if($('#toggle_help').length > 0) {
+    $('#toggle_help').click(function(e) {
       e.preventDefault();
-      $("#help_div").toggle('slow');
+      $('#help_div').toggle('slow');
     });
   }
+
+  $('.app-content').on('click', '#change_lang', function(e) {
+    e.preventDefault();
+    $('#language_selection').toggle('slow');
+  });
+
 });
 
 function ajaxRequestsUnderway() {
@@ -27,223 +38,308 @@ function ajaxRequestsUnderway() {
     resizable:false,
     closeOnEscape: false,
     modal:true,
-    width: 200,
+    //width: 200,
     minHeight: 90,
     height: 130,
     draggable: false
   });
-  $("#requests_dialog").livequery('ajaxSend', function() {
-    if($("div.no_dialog").length === 0)
-      $(this).dialog("open")
-      .prev('.ui-dialog-titlebar') // Get title bar,...
-        //.find('a')                   // ... then get the X close button ...
-        .hide();                     // ... and hide it;
-      })
-  .livequery('ajaxSuccess', function() {
-    if($("div.no_dialog").length === 0)
-      $(this).dialog("close");
+
+  $('#requests_dialog').livequery('ajaxSend', function() {
+    if($('div.no_dialog').length === 0) {
+      console.log('open');
+      $(this).dialog('open').prev('.ui-dialog-titlebar').hide();
+    }
+  }).livequery('ajaxComplete', function() {
+    console.log('close');
+    if($('div.no_dialog').length === 0) {
+      $(this).dialog('close');
+    }
   });
 }
 
-function initialiseQuestionnaireSubmissionPage(){
-  $("#add_document").dialog({autoOpen:false, resizable:false, modal:false, width: 600,
-    close: function(){
-      $("#add_document").empty();
+function initialiseQuestionnaireSubmissionPage() {
+  $('#add_document').dialog({autoOpen:false, resizable:false, modal:true, draggable:false, width: 600,
+    close: function() {
+      $('#add_document').empty();
     }
   });
-  $("#add_links").dialog({ autoOpen:false, resizable:false, modal:false, width: 600,
-    close: function(){
-      $("#add_links").empty();
+
+  $('#add_links').dialog({autoOpen:false, resizable:false, modal:true, draggable:false, width: 600,
+    close: function() {
+      $('#add_links').empty();
     }
   });
-  $("#delegate_section").dialog({ autoOpen:false, resizable:false, modal:false, width:600});
-  $("#toggle_delegation_details").click(function(e){
+
+  $('#delegate_section').dialog({autoOpen:false, resizable:false, modal:true, draggable:false, width:600});
+
+  $('#toggle_delegation_details').click(function(e){
     e.preventDefault();
-    $("#delegation_details").toggle('slow');
+    $('#delegation_details').toggle('slow');
   });
 }
 
-function timed_save()
-{
-  setTimeout(function(){
-    if($("form.sectionSubmission").length > 0 && $(".dirty").length > 0 && $("#to_render").length === 0 && $("#save_from_button").val() === "0" && $("#timed_save").val() === "0" && $("#auto_save").val() === "0")
-    {
-      $("#timed_save").val("1");
-      $("#questionnaire").addClass("no_dialog");
-        //$("form.sectionSubmission").submit();
-        var section_id = $("#section").val();
-        saveDirtyAnswers();
+// TODO: change function name to camelCase
+// Also, this could be a setInterval, but I'm not gonna change it because I'm scared
+// of the consequences
+function timed_save() {
+  setTimeout(function() {
+    var anySectionSubmissions = ($('form.sectionSubmission').length > 0),
+        noneToRenderDivs      = ($('#to_render').length === 0),
+        anyDirtyDivs          = ($('.dirty').length > 0),
+        saveFromButtonIsZero  = ($('#save_from_button').val() === '0'),
+        timedSaveIsZero       = ($('#timed_save').val() === '0'),
+        autoSaveIsZero        = ($('#auto_save').val() === '0');
+
+    if(anySectionSubmissions && noneToRenderDivs && anyDirtyDivs && saveFromButtonIsZero && timedSaveIsZero && autoSaveIsZero) {
+      $('#timed_save').val('1');
+
+      $('#questionnaire').addClass('no_dialog');
+      var section_id = $('#section').val();
+      saveDirtyAnswers();
     }
+
     timed_save();
   }, 30000);
 }
 
-function saveDirtyAnswers(){
-  var vals = $("select.dirty, input.dirty, textarea.dirty").serialize();
-  vals += "&"+$(".disabled_section_information").serialize();
-  vals += "&section="+$("#active_section").val()+"&save_from_button="+$("#save_from_button").val()+"&timed_save="+$("#timed_save").val()+"&auto_save="+$("#auto_save").val();
-  $("input.dirty, textarea.dirty, select.dirty").removeClass('dirty');
-  if(!$("#questionnaire").hasClass("no_dialog")){
-    $("#requests_dialog").dialog("open");
+function saveDirtyAnswers() {
+  var vals = $('select.dirty, input.dirty, textarea.dirty').serialize();
+
+  vals += '&'+$('.disabled_section_information').serialize();
+  vals += '&section='+$('#active_section').val();
+  vals += '&save_from_button='+$('#save_from_button').val();
+  vals += '&timed_save='+$('#timed_save').val();
+  vals += '&auto_save='+$('#auto_save').val();
+
+  $('input.dirty, textarea.dirty, select.dirty').removeClass('dirty');
+
+  if(!$('#questionnaire').hasClass('no_dialog')) {
+    $('#requests_dialog').dialog('open');
   }
-  $.ajax({url: "/sections/save_answers", type: "post", dataType: "script", data: vals });
+
+  $.ajax({
+    url: '/sections/save_answers',
+    type: 'post',
+    dataType: 'script',
+    data: vals
+  });
 }
-//Event handlers to flag fields as changed, that can then be saved.
-function dirtyFlagging(){
-  $("input[type='text'], textarea").blur(function(){
-   $(this).addClass("dirty");
+// Event handlers to flag fields as changed, that can then be saved.
+function dirtyFlagging() {
+  $("input[type='text'], textarea").blur(function() {
+   $(this).addClass('dirty');
    disableSubmit();
- });
-  $("input[type='checkbox']").change(function(){
-    if(!$(this).is(':checked')){
-      $(this).prev("input[type='hidden']").addClass("dirty");
-      $(this).removeClass("dirty");
-    }else{
-      $(this).prev("input[type='hidden']").removeClass("dirty");
-      $(this).addClass("dirty");
+  });
+
+  $("input[type='checkbox']").change(function() {
+    var $el = $(this);
+
+    if(!$el.is(':checked')){
+      $el.prev("input[type='hidden']").addClass('dirty');
+      $el.removeClass('dirty');
+    } else {
+      $el.prev("input[type='hidden']").removeClass('dirty');
+      $el.addClass('dirty');
     }
+
     disableSubmit();
   });
-  $("input[type='radio']").change(function(){
-    if(!$(this).is(':checked')){
-      $(this).prev("input[type='hidden']").addClass("dirty");
-      $(this).removeClass("dirty");
-    }else{
-      $(this).prev("input[type='hidden']").removeClass("dirty");
-      $(this).addClass("dirty");
+
+  $("input[type='radio']").change(function() {
+    var $el = $(this);
+
+    if(!$el.is(':checked')) {
+      $el.prev("input[type='hidden']").addClass('dirty');
+      $el.removeClass('dirty');
+    } else {
+      $el.prev("input[type='hidden']").removeClass('dirty');
+      $el.addClass('dirty');
     }
+
     disableSubmit();
   });
-  $("select").change(function(){
-    if($(this).attr('type') === "select-multiple"){
-      if($(this).attr("value") === ""){
-        $(this).prev("input[type='hidden']").addClass("dirty");
-        $(this).removeClass("dirty");
-      }else{
-        $(this).prev("input[type='hidden']").removeClass("dirty");
-        $(this).addClass("dirty");
+
+  $('select').change(function() {
+    var $el = $(this);
+
+    if($el.attr('type') === 'select-multiple') {
+      if($el.attr('value') === '') {
+        $el.prev("input[type='hidden']").addClass('dirty');
+        $el.removeClass('dirty');
+      } else {
+        $el.prev("input[type='hidden']").removeClass('dirty');
+        $el.addClass('dirty');
       }
-    }else {
-      $(this).addClass("dirty");
+    } else {
+      $el.addClass('dirty');
     }
+
     disableSubmit();
   });
+
   //Numeric type validation
-  $(".numeric_type").keydown(function(event) {
-      if ((!event.shiftKey && !event.ctrlKey && !event.altKey) && ((event.keyCode >= 48 && event.keyCode <= 57) || (event.keyCode >= 96 && event.keyCode <= 105))){ // 0-9 or numpad 0-9, disallow shift, ctrl, and alt
-        // check textbox value now and tab over if necessary
-      }else if(event.keyCode == 109){// allow '-' if it's the first value in the text_field
-        if($(this).val().indexOf("-") !== -1){//if there's already a '-' sign, don't put any other
-          event.preventDefault();
-      }else{
-          $(this).val("-"+$(this).val());//wherever the user places the '-' sign, put it in the begining of the text field.
-          event.preventDefault();
-        }
-      }else if(event.keyCode === 190){//You can add a period
-        if($(this).val().indexOf(".") !== -1){
-          event.preventDefault();
-        }
-      } else if(event.keyCode == 188){//You can add a comma
-        if($(this).val().indexOf(",") !== -1 ){
-          event.preventDefault();
-        }
-      }else if (event.keyCode !== 8 && event.keyCode !== 46 && event.keyCode !== 37 && event.keyCode !== 39 && event.keyCode !== 9){ // not esc, del, left or right
+  $('.numeric_type').keydown(function(event) {
+    var withoutModifiers   = (!event.shiftKey && !event.ctrlKey && !event.altKey),
+        isNumKeys          = (event.keyCode >= 48 && event.keyCode <= 57),
+        isNumpadKeys       = (event.keyCode >= 96 && event.keyCode <= 105);
+        notEsc             = (event.keyCode !== 8),
+        notDel             = (event.keyCode !== 46),
+        notLeftOrRight     = (event.keyCode !== 37 && event.keyCode !== 39),
+        notTab             = (event.keyCode !== 9);
+
+    if (withoutModifiers && (isNumKeys || isNumpadKeys)) {
+      // check textbox value now and tab over if necessary
+      // Yes, this is empty...
+    } else if(event.keyCode == 109) { // allow '-' if it's the first value in the text_field
+      // if there's already a '-' sign, don't put any other
+      if($(this).val().indexOf('-') !== -1) {
+        event.preventDefault();
+      } else {
+        $(this).val('-'+$(this).val()); //wherever the user places the '-' sign, put it at the beginning of the text field
         event.preventDefault();
       }
-      // else the key should be handled normally
-    }).blur(function(event){
-      var value = $(this).val();
-      var min = $(this).attr("data-min");
-      var max = $(this).attr("data-max");
-      if(min !== undefined && parseInt(value) < parseInt(min)){
-        $(this).val("");
-        $(this).focus();
-        alert("Numeric value must be bigger than " + min + ".");
-      }else if(max !== undefined && parseInt(value) > parseInt(max)){
-        $(this).val("");
-        alert("Numeric value must be smaller than " + max + ".");
+    } else if(event.keyCode === 190) { // You can add only one '.'
+      if($(this).val().indexOf('.') !== -1) {
+        event.preventDefault();
       }
-    });
-  }
-
-function disableSubmit(){
-  $("#top_submission").hide();
-  $("#top_submission_disabled").show();
-}
-
-//Functions that implement the behaviour of the RankedAnswerType UI.
-function chooseOption(element, the_id, maximum_allowed)
-{
-  element.unbind('click');
-  element.click(function(e){
-    e.preventDefault();
-    var position = $("#choices_"+the_id).find('li').size();
-    if(maximum_allowed === -1 || position < maximum_allowed)
-    {
-      $(this).hide();
-      $("#choices_"+the_id).append($(this));
-      $("#answers_"+the_id+"_"+position).val($(this).attr("id").replace(the_id +"_obj_", ""));
-      $("#answers_"+the_id+"_"+position).addClass('dirty');
-      $(this).show();
-      removeOption($(this), the_id, maximum_allowed);
+    } else if(event.keyCode == 188) { // You can add only one ','
+      if($(this).val().indexOf(',') !== -1 ) {
+        event.preventDefault();
+      }
+    } else if(notEsc && notDel && notLeftOrRight && notTab) { // not esc, del, left or right
+      event.preventDefault();
     }
-  })
-}
+    // else the key should be handled normally
 
-function removeOption(element, the_id, maximum_allowed)
-{
-  element.unbind('click');
-  element.click(function(e){
-    e.preventDefault();
-    $(this).hide();
-    var position_removed = $(this).index();
-    var total_elements = $("#choices_"+the_id).find('li').size()-1;
-    $("."+the_id +"_ranked_answers").each(function(){
-      var position = parseInt($(this).attr("id").replace("answers_"+the_id +"_", ""));
-      if(position >= position_removed)
-      {
-        $("#answers_"+the_id+"_"+position).addClass('dirty');
-        if(position != total_elements)
-          $("#answers_"+the_id+"_"+position).val($("#answers_"+the_id+"_"+(position+1).toString()).val());
-        else
-          $("#answers_"+the_id+"_"+position).val("");
-      }
-    });
-    $("#options_"+the_id).append($(this));
-    $(this).show();
-    chooseOption($(this), the_id, maximum_allowed);
+  }).blur(function(event) {
+    var value = $(this).val(),
+        min = $(this).attr('data-min'),
+        max = $(this).attr('data-max');
+
+    if(min !== undefined && parseInt(value) < parseInt(min)) {
+      $(this).val('');
+      $(this).focus();
+      alert('Numeric value must be bigger than ' + min + '.');
+
+    } else if(max !== undefined && parseInt(value) > parseInt(max)) {
+      $(this).val('');
+      alert('Numeric value must be smaller than ' + max + '.');
+    }
   });
 }
 
-function set_state_identifier(id, state, alt_text){
-  $("#img"+id).empty();
-  $("#img"+id).append("<img class='obj_tooltip' src='"+RAILS_ROOT+"/assets/submissionstate/fidelitybyagapeh/"+state+".png' alt='"+alt_text+"' title='"+alt_text+"' width='20px' height='20px'/>");
+function disableSubmit() {
+  $('#top_submission').hide();
+  $('#top_submission_disabled').show();
 }
 
-var myLib =
-{
-  questionnaire_submission :
-  {
-    init : function()
-    {
+// Functions that implement the behaviour of the RankedAnswerType UI.
+function chooseOption(element, theId, maximumAllowed) {
+  element.unbind('click');
+
+  element.click(function(e) {
+    e.preventDefault();
+    var position = $('#choices_'+theId).find('li').size();
+
+    if(maximumAllowed === -1 || position < maximumAllowed) {
+      $(this).hide();
+
+      $('#choices_'+theId).append($(this));
+      $('#answers_'+theId+'_'+position).val($(this).attr('id').replace(theId +'_obj_', ''));
+      $('#answers_'+theId+'_'+position).addClass('dirty');
+
+      $(this).show();
+      removeOption($(this), theId, maximumAllowed);
+    }
+  });
+}
+
+function removeOption(element, theId, maximumAllowed) {
+  element.unbind('click');
+
+  element.click(function(e) {
+    e.preventDefault();
+    $(this).hide();
+
+    var position_removed = $(this).index();
+    var total_elements = $('#choices_'+theId).find('li').size()-1;
+
+    $('.'+theId +'_ranked_answers').each(function() {
+      var position = parseInt($(this).attr('id').replace('answers_'+theId +'_', ''));
+
+      if(position >= position_removed) {
+        $('#answers_'+theId+'_'+position).addClass('dirty');
+
+        if(position != total_elements) {
+          $('#answers_'+theId+'_'+position).val($('#answers_'+theId+'_'+(position+1).toString()).val());
+        } else {
+          $('#answers_'+theId+'_'+position).val('');
+        }
+      }
+    });
+
+    $('#options_'+theId).append($(this));
+    $(this).show();
+
+    chooseOption($(this), theId, maximumAllowed);
+  });
+}
+
+// TODO: camelCase this function name
+function set_state_identifier(id, state, altText) {
+  var icons = {
+    newSection: "<i class='fa fa-asterisk background inverse info obj_tooltip' title='New Section'></i>",
+    completeSection: "<i class='fa fa-check-circle background inverse success obj_tooltip' title='Section has been completed'></i>",
+    someQuestionsUnanswered: "<i class='fa fa-exclamation-triangle background inverse warning obj_tooltip' title='Some questions unanswered'></i>",
+    mandatoryQuestionsUnanswered: "<i class='fa fa-exclamation-triangle background inverse warning obj_tooltip' title='Some questions unanswered'></i>",
+    allQuestionsUnanswered: "<i class='fa fa-times-circle background inverse info obj_tooltip' title='All questions unanswered'></i>",
+    findIcon: function(n){
+      switch(n) {
+        case 0:
+          return this.allQuestionsUnanswered;
+          break;
+        case 1:
+          return this.mandatoryQuestionsUnanswered;
+          break;
+        case 2:
+          return this.someQuestionsUnanswered;
+          break;
+        case 3:
+          return this.completeSection;
+          break;
+        case 4:
+          return this.newSection;
+          break;
+      }
+    }
+  };
+  $("#img"+id).empty();
+ // $("#img"+id).append("<img class='obj_tooltip' src='"+RAILS_ROOT+"/assets/submissionstate/fidelitybyagapeh/"+state+".png' alt='"+altText+"' title='"+altText+"' width='20px' height='20px'/>");
+  $("#img"+id).append(icons.findIcon(parseInt(state)));
+}
+
+var myLib = {
+  questionnaire_submission: {
+    init: function() {
       initialiseQuestionnaireSubmissionPage();
       handleInfoDisplayGeneratorShowPages();
       initialiseExtraFieldsHandlers();
       //initialiseAuthorizedSubmittersPage();
     }
   },
-  text_areas :
-  {
-    init : function()
-    {
+  text_areas: {
+    init: function() {
       //startTinyMCE();
-      $('textarea.grow').livequery(function(){
+      $('textarea.grow').livequery(function() {
         $(this).autosize();
       });
+
       //TODO: need to check if this will work with wysiwyg plugin!
-      $(":submit").livequery('click', function(e){
-        if($('textarea.tinymce').length > 0)
+      $(":submit").livequery('click', function(e) {
+        if($('textarea.tinymce').length > 0) {
           tinyMCE.triggerSave();
+        }
+
         return true;
       })
     }

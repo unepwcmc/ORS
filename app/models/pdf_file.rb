@@ -13,23 +13,22 @@ class PdfFile < ActiveRecord::Base
 
   private
   def remove_pdf_file
-    if File.exists?(location)
+    if File.exist?(location)
       FileUtils.rm(location)
     end
   end
 end
-
 
 # == Schema Information
 #
 # Table name: pdf_files
 #
 #  id               :integer          not null, primary key
-#  questionnaire_id :integer
-#  user_id          :integer
+#  questionnaire_id :integer          not null
+#  user_id          :integer          not null
 #  name             :string(255)
 #  location         :string(255)
-#  created_at       :datetime
-#  updated_at       :datetime
+#  created_at       :datetime         not null
+#  updated_at       :datetime         not null
 #  is_long          :boolean          default(TRUE)
 #

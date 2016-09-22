@@ -13,7 +13,7 @@ class QuestionnairePartsController < ApplicationController
     @questionnaire_part.build_part_from_params params, @questionnaire
     respond_to do |format|
       #format.html # new.html.erb
-      format.js  { render "#{params[:part_type].underscore.pluralize}/new"}
+      format.js  { render "#{params[:part_type].underscore.pluralize}/new" }
     end
   end
 
@@ -26,7 +26,7 @@ class QuestionnairePartsController < ApplicationController
       if @part.save && @questionnaire_part.save
         flash[:notice] = "Successfully created questionnaire part."
         format.html { redirect_to @part }
-        format.js {render "#{@questionnaire_part.part_type.underscore.pluralize}/create"}
+        format.js { render "#{@questionnaire_part.part_type.underscore.pluralize}/create" }
       else
         format.html { render :action => 'new' }
       end
@@ -35,9 +35,9 @@ class QuestionnairePartsController < ApplicationController
 
   def part_can_be_moved
     @questionnaire_part = QuestionnairePart.find(params[:id])
-    @result = @questionnaire_part.ancestors.map(&:part).delete_if{|a| !a.loop_source_id.present?}.empty?
+    @result = @questionnaire_part.ancestors.map(&:part).delete_if{ |a| !a.loop_source_id.present? }.empty?
     respond_to do |format|
-      format.js {render :js  => @result, :callback => params[:callback]}
+      format.js { render :js  => @result, :callback => params[:callback] }
     end
   end
 

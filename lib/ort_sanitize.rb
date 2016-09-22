@@ -73,13 +73,14 @@ class OrtSanitize
         'a', 'b', 'h1','i', 'u', 'strong'],
 
       :attributes => {
-        'a'          => ['href', 'title', 'target'],
+        'a'          => ['href', 'title', 'target']
       },
 
       :protocols => {
         'a'          => {'href' => ['ftp', 'http', 'https', 'mailto',
-                                    :relative]},
-      }
+                                    :relative]}
+      },
+      :allowed_entities => ['amp']
     }
   end
 end

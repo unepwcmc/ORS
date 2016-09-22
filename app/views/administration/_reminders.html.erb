@@ -1,0 +1,11 @@
+<% info_tip_text = "<p>Manage existing reminders and add new ones. <br />A reminder is added to the system and can later be associated with any questionnaire deadlines. This way you can reuse your reminders. This association is defined in a Deadline page, which can be accessed from the Questionnaire's dashboard page.</p>"-%>
+<li class="li_tooltip" title="<%= "Manage Reminders - " +info_tip_text %>"><%= link_to "Manage reminders", reminders_path %>
+  <ul>
+    <% info_tip_text = "<p>Add a new reminder to the system that you can then associate with any questionnaire's deadline.</p>"-%>
+    <li class="li_tooltip" title="<%= "Add reminder - " + info_tip_text %>"><%= link_to "Add reminder", new_reminder_path %></li>
+    <% if @reminder %>
+        <% info_tip_text = "<p>Edit this reminder details.</p>"-%>
+        <li class="li_tooltip" title="<%= "Edit reminder - " + info_tip_text %>"><%= link_to "Edit reminder", edit_reminder_path(@reminder) %></li>
+    <% end %>
+  </ul>
+</li>

@@ -36,7 +36,7 @@ BEGIN
   JOIN tmp_range_answers
   ON tmp_range_answers.original_id = t.range_answer_id;
 
-  INSERT INTO range_answer_option_fields (
+  INSERT INTO tmp_range_answer_option_fields (
     range_answer_option_id,
     option_text,
     language,

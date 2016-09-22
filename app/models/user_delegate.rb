@@ -16,15 +16,14 @@ class UserDelegate < ActiveRecord::Base
   end
 end
 
-
 # == Schema Information
 #
 # Table name: user_delegates
 #
 #  id          :integer          not null, primary key
-#  user_id     :integer
-#  delegate_id :integer
-#  created_at  :datetime
-#  updated_at  :datetime
+#  user_id     :integer          not null
+#  delegate_id :integer          not null
+#  created_at  :datetime         not null
+#  updated_at  :datetime         not null
 #  state       :integer          default(0)
 #

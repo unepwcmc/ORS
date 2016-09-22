@@ -1,18 +1,15 @@
-<% @questionnaire.sections_to_display_in_tab.each do |section| -%>
+<% @sections_to_display_in_tab_loops_expanded.each do |section_loops_expanded| %>
+  <% section, loop_item, submission_state = *section_loops_expanded %>
+
   <% if delegation.try(:can_view_only_assigned_sections?) && !section.is_or_has_parents_delegated_to?(delegation) && !section.has_sections_delegated_to?(delegation) # if it's not delegated to this section, and doesn't have any children sections that are delegated to this delegation render it as a disabled tab and move on to the next one %>
-    <%= render :partial => "disabled_tab", :locals => { :section => section } %>
+    <%#= render :partial => "disabled_tab", :locals => { :section => section } %>
     <% next %>
   <% end %>
 
-  <% if section.looping? && section.loop_item_type
-      section.loop_item_type.loop_items.each do |loop_item|
-        if section.available_for? current_user, loop_item -%>
-          <%= render :partial => "loop_tab", :locals => { :section => section, :loop_item => loop_item } %>
-          <% the_sections[section.id.to_s] = loop_item %>
-        <% end %>
-    <% end %>
+  <% if loop_item %>
+    <%= render :partial => "loop_tab", :locals => { :section => section, :loop_item => loop_item } %>
   <% else %>
     <%= render :partial => "tab", :locals => { :section => section } %>
-    <% the_sections[section.id.to_s] = nil %>
   <% end %>
+
 <% end %>

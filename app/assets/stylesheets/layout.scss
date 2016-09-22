@@ -1,0 +1,87 @@
+@import "variables";
+@import "flexbox";
+
+.app-content {
+  padding: 3em 0;
+  min-height: 50%;
+}
+
+#header {
+  //height: 20%;
+}
+#footer { height: 28%; }
+
+.container {
+  width : 100%;
+  position: relative;
+  max-width : 1140px;
+  margin: 0 auto;
+  &.flex-container {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+  }
+}
+
+.margin { margin: 1% 0 !important;}
+
+.row {
+	clear: both;
+	padding: 0px;
+	margin: 0px 0;
+
+  &.padded {
+    margin: 1em 0;
+    padding: 0.5em 0;
+  }
+
+  &.flex {
+    line-height: 39px;
+    @include flexbox;
+    @include justify-content(flex-start);
+    @include align-items(center);
+  }
+}
+
+.col {
+	display: block;
+	float:left;
+  margin: 0 0 0 1.6%;
+}
+
+.col:first-child { margin-left: 0; }
+
+/*  GROUPING  */
+.group:before,
+.group:after { content:""; display:table; }
+.group:after { clear:both;}
+.group { zoom:1; /* For IE 6/7 */ }
+
+/*  GRID OF TWELVE  */
+.col-12 { width: 100%; }
+.col-11 { width: 91.53%; }
+.col-10 { width: 83.06%; }
+.col-9 { width: 74.6%; }
+.col-8 { width: 66.13%; }
+.col-7 { width: 57.66%; }
+.col-6 { width: 49.2%; }
+.col-5 { width: 40.73%; }
+.col-4 { width: 32.26%; }
+.col-3 { width: 23.8%; }
+.col-2 { width: 15.33%; }
+.col-1 { width: 6.866%; }
+
+/*  GO FULL WIDTH BELOW 480 PIXELS */
+@media only screen and (max-width: 640px) {
+	.col {  margin: 0; }
+  .col-1, .col-2, .col-3, .col-4, .col-5, .col-6, .col-7, .col-8, .col-9, .col-10, .col-11, .col-12 {
+	  width: 100%;
+	}
+}
+
+.form-group {
+  input {
+    width: 100%;
+    margin: 10px 0;
+  }
+}

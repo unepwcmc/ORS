@@ -1,8 +1,11 @@
 <div class="span-24 last" id="content">
+  <div class="page-header">
+    <h2>Add new loop source</h2>
+  </div>
 
   <div id="content_header">
     <%= render :partial => "administration/menu", :locals => {
-      :header => "Questionnaire loop sources", 
+      :header => "Questionnaire loop sources",
       :include_options => "questionnaires"} -%>
   </div>
   <%= render :partial => 'loop_sources/form'%>

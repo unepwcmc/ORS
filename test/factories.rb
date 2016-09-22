@@ -34,6 +34,9 @@ FactoryGirl.define do
   factory :question do
   end
 
+  factory :question_loop_type do
+  end
+
   factory :questionnaire_part do
     association :part, :factory => [:question, :section].shuffle.first
   end
@@ -60,20 +63,46 @@ FactoryGirl.define do
     name Faker::Lorem.sentence(3)
   end
 
+  factory :source_file do
+    source { File.new(Rails.root.join('test', 'csv', 'countries.csv')) }
+  end
+
   factory :loop_item_type do
     #name Faker::Lorem.words(1)
     name "A thingy"
+  end
+
+  factory :extra do
+    name Faker::Lorem.sentence(1)
+    field_type 1
+  end
+
+  factory :section_extra do
   end
 
   factory :loop_item do
   end
 
   factory :loop_item_name do
+    after(:create) do |loop_item_name|
+      create(:loop_item_name_field, :loop_item_name => loop_item_name)
+    end
   end
 
   factory :loop_item_name_field do
     item_name Faker::Lorem.words(1)
+    language "en"
     is_default_language true
+  end
+
+  factory :item_extra do
+    after(:create) do |item_extra|
+      create(:item_extra_field, :item_extra => item_extra)
+    end
+  end
+
+  factory :item_extra_field do
+    value Faker::Lorem.words(5)
   end
 
   factory :filtering_field do
@@ -81,13 +110,17 @@ FactoryGirl.define do
     name "A filtering_field"
   end
 
+  factory :user_filtering_field do
+  end
+
   factory :user do
     first_name Faker::Name.first_name
     last_name Faker::Name.last_name
+    sequence(:perishable_token) { |n| n.to_s + Faker::Internet.password }
     language "en"
     password "simaob"
     password_confirmation "simaob"
-    sequence(:email) {|n| n.to_s +  Faker::Internet.email }
+    sequence(:email) { |n| n.to_s +  Faker::Internet.email }
   end
 
   factory :admin, :parent => :user do
@@ -103,7 +136,7 @@ FactoryGirl.define do
   end
 
   factory :role do
-    sequence(:name) {|n| "role#{n}" }
+    sequence(:name) { |n| "role#{n}" }
   end
 
   factory :admin_role, :parent => :role do
@@ -124,9 +157,7 @@ FactoryGirl.define do
     days Random.rand(31)
   end
 
-  factory :multi_answer_option_field do
-    is_default_language true
-    language "en"
+  factory :alert do
   end
 
   factory :multi_answer do
@@ -138,6 +169,53 @@ FactoryGirl.define do
   end
 
   factory :multi_answer_option do
+    after(:create) do |answer_option|
+      create(:multi_answer_option_field, :multi_answer_option => answer_option)
+    end
+  end
+
+  factory :multi_answer_option_field do
+    is_default_language true
+    language "en"
+  end
+
+  factory :other_field do
+    other_text 'Other'
+    language 'en'
+  end
+
+  factory :range_answer do
+    after(:create) do |range_answer|
+      create(:range_answer_option, :range_answer => range_answer)
+    end
+  end
+
+  factory :range_answer_option do
+    after(:create) do |answer_option|
+      create(:range_answer_option_field, :range_answer_option => answer_option)
+    end
+  end
+
+  factory :range_answer_option_field do
+    is_default_language true
+    language "en"
+  end
+
+  factory :rank_answer do
+    after(:create) do |rank_answer|
+      create(:rank_answer_option, :rank_answer => rank_answer)
+    end
+  end
+
+  factory :rank_answer_option do
+    after(:create) do |answer_option|
+      create(:rank_answer_option_field, :rank_answer_option => answer_option)
+    end
+  end
+
+  factory :rank_answer_option_field do
+    is_default_language true
+    language "en"
   end
 
   factory :numeric_answer do
@@ -176,6 +254,17 @@ FactoryGirl.define do
     title "Herp"
   end
 
+  factory :matrix_answer_drop_option do
+    after(:create) do |answer_drop_option|
+      create(:matrix_answer_drop_option_field, :matrix_answer_drop_option => answer_drop_option)
+    end
+  end
+
+  factory :matrix_answer_drop_option_field do
+    is_default_language true
+    language "en"
+  end
+
   factory :deadline do
     title "My default deadline title"
     soft_deadline true
@@ -188,9 +277,40 @@ FactoryGirl.define do
   factory :answer_part do
   end
 
+  factory :answer_link do
+    url Faker::Internet.url
+  end
+
+  factory :document do
+    doc { File.new(Rails.root.join('app', 'assets', 'images', 'wcmc_logo.png')) }
+  end
+
+  factory :answer_part_matrix_option do
+  end
+
   factory :user_delegate do
   end
 
   factory :delegation do
   end
+
+  factory :delegation_section do
+  end
+
+  factory :delegated_loop_item_name do
+  end
+
+  factory :user_section_submission_state do
+    section_state 0
+  end
+
+  factory :tag, class: ActsAsTaggableOn::Tag do
+    name Faker::Lorem.words(1)
+  end
+
+  factory :tagging, class: ActsAsTaggableOn::Tagging do
+    context 'groups'
+    taggable_type 'User'
+  end
+
 end

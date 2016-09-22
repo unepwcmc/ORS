@@ -7,7 +7,7 @@ class AuthorizedSubmitter < ActiveRecord::Base
   extend EnumerateIt
 
   has_enumeration_for :status, :with => SubmissionStatus, :create_helpers => true
-  
+
   ###
   ###   Relationships
   ###
@@ -33,7 +33,7 @@ class AuthorizedSubmitter < ActiveRecord::Base
   #   questionnaire: the questionnaire to which the users will be authorized
   # Return:
   #   users: array of users that were authorized
-  def self.authorize_from_array_of_users(users_ids, questionnaire, url)
+  def self.authorize_from_array_of_users(users_ids, questionnaire, url, disable_emails)
     users = []
     Array(users_ids).each do |user_id,| #users_ids is an hash with "user_id => user_id", coming from a set of check boxes
       user = User.find(user_id.to_i)
@@ -46,7 +46,7 @@ class AuthorizedSubmitter < ActiveRecord::Base
             authorized_submitter.save
           end
           users += [user]
-          @jid = AuthorizationBuilder.perform_async(user.id, questionnaire.id, url)
+          @jid = AuthorizationBuilder.perform_async(user.id, questionnaire.id, url, disable_emails)
         elsif authorized_submitter.status == SubmissionStatus::HALTED
           users += [user]
           authorized_submitter.status = SubmissionStatus::UNDERWAY
@@ -65,7 +65,7 @@ class AuthorizedSubmitter < ActiveRecord::Base
   #   @users: array of users that were de-authorized
   def self.remove_authorization_from_array_of_users(users_ids, questionnaire, url)
     users = []
-    Array(users_ids).each do |user_id,| #users_ids is an hash with "user_id => user_id", coming from a set of checkboxes 
+    Array(users_ids).each do |user_id,| #users_ids is an hash with "user_id => user_id", coming from a set of checkboxes
       user = User.find(user_id.to_i)
       if user
         authorized_submitter = questionnaire.authorized_submitters.find_by_user_id(user_id)
@@ -94,16 +94,15 @@ class AuthorizedSubmitter < ActiveRecord::Base
   end
 end
 
-
 # == Schema Information
 #
 # Table name: authorized_submitters
 #
 #  id                     :integer          not null, primary key
-#  user_id                :integer
-#  questionnaire_id       :integer
-#  created_at             :datetime
-#  updated_at             :datetime
+#  user_id                :integer          not null
+#  questionnaire_id       :integer          not null
+#  created_at             :datetime         not null
+#  updated_at             :datetime         not null
 #  status                 :integer          default(0)
 #  language               :string(255)      default("en")
 #  total_questions        :integer          default(0)

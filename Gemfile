@@ -1,9 +1,7 @@
 source 'https://rubygems.org'
 
-gem 'rails', '3.2.22.2'
+gem 'rails', '3.2.22'
 gem 'rake', '10.0.3'
-
-gem 'rdoc'
 
 gem 'pg'
 gem 'foreigner'
@@ -21,7 +19,7 @@ gem 'tooltipster-rails', '~> 3.2.6'
 gem 'jquery-tablesorter', '~> 1.16.3'
 gem 'jquery-placeholder-rails', '~> 2.0.7'
 gem 'jquery-cookie-rails', '~> 1.3.1.1'
-
+gem "select2-rails"
 gem 'authlogic'
 gem 'fastercsv'
 gem 'cancan'
@@ -31,12 +29,13 @@ gem 'formtastic'
 gem 'sanitize'
 gem 'enumerate_it'
 gem 'awesome_nested_set'
-
+gem "font-awesome-rails"
 gem 'faker'
 
 #gem 'pdf-reader', :require => 'pdf/reader'
 #gem 'Ascii85', :require => 'ascii85'
 gem 'prawn'
+gem 'htmlentities'
 
 gem 'redis'
 gem 'sidekiq'
@@ -52,14 +51,20 @@ gem 'rails-secrets'
 # Gems used only for assets and not required
 # in production environments by default.
 group :assets do
-  gem 'sass-rails', "  ~> 3.2.0"
+  gem 'sass-rails', "~> 3.2.0"
   gem 'coffee-rails', "~> 3.2.0"
   gem 'uglifier'
 end
 
-#group :development, :test do
-#  gem 'byebug'
-#end
+group :production, :staging do
+  gem 'newrelic_rpm'
+end
+
+group :development, :test do
+  gem 'byebug'
+  gem 'time_bandits'
+  gem 'ruby-prof'
+end
 
 group :development do
   gem 'capistrano', '~> 3.4.0', require:false
@@ -68,9 +73,11 @@ group :development do
   gem 'capistrano-bundler', require:false
   gem 'capistrano-rvm', require:false
   gem 'capistrano-sidekiq'
+  gem 'capistrano-passenger'
   gem 'annotate'
   gem 'sexy_relations', '~> 1.0.4'
-  gem 'capistrano-passenger'
+  gem 'rubocop', require: false
+  gem 'quiet_assets'
 end
 
 group :test do

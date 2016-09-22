@@ -1,12 +1,16 @@
 DROP FUNCTION IF EXISTS copy_answer_parts(
   old_questionnaire_id INTEGER, new_questionnaire_id INTEGER
 );
-CREATE OR REPLACE FUNCTION copy_answer_parts(
+DROP FUNCTION IF EXISTS copy_answer_parts_start(
+  old_questionnaire_id INTEGER, new_questionnaire_id INTEGER
+);
+CREATE OR REPLACE FUNCTION copy_answer_parts_start(
   old_questionnaire_id INTEGER, new_questionnaire_id INTEGER
 ) RETURNS VOID
 LANGUAGE plpgsql AS $$
 BEGIN
   CREATE TEMP TABLE tmp_answer_parts () INHERITS (answer_parts);
+  CREATE TEMP TABLE tmp_answer_part_matrix_options () INHERITS (answer_part_matrix_options);
 
   WITH answer_parts_to_copy AS (
     SELECT
@@ -91,7 +95,7 @@ BEGIN
     answer_parts.id
   FROM answer_parts_to_copy_with_resolved_field_types answer_parts;
 
-  INSERT INTO answer_part_matrix_options (
+  INSERT INTO tmp_answer_part_matrix_options (
     answer_part_id,
     matrix_answer_option_id,
     matrix_answer_drop_option_id,
@@ -101,20 +105,29 @@ BEGIN
   )
   SELECT
     tmp_answer_parts.id,
-    matrix_answer_options.id,
-    matrix_answer_drop_options.id,
+    tmp_matrix_answer_options.id,
+    tmp_matrix_answer_drop_options.id,
     answer_part_matrix_options.answer_text,
     tmp_answer_parts.created_at,
     tmp_answer_parts.updated_at
   FROM answer_part_matrix_options
   JOIN tmp_answer_parts
   ON tmp_answer_parts.original_id = answer_part_matrix_options.answer_part_id
-  LEFT JOIN matrix_answer_options
-  ON matrix_answer_options.original_id = answer_part_matrix_options.matrix_answer_option_id
-  LEFT JOIN matrix_answer_drop_options
-  ON matrix_answer_drop_options.original_id = answer_part_matrix_options.matrix_answer_drop_option_id;
+  LEFT JOIN tmp_matrix_answer_options
+  ON tmp_matrix_answer_options.original_id = answer_part_matrix_options.matrix_answer_option_id
+  LEFT JOIN tmp_matrix_answer_drop_options
+  ON tmp_matrix_answer_drop_options.original_id = answer_part_matrix_options.matrix_answer_drop_option_id;
+END;
+$$;
 
+DROP FUNCTION IF EXISTS copy_answer_parts_end();
+CREATE OR REPLACE FUNCTION copy_answer_parts_end()
+RETURNS VOID
+LANGUAGE plpgsql AS $$
+BEGIN
   INSERT INTO answer_parts SELECT * FROM tmp_answer_parts;
   DROP TABLE tmp_answer_parts;
+  INSERT INTO answer_part_matrix_options SELECT * FROM tmp_answer_part_matrix_options;
+  DROP TABLE tmp_answer_part_matrix_options;
 END;
 $$;

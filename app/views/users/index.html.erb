@@ -1,66 +1,126 @@
+<% title 'Bern Convention ORS - Administration' -%>
+<%= render 'administration/options' %>
 <div class="span-24 last" id="content">
   <div id="content_header">
-    <% info_tip_text = "<p>This page shows you a list with all the users that are registered in the system, sorted by name. It presents some profile information of the users
-                    but also information about their roles, the groups they belong to and any questionnaires to which they have been authorized to answer</p>
-                    <p>This page allows you to add users to an existing or a new group. You can do this by selecting the users through the check boxes on the left. And
-                    then choosing a group from the drop down list on the first line of the control panel or by writing a name for a new group and pressing 'Add'. To remove a user
-                    from a group simply click on the 'x' link by the group name on a user's groups column.</p>
-                    <p>Here you can also add new users by clicking on the 'Add new users' link.</p>
-                    <p>To make management easier you can search for users by typing your search criteria in the search text field, or by selecting a group to get all the users from
-                    a specific group. You can then select all the results of your selection by clicking on the select filter 'all'. If you want to go back to the full list you can clear
-                    your search by clicking in 'Clear Search'.</p>
-                    <p>To see all the details of a specific user you can click on its name.</p>" %>
-    <%= render :partial => "administration/menu", :locals => {:header => "Manage Users " + info_tip("Manage Users", info_tip_text), :include_options => nil} -%>
+    <% info_tip_text = """
+      <p>
+        This page shows you a list with all the users that
+        are registered in the system, sorted by name. It presents some profile
+        information of the users but also information about their roles, the groups
+        they belong to and any questionnaires to which they have been authorized to
+        answer</p> <p>This page allows you to add users to an existing or a new
+        group. You can do this by selecting the users through the check boxes on
+        the left. And then choosing a group from the drop down list on the first
+        line of the control panel or by writing a name for a new group and pressing
+        'Add'. To remove a user from a group simply click on the 'x' link by the
+        group name on a user's groups column.</p> <p>Here you can also add new
+        users by clicking on the 'Add new users' link.</p> <p>To make management
+        easier you can search for users by typing your search criteria in the
+        search text field, or by selecting a group to get all the users from a
+        specific group. You can then select all the results of your selection by
+        clicking on the select filter 'all'. If you want to go back to the full
+        list you can clear your search by clicking in 'Clear Search'.</p> <p>To see
+        all the details of a specific user you can click on its name.
+      </p>
+    """ %>
+    <%#= render :partial => "administration/menu", :locals => {:header => "Manage Users " + info_tip("Manage Users", info_tip_text), :include_options => nil} -%>
   </div>
+
   <%= form_tag({:controller => :authorized_submitters}, :class => "ajaxForm", :id => "manage") do %>
-      <div id="menu">
-        <%= render :partial => "users/manage_users" %>
-      </div><!-- /menu -->
-      <table id="users_index" class="tablesorter">
-        <thead>
-        <tr>
-          <th></th>
-          <th>Name</th>
-          <th>E-mail</th>
-          <th>Created At</th>
-          <th>Created By</th>
-          <th>Roles</th>
-          <th>Category</th>
-          <th>Groups</th>
-          <th style="width: 230px">Authorized Questionnaires</th>
-          <th>Options</th>
+
+
+  <div class="page-header-with-buttons">
+    <div class="page-header-with-buttons__title">
+      <h2>Manage Users</h2>
+    </div>
+    <div class="page-header-with-buttons__buttons">
+      <%= link_to add_list_users_path do %>
+        <%= fa_icon 'plus-circle' %> Add list of users
+      <% end %>
+      <a href="#" id="add_new_user"><%= fa_icon 'plus-circle' %> Add user</a>
+    </div>
+  </div>
+
+  <div class="manage-groups">
+    <div class="manage-groups__help-text">
+      <p>To add users to an existing or new group. For more information visit the <a href="http://orssupport.unep-wcmc.org/kb/article/26-adding-users-to-groups
+      " target="_blank">Adding users to groups article</a> on the Support Centre.</p>
+    </div>
+    <div class="manage-groups__title">Add users to group</div>
+    <div class="manage-groups__body">
+
+      <%= select_tag("groups", options_for_select(@groups.sort{|x,y| x.name <=> y.name}.collect {|p| [ p.name, p.name ] }), { :prompt => 'Select existing group' }) %>
+      Or
+      <%= text_field_tag "group", nil, placeholder: "Enter name for new group" %>
+      <button type="button" name="group" class="authorization_buttons btn">Add</button>
+    </div>
+  </div>
+
+  <div class="datatable-filters">
+    <div class="datatable-filters__left">
+      <% if @questionnaire %>
+       Filter by
+        <a href="#" id="check_authorized" class="btn">Authorized</a>
+        <a href="#" id="check_unauthorized" class="btn">Not authorized</a>
+        <a href="#" id="check_authorizing" class="btn">Authorizing</a>
+      <% end %>
+    </div>
+    <div class="datatable-filters__right">
+      <input type="text" name="filter" id="filter" value="" placeholder="Type your search here... " size="25"/>
+      <a href="#" id="clear_search" class="btn">Clear Search</a><br>
+    </div>
+  </div>
+
+  <table id="users_index" class="tablesorter">
+    <thead>
+      <tr>
+        <th><%= check_box_tag :select_all, nil, false, class: 'select-all-checkbox' %></th>
+        <th>Name</th>
+        <th>Created At</th>
+        <th>Roles</th>
+        <th>Groups</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @users.each do |user| %>
+        <tr id="row_<%=user.id.to_s%>">
+          <td><%= check_box_tag "users["+user.id.to_s+"]", user.id.to_s, false, {:class => "checkboxes" }%></td>
+          <td><%= link_to h(user.full_name), user_path(user) %></td>
+          <td><%= user.created_at.strftime("%d/%m/%Y") %></td>
+          <td><%= user.roles.map(&:name).join(', ') if user.roles.present? %></td>
+          <td id="groups_<%=user.id.to_s%>" class="user_groups"><%= raw user.group_list.sort.map{|name| "<span id='g_#{h(name)+ "_" + user.id.to_s}'>#{h(name)} #{link_to "x", remove_group_user_path(user.id, :group_name => name), :method => "put", :class => "put"}</span>"}.join(" ")%></td>
+          <td>
+            <div class="information-tooltip hide">
+              <% if user.available_questionnaires.any? %>
+                <p><strong>Authorised questionnaires</strong></p>
+                <ul>
+                  <%= user.available_questionnaires.map{|questionnaire| "<li>" + (link_to (questionnaire.title), dashboard_questionnaire_path(questionnaire)) + "</li>"}.sort.join("").html_safe %>
+                </ul>
+              <% end -%>
+              <p><strong>Email</strong></p>
+              <%= user.email %>
+              <p><strong>Country</strong></p>
+              <%= user.country %>
+              <p><strong>Region</strong></p>
+              <%= user.region %>
+              <p><strong>Created by</strong></p>
+              <%= raw user.creator ? "#{link_to h(user.creator.full_name), user_path(user.creator)}" : "None" %>
+              <p><strong>Category</strong></p>
+              <%= user.category.presence || "Other" %>
+            </div>
+            <a href="#" class="information-tooltip-trigger"><%= fa_icon 'align-left' %> details</a> |
+            <%= link_to "view", user %>
+            <% if !user.role?(:admin) %>
+              |
+              <%= link_to "delete", delete_user_path(user) %>
+            <% end %>
+          </td>
         </tr>
-        </thead>
-        <tbody>
-        <% @users.each do |user| %>
-            <tr id="row_<%=user.id.to_s%>">
-              <td><%= check_box_tag "users["+user.id.to_s+"]", user.id.to_s, false, {:class => "checkboxes" }%></td>
-              <td><%= link_to h(user.full_name), user_path(user) %></td>
-              <td><%= mail_to h(user.email), h(user.email)  %></td>
-              <td><%= user.created_at.to_formatted_s(:long_ordinal) %></td>
-              <td><%= raw user.creator ? "#{link_to h(user.creator.full_name), user_path(user.creator)}" : "None" %></td>
-              <td><%= user.roles.map(&:name).join(', ') if user.roles.present? %></td>
-              <td><%= user.category.presence || "Other" %></td>
-              <td id="groups_<%=user.id.to_s%>" class="user_groups"><%= raw user.group_list.sort.map{|name| "<span id='g_#{h(name)+ "_" + user.id.to_s}'>#{h(name)} #{link_to "x", remove_group_user_path(user.id, :group_name => name), :method => "put", :class => "put"}</span>"}.join(" ")%></td>
-              <td>
-                <% if user.available_questionnaires.any? %>
-                    <ul>
-                      <%= user.available_questionnaires.map{|questionnaire| "<li>" + (link_to (questionnaire.title), dashboard_questionnaire_path(questionnaire)) + "</li>"}.sort.join("").html_safe %>
-                    </ul>
-                <% end -%>
-              </td>
-              <td>
-                <%= link_to "view", user %>
-                <% if !user.role?(:admin) %>
-                  |
-                  <%= link_to "delete", delete_user_path(user) %>
-                <% end %>
-              </td>
-            </tr>
-        <% end %>
-        </tbody>
-      </table>
-  <% end %>
+      <% end %>
+    </tbody>
+  </table>
+<% end %>
 </div><!-- /content -->
 <div id="user_dialog" title="Add new user"><%= render :partial => "users/new" %></div>
 <script type="text/javascript">

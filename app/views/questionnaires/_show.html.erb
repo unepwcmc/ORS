@@ -1,54 +1,111 @@
 <div id="show_pages">
-  <% @questionnaire.questionnaire_fields.sort_by{ |a| a.is_default_language? ? 0 : 1 }.each do |field| -%>
-      <div class="span-15 last info_header" style="border-bottom-width: <%= field.is_default_language? ? "0" : "1px" %>">
-        <div class="span-10">
-          <h4>
-            <%= field.title.present? ? h(field.title) : "#Not specified#" %>
-          </h4>
-        </div>
-        <div class="span-5 last">
-          <p><!-- floats right -->
-            <strong><%=h field.language_english_name %> / <%=h field.language_full_name %></strong> |
-            <a href="#" class="show_info" style="display:<%= field.is_default_language? ? "none" : "inline" %>">Show info</a>
-            <a href="#" class="hide_info" style="display:<%= field.is_default_language? ? "inline" : "none" %>">Hide info</a>
-          </p>
-        </div>
-      </div><!-- /.questionnaire_info_header -->
-      <div class="span-15 last info <%= field.is_default_language? ? "" : "hide" %>">
-        <p><strong>Date:</strong> <%= @questionnaire.questionnaire_date.mon.to_s + "/" + @questionnaire.questionnaire_date.year.to_s%></p>
-        <% if @questionnaire.filtering_fields.present? -%><p><strong>Filtering fields:</strong> <%= @questionnaire.filtering_fields.map{|a| a.name}.join(", ") %></p><% end -%>
-        <p><strong>Introductory Remarks:</strong></p>
-        <div class="administrator_remarks">
-          <% if field.introductory_remarks.present?  -%>
-              <%= Sanitize.clean(field.introductory_remarks, OrtSanitize::Config::ORT ).html_safe -%>
-          <% end  -%>
-        </div>
-        <p><strong>Email subject:</strong> <%=h field.email_subject %></p>
-        <p><strong>Email text:</strong></p>
-        <div>
-          <%=h field.email %>
-        </div>
-        <p><strong>Email footer:</strong> <%=h field.email_footer %></p>
-        <p><strong>Submit info for respondents:</strong> <%=h field.submit_info_tip %></p>
-      </div><!-- /general_info -->
-  <% end  -%>
-  <hr />
-  <div class="span-15 last">
-    <% if @questionnaire.source_questionnaire -%>
-        <p><strong>Original questionnaire:</strong> <%= link_to h(@questionnaire.source_questionnaire.title), dashboard_questionnaire_path(@questionnaire.source_questionnaire) %></p>
-    <% end -%>
-    <% if @questionnaire.active? -%>
-        <p style="color:red"><strong>This questionnaire has been activated.</strong></p>
-    <% end -%>
-    <p><strong> Administrator Remarks:</strong></p>
-    <div class="administrator_remarks">
-      <%= Sanitize.clean(@questionnaire.administrator_remarks, OrtSanitize::Config::ORT).html_safe %>
+  <div class="span-15 last info_header">
+    <div class="span-10">
+      <h4>Introduction</h4>
     </div>
-    <p>Banner: <%= image_tag @questionnaire.header.url(:thumb) %></p>
-    <p><strong>Section maximum tab display level <%= info_tip("Section maximum tab display level", "Specifies the level of nesting up to which a section can be set to be displayed in the left tab menu of the submission side, together with the root sections. Default is 3.")%>:</strong> <%= @questionnaire.display_in_tab_max_level || 3 %></p>
-    <p><strong>Delegation feature:</strong> <%= @questionnaire.delegation_enabled? ? "Enabled" : "Disabled" %></p>
-    <p><strong>Text answers translator:</strong> <%= @questionnaire.translator_visible? ? "Enabled" : "Disabled" %></p>
-  </div><!-- /other info -->
+  </div>
+  <% @questionnaire.questionnaire_fields.sort_by{ |a| a.is_default_language? ? 0 : 1 }.each do |field| -%>
+    <div class="language">
+      <div class="language-header info-toggle-header">
+        <hr class="grey no-margin-bottom">
+        <div class="row flex border-bottom">
+          <div class="col col-3 language-name">
+            <%= language_angle_icon(field) %>
+            <%=h field.language_english_name %> / <%=h field.language_full_name %>
+          </div>
+          <%= default_language_tag if field.is_default_language? %>
+          <div class="col toggle-info-container">
+            <a href="#" class="toggle-info">
+              <%= field.is_default_language? ? "Hide" : "Show" %>
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <div class="language-content info-content <%= field.is_default_language? ? "" : "hidden-content" %>">
+
+        <% title = field.title.present? ? h(field.title) : "(Title not yet specified)" %>
+        <%= content_field("#{field.language_full_name} title", title) %>
+
+        <div class="row padded">
+          <div class="col col-10">
+            <strong>Introductory Remarks</strong>
+            <% if field.introductory_remarks.present?  -%>
+              <%= Sanitize.clean(field.introductory_remarks, OrtSanitize::Config::ORT ).html_safe -%>
+            <% end  -%>
+          </div>
+        </div>
+
+        <% if @questionnaire.filtering_fields.present? -%>
+          <% content =  @questionnaire.filtering_fields.map{|a| a.name}.join(", ") %>
+          <%= content_field("Filtering fields", content) %>
+        <% end -%>
+
+        <%= content_field("Email subject", field.email_subject) %>
+        <%= content_field("Email text", field.email) %>
+        <%= content_field("Email footer", field.email_footer) %>
+        <%= content_field("Submit info for respondents", field.submit_info_tip) %>
+
+      </div>
+    </div>
+  <% end  -%>
+
+  <div class="extra-info-container">
+    <div class="info-toggle-header">
+      <hr class="grey no-margin-bottom">
+      <div class="row flex border-bottom grey">
+        <div class="col col-3 extra-info">
+          <i class="fa fa-angle-down"></i>
+          Extra info
+        </div>
+        <div class="col toggle-info-container">
+          <a href="#" class="toggle-info">Show</a>
+        </div>
+      </div>
+    </div>
+    <div class="info-content hidden-content">
+      <div class="span-15 last">
+        <% date =  @questionnaire.questionnaire_date.mon.to_s + "/" + @questionnaire.questionnaire_date.year.to_s %>
+        <%= content_field("Date", date) %>
+
+        <% if @questionnaire.source_questionnaire -%>
+          <% orig_questionnaire = link_to h(@questionnaire.source_questionnaire.title), dashboard_questionnaire_path(@questionnaire.source_questionnaire) %>
+          <%= content_field("Original questionnaire", orig_questionnaire) %>
+        <% end -%>
+
+        <% if @questionnaire.active? -%>
+          <hr class="grey">
+          <p style="color:red"><strong>This questionnaire has been activated.</strong></p>
+          <hr class="grey">
+        <% end -%>
+
+        <% admin_remarks =  Sanitize.clean(@questionnaire.administrator_remarks, OrtSanitize::Config::ORT).html_safe %>
+        <%= content_field("Administrator remarks", admin_remarks) %>
+
+        <%= content_field("Banner", image_tag(@questionnaire.header.url(:thumb))) %>
+
+        <div class="row padded">
+          <div class="col">
+            <strong>Section maximum tab display level <%= info_tip("Section maximum tab display level", "Specifies the level of nesting up to which a section can be set to be displayed in the left tab menu of the submission side, together with the root sections. Default is 3.")%></strong>
+          </div>
+        </div>
+        <div class="row padded">
+          <div class="col">
+            <%= @questionnaire.display_in_tab_max_level || 3 %>
+          </div>
+        </div>
+
+        <% delegation_enabled = @questionnaire.delegation_enabled? ? "Enabled" : "Disabled" %>
+        <%= content_field("Delegation feature", delegation_enabled) %>
+
+        <% translator_visible = @questionnaire.translator_visible? ? "Enabled" : "Disabled" %>
+        <%= content_field("Text answer translator", translator_visible) %>
+
+      </div><!-- /other info -->
+    </div>
+  </div>
+  <div class="span-15 colborder hide" id="add_section">
+  </div><!-- /add_section -->
 </div><!-- /show_pages -->
 <div class="span-15 colborder hide" id="add_sources">
 </div><!-- /add_sources -->

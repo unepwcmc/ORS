@@ -2,7 +2,10 @@
   <%= fields_for :part, @questionnaire_part.part  do |builder| %>
   <%= builder.hidden_field :section_id, :value => @parent.part.id %>
   <fieldset>
-    <legend>New Question details</legend>
+    <hr class="grey">
+    <div class="page-header">
+      <h3>New Question details</h3>
+    </div>
     <ol>
       <%= render :partial => "questions/variables", :locals => {:base_section => @parent.part, :question => @questionnaire_part.part, :builder_var => "part"} %>
       <%= render :partial => "extras/include_extras", :locals => { :base_section => @parent.part, :check_extras => "question" } %>
@@ -10,19 +13,19 @@
       <%= render :partial => "questions/form", :locals => {:f => builder} -%>
       </li>
       <% if !@parent.part.answer_type_id.present?  %>
-        <li>
-        <%= builder.label :answer_type_type, "Answer Type *" %>
+        <div class="row padded">
+          <div class="col col-4"><%= builder.label :answer_type_type, "Answer Type *" %></div>
         <% list_of_options = {"Matrix" => "MatrixAnswer",  "Multiple Options" => "MultiAnswer", "Numeric" => "NumericAnswer", "Text" => "TextAnswer", "Rank" => "RankAnswer", "Range" => "RangeAnswer" } -%>
-        <%= builder.collection_select :answer_type_type, list_of_options.sort{|a,b| a<=>b}, :last, :first, {:prompt => true}, :validate => "{required:true, messages:{required:'Please select an answer type'}}" %>
-        </li>
+        <div class="col col-8 border-left"><%= builder.collection_select :answer_type_type, list_of_options.sort{|a,b| a<=>b}, :last, :first, {:prompt => true}, :validate => "{required:true, messages:{required:'Please select an answer type'}}" %></div>
+        </div>
         <div id="answer_type">
           <%#Starts empty on purpose%>
         </div><!-- /answer_type -->
       <% else -%>
-        <li>
-        <%= builder.label :answer_type %>
-        <p>Inherited from section</p>
-        </li>
+        <div class="row padded">
+          <div class="col col-4"><%= builder.label :answer_type %></div>
+          <div class="col col-8 border-left">Inherited from section</div>
+        </div>
       <% end -%>
     </ol>
   </fieldset>

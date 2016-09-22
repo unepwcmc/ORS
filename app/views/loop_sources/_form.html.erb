@@ -1,25 +1,24 @@
 <%= form_for(@loop_source, :html => { :multipart => true, :id => "generator_form", :class => "normal formtastic" }) do |f|-%>
     <%= hidden_field_tag :questionnaire_id, ( @questionnaire ? @questionnaire.id : @loop_source.questionnaire.id) %>
-    <div id="error_container" class="error_container">
+    <div id="error_container" class="error_container hide">
       <h5>There are some errors in your form submission, please see details below</h5>
       <ul id="error_messages"></ul>
     </div>
     <fieldset>
-      <legend><%= @loop_source.new_record? ? "Add new loop source" : "Edit existing loop source" %></legend>
       <% if !@loop_source.new_record? && @loop_source.loop_item_type.present? -%>
           <p style="color:red">Adding a new file to this loop source will add the elements at the end of the loop_source</p>
       <% end -%>
       <ol>
-        <li>
-          <%= f.label :name, "Name * #{info_tip("Loop Source name"," Please specify a name for your loop source. This will be the name that you will be using in the questionnaire so make sure it is meaningful.")}".html_safe %>
-          <%= f.text_field :name, { :validate => "{required:true}" }%>
-        </li>
+        <div class="row padded">
+          <div class="col col-4"><%= f.label :name, "Name * #{info_tip("Loop Source name"," Please specify a name for your loop source. This will be the name that you will be using in the questionnaire so make sure it is meaningful.")}".html_safe %></div>
+          <div class="col col-8 border-left"><%= f.text_field :name, { :validate => "{required:true}" }%></div>
+        </div>
         <%= f.fields_for :source_files do |builder| -%>
             <% if builder.object.new_record? %>
-                <li>
-                  <%= builder.label :source, "Select a file *" %>
-                  <%= builder.file_field :source, :validate => "{required:#{@loop_source.new_record? ? "true" : "false"}}" %>
-                </li>
+                <div class="row padded">
+                  <div class="col col-4"><%= builder.label :source, "Select a file *" %></div>
+                  <div class="col col-8 border-left"><%= builder.file_field :source, :validate => "{required:#{@loop_source.new_record? ? "true" : "false"}}" %></div>
+                </div>
             <% end -%>
         <% end -%>
         <li><%= submit_tag "Submit" %></li>

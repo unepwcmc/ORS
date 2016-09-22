@@ -1,41 +1,41 @@
 $(function(){
-    //Add the flash notice message
-    <%- flash.each do |name, msg| -%>
-        flash_message("<%=h name%>", "<%=h msg %>");
-        <%- flash.delete(name) -%>
-    <%- end -%>
-    <% if !@errors -%>
-        var $no_active_questionnaires = $("#no_active_questionnaires");
-        if($no_active_questionnaires.length > 0)
-        {
-            $no_active_questionnaires.parent().append("<%= escape_javascript(render :partial => "administration/active_questionnaires" ) %>");
-            $no_active_questionnaires.remove();
-        }
-        var $active_table = $("#active_table");
-        if($active_table.length > 0)
-        {
-            $active_table.prepend("<tr id='active_questionnaire_<%= @questionnaire.id.to_s %>'>" +
-                                            "<td><%= escape_javascript(link_to h(@questionnaire.title), dashboard_questionnaire_path(@questionnaire)) %></td>"+
-                                            "<td><%= escape_javascript(link_to h(@questionnaire.user.full_name), user_path(@questionnaire.user)) %></td>"+
-                                            "<td><%= @questionnaire.activated_at.strftime("%B %d, %Y") %></td>"+
-                                            " <td>"+
-                                               "<%=  escape_javascript(link_to image_tag('icons/stop.png', :alt => "Deactivate", :title => "Deactivate questionnaire.", :size => "16x16"), deactivate_questionnaire_path(@questionnaire), :class => :put) %>"+
-                                                "<%= escape_javascript(link_to image_tag('icons/cog.png', :title => 'Manage respondents', :alt => 'Manage respondents'), questionnaire_authorized_submitters_path(@questionnaire))%>"+
-                                                "<%= escape_javascript(link_to image_tag('icons/pencil.png', :title => 'Answer questionnaire', :alt => 'Answer questionnaire'), submission_questionnaire_path(@questionnaire)) %>"+
-                                                "<%= escape_javascript(link_to image_tag('icons/table.png', :title => 'Feedback summary', :alt => 'Feedback summary'), respondents_questionnaire_path(@questionnaire)) %>"+
-                                            "</td>"+
-                                            "</tr>");
-            $('table tbody td.questionnaire_<%= @questionnaire.id.to_s %>').each(function(){
-                $(this).html('<%= escape_javascript(link_to image_tag('icons/stop.png', :alt => "Deactivate", :title => "Deactivate questionnaire.", :size => "16x16"), deactivate_questionnaire_path(@questionnaire), :class => :put) %>');
-            });
-        }
-        else{
-            $('#questionnaire_options_<%= @questionnaire.id.to_s %>').html("<%= escape_javascript( ( link_to image_tag('icons/cog.png', :title => 'Manage respondents', :alt => 'Manage respondents'), questionnaire_authorized_submitters_path(@questionnaire) ) +
-                    (link_to image_tag('icons/table.png', :title => 'Feedback summary', :alt => 'Feedback summary'), respondents_questionnaire_path(@questionnaire.id)) +
-                    (link_to image_tag('icons/key.png', :title => 'Close questionnaire', :alt => 'Close questionnaire'), close_questionnaire_path(@questionnaire.id), :class => "put") +
-                    (link_to image_tag('icons/stop.png', :alt => "Deactivate", :title => "Deactivate questionnaire.", :size => "16x16"), deactivate_questionnaire_path(@questionnaire), :class => :put)) %>");
-        }
-    <% else -%>
-        alert("Questionnaire activation failed\n <%= escape_javascript(@errors.map{|a| "#{a.to_s}"}.join("\n")) %>");
+  //Add the flash notice message
+  <%- flash.each do |name, msg| -%>
+      flash_message("<%=h name%>", "<%=h msg %>");
+  <%- flash.delete(name) -%>
+  <%- end -%>
+  <% if !@errors -%>
+    var $no_active_questionnaires = $("#no_active_questionnaires");
+  if($no_active_questionnaires.length > 0)
+  {
+    $no_active_questionnaires.parent().append("<%= escape_javascript(render :partial => "administration/active_questionnaires" ) %>");
+    $no_active_questionnaires.remove();
+  }
+  var $active_table = $("#active_table");
+  if($active_table.length > 0)
+  {
+    $active_table.prepend("<tr id='active_questionnaire_<%= @questionnaire.id.to_s %>'>" +
+        "<td><%= escape_javascript(link_to h(@questionnaire.title), dashboard_questionnaire_path(@questionnaire)) %></td>"+
+        "<td><%= escape_javascript(link_to h(@questionnaire.user.full_name), user_path(@questionnaire.user)) %></td>"+
+        "<td><%= @questionnaire.activated_at.strftime("%B %d, %Y") %></td>"+
+        " <td>"+
+        "<%=  escape_javascript(link_to fa_icon('stop', alt: 'Deactivate', title: 'Deactivate Questionnaire', class: 'background inverse error'), deactivate_questionnaire_path(@questionnaire), :class => :put) %>"+
+        "<%= escape_javascript(link_to fa_icon('users', alt: 'Manage Respondents', title: 'Manage Respondents', class: 'background inverse info'), questionnaire_authorized_submitters_path(@questionnaire))%>"+
+        "<%= escape_javascript(link_to fa_icon('pencil-square-o', alt: 'Answer Questionnaire', title: 'Answer Questionnaire', class: 'background inverse info'), submission_questionnaire_path(@questionnaire)) %>"+
+        "<%= escape_javascript(link_to fa_icon('bar-chart', alt: 'Feedback Summary', title: 'Feedback Summary', class: 'background inverse info'), respondents_questionnaire_path(@questionnaire)) %>"+
+        "</td>"+
+        "</tr>");
+    $('table tbody td.questionnaire_<%= @questionnaire.id.to_s %>').each(function(){
+      $(this).html('<%= escape_javascript(link_to fa_icon("stop", alt: "Deactivate", title: "Deactivate Questionnaire", class: "background inverse error"), deactivate_questionnaire_path(@questionnaire), :class => :put) %>');
+    });
+  }
+  else{
+    $('#questionnaire_options_<%= @questionnaire.id.to_s %>').html("<%= escape_javascript( ( link_to fa_icon('users', alt: 'Manage Respondents', title: 'Manage Respondents', class: 'background inverse info'), questionnaire_authorized_submitters_path(@questionnaire) ) +
+                                                                                          (link_to fa_icon('bar-chart', alt: 'Feedback Summary', title: 'Feedback Summary', class: 'background inverse info'), respondents_questionnaire_path(@questionnaire.id)) +
+                                                                                          (link_to fa_icon('unlock-alt', :title => 'Close questionnaire', :alt => 'Close questionnaire', class: 'background inverse info'), close_questionnaire_path(@questionnaire.id), :class => "put") +
+                                                                                          (link_to fa_icon('stop', :alt => "Deactivate", :title => "Deactivate questionnaire.", class: 'background inverse error'), deactivate_questionnaire_path(@questionnaire), :class => :put)) %>");
+  }
+<% else -%>
+    alert("Questionnaire activation failed\n <%= escape_javascript(@errors.map{|a| "#{a.to_s}"}.join("\n")) %>");
     <% end -%>
 });

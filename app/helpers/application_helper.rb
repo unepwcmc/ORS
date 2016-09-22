@@ -1,5 +1,42 @@
 # Methods added to this helper will be available to all templates in the application.
 module ApplicationHelper
+  def is_administration_page?
+    current_page?(administration_path) ||
+    current_page?(new_questionnaire_path) ||
+    current_page?(duplicate_questionnaires_path) ||
+    current_page?(questionnaires_path) ||
+    current_page?(users_path) ||
+    current_page?(search_questionnaires_path) ||
+    current_page?(reminders_path) ||
+    current_page?(new_reminder_path) ||
+    ( params[:controller] == 'questionnaires' && params[:action] == 'dashboard' ) ||
+    ( params[:controller] == 'questionnaires' && params[:action] == 'manage_languages' ) ||
+    ( params[:controller] == 'questionnaires' && params[:action] == 'respondents' ) ||
+    ( params[:controller] == 'questionnaires' && params[:action] == 'structure_ordering' ) ||
+    ( params[:controller] == 'questionnaires' && params[:action] == 'communication_details' ) ||
+    ( params[:controller] == 'authorized_submitters' ) ||
+    ( params[:controller] == 'loop_sources' ) ||
+    ( params[:controller] == 'deadlines' ) ||
+    ( params[:controller] == 'filtering_fields' ) ||
+    ( params[:controller] == 'questionnaires' && params[:action] == 'show' ) ||
+    ( params[:controller] == 'sections' && params[:action] == 'define_dependency' )
+  end
+
+  def main_nav_link_with_class title, path
+    puts params.inspect
+    if path == administration_path
+      classes = is_administration_page? ? 'current' : ''
+    else
+      classes = !is_administration_page? ? 'current' : ''
+    end
+
+    link_to title, path, class: classes
+  end
+
+  def sub_nav_link_with_class title, path
+    classes = current_page?(path) ? 'current' : ''
+    link_to title, path, class: classes, title: title
+  end
 
   def remove_child_link(name, f, link_class=nil)
     f.hidden_field(:_destroy) + link_to(name, "javascript:void(0)", :class => link_class ? link_class : "remove_child")
@@ -13,7 +50,7 @@ module ApplicationHelper
     #content_for :jstemplates do
     content_tag(content_type, :id => "#{association}_fields_template", :class => "hide") do
       form_builder.fields_for(association, options[:object], :child_index => "new_#{association}") do |f|
-        render(:partial => options[:partial], :locals => { options[:form_builder_local] => f, :aux_builder => form_builder })
+        render(:partial => options[:partial], :locals => {options[:form_builder_local] => f, :aux_builder => form_builder})
       end
     end
   end
@@ -23,25 +60,30 @@ module ApplicationHelper
   end
 
   def tooltip(title, text)
-    image_tag('icons/qmark.png', :size => "20x20",
-              :title => Sanitize.clean(title, OrtSanitize::Config::ORT) + " - " + Sanitize.clean(text, OrtSanitize::Config::ORT),
-              :class => "obj_tooltip", :alt => "Tooltip")
+    fa_icon('info-circle',
+            alt: 'Info',
+            :title => Sanitize.clean(title, OrtSanitize::Config::ORT) + " - " +
+            Sanitize.clean(text, OrtSanitize::Config::ORT),
+            :class => "obj_tooltip info info-icon--blue")
   end
 
   def info_tip title, text
-    image_tag(
-      'icons/info.png', 
-      :size => "15x15", 
-      :title => Sanitize.clean(title, OrtSanitize::Config::ORT) + " - " + 
-       Sanitize.clean(text, OrtSanitize::Config::ORT), 
-      :class => "obj_tooltip", 
-      :alt => "Info"
-    )
+    fa_icon('info-circle',
+            alt: 'Info',
+            title: Sanitize.clean(title, OrtSanitize::Config::ORT) + " - " +
+            Sanitize.clean(text, OrtSanitize::Config::ORT),
+            class: 'obj_tooltip info info-icon--blue'
+           )
   end
-  
+
   #new function which displays a moving flag to attract attention
   def info_tip_remark(title,text)
-    image_tag('icons/info.png', :size => "15x15", :title => h(title) + " - " + h(text), :class => "obj_tooltip", :alt => "Info")
+    fa_icon('info-circle',
+            alt: 'Info',
+            title: Sanitize.clean(title, OrtSanitize::Config::ORT) + " - " +
+            Sanitize.clean(text, OrtSanitize::Config::ORT),
+            class: 'obj_tooltip info info-icon--blue'
+           )
   end
 
   #returns the object_fields from the builder object, with language :language
@@ -57,5 +99,14 @@ module ApplicationHelper
 
   def set_header
     link_to h( ApplicationProfile.title), (current_user && current_user.role?(:admin)) ? administration_path : ( current_user ? root_url : root_url(:lang => (params[:lang]||"en")) )
+  end
+
+  def application_profile_logo
+    logo_path = ApplicationProfile.logo_path
+    if logo_path.present?
+      link_to root_path do
+        image_tag logo_path
+      end
+    end
   end
 end

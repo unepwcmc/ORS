@@ -13,8 +13,8 @@ two:
 # Table name: delegated_loop_item_names
 #
 #  id                    :integer          not null, primary key
-#  loop_item_name_id     :integer
-#  created_at            :datetime
-#  updated_at            :datetime
+#  loop_item_name_id     :integer          not null
+#  created_at            :datetime         not null
+#  updated_at            :datetime         not null
 #  delegation_section_id :integer
 #

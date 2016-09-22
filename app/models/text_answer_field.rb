@@ -25,10 +25,10 @@ end
 # Table name: text_answer_fields
 #
 #  id             :integer          not null, primary key
-#  text_answer_id :integer
-#  rows           :integer
-#  width          :integer
-#  created_at     :datetime
-#  updated_at     :datetime
+#  text_answer_id :integer          not null
+#  rows           :integer          default(5), not null
+#  width          :integer          default(600), not null
+#  created_at     :datetime         not null
+#  updated_at     :datetime         not null
 #  original_id    :integer
 #

@@ -88,15 +88,14 @@ class LoopSourcesController < ApplicationController
     end
   end
 
-
   def fill_jqgrid
     loop_source = LoopSource.find(params[:id])
     grid_details = {}
     loop_source.fill_jqgrid grid_details, params
-    @json = {:page => params[:page], :records => grid_details[:total_records], :total => grid_details[:total_pages] }
+    @json = {:page => params[:page], :records => grid_details[:total_records], :total => grid_details[:total_pages]}
     @json[:rows] = grid_details[:rows]
     respond_to do |format|
-      format.js {render :json => @json.to_json, :callback => params[:callback]}
+      format.js { render :json => @json.to_json, :callback => params[:callback] }
     end
   end
 

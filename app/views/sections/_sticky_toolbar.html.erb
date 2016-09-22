@@ -1,0 +1,10 @@
+<div class="sticky-toolbar" id="sticky-toolbar">
+  <div class="row">
+    <div class="col col-12">
+      <%= link_to t("s_details.save"), '#', :class => "sticky_save_all obj_tooltip btn btn-inverse", :title => t("s_details.save_tip") %>
+      <% if @authorization[:status] != 2 -%>
+        <%= link_to t('s_details.submit_q'), submit_questionnaire_path(@questionnaire), :method => :put, :class => 'btn btn-inverse submit', :confirm => t('s_details.confirm_submission'), :id => "_top_submission" %>
+      <% end %>
+    </div>
+  </div>
+</div>

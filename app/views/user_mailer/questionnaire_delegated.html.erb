@@ -1,6 +1,6 @@
 <p><%=I18n.t('generic.hi')%> <%=@delegate.full_name %>,</p>
 <p><%= I18n.t('user_mailer.questionnaire_delegated.intro') %></p>
-<p><strong><%=I18n.t('generic.questionnaire')%>:</strong> <%=@delegation.questionnaire.title(@delegate.language) %></p>
+<p><strong><%=I18n.t('generic.questionnaire')%>:</strong> <%=@delegation.questionnaire.title(@delegate.language).html_safe %></p>
 <p><strong><%=I18n.t('generic.delegator')%>:</strong> <%= @delegator.first_name %> <%= @delegator.last_name %></p>
 <p><strong><%=I18n.t('generic.delegator')%> <%=I18n.t('generic.email')%>:</strong> <%= @delegator.email %></p>
 
@@ -13,4 +13,3 @@
 <p>
   <%=@delegation.questionnaire.email_footer(@delegate.language)%>
 </p>
-

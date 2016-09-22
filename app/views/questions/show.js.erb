@@ -29,8 +29,10 @@ $(function(){
     //Show AddQuestion Div and call the new action on the questions controller
     $("#show_add_question").click(function(e){
         e.preventDefault();
-        collapseInfoGeneratorShowPages();        
+        collapseInfoGeneratorShowPages();
         $("#addSubSection").empty().hide();
+        $('.info-toggle-header').trigger('header:hide');
+
         if(!$("#add_question").is(':visible'))
         {
             $("#add_question").show();

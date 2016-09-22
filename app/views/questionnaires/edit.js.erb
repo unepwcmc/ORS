@@ -1,4 +1,5 @@
 $(function(){
+    $("#direct_actions").empty().append("<%= escape_javascript(render(:partial => "actions")) %>");
     $("#content_header").empty()
                         .append("<%= escape_javascript( render :partial => "administration/menu", :locals => {:header => "Edit Questionnaire", :include_options => "questionnaires"} ) %>");
     $("#content").empty()

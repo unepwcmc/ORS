@@ -1,47 +1,51 @@
 <div class="span-15 colborder" id="show_question" >
   <div id="show_pages">
     <% @question.question_fields.sort_by{ |a| a.is_default_language? ? 0 : 1 }.each do |field| -%>
-        <div class="span-15 last info_header" style="border-bottom-width: <%= field.is_default_language? ? "0" : "1px" %>">
-          <div class="span-10">
-            <%#= field.title.present? ? h(field.title) : "#Not specified#" %>
-            <h4><%= raw field.title.present? ? Sanitize.clean((field.title.size > 75 ? field.title[0,75]+"..." : field.title)) : "#Not Specified#"-%></h4>
-          </div>
-          <div class="span-5 last">
-            <p><!-- floats right -->
-              <strong><%=h field.language_english_name %> / <%=h field.language_full_name %></strong> |
-              <a href="#" class="show_info" style="display:<%= field.is_default_language? ? "none" : "inline" %>">Show info</a>
-              <a href="#" class="hide_info" style="display:<%= field.is_default_language? ? "inline" : "none" %>">Hide info</a>
-            </p>
-          </div>
-        </div><!-- /info_header -->
-        <div class="span-15 last info <%= field.is_default_language? ? "" : "hide" %>">
-          <div class="span-6 colborder">
-            <p><strong>Full title:</strong></p>
-            <div>
-              <%= raw Sanitize.clean(field.title.present? ? field.title : "#Not Specified#", OrtSanitize::Config::ORT) -%>
+      <div class="span-15 last info_header" style="border-bottom-width: <%= field.is_default_language? ? "0" : "1px" %>">
+        <div class="span-10">
+          <%#= field.title.present? ? h(field.title) : "#Not specified#" %>
+          <h4><%= raw field.title.present? ? Sanitize.clean((field.title.size > 75 ? field.title[0,75]+"..." : field.title)) : "#Not Specified#"-%></h4>
+        </div>
+        <div class="language">
+          <div class="language-header info-toggle-header">
+            <hr class="grey no-margin-bottom">
+            <div class="row flex border-bottom">
+              <div class="col col-3 language-name">
+                <%= language_angle_icon(field) %>
+                <%=h field.language_english_name %> / <%=h field.language_full_name %>
+              </div>
+              <%= default_language_tag if field.is_default_language? %>
+              <div class="col toggle-info-container">
+                <a href="#" class="toggle-info">
+                  <%= field.is_default_language? ? "Hide" : "Show" %>
+                </a>
+              </div>
             </div>
-            <p><strong>Short title:</strong> <%= field.short_title %></p>
-            <p><strong>Description:</strong></p>
-            <%#=h field.description %>
-            <div>
-              <%= raw Sanitize.clean(field.description.present? ? field.description : "#Not Specified#", OrtSanitize::Config::ORT) -%>
-            </div>
+          </div>
+          <div class="language-content info-content <%= field.is_default_language? ? "" : "hidden-content" %>">
+            <% title = strip_tags( Sanitize.clean(field.title.present? ? field.title : "#Not Specified#", OrtSanitize::Config::ORT)) -%>
+            <%= content_field("Full title", title) %>
+
+            <%= content_field("Short title", field.short_title) %>
+
+            <% description = strip_tags(Sanitize.clean(field.description.present? ? field.description : "#Not Specified#", OrtSanitize::Config::ORT)) -%>
+            <%= content_field("Description", description) %>
+
             <% if @question.is_mandatory -%>
                 <p>This question is mandatory.</p>
             <% end -%>
             <% if @question.allow_attachments? -%>
                 <p>Users can attach files and URLs to this question.</p>
             <% end -%>
-          </div><!-- /question_languages -->
-          <div class="span-8 last">
-            <% if @question.answer_type -%>
+              <% if @question.answer_type -%>
+                <%= content_field("Answer type", @question.answer_type_type.titleize) %>
                 <div id="show_answer_type">
-                  <h5><%= @question.answer_type_type.titleize %></h5>
                   <%= render :partial => "#{@question.answer_type_type.underscore}s/show", :locals => {:answer_type => @question.answer_type, :language => field.language} -%>
                 </div><!-- /show_answer_type -->
-            <% end -%>
-          </div><!-- /answer_type -->
+              <% end -%>
+          </div>
         </div><!-- /info -->
+      </div>
     <% end  -%>
   </div><!-- /show_pages -->
   <div id="add_question" class="span-15 colborder hide">

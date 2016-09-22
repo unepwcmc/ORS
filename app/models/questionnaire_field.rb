@@ -22,20 +22,19 @@ class QuestionnaireField < ActiveRecord::Base
   ###
 end
 
-
 # == Schema Information
 #
 # Table name: questionnaire_fields
 #
 #  id                   :integer          not null, primary key
-#  language             :string(255)
+#  language             :string(255)      not null
 #  title                :text
-#  questionnaire_id     :integer
-#  created_at           :datetime
-#  updated_at           :datetime
+#  questionnaire_id     :integer          not null
+#  created_at           :datetime         not null
+#  updated_at           :datetime         not null
 #  introductory_remarks :text
-#  is_default_language  :boolean         default(FALSE)
-#  email_subject        :string(255)     default("[Online Reporting System]")
+#  is_default_language  :boolean          default(FALSE), not null
+#  email_subject        :string(255)      default("Online Reporting System")
 #  email                :text
 #  email_footer         :string(255)
 #  submit_info_tip      :text

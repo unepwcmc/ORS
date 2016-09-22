@@ -1,5 +1,5 @@
 class AnswerTypeField < ActiveRecord::Base
-  
+
   ###
   ###   Include Libs
   ###
@@ -18,11 +18,11 @@ end
 # Table name: answer_type_fields
 #
 #  id                  :integer          not null, primary key
-#  language            :string(255)
+#  language            :string(255)      not null
 #  help_text           :text
-#  created_at          :datetime
-#  updated_at          :datetime
-#  is_default_language :boolean          default(FALSE)
+#  created_at          :datetime         not null
+#  updated_at          :datetime         not null
+#  is_default_language :boolean          default(FALSE), not null
 #  answer_type_type    :string(255)
 #  answer_type_id      :integer
 #

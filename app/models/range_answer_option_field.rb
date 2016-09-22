@@ -22,10 +22,10 @@ end
 # Table name: range_answer_option_fields
 #
 #  id                     :integer          not null, primary key
-#  range_answer_option_id :integer
+#  range_answer_option_id :integer          not null
 #  option_text            :string(255)
-#  language               :string(255)
-#  created_at             :datetime
-#  updated_at             :datetime
-#  is_default_language    :boolean
+#  language               :string(255)      not null
+#  created_at             :datetime         not null
+#  updated_at             :datetime         not null
+#  is_default_language    :boolean          default(FALSE), not null
 #

@@ -10,17 +10,18 @@ class LoopSource < ActiveRecord::Base
 
   before_destroy :destroy_loop_item_types
 
+  validates :name, presence: true
+
   ###
   ###   Relationships
   ###
-  has_one :loop_item_type
+  has_one :loop_item_type, dependent: :destroy
   has_many :sections, :dependent => :nullify
   belongs_to :questionnaire
-  has_many :loop_item_names
+  has_many :loop_item_names, dependent: :destroy
   #submission side of the tool
   has_many :source_files, :dependent => :destroy
-  accepts_nested_attributes_for :source_files, :reject_if => lambda { |a| a.values.all?(&:blank?)}, :allow_destroy => true #
-
+  accepts_nested_attributes_for :source_files, :reject_if => lambda { |a| a.values.all?(&:blank?) }, :allow_destroy => true #
 
   ###
   ###   Methods
@@ -30,93 +31,114 @@ class LoopSource < ActiveRecord::Base
     self.source_files.find_by_parse_status(ParseFileStatus::TO_PARSE)
   end
 
-  #load the loop_items of a loop_source from a file.
+  # load the loop_items of a loop_source from a file.
   def parse_file status, source_file_obj
     existing_structure = self.loop_item_type.present?
-    #keep track of the errors
+
+    # keep track of the errors
     status[:errors] = []
-    #keep track of the line and column being analised, for error reporting.
+
+    # keep track of the line and column being analised, for error reporting.
     status[:line] = 0
     status[:column] = 0
-    #save the headers and the items
+
+    # save the headers and the items
     status[:headers] = []
     status[:items] = []
-    #auxiliar hash, to avoid repetition
+
+    # auxiliar hash, to avoid repetition
     created_items = {}
-    #read the file into a table
+
+    # read the file into a table
     begin
       if File.open(source_file_obj.source.path, &:readline).match(/;/) == nil
         separator = ','
       else
         separator = ';'
       end
-      table = CSV.read(source_file_obj.source.path,
-        {:quote_char =>'"',
-         :col_sep =>separator,
-         :row_sep =>:auto,
-         :headers => :first_row}
-      )
-    rescue Exception => e
+
+      table = CSV.read(source_file_obj.source.path, {
+        :quote_char =>'"',
+        :col_sep =>separator,
+        :row_sep =>:auto,
+        :headers => :first_row
+      })
+    rescue => e
       status[:errors] << e.message
       return false
     end
     #get the headers
     status[:headers] = table.headers
     item_types = {}
+
     if !self.parse_source_headers(status, item_types, existing_structure)
       return false
     end
 
-    default_language = self.questionnaire.questionnaire_fields.find_by_is_default_language(true).language
+    default_language = self.questionnaire
+      .questionnaire_fields
+      .find_by_is_default_language(true)
+      .language
 
-    #go through each row
     table.each do |row|
       status[:line] += 1
-      #Start with parent as nil (because the first element of each line is the root of the nested set, and looping structure)
-      #there is also an hierarchy between items.
+
+      # Start with parent as nil (because the first element of each line is the root of the nested set, and looping structure)
+      # there is also an hierarchy between items.
       parent = nil
-      #and then for each item of the row
+
+      # and then for each item of the row
       row_as_a = row.to_a
-      row_as_a.each_index do |i| #row_as_a[i][0] => item_type ; row_as_a[i][1] => loop_item_names
+
+      row_as_a.each_index do |i| # row_as_a[i][0] => item_type ; row_as_a[i][1] => loop_item_names
         created_items[i.to_s] ||= {}
-        if row_as_a[i][1].present? #if there's no name, there's no item
+
+        if row_as_a[i][1].present? # if there's no name, there's no item
           the_val = row_as_a[i][1].squeeze(" ").strip
           the_type = row_as_a[i][0].squeeze(" ").strip
           the_type.slice!(0) if the_type[0] == '#'
           status[:column] += 1
+
           if existing_structure && (existing_item=(item_types[the_type].existing_item_with(the_val, parent, default_language)))
             parent = existing_item
             next
           end
-          #loop_item_names in downcase for comparison purposes. So that the file doesn't need to be case sensitive.
-          item_details = {:name => the_val.downcase, :parent => parent.nil? ? "parent_empty" : parent.id }
+
+          # loop_item_names in downcase for comparison purposes. So that the file doesn't need to be case sensitive.
+          item_details = {:name => the_val.downcase, :parent => parent.nil? ? "parent_empty" : parent.id}
           item_hash = Digest::MD5.hexdigest(item_details.to_s)
-          #check if item was previously added
+
+          # check if item was previously added
           if created_items[i.to_s][item_hash]
             #set this item as the parent
             parent = LoopItem.find(created_items[i.to_s][item_hash])
-          else #otherwise create a new item
+          else # otherwise create a new item
             son = LoopItem.new()#:item_name => row_as_a[i][1].to_s)
-            #set it's parent, if parent is defined, otherwise it will be a root item.
+            son.loop_item_type_id = item_types[the_type].id
+            # set it's parent, if parent is defined, otherwise it will be a root item.
             if parent
               son.parent = parent
             end
-            #handle loopItemNames. Find or create it and then add it to the loop_item and loop_item_type and loop_source
-            l_item_name = item_types[the_type].loop_item_name_with(the_val, default_language)
+
+            # handle loopItemNames. Find or create it and then add it to the loop_item and loop_item_type and loop_source
+            begin
+              l_item_name = item_types[the_type].loop_item_name_with(the_val, default_language, self)
+            rescue ActiveRecord::RecordInvalid => e
+              status[:errors] << "ERROR: line #{status[:line]} and column #{status[:column]}. Check the character encoding of your file."
+              next
+            end
             son.loop_item_name = l_item_name
-            #create the relation between the loop_item_names and the loop_item_type as well as the loop_source.
-            item_types[the_type].loop_item_names << l_item_name unless item_types[the_type].loop_item_names.include?(l_item_name)
-            self.loop_item_names << l_item_name unless self.loop_item_names.include?(l_item_name)
-            #set sort_index => total loop_items before adding the new item to it, so that it is the index of the total of items[0 to total]
-            #son.sort_index = item_types[the_type].loop_items.count #set the sort_index to be one more than the parent's. The default is zero, so the parent starts at zero.
+
+            # set sort_index => total loop_items before adding the new item to it, so that it is the index of the total of items[0 to total]
+            # son.sort_index = item_types[the_type].loop_items.count #set the sort_index to be one more than the parent's. The default is zero, so the parent starts at zero.
             son.sort_index = item_types[the_type].loop_items.empty? ? 0 : item_types[the_type].loop_items.maximum("sort_index") + 1
-            #save the son
+
+            # save the son
             if son.save
-              #add loop item, to the proper LoopItemType object
-              item_types[the_type].loop_items << son
               #add the item to the hash of created items
               created_items[i.to_s][item_hash] = son.id
               status[:items] << son
+
               #redefine the parent for next iteration
               parent = son
             else
@@ -126,6 +148,7 @@ class LoopSource < ActiveRecord::Base
           end
         end
       end
+
       status[:column] = 0
     end
   end
@@ -171,7 +194,7 @@ class LoopSource < ActiveRecord::Base
         else
           #associated first item_type with the loop_source | the next item types will be descendants of the first
           # to keep the hierarchy between item types
-          self.loop_item_type = item_type
+          item_type.loop_source = self
         end
         begin
           puts "saving item_types"
@@ -206,14 +229,13 @@ class LoopSource < ActiveRecord::Base
     end
   end
 
-
   def fill_jqgrid grid_details, params
     grid_details[:rows] = []
     if params[:sord].present? && params[:sidx].present?
       sorting_type = self.loop_item_type.self_and_descendants.find_by_name(params[:sidx])
       the_items = sorting_type.leaf_loop_items_sorted(params)
     else
-      the_items = self.loop_item_type.leaf? ? self.loop_item_type.loop_items : self.loop_item_type.leaves.map{|a| a.loop_items}.flatten
+      the_items = self.loop_item_type.leaf? ? self.loop_item_type.loop_items : self.loop_item_type.leaves.map{ |a| a.loop_items }.flatten
     end
     grid_details[:total_records] = the_items.size
     first_index = ((params[:page].to_f-1.0)*params[:rows].to_f).ceil
@@ -227,7 +249,7 @@ class LoopSource < ActiveRecord::Base
       cells = LoopSource.parse_search(cells, search_level+1, params[:searchString], params[:searchOper], params[:language])
     end
     cells.each do |cell|
-      grid_details[:rows] << { :cell => cell.map{|a| (a.is_a?(LoopItem) ? a.item_name(params[:language]) : a)}, }
+      grid_details[:rows] << {:cell => cell.map{ |a| (a.is_a?(LoopItem) ? a.item_name(params[:language]) : a) }}
     end
     grid_details[:total_pages] = (grid_details[:total_records].to_f/params[:rows].to_f).ceil
   end
@@ -257,7 +279,7 @@ class LoopSource < ActiveRecord::Base
             break
           end
         end
-        loop_items_to_destroy.sort{|a,b| b.lft <=> a.lft}.each do |item|
+        loop_items_to_destroy.sort{ |a,b| b.lft <=> a.lft }.each do |item|
           item.destroy
           if item.loop_item_name.loop_items.size <= 1
             item.loop_item_name.destroy
@@ -268,9 +290,8 @@ class LoopSource < ActiveRecord::Base
   end
 
   def self.parse_search(cells, search_index, search_string, operator, language)
-    cells.reject{|a| a[search_index].not_a_match?(operator, search_string, language)}
+    cells.reject{ |a| a[search_index].not_a_match?(operator, search_string, language) }
   end
-
 
   def delete_smoothly
     if self.loop_item_type
@@ -315,9 +336,9 @@ end
 # Table name: loop_sources
 #
 #  id               :integer          not null, primary key
-#  name             :string(255)
-#  questionnaire_id :integer
-#  created_at       :datetime
-#  updated_at       :datetime
+#  name             :text             not null
+#  questionnaire_id :integer          not null
+#  created_at       :datetime         not null
+#  updated_at       :datetime         not null
 #  original_id      :integer
 #

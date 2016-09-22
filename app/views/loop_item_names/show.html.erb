@@ -1,4 +1,7 @@
 <div class="span-24 last" id="content">
+<div class="page-header">
+  <h2>Loop Item Names</h2>
+</div>
 
   <div id="content_header">
     <% info_tip_text ="<p>This page displays information about a loop item name. A loop item name is part of a loop source and has a defined loop item type. So can be seen
@@ -7,19 +10,34 @@
     <%= render :partial => "administration/menu", :locals => {:header => "Loop item name " + info_tip('Loop item name', info_tip_text), :include_options => "questionnaires"} -%>
   </div>
   <div id="q_dashboard" class="clear">
-    <p><strong>Questionnaire</strong><%= link_to h(@questionnaire.title), dashboard_questionnaire_path(@questionnaire) %></p>
-    <p><strong>Source name</strong><%= link_to h(@loop_item_name.loop_source.name), loop_source_path(@loop_item_name.loop_source) %></p>
-    <p><strong>Loop item type</strong><%= link_to h(@loop_item_name.loop_item_type.name), loop_item_type_path(@loop_item_name.loop_item_type) %></p>
+    <div class="row padded group">
+      <div class="col col-3">Questionnaire</div>
+      <div class="col col-9 border-left"><%= link_to h(@questionnaire.title), dashboard_questionnaire_path(@questionnaire) %></div>
+    </div>
+    <div class="row padded group">
+      <div class="col col-3">Source name</div>
+      <div class="col col-9 border-left"><%= link_to h(@loop_item_name.loop_source.name), loop_source_path(@loop_item_name.loop_source) %></div>
+    </div>
+    <div class="row padded group">
+      <div class="col col-3">Loop item type</div>
+      <div class="col col-9 border-left"><%= link_to h(@loop_item_name.loop_item_type.name), loop_item_type_path(@loop_item_name.loop_item_type) %></div>
+    </div>
     <% if @loop_item_name.loop_item_type.is_filtering_field? -%>
-        <p><strong>Associated filtering field</strong><%= link_to h(@loop_item_name.loop_item_type.filtering_field.name), filtering_field_path(@loop_item_name.loop_item_type.filtering_field) %></p>
+      <div class="row padded group">
+        <div class="col col-3">Associated filtering field</div>
+        <div class="col col-9 border-left"><%= link_to h(@loop_item_name.loop_item_type.filtering_field.name), filtering_field_path(@loop_item_name.loop_item_type.filtering_field) %></div>
+      </div>
     <% end -%>
     <% @loop_item_name.loop_item_name_fields.each do |field| %>
-        <p><strong>Name (<%= (field.language_english_name + (field.is_default_language? ? content_tag(:span, '*', style: 'color:red') : "" )).html_safe %>)</strong><%=h @loop_item_name.item_name(field.language) %></p>
+      <div class="row padded group">
+        <div class="col col-3">Name (<%= (field.language_english_name + (field.is_default_language? ? content_tag(:span, '*', style: 'color:red') : "" )).html_safe %>)</div>
+        <div class="col col-9 border-left"><%=h @loop_item_name.item_name(field.language) %></div>
+      </div>
     <% end -%>
   </div>
   <% unless @loop_item_name.loop_item_type.root? -%>
       <div class="display_items">
-        <h4>Direct Ancestors (<%= link_to h(@loop_item_name.loop_item_type.parent.name), loop_item_type_path(@loop_item_name.loop_item_type.parent) %>)</h4>
+        <div class="page-header"><h4>Direct Ancestors (<%= link_to h(@loop_item_name.loop_item_type.parent.name), loop_item_type_path(@loop_item_name.loop_item_type.parent) %>)</h4></div>
         <ul>
           <% @loop_item_name.loop_items.reject{|a| a.root?}.map{|a| a.parent}.map{|b| b.loop_item_name}.uniq.sort.each do |ancestor| %>
               <li><%= link_to h(ancestor.item_name), loop_item_name_path(ancestor) %></li>
@@ -29,7 +47,7 @@
   <% end -%>
   <% unless @loop_item_name.loop_item_type.leaf? %>
       <div class="display_items">
-        <h4>Children (<%= link_to h(@loop_item_name.loop_item_type.children.first.name), loop_item_type_path(@loop_item_name.loop_item_type.children.first.id) %>)</h4>
+        <div class="page-header"><h4>Children (<%= link_to h(@loop_item_name.loop_item_type.children.first.name), loop_item_type_path(@loop_item_name.loop_item_type.children.first.id) %>)</h4></div>
         <ul>
           <%# @loop_item_name.loop_items.reject{|a| a.leaf?}.map{|a| a.children}.flatten.map{|b| b.loop_item_name}.uniq.sort{|a,b| a.item_name <=> b.item_name}.each do |child| -%>
           <% @loop_item_name.loop_items.map{|a| a.children unless a.leaf?}.flatten.map{|a| a.loop_item_name unless a.nil?}.reject{|a| a.nil?}.uniq.sort.each do |child| -%>

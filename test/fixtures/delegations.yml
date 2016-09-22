@@ -12,12 +12,13 @@ two:
 #
 # Table name: delegations
 #
-#  id               :integer          not null, primary key
-#  created_at       :datetime
-#  updated_at       :datetime
-#  remarks          :text
-#  questionnaire_id :integer
-#  user_delegate_id :integer
-#  from_submission  :boolean
-#  original_id      :integer
+#  id                         :integer          not null, primary key
+#  created_at                 :datetime
+#  updated_at                 :datetime
+#  remarks                    :text
+#  questionnaire_id           :integer
+#  user_delegate_id           :integer
+#  from_submission            :boolean
+#  original_id                :integer
+#  can_view_all_questionnaire :boolean          default(FALSE)
 #

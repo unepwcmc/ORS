@@ -1,0 +1,56 @@
+<% unique_id = append_identifier(question, looping_identifier) %>
+<% if answer %>
+  <%= hidden_field_tag "delegate_text_answers[#{unique_id}][answer_id]", answer.id, class: 'disabled_section_information' %>
+  <% delegate_text_answers = answer.delegate_text_answers.order('updated_at DESC') %>
+  <% delegate_answers_div = false %>
+  <% if !DelegateTextAnswer.find_by_user_id_and_answer_id(current_user.id, answer.id).present? && answer.user_id != current_user.id && !disabled%>
+    <div class="delegate-text-answers-wrapper">
+    <div class="delegate-text-answers">
+    <% delegate_answers_div = true %>
+    <div class="delegate-text-answer">
+      <%= hidden_field_tag "delegate_text_answers[#{unique_id}][delegate_answer_id]", 'new', class: 'disabled_section_information' %>
+      <%= text_area_tag "delegate_text_answers[#{unique_id}][value]", '', :rows => 5, :cols => 68, :readonly => disabled || answer.question_answered, :class => ("disabled" if answer.question_answered) %>
+    </div>
+    <% if answer.question_answered %>
+      <i class='fa fa-lock'></i>
+    <% end %>
+  <% end %>
+  <% delegate_text_answers.each do |delegate_text_answer| %>
+    <% unless delegate_answers_div %>
+      <div class="delegate-text-answers-wrapper">
+      <div class="delegate-text-answers">
+      <% delegate_answers_div = true %>
+    <% end %>
+    <div class="delegate-text-answer">
+      <% if current_user.id == delegate_text_answer.user_id %>
+        <%= hidden_field_tag "delegate_text_answers[#{unique_id}][delegate_answer_id]", delegate_text_answer.id, class: 'disabled_section_information' %>
+        <%= text_area_tag "delegate_text_answers[#{unique_id}][value]", delegate_text_answer.answer_text, :rows => 5, :cols => 68, :readonly => answer.question_answered, :class => ("disabled" if answer.question_answered), style: "float:left;" %>
+      <% else %>
+        <%= text_area_tag "other_delegates_answers[#{delegate_text_answer.id}]", delegate_text_answer.answer_text, :rows => 5, :cols => 68, :readonly => true, :class => "disabled", style: "float:left;" %>
+        <i class='fa fa-lock'></i>
+      <% end %>
+    <p class="tooltips" style="float:left; clear:both;">
+      Answered by:
+      <% editor = delegate_text_answer.user %>
+      <span><%= editor.id != current_user.id ? (link_to h(editor.full_name)[0,30], user_path(editor), :title => h(editor.full_name)) : 'You' -%></span>
+      <span>(<%= delegate_text_answer.updated_at %>)</span>
+    </p>
+    </div>
+  <% end %>
+<% elsif current_user.is_authorized_to_answer?(question.section, @current_user_delegate)  %>
+  <div class="delegate-text-answers-wrapper">
+  <div class="delegate-text-answers">
+  <% delegate_answers_div = true %>
+  <div class="delegate-answer">
+    <%= hidden_field_tag :user_delegate, @current_user_delegate.try(:id), class: 'disabled_section_information' %>
+    <%= hidden_field_tag "delegate_text_answers[#{unique_id}][delegate_answer_id]", 'new', class: 'disabled_section_information' %>
+    <%= hidden_field_tag "delegate_text_answers[#{unique_id}][looping_id]", looping_identifier, class: 'disabled_section_information' %>
+    <%= text_area_tag "delegate_text_answers[#{unique_id}][value]", nil, :rows => 5, :cols => 68, style: "float:left;" %>
+  </div>
+<% end %>
+<% if delegate_answers_div %>
+  </div>
+  <div class="text-answers-flag">
+    <span>Delegate(s)</span>
+  </div>
+<% end %>

@@ -2,7 +2,7 @@
   <li>Add the "other" label in the following languages (click to display the fields):</li>
   <li>
     <%= builder.object.other_fields.sort_by { |a| a.is_default_language? ? 0 : 1 }.
-      map { |field| "<a href='#' class='display_lang' id='of_#{field.language}'>#{field.language_english_name} #{field.is_default_language? ? "-" : "+" }</a> " }.
+      map { |field| "<a href='#' class='display_lang' id='of_#{field.language}'>#{field.language_english_name} #{field.is_default_language? ? "<i class='fa fa-caret-up'></i>" : "<i class='fa fa-caret-down'></i>" }</a> " }.
       join(" | ").html_safe %>
     |
     <a href="#" class="show_all_lang_fields">Expand all</a>

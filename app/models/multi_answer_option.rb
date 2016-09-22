@@ -14,9 +14,9 @@ class MultiAnswerOption < ActiveRecord::Base
   belongs_to :multi_answer #=> belongs to a multi_answer type answer.
   has_many :answer_parts, :as => :field_type, :dependent => :destroy #=> each multi_answer will have an answer_part per user
   #=>can be the source of dependency for many sections/generated_sections
-  has_many :sections, :foreign_key => :depends_on_option_id
+  has_many :sections, foreign_key: :depends_on_option_id, dependent: :nullify
   has_many :multi_answer_option_fields, :dependent => :destroy
-  accepts_nested_attributes_for :multi_answer_option_fields, :reject_if => lambda { |a| a.values.all?(&:blank?)}, :allow_destroy => true #
+  accepts_nested_attributes_for :multi_answer_option_fields, :reject_if => lambda { |a| a.values.all?(&:blank?) }, :allow_destroy => true #
 
   ###
   ###   Validations
@@ -60,10 +60,10 @@ end
 # Table name: multi_answer_options
 #
 #  id              :integer          not null, primary key
-#  multi_answer_id :integer
-#  created_at      :datetime
-#  updated_at      :datetime
+#  multi_answer_id :integer          not null
+#  created_at      :datetime         not null
+#  updated_at      :datetime         not null
 #  details_field   :boolean          default(FALSE)
-#  sort_index      :integer
+#  sort_index      :integer          default(0), not null
 #  original_id     :integer
 #

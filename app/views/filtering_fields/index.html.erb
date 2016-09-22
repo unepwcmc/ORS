@@ -9,22 +9,18 @@
                         defined value for the specific filtering field.</p>
                         <p>The values available for a specific filtering field are a collection of all of the associated loop items' column  headers. So for some users a looping section with a filtering field will
                         not be displayed at all, if their value doesn't match any of that loop item's column header.</p>" %>
-    
+
     <% info_tip_text = filtering_field_help %>
-    
+
     <%= render :partial => "administration/menu", :locals => {:header => "Filtering fields " + info_tip("Questionnaire's filtering fields", info_tip_text), :include_options => "questionnaires"} -%>
   </div>
-  <div class="clear" id="q_dashboard">   
-      <strong>Questionnaire:</strong>
-      <%= link_to @questionnaire.title, dashboard_questionnaire_path(@questionnaire) %>
-  </div>
-  <div>
-    <h3><a href="#" id="toggle_help">How does the filtering field work?</a></h3>
-    <div id="help_div" style="display: none">
-      <p><%= filtering_field_help %></p>
+  <div class="clear" id="q_dashboard">
+    <div class="page-header">
+      <h2>Manage Filtering Fields</h2>
     </div>
+      Questionnaire: <%= link_to @questionnaire.title, dashboard_questionnaire_path(@questionnaire) %>
   </div>
-  <p><%= link_to "Add New filtering field", new_questionnaire_filtering_field_path(@questionnaire) %></p>
+  <p><%= link_to "Add New filtering field", new_questionnaire_filtering_field_path(@questionnaire), class: 'btn' %></p>
   <table id="filtering_field_index" class="tablesorter">
     <thead>
     <tr>

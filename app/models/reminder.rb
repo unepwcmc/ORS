@@ -5,6 +5,8 @@ class Reminder < ActiveRecord::Base
   has_many :alerts, :dependent => :destroy
   has_many :deadlines, :through => :alerts
 
+  validates :title, presence: true
+
   def associate_deadlines deadlines
     deadlines.each do |deadline_id|
       deadline = Deadline.find(deadline_id)
@@ -15,7 +17,7 @@ class Reminder < ActiveRecord::Base
   end
 
   def update_associated_deadlines deadlines
-    to_remove = self.deadlines.map{|deadline| deadline.id.to_s} - deadlines
+    to_remove = self.deadlines.map{ |deadline| deadline.id.to_s } - deadlines
     deadlines.each do |deadline_id|
       deadline = Deadline.find(deadline_id)
       if deadline && !self.deadlines.include?(deadline)
@@ -36,9 +38,9 @@ end
 # Table name: reminders
 #
 #  id         :integer          not null, primary key
-#  title      :string(255)
+#  title      :text             not null
 #  body       :text
-#  created_at :datetime
-#  updated_at :datetime
+#  created_at :datetime         not null
+#  updated_at :datetime         not null
 #  days       :integer
 #

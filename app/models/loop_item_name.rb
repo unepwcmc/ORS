@@ -8,12 +8,11 @@ class LoopItemName < ActiveRecord::Base
   belongs_to :loop_source
   belongs_to :loop_item_type
   has_many :loop_items, :dependent => :destroy
-  has_many :item_extras
+  has_many :item_extras, dependent: :destroy
   has_many :extras, :through => :item_extras
   has_many :loop_item_name_fields, :dependent => :destroy
-  has_many :delegated_loop_item_names
+  has_many :delegated_loop_item_names, dependent: :destroy
   has_many :delegation_sections, :through => :delegated_loop_item_names
-
 
   ###
   ###   Methods
@@ -21,8 +20,11 @@ class LoopItemName < ActiveRecord::Base
 
   #fetchs the item_name in language or the default item name. (Through loop_item_name_fields)
   def item_name language=nil
-    result = language ? self.loop_item_name_fields.find_by_language(language) : nil
-    result ? result.item_name : self.loop_item_name_fields.find_by_is_default_language(true).item_name
+    if language
+      result = self.loop_item_name_fields.find{ |f| f.language == language }
+    end
+    result ||= self.loop_item_name_fields.find{ |f| f.is_default_language }
+    result.try(:item_name)
   end
 
   def <=>(loop_item_name)

@@ -21,7 +21,6 @@ class MatrixAnswerQuery < ActiveRecord::Base
   ###
   validates_associated :matrix_answer_query_fields
 
-
   def title language=nil
     result = language ? self.matrix_answer_query_fields.find_by_language(language) : nil
     result ? result.title : self.matrix_answer_query_fields.find_by_is_default_language(true).title
@@ -33,8 +32,8 @@ end
 # Table name: matrix_answer_queries
 #
 #  id               :integer          not null, primary key
-#  matrix_answer_id :integer
-#  created_at       :datetime
-#  updated_at       :datetime
+#  matrix_answer_id :integer          not null
+#  created_at       :datetime         not null
+#  updated_at       :datetime         not null
 #  original_id      :integer
 #

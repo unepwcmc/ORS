@@ -9,7 +9,7 @@ class SectionsControllerTest < ActionController::TestCase
     @section, @questionnaire = factory_section_questionnaire(
       :user => admin_user
     )
-    AuthorizedSubmitter.authorize_from_array_of_users([@respondent.id], @questionnaire, 'http://www.example.com')
+    AuthorizedSubmitter.authorize_from_array_of_users([@respondent.id], @questionnaire, 'http://www.example.com', nil)
     text_answer = factory_text_answer
     @question = factory_question_for_section @section, @questionnaire, text_answer
     @field_type = text_answer.text_answer_fields.first

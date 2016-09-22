@@ -1,16 +1,22 @@
-<div style="border: 1px dotted; padding-left: 5px;">
-  <p><strong><%= ((question.short_title) + "-" + Sanitize.clean(question.title, OrtSanitize::Config::ORT)).html_safe %> </strong></p>
+<div class="question-preview">
+  <strong><%= (question.short_title) %></strong>
   <p>
-    <%= (Sanitize.clean(question.description, OrtSanitize::Config::ORT)).html_safe unless question.description.nil? %>
+    <strong>Long title:</strong> <%= strip_tags(question.title) %>
   </p>
+  <% unless question.description.nil? %>
+    <p>
+      <%= (Sanitize.clean(question.description, OrtSanitize::Config::ORT)).html_safe %>
+    </p>
+  <% end %>
   <% if question.is_mandatory %>
       <p>
         <strong>This question is mandatory!</strong>
       </p>
   <% end %>
   <% unless question.answer_type.nil? %>
-      <div id="answer_type">
+      <div id="answer_type" class="answer-type-preview">
         <%= render :partial => "#{question.answer_type_type.underscore}s/preview", :locals => {:answer_type => question.answer_type}%>
       </div>
   <% end %>
 </div><!-- /question_Details -->
+<hr class="grey">

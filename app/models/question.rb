@@ -22,13 +22,13 @@ class Question < ActiveRecord::Base
   belongs_to :section
   belongs_to :answer_type, :polymorphic => true
   has_many :question_loop_types, :dependent => :destroy
-  accepts_nested_attributes_for :question_loop_types, :reject_if => lambda { |a| a.values.all?(&:blank?)}, :allow_destroy => true #
+  accepts_nested_attributes_for :question_loop_types, :reject_if => lambda { |a| a.values.all?(&:blank?) }, :allow_destroy => true #
   has_many :loop_item_types, :through => :question_loop_types
   #submission side of the tool
-  has_many :sections, :foreign_key => :depends_on_question_id
+  has_many :sections, foreign_key: :depends_on_question_id, dependent: :nullify
   has_many :question_fields, :dependent => :destroy
-  accepts_nested_attributes_for :question_fields, :reject_if => lambda { |a| a.values.all?(&:blank?)}, :allow_destroy => true #
-  has_many :answers
+  accepts_nested_attributes_for :question_fields, :reject_if => lambda { |a| a.values.all?(&:blank?) }, :allow_destroy => true #
+  has_many :answers, dependent: :destroy
   has_many :question_extras, :dependent => :destroy
   has_many :extras, :through => :question_extras
 
@@ -80,7 +80,6 @@ class Question < ActiveRecord::Base
       end
     end
   end
-
 
   def short_title
     the_short = self.question_fields.find_by_is_default_language(true).short_title
@@ -214,7 +213,6 @@ class Question < ActiveRecord::Base
     !((self.answer_type_type == 'TextAnswer' && user_delegate.present?) || (answer && answer.question_answered))
   end
 
-
   ###
   ###   Callbacks
   ###
@@ -258,16 +256,13 @@ end
 #
 #  id                :integer          not null, primary key
 #  uidentifier       :string(255)
-#  type              :integer
 #  last_edited       :datetime
-#  number            :integer
-#  section_id        :integer
+#  section_id        :integer          not null
 #  answer_type_id    :integer
 #  answer_type_type  :string(255)
-#  created_at        :datetime
-#  updated_at        :datetime
+#  created_at        :datetime         not null
+#  updated_at        :datetime         not null
 #  is_mandatory      :boolean          default(FALSE)
-#  ordering          :integer
 #  allow_attachments :boolean          default(TRUE)
 #  original_id       :integer
 #

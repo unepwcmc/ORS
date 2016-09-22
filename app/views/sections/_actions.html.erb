@@ -1,29 +1,18 @@
 <p>
-  <% if @section.questionnaire.inactive? && "preview" != controller.action_name%>
-      <% info_tip_text = "<p>Presents you with a form to add a new question to this section.</p>"-%>
-      <a href="#" class="li_tooltip" id="show_add_question" title="<%= "Add question - " +info_tip_text %>">Add question</a> |
-      <% info_tip_text = "<p>Presents you with a form to add a new sub section to this section.</p>"-%>
-      <a href="#" class="li_tooltip" id="show_add_section" title="<%= "Add sub section - " +info_tip_text %>">Add sub section</a> |
-      <% info_tip_text = "<p>Displays a form where you can edit this section's details.</p>"-%>
-      <%= link_to "Edit", edit_section_path(@section), :class => 'get li_tooltip', :title => "Edit section - " +info_tip_text %> |
-  <% end %>
+<% if @section.questionnaire.inactive? %>
+  <% info_tip_text = "<p>Displays a form where you can edit this section's details.</p>"-%>
+  <%= link_to "Edit", edit_section_path(@section), :class => 'edit-btn edit-section-btn get li_tooltip btn btn-fixed-size', :title => "Edit section - " +info_tip_text %>
+  <% if "preview" != controller.action_name %>
+    <%= render_preview_button("section", @section) %>
 
-  <% if @section.csv_file.present? && File.file?(@section.csv_file.location) -%>
-    <%= link_to "CSV (#{File.mtime(@section.csv_file.location).strftime('%H:%M %b %d, %Y')})", download_csv_section_path(@section) %> |
-    Regenerate CSV:
-    <%= link_to "comma", to_csv_section_path(@section, :separator => ','), :class => "get" %>,
-    <%= link_to "semicolon", to_csv_section_path(@section, :separator => ';'), :class => "get" %>  separated |
-  <% else -%>
-    Generate CSV:
-    <%= link_to "comma", to_csv_section_path(@section, :separator => ','), :class => "get" %>,
-    <%= link_to "semicolon", to_csv_section_path(@section, :separator => ';'), :class => "get" %> separated |
-  <% end -%>
+    <% info_tip_text = "<p>Takes you to a page where you can define a relation of dependency for this section. Defining which conditions must be met for it to be displayed.</p>"-%>
+    <%= link_to "Dependency", define_dependency_section_path(:id => @section.id), class: 'li_tooltip btn btn-secondary btn-fixed-size', title: "Define dependency - #{info_tip_text}" %>
 
-  <% if "preview" == controller.action_name %>
-    <% info_tip_text = "<p>Takes you the main page of this section, where you can see its information and access the options to add new sub sections or questions to it.</p>"-%>
-    <%= link_to "Close preview", @section, :class => 'get li_tooltip', :title => "Section - " +info_tip_text %>
+    <%= render_add_button("sub_section", @section.questionnaire) %>
+    <%= render_add_button("question", @section.questionnaire) %>
   <% else %>
-    <% info_tip_text = "<p>Displays a quick preview of this section and its descendants, as it will be seen in the submission side.</p>"-%>
-    <%= link_to "Preview", preview_section_path(@section), :class => 'get li_tooltip', :title => "Preview section - " +info_tip_text %>
+    <%= render_close_preview_button("section", @section) %>
   <% end %>
+<% end %>
+
 </p>

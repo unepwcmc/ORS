@@ -12,7 +12,7 @@ class NumericAnswer < ActiveRecord::Base
   ###
 
   has_many :answer_type_fields, :as => :answer_type, :dependent => :destroy
-  accepts_nested_attributes_for :answer_type_fields, :reject_if => lambda { |a| a.values.all?(&:blank?)}, :allow_destroy => true #
+  accepts_nested_attributes_for :answer_type_fields, :reject_if => lambda { |a| a.values.all?(&:blank?) }, :allow_destroy => true #
   has_many :questions, :as => :answer_type
   has_many  :sections, :as => :answer_type
   #submission side of the tool
@@ -60,7 +60,7 @@ end
 #  id          :integer          not null, primary key
 #  max_value   :integer
 #  min_value   :integer
-#  created_at  :datetime
-#  updated_at  :datetime
+#  created_at  :datetime         not null
+#  updated_at  :datetime         not null
 #  original_id :integer
 #

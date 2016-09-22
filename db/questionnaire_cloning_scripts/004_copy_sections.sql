@@ -7,6 +7,7 @@ CREATE OR REPLACE FUNCTION copy_sections_start(
 LANGUAGE plpgsql AS $$
 BEGIN
   CREATE TEMP TABLE tmp_sections () INHERITS (sections);
+  CREATE TEMP TABLE tmp_section_fields () INHERITS (section_fields);
 
   WITH sections_to_copy AS (
     SELECT * FROM questionnaire_sections(in_questionnaire_id)
@@ -108,7 +109,7 @@ BEGIN
   FROM sections_to_copy_with_resolved_loop_source_and_item_type;
 
   -- copy section fields
-  INSERT INTO section_fields (
+  INSERT INTO tmp_section_fields (
     title,
     language,
     description,
@@ -140,5 +141,7 @@ LANGUAGE plpgsql AS $$
 BEGIN
   INSERT INTO sections SELECT * FROM tmp_sections;
   DROP TABLE tmp_sections;
+  INSERT INTO section_fields SELECT * FROM tmp_section_fields;
+  DROP TABLE tmp_section_fields;
 END;
 $$;

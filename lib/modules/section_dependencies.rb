@@ -11,7 +11,7 @@ module SectionDependencies
         #A Question can correspond to more than one generated question
         # so it is necessary to check if the condition is met for all the generated_questions' answers
         question = self.depends_on_question
-        user_answers = user.answers.find(:all, :conditions => { :question_id => question.id, :looping_identifier => looping_identifier}, :include => [:answer_parts])
+        user_answers = user.answers.find(:all, :conditions => {:question_id => question.id, :looping_identifier => looping_identifier}, :include => [:answer_parts])
         return false if !user_answers.any?
         user_answers.each do |answer|
           #if not answer.loop_item.present? or question.section.available_for?(user, answer.loop_item)
@@ -32,13 +32,13 @@ module SectionDependencies
 
      # Method to fetch the questions that belong to the argument 'section' and that are
      # available for 'self' to depend on. Only questions with AnswerType of MultyAnswer should be returned
-     # @param [Section] section The section from which to get the available questions. 
+     # @param [Section] section The section from which to get the available questions.
      # @return [Array] Returns an array with the available questions
      def available_questions_for_dependency_from section
        return [] if self == section || self.is_ancestor_of?(section)
        return [] if section.looping? && !self.is_descendant_of?(section)
-       section.questions.find(:all, :conditions => { :answer_type_type => "MultiAnswer"})
-     end 
+       section.questions.find(:all, :conditions => {:answer_type_type => "MultiAnswer"})
+     end
 
       # return the section that/if self depends on, based on the depends_on_question value
       def section_that_this_depends_on

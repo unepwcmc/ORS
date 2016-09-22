@@ -1,4 +1,5 @@
 $(function(){
+    $("#add_section").empty();
     $("#add_section").append("<%= escape_javascript(render(:partial => "questionnaire_parts/new"))%>").show("slow");
     <% parent_section = @parent ? @parent.part.id.to_s : "0" %>
     $("#part_loop_source_id").change(function(){
@@ -13,4 +14,4 @@ $(function(){
     });
     handleSectionDetailsOptions("<%= @questionnaire ? @questionnaire.id.to_s : @parent.root.questionnaire.id.to_s %>", "<%= (@questionnaire.present? && !@parent) ? 'fieldIsDisabled' : (@parent && @parent.part.children_can_be_displayed_in_tab?) %>");
 });
-        
+

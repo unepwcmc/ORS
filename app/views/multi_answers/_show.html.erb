@@ -36,7 +36,7 @@
       url: '/multi_answer_options/update_index',
       type: 'PUT',
       data: data,
-      error: function ( jqXHR, textStatus, errorThrown) { 
+      error: function ( jqXHR, textStatus, errorThrown) {
        throw new Error(errorThrown);
       }
     });
@@ -55,5 +55,5 @@
   $("#multi_answer_options_list").sortable({
     stop: prepareData
   });
-  
+
 </script>

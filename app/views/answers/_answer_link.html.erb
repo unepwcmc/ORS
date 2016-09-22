@@ -1,4 +1,4 @@
-<div class="option">
+<div class="option modal-form-horizontal">
   <li>
     <%= f.label :title, t('submission_pages.links_title') %>
     <%= f.text_field :title %>
@@ -15,4 +15,5 @@
     <%= f.text_field :description, :size => 50  %>
   </li>
   <li><%= remove_child_link t('submission_pages.links_remove'), f -%></li>
+  <hr class="grey">
 </div>

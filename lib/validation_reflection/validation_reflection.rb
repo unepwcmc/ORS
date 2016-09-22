@@ -14,11 +14,11 @@ module ValidationReflection # :nodoc:
      :validates_length_of,
      :validates_numericality_of,
      :validates_presence_of,
-     :validates_uniqueness_of,
+     :validates_uniqueness_of
    ].freeze
-   
+
   @@reflected_validations = CORE_VALIDATONS.dup
-  
+
   @@in_ignored_subvalidation = false
 
   mattr_accessor  :reflected_validations,
@@ -38,12 +38,12 @@ module ValidationReflection # :nodoc:
     @@reflected_validations.each do |validation_type|
       next if base.respond_to?(:"#{validation_type}_with_reflection")
       ignore_subvalidations = false
-      
+
       if validation_type.kind_of?(::Hash)
         ignore_subvalidations = validation_type[:ignore_subvalidations]
         validation_type = validation_type[:method]
       end
-      
+
       base.class_eval %{
         class << self
           def #{validation_type}_with_reflection(*attr_names)

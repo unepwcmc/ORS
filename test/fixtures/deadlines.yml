@@ -17,10 +17,10 @@ two:
 # Table name: deadlines
 #
 #  id               :integer          not null, primary key
-#  title            :string(255)
+#  title            :text             not null
 #  soft_deadline    :boolean          default(FALSE)
 #  due_date         :datetime
 #  questionnaire_id :integer          not null
-#  created_at       :datetime
-#  updated_at       :datetime
+#  created_at       :datetime         not null
+#  updated_at       :datetime         not null
 #

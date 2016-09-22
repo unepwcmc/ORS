@@ -5,4 +5,3 @@ class UserDelegateStates < EnumerateIt::Base
           :rejected => 2
   )
 end
-

@@ -14,9 +14,9 @@
           </p>
       <% end -%>
   <% end -%>
-  <% section.questionnaire_part.children_parts_sorted.each do |child|
-      if child.is_a?(Question) -%>
-        <%= render :partial => "questions/submission", :locals => {:question => child, :loop_item => loop_item, :question_field => @fields[:questions_field][child.id.to_s], :question_field_default => @fields[:questions_field_default][child.id.to_s], :answer_type_help_text => @fields[:answer_types_field].present? ? @fields[:answer_types_field][(child.answer_type_id.to_s + "_" + child.answer_type_type)] : nil, :loop_sources => loop_sources, :disabled => disabled, :looping_identifier => looping_identifier}, :inline => true %>
+  <% section.questionnaire_part.children_parts_sorted.each_with_index do |child, index| %>
+      <% if child.is_a?(Question) %>
+        <%= render :partial => "questions/submission", :locals => {:question => child, question_index: index+1, :loop_item => loop_item, :question_field => @fields[:questions_field][child.id.to_s], :question_field_default => @fields[:questions_field_default][child.id.to_s], :answer_type_help_text => @fields[:answer_types_field].present? ? @fields[:answer_types_field][(child.answer_type_id.to_s + "_" + child.answer_type_type)] : nil, :loop_sources => loop_sources, :disabled => disabled, :looping_identifier => looping_identifier}, :inline => true %>
       <% else -%>
           <% if child.looping?
           items = child.next_loop_items loop_item, loop_sources

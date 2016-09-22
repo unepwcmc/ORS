@@ -1,7 +1,7 @@
-<%=I18n.t('generic.hi')%><%= if @user_delegate.delegate.full_name.present? then " #{@user_delegate.delegate.full_name}" end%>,
+<p><%=I18n.t('generic.hi')%><%= if @user_delegate.delegate.full_name.present? then " #{@user_delegate.delegate.full_name}" end%>,</p>
 
-<%= I18n.t('user_mailer.delegate_request.first_line', :user => h(@user_delegate.user.full_name)) %> 
+<p><%= I18n.t('user_mailer.delegate_request.first_line', :user => h(@user_delegate.user.full_name)) %></p>
 
-<%=I18n.t('user_mailer.greetings')%>
+<p><%=I18n.t('user_mailer.greetings')%></p>
 
 <%=ApplicationProfile.title%>

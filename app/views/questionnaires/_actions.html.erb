@@ -1,20 +1,13 @@
 <p>
   <% if @questionnaire.inactive? -%>
-    <% if "preview" != controller.action_name %>
-      <% info_tip_text = "<p>By clicking here you will be presented with a form to add a new section to the questionnaire. <br />
-                            This new section will be added as a root section of the questionnaire.</p>"-%>
-                            <a href="#" class="li_tooltip" id="show_add_section" title="<%= "Add section - " +info_tip_text %>">Add section</a> |
-    <% end %>
     <% if can?( :update, @questionnaire) -%>
         <% info_tip_text = "<p>Displays a form where you can edit a questionnaire's core information.</p>"-%>
-        <%= link_to "Edit introduction", edit_questionnaire_path(@questionnaire), :class => 'get li_tooltip',:title=>"Edit questionnaire - "+info_tip_text%> |
+        <%= link_to "Edit", edit_questionnaire_path(@questionnaire), :class => 'edit-btn edit-questionnaire-btn get li_tooltip btn btn-fixed-size',:title=>"Edit questionnaire - "+info_tip_text%>
     <% end %>
     <% if "preview" == controller.action_name %>
-        <% info_tip_text = "<p>Takes you to the page where you can see this questionnaire information and structure, where you can edit it, add new sections to it and navigate in its structure.</p>"-%>
-        <li class="li_tooltip" title="<%= "Questionnaire - " +info_tip_text %>"><%= link_to "Close preview", questionnaire_path(@questionnaire) -%>
+      <%= render_close_preview_button("questionnaire", @questionnaire) %>
     <% else %>
-      <% info_tip_text = "<p>Displays a quick preview of the questionnaire as a whole.</p>"-%>
-      <%= link_to "Preview questionnaire", preview_questionnaire_path(@questionnaire.id), :class => 'get li_tooltip', :title => "Preview questionnaire - "+info_tip_text %>
+      <%= render_preview_button("questionnaire", @questionnaire) %>
     <% end %>
   <% end -%>
 </p>

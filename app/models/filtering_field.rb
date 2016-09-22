@@ -5,6 +5,8 @@ class FilteringField < ActiveRecord::Base
   has_many :user_filtering_fields, :dependent => :destroy
   has_many :users, :through => :user_filtering_fields
 
+  validates :name, presence: true
+
   attr_accessible :name
 
   def get_all_loop_item_names_and_source_info
@@ -21,7 +23,7 @@ class FilteringField < ActiveRecord::Base
   def get_unique_loop_item_names
     loop_item_names = []
     self.loop_item_types.each do |loop_item_type|
-      loop_item_names += loop_item_type.loop_item_names.map{|a| a.item_name}
+      loop_item_names += loop_item_type.loop_item_names.map{ |a| a.item_name }
     end
     downcased = []
     loop_item_names.inject([]) { |result,h|
@@ -38,9 +40,9 @@ end
 # Table name: filtering_fields
 #
 #  id               :integer          not null, primary key
-#  name             :string(255)
-#  questionnaire_id :integer
-#  created_at       :datetime
-#  updated_at       :datetime
+#  name             :text             not null
+#  questionnaire_id :integer          not null
+#  created_at       :datetime         not null
+#  updated_at       :datetime         not null
 #  original_id      :integer
 #

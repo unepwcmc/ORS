@@ -7,7 +7,7 @@ $(function(){
     $("#part_loop_source_id").change(function(){
         var selectVal = $(this).val();
         if(selectVal != "")
-            $.ajax({url: RAILS_ROOT+'/loop_sources/'+selectVal+'/item_types/edit/<%= @section.nil? ? "0" : @section.id%>', type: 'get', dataType: 'script'});
+            $.ajax({url: RAILS_ROOT+'/loop_sources/'+selectVal+'/item_types/<%= @section.nil? ? "0" : @section.id%>', type: 'get', dataType: 'script'});
         else
         {
             $("#looping_categories").empty();
@@ -41,7 +41,7 @@ $(function(){
                 {
                     $("#part_display_in_tab").attr('checked', false);
                     $("#part_display_in_tab").attr('disabled', true);
-                    $("#part_starts_collapsed").attr("disabled", false)                    
+                    $("#part_starts_collapsed").attr("disabled", false)
                 }
                 break;
             }
@@ -52,7 +52,7 @@ $(function(){
                 $("#part_loop_source_id").val("").addClass("hide");
                 $("#part_loop_item_type").val("");
                 //clear the title text fields
-                removeLoopTagFromTextFields("section_title");                
+                removeLoopTagFromTextFields("section_title");
                 $("#looping_categories").addClass("hide").empty();
                 $("#part_answer_type_type").removeClass("hide");
                 $("#s_answer_type").show("slow");

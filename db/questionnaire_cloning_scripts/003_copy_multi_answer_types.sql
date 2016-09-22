@@ -44,7 +44,7 @@ BEGIN
   JOIN tmp_multi_answers
   ON tmp_multi_answers.original_id = t.multi_answer_id;
 
-  INSERT INTO multi_answer_option_fields (
+  INSERT INTO tmp_multi_answer_option_fields (
     multi_answer_option_id,
     option_text,
     language,
@@ -63,7 +63,7 @@ BEGIN
   JOIN tmp_multi_answer_options
   ON tmp_multi_answer_options.original_id = t.multi_answer_option_id;
 
-  INSERT INTO other_fields (
+  INSERT INTO tmp_other_fields (
     multi_answer_id,
     other_text,
     language,

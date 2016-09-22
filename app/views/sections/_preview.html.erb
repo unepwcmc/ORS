@@ -1,4 +1,4 @@
-<div>
+<div class="section-preview">
   <hr />
   <h3><%= (Sanitize.clean(section.title , OrtSanitize::Config::ORT)).html_safe %></h3>
   <%#=h( ((number == 0 ? "" : number.to_s) + "- " + ( loop_item.nil? ? section.title : section.title.gsub(" #[#{loop_item.item_type}]"," "+loop_item.item_name)))) %>
@@ -12,6 +12,7 @@
         Number of items: <strong><%= count_all_loop_items(section) %></strong>
       </p>
   <% end -%>
+  <hr class="grey thick">
   <% section.questions.each do |question| -%>
       <%= render :partial => "questions/preview", :locals => {:question => question, :root => false} %>
   <% end -%>

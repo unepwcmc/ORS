@@ -6,13 +6,12 @@ class QuestionnairePart < ActiveRecord::Base
   ###
   acts_as_nested_set :dependent => :destroy
 
-
   ###
   ###   Relationships
   ###
   belongs_to :questionnaire
   belongs_to :part, :polymorphic => true
-  accepts_nested_attributes_for :part, :reject_if => lambda { |a| a.values.all?(&:blank?)}
+  accepts_nested_attributes_for :part, :reject_if => lambda { |a| a.values.all?(&:blank?) }
 
   ###
   ###   Methods
@@ -44,7 +43,7 @@ class QuestionnairePart < ActiveRecord::Base
   #methods to help generate the tree structure with the sections and questions under a questionnaire
   def self.add_children_info(kids, params)
     @carray = []
-    kids.sort! {|a,b| a.lft <=> b.lft}.each do |child|
+    kids.sort! { |a,b| a.lft <=> b.lft }.each do |child|
       ch2 = child.children
       the_title = Sanitize.clean(child.display_title).strip.gsub("\n\n", "")
       @carray += [ {
@@ -63,7 +62,7 @@ class QuestionnairePart < ActiveRecord::Base
   #methods to help generate the tree structure with the sections and questions under a questionnaire
   def self.add_children_info_to_jstree(kids, params, looping_branch)
     carray = []
-    kids.sort! {|a,b| a.lft <=> b.lft}.each do |child|
+    kids.sort! { |a,b| a.lft <=> b.lft }.each do |child|
       is_movable = child.part_is_movable?
       looping_branch = looping_branch || (child.part.is_a?(Section) && child.part.loop_source.present?)
       part_is_section = child.part.is_a?(Section)
@@ -77,7 +76,7 @@ class QuestionnairePart < ActiveRecord::Base
               #:tooltip => the_title,
               #:isFolder => child.part.is_a?(Section),
               #:key => child.part.is_a?(Section) ? child.part_id.to_s : "q"+ child.part_id.to_s,
-              :attr => { :id => child.id.to_s, :movable => is_movable.to_s, :targetable => part_is_section.to_s,
+              :attr => {:id => child.id.to_s, :movable => is_movable.to_s, :targetable => part_is_section.to_s,
                          :is_question => (!part_is_section).to_s, :looping_branch => looping_branch,
                          :display_in_tab => (child.part.is_a?(Section) && !child.root? && child.part.display_in_tab?)},
               :state => part_is_section && ch2.present? ? "closed" : "leaf",
@@ -94,7 +93,7 @@ class QuestionnairePart < ActiveRecord::Base
 
   def children_parts_sorted
     #self.children.find(:all, :include => :part).sort.map{|a| a.part}
-    self.children.find(:all, :include => :part, :order => "lft ASC").map{|a| a.part}
+    self.children.find(:all, :include => :part, :order => "lft ASC").map{ |a| a.part }
   end
 
   def part_is_movable?
@@ -114,8 +113,8 @@ end
 #  questionnaire_id :integer
 #  part_id          :integer
 #  part_type        :string(255)
-#  created_at       :datetime
-#  updated_at       :datetime
+#  created_at       :datetime         not null
+#  updated_at       :datetime         not null
 #  parent_id        :integer
 #  lft              :integer
 #  rgt              :integer

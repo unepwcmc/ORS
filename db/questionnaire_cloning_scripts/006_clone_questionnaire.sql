@@ -22,10 +22,15 @@ BEGIN
   PERFORM copy_questionnaire_parts_start(old_questionnaire_id, new_questionnaire_id);
 
   IF clone_answers THEN
-    PERFORM copy_answers(old_questionnaire_id, new_questionnaire_id);
+    PERFORM copy_answers_start(old_questionnaire_id, new_questionnaire_id);
   END IF;
 
   PERFORM copy_questionnaire_parts_end();
+
+  IF clone_answers THEN
+    PERFORM copy_answers_end();
+  END IF;
+
   RETURN new_questionnaire_id;
 END;
 $$;

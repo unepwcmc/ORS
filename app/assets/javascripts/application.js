@@ -23,4 +23,8 @@
 //= require livequery.min
 //= require gritter
 //= require shared
+//= require select2
+//= require_tree ./utils
+//= require_tree ./components/users
+//= require_tree ./components/questionnaires
 //= require_tree ./application

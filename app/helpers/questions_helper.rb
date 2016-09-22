@@ -22,7 +22,7 @@ module QuestionsHelper
       option = o.matrix_answer_option.title
       answer_results[option] = answer
     end
-    answer_results.map{|k,v| "#{k}=[#{v}]"}.join('&')
+    answer_results.map{ |k,v| "#{k}=[#{v}]" }.join('&')
   end
 
 end

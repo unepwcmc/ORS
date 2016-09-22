@@ -7,7 +7,7 @@ class MatrixAnswerDropOptionField < ActiveRecord::Base
   validates_uniqueness_of :language, :scope => :matrix_answer_drop_option_id
 
   attr_accessible :language, :is_default_language, :option_text
-  
+
 end
 
 # == Schema Information
@@ -15,10 +15,10 @@ end
 # Table name: matrix_answer_drop_option_fields
 #
 #  id                           :integer          not null, primary key
-#  matrix_answer_drop_option_id :integer
-#  language                     :string(255)
-#  is_default_language          :boolean
+#  matrix_answer_drop_option_id :integer          not null
+#  language                     :string(255)      not null
+#  is_default_language          :boolean          default(FALSE), not null
 #  option_text                  :string(255)
-#  created_at                   :datetime
-#  updated_at                   :datetime
+#  created_at                   :datetime         not null
+#  updated_at                   :datetime         not null
 #

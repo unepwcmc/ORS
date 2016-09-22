@@ -1,31 +1,36 @@
-<div class="span-24 last" id="content" style="display: block">
-  <% if current_user %>
-    <%= render :partial => "users/options" %>
-    <h1><%= t("user_dashboard.welcome_msg")%> <%= h(current_user.full_name)%>
-      <% if current_user.role?(:admin) -%>
-        <div style="font-size:40%;"><%=link_to "Administration dashboard", administration_path %></div>
-      <% end -%>
-    </h1>
-    <!-- Tabulizing the output -->
-    <div class="span-24 last">
-      <% if @questionnaires.present? %>
-        <%= render :partial => 'submission' %>
-      <% else %>
-        <p><%= t("user_dashboard.no_q") %></p>
-      <%end-%>
-    </div>
-  <% else %>
-    <h3><%= t("user_dashboard.welcome_msg")%></h3>
+<% if current_user %>
+  <%= render 'users/options' %>
+  <div class="row margin">
+    <div class="page-header">
+    <h2><%= t("user_dashboard.welcome_msg")%> <%= h(current_user.full_name)%></h2>
+  </div>
+    <% if @questionnaires.present? %>
+      <%= render 'submission' %>
+    <% else %>
+      <h5><%= t("user_dashboard.no_q") %></h5>
+    <% end %>
+  </div>
+<% else %>
+  <div class="row margin">
+    <h1><%= t("user_dashboard.welcome_msg")%></h1>
     <p><%= t("welcome_page.restriction")%></p>
-    <div class="span-11 colborder">
-      <h4><%= t("welcome_page.please_login")%></h4>
-      <%= render :partial => "user_sessions/new" %>
+    <p><%= link_to t("welcome_page.forgotten_password").html_safe, new_password_reset_path %></p>
+  </div>
+
+  <div class="row group margin">
+    <div class="col col-6">
+      <h3 class="heading"><%= t("welcome_page.please_login")%></h3>
+      <%= render "user_sessions/new" %>
     </div>
-    <div class="span-12 last">
-      <h4><%= t("welcome_page.or_signup")%></h4>
-      <p><%= t("welcome_page.signup_instructions1")%></p>
-      <p><%= t("welcome_page.signup_instructions2")%> <%= link_to t("welcome_page.signup_instructions3"), signup_path(:lang => (params[:lang]||"en")) %>.</p>
-    </div>
-  <% end %>
-  <%= render :partial => "layouts/institutions" %>
-</div><!-- /content -->
+
+    <% if ApplicationProfile.show_sign_up %>
+      <div class="col col-6">
+        <div class="panel">
+          <h3 class="heading"><%= t("welcome_page.or_signup")%></h3>
+          <p><%= t("welcome_page.signup_instructions1")%></p><br>
+          <p><%= t("welcome_page.signup_instructions2")%> <%= link_to t("welcome_page.signup_instructions3"), signup_path(:lang => (params[:lang]||"en")) %>.</p>
+        </div>
+      </div>
+    <% end %>
+  </div>
+<% end %>

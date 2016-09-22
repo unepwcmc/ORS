@@ -1,3 +1,7 @@
+<div class="page-header">
+<h2><%= @loop_source.name %></h2>
+</div>
+
 <div class="span-24 last" id="content">
 
   <div id="content_header">
@@ -5,21 +9,33 @@
     <%= render :partial => "administration/menu", :locals => {:header => "Loop source " + info_tip("Loop Source", info_tip_text), :include_options => "questionnaires"} -%>
   </div>
   <div class="clear" id="q_dashboard" style="margin-bottom: 25px">
-    <p><strong>Questionnaire</strong> <%= link_to @loop_source.questionnaire.title, dashboard_questionnaire_path(@loop_source.questionnaire) %> (<%= link_to "Questionnaire's loop sources", questionnaire_loop_sources_path(@loop_source.questionnaire) %>)</p>
-    <p><strong>Source name</strong> <%=h @loop_source.name %> (<%= link_to "Edit", edit_loop_source_path(@loop_source) %>)</p>
-    <p><strong>Sections that use it:</strong> <br />
-      <ul>
-        <%= @loop_source.sections.map do |s|
-            start_str = "<li>#{link_to(OrtSanitize.white_space_cleanse(s.title), s)} "
-            if s.parent
-              end_str = "(under <strong>#{OrtSanitize.white_space_cleanse(s.parent.title)}</strong>)</li>"
-            else
-              end_str = "</li>"
-            end
-            start_str + end_str
-          end.join().html_safe
-        %>
-      </ul>
+    <div class="row padded group">
+      <div class="col col-2">Questionnaire</div>
+      <div class="col col-10 border-left"><%= link_to @loop_source.questionnaire.title, dashboard_questionnaire_path(@loop_source.questionnaire) %> (<%= link_to "Questionnaire's loop sources", questionnaire_loop_sources_path(@loop_source.questionnaire) %>)</div>
+    </div>
+
+    <div class="row padded group">
+      <div class="col col-2">Source name</div>
+      <div class="col col-10 border-left"><%=h @loop_source.name %> (<%= link_to "Edit", edit_loop_source_path(@loop_source) %>)</div>
+    </div>
+
+    <div class="row padded group">
+      <div class="col col-2">Sections that use it:</div>
+      <div class="col col-10 border-left">
+        <ul>
+          <%= @loop_source.sections.map do |s|
+              start_str = "<li>#{link_to(OrtSanitize.white_space_cleanse(s.title), s)} "
+              if s.parent
+                end_str = "(under <strong>#{OrtSanitize.white_space_cleanse(s.parent.title)}</strong>)</li>"
+              else
+                end_str = "</li>"
+              end
+              start_str + end_str
+            end.join().html_safe
+          %>
+        </ul>
+      </div>
+    </div>
     </p>
   </div>
   <p class="clear"><strong>Source files</strong> (<a href="#" id="toggle_source_files">Show</a>)</p>
@@ -32,11 +48,11 @@
   <% end -%>
   <% if @loop_source.loop_item_type.present? -%>
       <div id="loop_item_types">
-        <h3><strong>Loop item types <%= info_tip("Loop item types", "Loop item types with name in <strong>bold</strong> are filtering fields of the questionnaire.") %></strong>
-        </h3>
+        <div class="page-header"><h5><strong>Loop item types <%= info_tip("Loop item types", "Loop item types with name in <strong>bold</strong> are filtering fields of the questionnaire.") %></strong></div>
+        </h5>
         <fieldset>
-          <li>To add <strong>translations</strong> for the loop items, please click on the <span style="color:red; font-weight:600">Show</span> link</li>
-          <li>To add <strong>extra fields</strong> to the loop items, e.g. an image, click on the <span style="color:red; font-weight:600">Add Extra</span> link</li>
+          <p>To add <strong>translations</strong> for the loop items, please click on the <span style="color:red; font-weight:600">Show</span> link</p>
+          <p>To add <strong>extra fields</strong> to the loop items, e.g. an image, click on the <span style="color:red; font-weight:600">Add Extra</span> link</p>
         </fieldset>
         <table>
           <tr>
@@ -52,6 +68,7 @@
                               can then be used when building the questionnaire, being displayed in the description of questions or sections. Giving you more options
                               and flexibility when using looping sections.</p>"-%>
             <th>Extra fields <%= info_tip('Extra fields', info_tip_text) %></th>
+            <th>Actions</th>
           </tr>
           <% for loop_item_type in @loop_source.loop_item_type.self_and_descendants.sort!{|a, b| a.level <=> b.level} %>
               <tr>
@@ -60,8 +77,7 @@
                 <td><%= loop_item_type.loop_items.count %></td>
                 <td><%= loop_item_type.loop_item_names.count %></td>
                 <td><%= loop_item_type.extras.map(&:name).join(", ") %></td>
-                <td><%= link_to "Show", loop_item_type %></td>
-                <td><%= link_to "Add extra", new_loop_item_type_extra_path(loop_item_type), :class => "get"%></td>
+                <td><%= link_to "Show", loop_item_type %> <%= link_to "Add extra", new_loop_item_type_extra_path(loop_item_type), :class => "get"%></td>
               </tr>
           <% end %>
         </table>

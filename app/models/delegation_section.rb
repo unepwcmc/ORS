@@ -58,9 +58,9 @@ end
 # Table name: delegation_sections
 #
 #  id            :integer          not null, primary key
-#  delegation_id :integer
-#  section_id    :integer
-#  created_at    :datetime
-#  updated_at    :datetime
+#  delegation_id :integer          not null
+#  section_id    :integer          not null
+#  created_at    :datetime         not null
+#  updated_at    :datetime         not null
 #  original_id   :integer
 #

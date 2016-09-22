@@ -13,26 +13,27 @@ class User < ActiveRecord::Base
   acts_as_taggable_on :groups
   acts_as_authentic do |c|
     c.login_field = 'email'
+    c.disable_perishable_token_maintenance true
   end
 
   ###
   ###   Relationships
   ###
 
-  has_many :questionnaires #=> as creator of questionnaires
-  has_many :edited_questionnaires, :class_name => "Questionnaire", :foreign_key => :last_editor_id #=>last editor of questionnaires
+  has_many :questionnaires, dependent: :restrict #=> as creator of questionnaires
+  has_many :edited_questionnaires, :class_name => "Questionnaire", :foreign_key => :last_editor_id, dependent: :nullify #=>last editor of questionnaires
   has_many :authorized_submitters, :dependent => :destroy #=> relation regarding the questionnaires that the user is authorized to answer to.
   #a questionnaire is considered to be available to the user if there's an AuthorizedSubmitter record for the user and that questionnaire, and the stauts of that AuthorizedSubmitterRecord is not 'SubmissionStatus::HALTED'
-  has_many :available_questionnaires, :through => :authorized_submitters, :source => :questionnaire, :conditions => {:authorized_submitters => { :status => [SubmissionStatus::NOT_STARTED, SubmissionStatus::UNDERWAY, SubmissionStatus::SUBMITTED] } }#=> questionnaires that has available to answer
+  has_many :available_questionnaires, :through => :authorized_submitters, :source => :questionnaire, :conditions => {:authorized_submitters => {:status => [SubmissionStatus::NOT_STARTED, SubmissionStatus::UNDERWAY, SubmissionStatus::SUBMITTED]}}#=> questionnaires that has available to answer
   has_many :answers, :dependent => :destroy #=> all of user's answers
   has_many :answered_questionnaires, :through => :answers, :source => :questionnaire, :uniq => true
-  has_many :edited_answers, :class_name => 'Answer', :foreign_key => :last_editor_id
+  has_many :edited_answers, :class_name => 'Answer', :foreign_key => :last_editor_id, dependent: :nullify
   has_many :documents, :through => :answers
   has_many :assignments, :dependent => :destroy #=> many-to-many relation with roles
   has_many :roles, :through => :assignments
   has_many :delegate_text_answers
 
-  has_many :submission_states, :class_name => "UserSectionSubmissionState" #=> the state of submission of a specific section
+  has_many :submission_states, :class_name => "UserSectionSubmissionState", dependent: :destroy #=> the state of submission of a specific section
 
   has_many :user_filtering_fields, :dependent => :destroy #=> user can have many filtering fields
 
@@ -53,12 +54,12 @@ class User < ActiveRecord::Base
   ###   Named Scopes
   ###
 
-  scope :last_created, lambda { |num| { :limit => num, :order => 'created_at DESC' } }
+  scope :last_created, lambda { |num| {:limit => num, :order => 'created_at DESC'} }
   scope :submitters, :joins => :roles, :conditions => ['roles.name = ?', "respondent"]
   scope :administrators, :joins => :roles, :conditions => ['roles.name = ?', 'admin']
   # users with submitter role that have not yet been authorized to answer a specific questionnaire
   # excluding is a condition: users.id NOT IN (set of id's of authorized submitters for the questionnaire)
-  scope :available_submitters, lambda { |excluding| { :joins => :roles, :conditions => ['roles.name = ? AND '+ excluding, "respondent"] } }
+  scope :available_submitters, lambda { |excluding| {:joins => :roles, :conditions => ['roles.name = ? AND '+ excluding, "respondent"]} }
 
   ###
   ###   Validations
@@ -67,7 +68,7 @@ class User < ActiveRecord::Base
 
   attr_accessible :creator_id, :first_name, :last_name, :language, :email,
     :category, :password, :password_confirmation, :role_ids,
-    :single_access_token
+    :single_access_token, :region, :country, :perishable_token
 
   ###
   ###   Methods
@@ -227,58 +228,68 @@ class User < ActiveRecord::Base
   #
   # return: Array of UserDelegate objects
   def delegates_for_section section, loop_item_name_id=nil
-    self.user_delegates.select{|ud| Delegation.covers_section?(ud.delegations.find_by_questionnaire_id(section.questionnaire.id), section, loop_item_name_id)} - self.delegates_for_questionnaire(section.questionnaire)
+    self.user_delegates.select{ |ud| Delegation.covers_section?(ud.delegations.find_by_questionnaire_id(section.questionnaire.id), section, loop_item_name_id) } - self.delegates_for_questionnaire(section.questionnaire)
   end
 
   #
   # return: Array of UserDelegate objects
   def delegates_for_questionnaire questionnaire
-    self.user_delegates.select{|ud| ud.delegations.find_by_questionnaire_id(questionnaire.id) && !ud.delegations.find_by_questionnaire_id(questionnaire.id).delegation_sections.any?}
+    self.user_delegates.select{ |ud| ud.delegations.find_by_questionnaire_id(questionnaire.id) && !ud.delegations.find_by_questionnaire_id(questionnaire.id).delegation_sections.any? }
   end
 
-  def parse_uploaded_list file, status, url
-    #keep track of the errors
+  def parse_uploaded_list file, status, url, send_welcome_email=false
+    # keep track of the errors
     status[:errors] = []
-    #keep track of the line and column being analised, for error questionnaireing.
+
+    # keep track of the line and column being analised, for error questionnaireing.
     status[:line] = 0
     status[:users] = []
     status[:users_passwords] = {}
-    #read the file into a table
+
+    # read the file into a table
     begin
       if File.open(file, &:readline).match(/;/) == nil
         separator = ','
       else
         separator = ';'
       end
-      table = CSV.read(file,
-        {:quote_char => '"',
-         :col_sep =>separator,
-         :row_sep =>:auto}
-      )#, :headers => :first_row})
-    rescue Exception => e
+
+      table = CSV.read(file, {
+        :quote_char => '"',
+        :col_sep =>separator,
+        :row_sep =>:auto}
+      ) #, :headers => :first_row})
+    rescue => e
       status[:errors] << e.message
       return false
     end
+
     languages = ["ar", "en", "fr", "es", "ru", "zh"]
     role_ids = [Role.find_by_name("respondent").id]
-    #go through each row
+
     table.each do |row|
       status[:line] += 1
       row_as_a = row.to_a
+
       first_name = row_as_a[0].squeeze(" ").strip || ""
       last_name = row_as_a[1].squeeze(" ").strip || ""
       email = row_as_a[2].squeeze(" ").strip || nil
-      the_password = row_as_a[3].squeeze(" ").strip || "new_user_password"
-      language = row_as_a[4].present? && languages.include?(row_as_a[4].squeeze(" ").strip) ?  row_as_a[4].squeeze(" ").strip : "en"
-      category = row_as_a[5].present? && ["Scientific Authority", "Management Authority"].include?(row_as_a[5].squeeze(" ").strip) ? row_as_a[5].squeeze(" ").strip : "Other"
-      group = row_as_a[6] ? row_as_a[6].squeeze(" ").strip : nil
+      country = row_as_a[3].squeeze(" ").strip || nil
+      region = row_as_a[4].squeeze(" ").strip || nil
+      the_password = row_as_a[5].squeeze(" ").strip || "new_user_password"
+      language = row_as_a[6].present? && languages.include?(row_as_a[6].squeeze(" ").strip) ?  row_as_a[6].squeeze(" ").strip : "en"
+      category = row_as_a[7].present? && ["Scientific Authority", "Management Authority"].include?(row_as_a[7].squeeze(" ").strip) ? row_as_a[7].squeeze(" ").strip : "Other"
+      group = row_as_a[8] ? row_as_a[8].squeeze(" ").strip : nil
+
       if !email.nil? && !User.find_by_email(email)
         new_user = User.create(
           :first_name => first_name, :last_name => last_name, :email => email,
+          :country => country, :region => region,
           :language => language,
           :password => the_password, :password_confirmation => the_password,
           :role_ids => role_ids, :category => category
         )
+
         if new_user
           if group
             new_user.group_list = [group]
@@ -286,13 +297,20 @@ class User < ActiveRecord::Base
           end
           self.created_users << new_user
           status[:users] << new_user
-          UserMailer.user_registration(new_user, (row_as_a[3].squeeze(" ")
-            .strip||"new_user_password") , url).deliver
+
+          if send_welcome_email
+            UserMailer.user_registration(
+              new_user,
+              (row_as_a[3].squeeze(" ").strip || "new_user_password"),
+              url
+            ).deliver
+          end
         end
       else
         status[:errors] << "Line: #{status[:line]}: #{email.nil? ? "Email not provided." : "There is already a user in the system with the following email address: #{email}"}"
       end
     end
+
     status
   end
 
@@ -320,6 +338,11 @@ class User < ActiveRecord::Base
     delegated = section.is_delegated?(user_delegate_id)
     delegated || (!delegated && authorized_to_answer?(section, user_delegate_id))
   end
+
+  def deliver_password_reset_instructions!
+    reset_perishable_token!
+    UserMailer.deliver_password_reset_instructions(self).deliver
+  end
 end
 
 # == Schema Information
@@ -331,8 +354,8 @@ end
 #  persistence_token   :string(255)      not null
 #  crypted_password    :string(255)      not null
 #  password_salt       :string(255)      not null
-#  created_at          :datetime
-#  updated_at          :datetime
+#  created_at          :datetime         not null
+#  updated_at          :datetime         not null
 #  login_count         :integer          default(0), not null
 #  failed_login_count  :integer          default(0), not null
 #  last_request_at     :datetime
@@ -347,4 +370,6 @@ end
 #  creator_id          :integer          default(0)
 #  language            :string(255)      default("en")
 #  category            :string(255)
+#  region              :text             default("")
+#  country             :text             default("")
 #

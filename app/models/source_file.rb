@@ -10,7 +10,8 @@ class SourceFile < ActiveRecord::Base
   ###		Paperclip Initializations
   ###
   has_attached_file :source
-  validates_attachment_content_type :source, :content_type => ["text/plain", "text/csv"]
+  #validates_attachment_content_type :source, :content_type => ["text/plain", "text/csv"]
+  do_not_validate_attachment_file_type :source
 
   attr_accessible :source
 
@@ -24,12 +25,12 @@ end
 # Table name: source_files
 #
 #  id                  :integer          not null, primary key
-#  loop_source_id      :integer
-#  source_file_name    :string(255)
+#  loop_source_id      :integer          not null
+#  source_file_name    :text             not null
 #  source_content_type :string(255)
 #  source_file_size    :integer
 #  source_updated_at   :datetime
-#  created_at          :datetime
-#  updated_at          :datetime
+#  created_at          :datetime         not null
+#  updated_at          :datetime         not null
 #  parse_status        :integer          default(0)
 #

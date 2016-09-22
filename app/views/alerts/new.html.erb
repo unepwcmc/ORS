@@ -3,16 +3,19 @@
   <div id="content_header">
     <%= render :partial => "administration/menu", :locals => {:header => "Deadline reminders", :include_options => "questionnaires"} -%>
   </div>
+  <h2>New Alert</h2>
   <% if @reminders -%>
   <%= form_for [@deadline, @alert], :html => { :id => "generator_form", :class => "normal formtastic" } do |f| -%>
       <fieldset>
-        <legend>Associate a reminder to this deadline</legend>
-        <ol>
-          <li>
-            <%= f.label :reminder_id, "Reminder" -%>
-            <%= select :alert, :reminder_id, options_for_select(@reminders.collect{|reminder| ["#{h(reminder.title)}", reminder.id]}) %>
-          </li>
-        </ol>
+        <p>Associate a reminder to this deadline</p>
+        <div class="row group padded">
+          <strong>Deadline: </strong>
+          <%= @deadline.title %>
+        </div>
+        <div class="row group padded">
+          <%= f.label :reminder_id, "Reminder" -%>
+          <%= select :alert, :reminder_id, options_for_select(@reminders.collect{|reminder| ["#{h(reminder.title)}", reminder.id]}) %>
+        </div>
         <%= f.submit "Associate" %>
       </fieldset>
   <% end -%>

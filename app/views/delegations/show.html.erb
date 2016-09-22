@@ -1,11 +1,25 @@
 <div class="span-24 last user_profile" id="content">
-  <%= render :partial => "user_delegates/options"%>
-  <h1><%= t('manage_delegates.delegations_show_t')%></h1>
+  <%= render :partial => "users/options"%>
+  <div class="page-header">
+    <h2><%= t('manage_delegates.delegations_show_t')%></h2>
+  </div>
   <div id="q_dashboard">
-    <p><strong><%= t('generic.delegator')%>:</strong> <%= link_to h(@delegator.full_name), @delegator %></p>
-    <p><strong><%= t('generic.delegate') %>:</strong> <%= link_to h(@delegation.user_delegate.delegate.full_name), user_delegate_path(@delegation.user_delegate) %></p>
-    <p><strong><%= t('generic.questionnaire')%>:</strong> <%=h @delegation.questionnaire.present? ? @delegation.questionnaire.title(I18n.locale.to_s) : "-" %></p>
-    <p><strong><%= t('generic.remarks') %>:</strong> <%= @delegation.remarks.present? ? h(@delegation.remarks) : "-" %></p>
+    <div class="row group padded">
+      <strong><%= t('generic.delegator')%>:</strong>
+      <%= link_to h(@delegator.full_name), @delegator %>
+    </div>
+    <div class="row group padded">
+      <strong><%= t('generic.delegate') %>:</strong>
+      <%= link_to h(@delegation.user_delegate.delegate.full_name), user_delegate_path(@delegation.user_delegate) %>
+    </div>
+    <div class="row group padded">
+      <strong><%= t('generic.questionnaire')%>:</strong>
+      <%=h @delegation.questionnaire.present? ? @delegation.questionnaire.title(I18n.locale.to_s) : "-" %>
+    </div>
+    <div class="row group padded">
+      <strong><%= t('generic.remarks') %>:</strong>
+      <%= @delegation.remarks.present? ? h(@delegation.remarks) : "-" %>
+    </div>
     <% if @delegation.delegation_sections.blank? -%>
       <p><strong><%= t('generic.details')%></strong> You have not specified a list of sections for the delegate to fill, so the system will allow the user to fill any part of the questionnaire.</p>
     <% else -%>

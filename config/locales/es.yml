@@ -1,521 +1,355 @@
-# Spanish translations for Rails
-# by Francisco Fernando García Nieto (ffgarcianieto@gmail.com)
-
 es:
-  title: "Sistema de Informes en Línea de el Convenio de Berna"
+  title: "Sistema de presentación de informes en línea"
+  hello: "Hola, mundo"
   generic:
     help: "Ayuda"
-    remove: "Quitar"
-    questionnaire: "Questionnaire"
-    details: "Details"
-    filtering_fields: "Filtre"
-    value: "Valeur"
-    select_filter: "Please select the filtering fields:"
+    remove: "Eliminar"
+    questionnaire: "Cuestionario"
+    filtering_fields: "Filtro"
+    select_filter: "Seleccione los tipos de filtro"
+    value: "valor"
+    details: "Datos"
+    section: "Apartado"
     hi: "Hola"
     email: "Correo electrónico"
     category: "Categoría"
-    scientific: "Autoridad Cientifica"
-    other: "Otro"
-    management: "Autoridad de Gestión"
+    scientific: "Autoridad científica"
+    other: "Otros"
+    management: "Autoridad administrativa"
     password: "Contraseña"
     password_c: "Confirmación de la contraseña"
     options: "Opciones"
-    created_at: "Creado en"
-    show: "Ver"
-    are_you_sure: "¿Estás seguro?"
+    created_at: "Creado el"
+    show: "Mostrar"
+    are_you_sure: "¿Está seguro?"
     language: "Idioma"
     name: "Nombre"
-    remarks: "Comentarios"
+    remarks: "Observaciones"
     manage: "Administrar"
-    delegate: "Delegado"
-    delegator: "Delegador"
+    delegate: "Delegar"
+    delegator: "Encuestado responsable"
     edit: "Editar"
     all: "Todos"
     clear: "Borrar"
     update: "Actualizar"
     add: "Añadir"
     subject: "Asunto"
-    body: "Cuerpo del mensaje"
-    unsubmit: "Revertir la presentación"
+    body: "Cuerpo del texto"
+    unsubmit: "Cancelar envío"
     send: "Enviar"
-    title: 
-    of:
+    title: "Título"
+    of: "de"
   questionnaire_feedback:
-    state0: "Todas las preguntas sin respuesta"
-    state1: "Hay preguntas obligatorias sin respuesta (preguntas con un * rojo)"
-    state2: "Algunas preguntas no tienen respuesta"
-    state3: "Todas las preguntas son contestadas"
-    state4: "Nueva Sección"
+    state0: "No se ha respondido ninguna pregunta"
+    state1: "Algunas preguntas obligatorias no se han respondido (en rojo*)"
+    state2: "Algunas preguntas no se han respondido"
+    state3: "Se han respondido todas las preguntas"
+    state4: "Nuevo apartado"
   s_details: #submission_details
-    fill_instructions: "Para llenar este cuestionario elija entre las secciones de la izquierda."
-    confirm_submission: "Yo declaro que la información presentada en este reporte, ha sido aprobada para su envío por la apropiada institución en el país."
-    submission_disabled:
-    submission_success: "El cuestionario ha sido enviado, gracias."
-    submission_failure: "No se puede enviar el cuestionario antes de contestar todas las preguntas obligatorias. Por favor revise la señal de 'peligro' en las pestañas de la izquierda"
+    fill_instructions: "Para completar este cuestionario, escoja entre los apartados de la izquierda."
+    confirm_submission: "Declaro que la información proporcionada en el presente informe ha sido verificada y que su presentación ha sido aprobada por la institución estatal pertinente."
+    submission_disabled: "Algunas respuestas no se han guardado. Guarde todas las respuestas antes de enviar el cuestionario."
+    submission_success: "El cuestionario se ha enviado correctamente, gracias."
+    submission_failure: "Para poder enviar el cuestionario debe responder todas las preguntas obligatorias. Compruebe la señal “atención” a la izquierda de las pestañas"
     title: "Título"
     default_lang: "Idioma por defecto"
-    available_lang: "Idioma disponibles"
-    year: "Año de la creación"
-    q_displayed_in: "Cuestionario mostrado en"
-    been_submitted: "Usted ha enviado el cuestionario."
-    change_lang: "Cambiar el idioma"
-    choose_loop_item: "Por favor, seleccione de la lista"
-    submit_q: "Envíe el cuestionario"
-    choose_lang: "Elija un idioma"
+    available_lang: "Idiomas disponibles"
+    year: "Año de creación"
+    q_displayed_in: "Cuestionario disponible en"
+    been_submitted: "Ha enviado este cuestionario correctamente."
+    change_lang: "Cambiar idioma"
+    choose_loop_item: "Elija una opción de la lista siguiente"
+    submit_q: "Enviar cuestionario"
+    choose_lang: "Elegir idioma"
     change_button: "Cambiar"
-    download_pdf: "Para descargar la versión en pdf de este cuestionario, por favor vaya al"
-    save: "Guardar todo"
-    save_tip: "Guardar - Al hacer clic en este botón se guarda todas las respuestas en la página actual."
-    collapse: "Cerrar"
+    download_pdf: "Para descargar la versión en PDF de este cuestionario, vaya al"
+    save_all: "Guardar todas"
+    save_tip: "Guardar: pulse este botón para guardar todas las respuestas de la página actual."
+    collapse: "Minimizar"
     expand: "Expandir"
-    clear_answer: "Borrar la respuesta"
-    numeric_note: "Nota: Sólo se pueden introducir valores numéricos en este campo."
-    numeric_min: "Valor mínimo:"
-    numeric_max: "Valor máximo:"
+    clear_answer: "Borrar respuesta"
+    numeric_note: "<strong>Nota</strong> <i>En este campo solo puede introducir valores numéricos.</i>"
+    numeric_min: "El valor mínimo es"
+    numeric_max: "El valor máximo es"
   tab_details: #tab details
     q_details: "Introducción"
     dashboard: "panel de control"
-    admin_dashboard: "admin"
-    delegation_sections: "lista de secciones delegadas"
-    delegate_section: "Delegar sección"
-    delegate_section_tooltip: "Delegar sección - Puede delegar esta sección a uno de sus delegados para responder en su nombre. Puede administrar sus delegados a través del enlace 'Gestionar los delegados en el panel de control."
+    admin_dashboard: "administrador"
+    delegation_sections: "lista de apartados delegados"
+    delegate_section: "Delegar apartado"
+    delegate_section_tooltip: "Delegar apartado: puede delegar este apartado en uno de sus delegados para que responda en su nombre. Puede administrar a sus delegados a través del enlace “Administrar delegados” en el panel de control."
   delegation_details:
-    header_p: "Ha sido delegada con las siguientes secciones de este cuestionario:"
-    root_section_th: 'Sección Principal'
-    loop_th: "Bucle de artículos"
-    whole_q: "Usted ha sido delegada a todo el cuestionario."
+    header_p: "Se le han delegado los apartados siguientes del presente cuestionario"
+    root_section_th: 'Apartado principal'
+    loop_th: 'Subapartados'
+    whole_q: "Se le ha delegado la totalidad del cuestionario."
   delegate_section:
-    existing_t: "Los delegados con acceso a las secciones este y descendiente"
-    delegates_whole: "Los delegados con acceso a todo el cuestionario"
-    delegate_to: "Delegar a"
-    no_delegates: "Usted no tiene ninguna delegados todavía. Para agregar delegados por favor vaya a"
-    all_delegated: "Usted ya ha delegado esta sección para todos los delegados. Para agregar nuevos delegados por favor vaya a"
-    your_dashboard: "panel de control de sus delegados"
-    added_success: "Sección delegada con éxito."
-    added_failure: "Por favor, asegúrese de seleccionar una sección que se delegan."
-    removed_success: "Delegación eliminado con éxito."
+    existing_t: "Delegados con acceso a este apartado y sus subapartados"
+    delegates_whole: "Delegados con acceso a la totalidad del cuestionario"
+    delegate_to: "Delegar en"
+    all_delegated: "Ya ha delegado este apartado en todos sus delegados. Si desea añadir delegados nuevos, vaya al"
+    your_dashboard: "panel de control de delegados"
+    no_delegates: "Aún no ha nombrado ningún delegado. Si desea añadirlos, vaya al"
+    added_success: "El apartado se ha delegado correctamente."
+    added_failure: "Compruebe que ha seleccionado un apartado que desea delegar."
+    removed_success: "La delegación se ha cancelado correctamente."
     edit_task: "Tarea delegada"
-    available_sections: "Secciones disponibles"
-    please_select_s: "Por favor, seleccione una sección"
-    looping_section_w: "Usted ha seleccionado una sección de enlace, por favor, seleccione los elementos que desea delegar. 'Todos' Seleccione si desea que el delegado en respuesta a rellenar las preguntas sobre todos los elementos."
-    users_whole_q: "Los usuarios delegados con la totalidad del cuestionario"
-    remove_section: "Retire la sección delegada"
-    remove_delegation: "Quitar delegación"
-    help_remove_section: "Eliminar la Sección de la Delegación - Elimina esta sección de la delegación de usuario a este cuestionario. Si esta es la única sección en la delegación de usuario a este cuestionario y eliminar lo que el usuario podrá responder a todo el cuestionario. Para evitar que esto se puede quitar la delegación en lugar de sólo la eliminación de esta sección."
-    help_remove_delegation: "Quitar Delegación - Elimina la delegación del usuario a este cuestionario. El usuario no podrá acceder y responder a las preguntas de este cuestionario."
+    available_sections: "Apartados disponibles"
+    looping_section_w: "Ha seleccionado un apartado con subapartados; seleccione los elementos que desea delegar. Seleccione “Todos” si desea que el delegado responda las preguntas sobre todos los elementos."
+    users_whole_q: "Usuarios en los que se ha delegado la totalidad del cuestionario"
+    remove_section: "Eliminar apartado delegado"
+    remove_delegation: "Cancelar delegación"
+    help_remove_section: "Eliminar apartado de la lista de delegación: se elimina este apartado de la lista de delegación del usuario de este cuestionario. Si este es el único apartado de la lista de delegación del usuario de este cuestionario y usted lo elimina, el usuario podrá responder a la totalidad del cuestionario. Para evitarlo, puede cancelar la delegación en lugar de eliminar solo este apartado."
+    help_remove_delegation: "Cancelar delegación: se cancela la delegación del cuestionario en el usuario. El usuario no podrá acceder a las preguntas del cuestionario ni responderlas."
   delegate_dashboard:
-    title: "Ha sido delegado de las siguientes tareas"
-    delegator_remarks: "Observaciones del delegador"
-    fill_all: "Todas las secciones delegadas"
-    to_fill: "para rellenar"
-    no_tasks: "Usted no tiene tareas asignadas."
-    delegate_full_n: "Delegado nombre completo"
+    title: "Se le han delegado las tareas siguientes"
+    delegator_remarks: "Observaciones del encuestado responsable"
+    fill_all: "Se han delegado todos los apartados"
+    to_fill: "para completar"
+    no_tasks: "No tiene tareas asignadas."
+    delegate_full_n: "Nombre completo del delegado"
+    please_select_s: "Seleccione un apartado"
+  user_delegates:
+    help_text: "Un delegado es un usuario que puede colaborar con usted en la cumplimentación de los cuestionarios. Puede asignarle todos los apartados de los cuestionarios o un subconjunto de apartados.<br />
+      En esta página puede seleccionar un nuevo cuestionario para delegarlo a este delegado, o puede administrar las delegaciones existentes (añadir o quitar apartados) enumeradas en el cuadro siguiente.
+      Si una delegación no tiene apartados asociados a ella, significa que el delegado podrá responder todas las preguntas del cuestionario. Si desea limitar el acceso del delegado, añada un conjunto de apartados a esa delegación. Al delegar un apartado del cuestionario permitirá el acceso a ese apartado y sus subapartados."
+    delegate_details: "Nombre del delegado"
   manage_delegates:
     title: "Delegados"
-    u_have_delegates: "Usted tiene los siguientes delegados"
-    u_are_delegate: "Es un delegado de"
+    u_have_delegates: "Sus delegados son los siguientes"
+    u_are_delegate: "Usted es un delegado de"
     delegate_q: "Delegar cuestionario"
-    delegate_details: "Detalles del delegado"
-    delegator_details: "Detalles del delegador"
-    delegated_q_t: "Cuestionarios Delegados"
-    delegate_task: "Delegar tareas"
+    delegate_details: "Datos del delegado"
+    delegator_details: "Datos del encuestado responsable"
+    delegated_q_t: "Cuestionarios delegados"
+    delegate_task: "Delegar tarea"
     available_q: "Cuestionarios disponibles"
-    select_a_q: "S'il vous plaît sélectionnez un questionnaire"
-    add_sections: "Añadir secciones"
-    delegations_show_t: "Detalles de la tarea delegada"
-    delegations_show_sl: "Secciones delegadas"
-    help_line: "<p>Un delegado es un usuario que puede ayudar a llenar los cuestionarios. Un delegado se le puede asignar a todas las secciones de los cuestionarios, o un subconjunto de sections.You puede agregar un delegado al hacer clic en el botón 'Añadir delegado'.</p><p>Para cada uno de sus delegados, enumerados en la tabla de abajo, tiene dos opciones disponibles: <strong>Mostrar</strong> y <strong>Eliminar</strong>. La opción <strong>Eliminar</strong> se eliminará de que el delegado y todas las delegaciones que estaban asociados con él. La opción <strong>Mostrar</strong> lo llevará a una página con los detalles de la delegación, incluidos los cuestionarios que se han delegado en.<br />Se puede asociar un delegado con un cuestionario directamente desde la página presentación del cuestionario.<br />Tien en cuenta que no todos los cuestionarios han permitido a la función de delegación.</p>"
-    delegate_show_help: "Usted será capaz de responder a los cuestionarios en su nombre. Vea a continuación una lista de los cuestionarios que está autorizado para responder."
+    select_a_q: "Seleccione un cuestionario"
+    add_sections: "Añadir apartados"
+    delegations_show_t: "Datos de la tarea delegada"
+    delegations_show_sl: "Apartados delegados"
+    help_line: "<p>Un delegado es un usuario que puede colaborar con usted en la cumplimentación de los cuestionarios. Puede asignarle todos los apartados de los cuestionarios o un subconjunto de apartados. Si desea añadir un delegado, pulse en “Añadir delegado”.</p><p>Para cada uno de sus delegados, enumerados en el cuadro siguiente, dispone de dos opciones <strong>Mostrar</strong> y <strong>Eliminar</strong>. La opción <strong>Eliminar</strong> eliminará al delegado y todas las delegaciones que se le habían asignado. La opción <strong>Mostrar</strong> le dirigirá a una página en la que encontrará todos los datos del delegado, incluidos los cuestionarios que le ha asignado. <p/><p>Puede asignar un cuestionario a un delegado directamente desde la página de presentación de cuestionarios. No obstante, tenga en cuenta que no todos los cuestionarios tienen activada la opción de delegación.</p>"
+    delegate_show_help: "Podrá responder cuestionarios en nombre del encuestado responsable. A continuación puede ver una lista de los cuestionarios que está autorizado a responder."
   flash_messages:
-    nothing_to_save: "No hay nada que guardar"
-    saved_successfully: "respuestas se guardaron exitosamente"
-    logged_successfully: "Sesión se inició con éxito."
-    logged_out: "Se le ha cerrado la sesión."
-    sign_up_success: "Gracias por registrarse. Sua sesión fue iniciada."
-    delegate_success: "Delegado agregado con éxito al sistema."
-    update_profile_s: "Perfil de usuario se ha actualizado correctamente."
-    not_authorized: "No tien permisos para acceder a esta página."
-    questionnaire_submitted: "No se puede acceder a esta página porque ya se ha presentado este cuestionario."
-    questionnaire_closed: "Este cuestionario ha sido cerrado por el administrador por lo que no está disponible actualmente."
-    questionnaire_not_available: "Este cuestionario aún no está disponible."
+    nothing_to_save: "No hay nada para guardar"
+    saved_successfully: "las respuestas se han guardado correctamente"
+    logged_successfully: "Sesión iniciada correctamente"
+    logged_out: "Sesión cerrada correctamente."
+    sign_up_success: "Gracias por registrarse. Se ha iniciado sesión."
+    delegate_success: "El delegado se ha añadido al sistema correctamente."
+    update_profile_s: "El perfil del usuario se ha actualizado correctamente."
+    not_authorized: "No está autorizado a acceder a esta página."
+    questionnaire_submitted: "No puede acceder a esta página; ya ha enviado este cuestionario."
+    questionnaire_closed: "Este cuestionario no está disponible en este momento; el administrador lo ha cerrado."
+    questionnaire_not_available: "Este cuestionario no está disponible."
   translator_feat:
     show_translator: "Mostrar traductor"
     hide_translator: "Ocultar traductor"
-    please_select: "Por favor, seleccione un idioma"
-    to_en: "Para: Inglés"
-    from: "De:"
+    please_select: "Seleccione un idioma"
+    to_en: "Al: inglés"
+    from: "Del:"
     translate: "Traducir"
-    error: "Lo sentimos, pero no fue posible traducir el texto."
-    wrong_choice: "No fue posible traducir de su elección, hemos tratado de ofrecer una aproximación más exacta."
+    error: "Lo sentimos, no ha sido posible traducir el texto."
+    wrong_choice: "No ha sido posible traducir el texto que ha seleccionado. Hemos intentado proporcionarle la coincidencia más aproximada."
   submission_pages:
-    choose: "Elija"
-    select_option: "Por favor seleccione una opción"
+    choose: "Elegir"
+    select_option: "Seleccione una opción"
     attach_files: "Archivos adjuntos"
     attach_links: "Enlace/URL adjuntos"
     attach_description: "Descripción"
     files_dialog_title: "Administrar documentos"
     files_document: "Documento"
-    files_remove: "eliminar el documento"
-    files_add: "agregar un documento"
-    files_you_have: "Ha adjuntado los siguientes documentos a esta respuesta."
-    links_dialog_title: "Administrar las Enlaces/URL"
+    files_remove: "quitar documento"
+    files_add: "añadir documento"
+    files_you_have: "Ha adjuntado a esta respuesta los documentos siguientes."
+    links_dialog_title: "Administrar enlaces/URL"
     links_title: "Título"
-    links_remove: "eliminar Enlace/URL"
-    links_add: "agregar una Enlace/dirección URL"
-    links_you_have: "Ha adjuntado las siguientes Enlaces/URL de esta respuesta."
-    links_url: "Enlace/URL"
-    links_url_tooltip: "La dirección URL debe ser algo así como: http://www.yourdomain.com o ftp://yourdomain.com o https: / / www.yoursecretdomain.com. Si no se especifica el dominio de la dirección no se añadirá a la respuesta."
-    last_edited_by: "Editado por:"
+    links_remove: "quitar enlace/URL"
+    links_add: "añadir enlace/URL"
+    links_you_have: "Ha adjuntado a esta respuesta los enlaces/URL siguientes."
+    links_url: "URL"
+    links_url_tooltip: "La URL debe ser del tipo: http://www.yourdomain.com o ftp://yourdomain.com o https://www.yoursecretdomain.com. Si no especifica el dominio, la URL no se añadirá a la respuesta."
+    last_edited_by: 'Editado por última vez por:'
     rank_options_t: "Opciones disponibles"
-    rank_options_info: "Seleccione haciendo clic en los valores."
-    rank_limit: "Usted está limitado a"
+    rank_options_info: "Haga clic en los valores que desee seleccionar."
+    rank_limit: "Está limitado a"
     rank_limit_word_s: "opción"
     rank_limit_word_p: "opciones"
-    rank_choices_t:  "Sus opciones, ordenados del primero al último preferido."
-    rank_choices_info:  "Anule la selección haciendo clic en los valores."
+    rank_choices_t: "Su selección, por orden descendente de preferencia."
+    rank_choices_info: "Si desea anular la selección, haga clic en los valores."
   s_help:
-    submit_title: "Someter"
-    submit_text:  "Después de rellenar el cuestionario, puede someterlo haciendo clic en este enlace. A continuación, recibirá un email de confirmación de la presentación.<br />Después de enviar el cuestionario que usted todavía podrá visitar la página, pero no podrá realizar ningún cambio en sus respuestas."
-    lang_change_title:  "Cambiar el idioma"
-    lang_change_text: "Los cuestionarios pueden tener más de una lengua disponibles, en cuyo caso se puede elegir el idioma para verlo pulg Usted puede cambiar el idioma en cualquier lugar sin comprometer sus respuestas.<br />El idioma que escoja se define como el idioma por defecto de este cuestionario."
-    s_guidance_title: "Llenar el cuestionario"
-    s_guidance_text:  "A la izquierda se enumeran las principales secciones del cuestionario. Puede acceder a una sección haciendo clic en su ficha. Al hacer clic en una pestaña se cargará la sección correspondiente en el panel principal. A continuación, podrá ver las secciones y preguntas que forman parte de la sección seleccionada. <br /> El icono en el lado derecho de las pestañas representa el grado de acabado de su sección. Hay cinco diferentes iconos. <br /><img src='/assets/submissionstate/fidelitybyagapeh/4.png' alt='Nueva sección' width='20px' height='20px'/>: nueva sección que usted no ha visitado aún<br /><img src='/assets/submissionstate/fidelitybyagapeh/3.png' alt='Todas respondidas' width='20px' height='20px'/>: todas las preguntas respondidas<br /><img src='/assets/submissionstate/fidelitybyagapeh/2.png' alt='Algunas sin respuesta' width='20px' height='20px'/>: Algunas preguntas siguen sin respuesta <br /><img src='/assets/submissionstate/fidelitybyagapeh/1.png' alt='Preguntas obligatorias sin respuesta' width='20px' height='20px'/>: Hay preguntas obligatorias sin respuesta <br /><img src='/assets/submissionstate/fidelitybyagapeh/0.png' alt='Todas las preguntas sin respuesta' width='20px' height='20px'/>: Todas las preguntas sin respuesta <br /> No hay un orden fijo para llenar el cuestionario. Siempre puedes cambiar tus respuestas a menos que haya enviado el cuestionario."
-    dashboard_title:  "Panel de control"
-    dashboard_text: "Este enlace le llevará a su escritorio. Allí usted encontrará una lista de todos los cuestionarios y se podrá descargar una versión en PDF de cada uno de ellos."
+    submit_title: "Enviar"
+    submit_text: "<p>Cuando haya completado el cuestionario, puede enviarlo haciendo clic en este enlace. Seguidamente recibirá un correo electrónico de confirmación de su presentación.</p><p>Una vez presentado el cuestionario podrá visitar la página, pero no podrá modificar sus respuestas.</p>"
+    lang_change_title: "Cambiar idioma"
+    lang_change_text: "<p>Es posible que los cuestionarios estén disponibles en más de un idioma, en cuyo caso puede elegir el idioma en que desea ver el contenido. </p><p>Puede cambiar el idioma en cualquier momento sin que ello altere el contenido de sus respuestas. El idioma que elija se establecerá como su idioma por defecto para este cuestionario.</p>"
+    s_guidance_title: "Cumplimentación del cuestionario"
+    s_guidance_text: "<p>A la izquierda se enumeran los apartados principales del cuestionario. Si desea acceder a un apartado, haga clic en su pestaña y se cargará el apartado correspondiente en el panel principal. A continuación, podrá ver los subapartados y las preguntas que forman parte del apartado seleccionado. </p><p>El icono a la derecha de una pestaña representa el estado de cumplimentación del apartado. Hay cinco iconos diferentes.</p><p><i class='fa fa-asterisk'></i><img src='/assets/submissionstate/fidelitybyagapeh/4.png' alt='New section' width='20px' height='20px'/>, new section which you have not yet visited<br /><img src='/assets/submissionstate/fidelitybyagapeh/3.png' alt='All questions answered' width='20px' height='20px'/>"
+    dashboard_title: "Panel de control"
+    dashboard_text: "<p>Este enlace le dirigirá al panel de control. Allí encontrará una lista de todos sus cuestionarios y podrá descargar una versión en PDF de cada uno de ellos.</p>"
+    choose_loop_item_helptext: "<p>Los elementos de la lista que tienen respuestas asociadas están marcados con <strong>**</strong>, y codificados con colores en algunos navegadores.</p>"
+    choose_loop_item_title: "Menú de ayuda desplegable"
   dashboard_help:
-    questionnaire_title:  "Título Cuestionario"
-    questionnaire_text: "<p>Esta columna muestra el título de los cuestionarios diferentes que se tienen disponibles para responder.</p><p> Usted puede navegar a la página de presentación haciendo clic en el título del cuestionario.</p><p> Sólo se puede llegar a la página de envío si el cuestionario está activo.</p>"
+    questionnaire_title: "Título del cuestionario"
+    questionnaire_text: "<p>Esta columna muestra el título de los distintos cuestionarios que puede responder.</p><p> Si desea dirigirse a la página de presentación, haga clic en el título del cuestionario.</p><p>Solo podrá acceder a la página de presentación si el cuestionario está activo.</p>"
     pdf_title: "Descargar PDF"
-    pdf_text: "<p>Antes de poder descargar el cuestionario en formato PDF tendrá que ser generada. Para ello debe hacer clic en 'Crear'. La generación del PDF se produce en segundo plano y una vez que esté terminado se le notificará por correo electrónico.</p><p>Después de haber sido generado el archivo se puede descargar en esta misma página y podrás hacerlo haciendo clic en el icono PDF.</p><p>El archivo puede ser re-generado para incluir los cambios más recientes, puede hacer clic en 'Regenerar' enlace. La fecha que muestra el icono de PDF se refiere a la última vez que el fichero se ha generado. La regeneración de un PDF, se borra el archivo generado anteriormente.</p>"
+    pdf_text: "<p>Esta versión en PDF muestra todas las preguntas del cuestionario, incluso las que no se han respondido. </p> <p>Para poder descargar el cuestionario en formato PDF, antes es necesario generarlo. Para ello, debe hacer clic en “Generar”. La creación del PDF tiene lugar en segundo plano; cuando haya finalizado recibirá una notificación por correo electrónico. </p><p>Una vez generado, el archivo estará disponible para su descarga en esta misma página; podrá hacerlo clicando en el icono PDF. </p><p>Si desea volver a crear el archivo para que incluya los cambios más recientes, haga clic en “Volver a generar”. La fecha indicada en el icono PDF se refiere a la última vez que se creó el archivo. Cuando se vuelve a generar un PDF, se borra el archivo creado previamente.</p>"
     options_title: "Opciones"
-    options_text: "<p>En esta columna se encuentra una lista de acciones de preformas.</p><p><img src='images/icons/pencil.png' width='15px' height='15px' alt='Lápiz' />: Al hacer clic en este icono le llevará a la página de presentación de este cuestionario.</p>"
+    options_text: "<p>En esta columna encontrará una lista de las acciones que puede llevar a cabo .</p><p><%= fa_icon('pencil-square-o', alt: 'Responder cuestionario', title: 'Responder cuestionario', class:  'background inverse info') %> Haga clic sobre este icono para acceder a la página de presentación del cuestionario.</p>"
+    pdf_small_title: "Descargar PDF abreviado"
+    pdf_small_text: "<p>Esta versión abreviada del PDF solo muestra las preguntas respondidas.</p>"
   administration_help:
-    dashboard:  "Panel de control de administración - En el panel de control de administración puede encontrar información sobre las últimas actividades de los usuarios de esta herramienta. Como los últimos cuestionarios creados, los últimos cuestionarios activado y la última a los usuarios que se han registrado en el sistema."
-    new_q:  "Nuevo cuestionario - Comience a crear un nuevo cuestionario a partir de cero."
-    duplicate_q: "Duplicar un cuestionario - Esta página le permite crear nuevos cuestionarios a partir de cuestionarios existentes. Hay una opción para copiar no sólo la estructura del cuestionario, pero sus respuestas también."
-    manage_q: "Gestionar los cuestionarios - En esta página usted encontrará una lista con los cuestionarios que existen en el sistema y la información diferente acerca de cada uno de esos. A saber información sobre la fecha de creación, autor, estado y fecha de activación, si el cuestionario está activo. También puede realizar cambios en el estado de los cuestionarios, y examinar sus respuestas y también obtener un resumen de la actividad los encuestados."
+    dashboard: "Panel de administración: en el panel de administración encontrará información sobre la actividad más reciente de los usuarios de esta herramienta, como los últimos cuestionarios creados, los últimos cuestionarios activados y los últimos usuarios registrados en el sistema."
+    new_q: "Nuevo cuestionario: comience a crear un nuevo cuestionario desde cero."
+    duplicate_q: "Duplicar cuestionario: esta página le permite crear nuevos cuestionarios a partir de los existentes. Existe la opción de copiar tanto la estructura del cuestionario como sus respuestas."
+    manage_q: "Administrar cuestionarios: en esta página encontrará una lista de los cuestionarios que existen en el sistema e información sobre cada uno de ellos, sobre todo relativa a la fecha de creación, el autor, su estado y la fecha de activación, si el cuestionario está activo. También puede modificar el estado de los cuestionarios y consultar la lista de encuestados, así como obtener un resumen de su actividad."
+    manage_u: "Administrar usuarios: esta página presenta una lista de todos los usuarios registrados en el sistema y algunas de sus características, como el nombre, el correo electrónico, sus funciones, sus grupos y los cuestionarios que están autorizados a responder. También le permite buscar en la lista de usuarios, añadir un usuario a un grupo o eliminarlo y agregar nuevos usuarios."
+    q_answers: "Respuestas al cuestionario: permite que el administrador vea las respuestas a cada pregunta de un cuestionario."
   user_dashboard:
     welcome_msg: "Bienvenido"
-    table_title: "Cuestionarios para la presentación"
+    table_title: "Cuestionarios para presentar"
     edit_u: "Editar usuario"
-    manage_d: "Panel de control de delegación"
-    submission_d: "Panel de control"
+    manage_d: "Delegaciones"
+    submission_d: "Panel de presentación"
     help_p: "Páginas de ayuda"
-    quest_title: "Título del Cuestionario"
+    quest_title: "Título del cuestionario"
     created_by: "Creado por"
     date: "Fecha de creación"
     status: "Estado"
     status_s: "Enviado"
-    status_u: "En ejecución"
-    status_na: "Aún no está disponible"
+    status_u: "En curso"
+    status_na: "No disponible"
     status_closed: "Cuestionario cerrado"
-    short_pdf_download: "Descargar PDF - Versión corta"
+    short_pdf_download: "Descargar PDF (versión abreviada)"
     pdf_download: "Descargar PDF"
-    pdf_generate: "Crear"
-    pdf_regenerate: "Regenerar"
-    pdf_last_g: "Última generados en"
-    no_q: "Usted no tiene cuestionarios a presentar."
-    unsubmit_title: "Enviar un correo electrónico al administrador de este cuestionario a una solicitud de volver a su presentación"
+    pdf_generate: "Generar"
+    pdf_regenerate: "Volver a generar"
+    pdf_generating: "Generación en curso"
+    pdf_last_g: "Generado por última vez el"
+    no_q: "No tiene ningún cuestionario pendiente de envío"
+    unsubmit_title: "Envíe un correo electrónico al administrador de este cuestionario para solicitarle que cancele su envío"
   unsubmission_request:
-    legend: "Enviar su solicitud"
+    legend: "Envíe su solicitud por correo electrónico"
   login_menu:
-    logout: "Cierre la sesión"
-    login: "Inicie sesión"
-    sign_up: "Regístrese"
+    logout: "Cerrar sesión"
+    login: "Iniciar sesión"
+    sign_up: "Registrarse"
   welcome_page:
-    restriction: "Esta herramienta sólo está disponible para usuarios registrados."
-    please_login: "Por favor, identifíquese"
+    restriction: "Esta herramienta solo está disponible para los usuarios registrados."
+    forgotten_password: "¿Ha olvidado su contraseña? Póngase en contacto con su administrador<br> o envíe un correo electrónico a <a href='#'>orsteam@unep-wcmc.org</a>"
+    please_login: "Inicie sesión con su usuario"
     or_signup: "O regístrese"
-    signup_instructions1: "Para ello tendrá que facilitar una dirección de correo electrónico, elegir una contraseña y proporcionar algunos detalles sobre usted."
-    signup_instructions2: "Por favor, vaya a la"
+    signup_instructions1: "Para ello debe facilitar una dirección de correo electrónico, elegir una contraseña y proporcionar algunos datos personales."
+    signup_instructions2: "Diríjase a la"
     signup_instructions3: "página de registro"
-    developed_by: "desarrollado y mantenido por &copy;UNEP-WCMC"
-    please_wait: "Por favor, espere un momento..."
+    developed_by: "Desarrollado y mantenido por"
+    please_wait: "Espere un momento…"
   user_new:
-    sign_up: "Regístrate"
+    sign_up: "Registrarse"
     title: "Registrarse"
     first_n: "Nombre"
-    last_n: "Apellido"
-    already_registered: "¿Ya tien una cuenta?"
-    login: "Inicie sesión"
-    add_delegate: "Añadir delegado"
-    role: "Rol"
+    last_n: "Apellidos"
+    already_registered: "¿Ya ha creado una cuenta?"
+    login: "Iniciar sesión"
+    add_delegate: "Añadir un delegado"
+    role: "Función"
   user_session_new:
-    title: "Inicie sesión"
-    no_account: "¿No tien una cuenta?"
-    signup: "Regístrarse"
-    login: "Inicia sesión"
-
+    title: "Iniciar sesión"
+    no_account: "¿No ha creado una cuenta?"
+    signup: "Registrarse"
+    login: "Iniciar sesión"
   user_show:
-    details: "Detalles del usuario"
+    details: "Datos del usuario"
   user_edit:
-    title: "Perfil de Usuario - Editar"
+    title: "Perfil del usuario (Editar)"
     first_n: "Nombre"
-    last_n: "Apellido"
+    last_n: "Apellidos"
     roles: "Funciones"
-  
   user_mailer:
-    greetings: 
-    access: 
-    login: 
-    registration: 
-    new_user_registered: 
-    admin_footer: 
-    for_the_user: 
+    greetings: 'Atentamente,'
+    access: 'Puede acceder al sitio web a través del enlace siguiente:'
+    login: 'Sus datos de inicio de sesión son los siguientes:'
+    registration: 'Registro'
+    new_user_registered: 'Nuevo usuario registrado en el sistema'
+    admin_footer: "Ha recibido este correo electrónico porque figura como administrador del Sistema de presentación de informes en línea"
+    for_the_user: "para el usuario"
+    delegate_registration:
+      subject: "Se le ha añadido como delegado"
     user_registration:
-      subject: 
-      first_line: 
-      admin_first_line_1: 
-      admin_first_line_2: 
+      subject: 'Se ha registrado correctamente.'
+      first_line: "Gracias por registrarse en el"
+      admin_first_line: "Un nuevo usuario acaba de registrarse en el %{title}, con los datos siguientes"
     new_delegate:
-      subject: "Delegate registration"
-      first_line: "usted ha sido registrado como un delegado en el"
+      subject: "Registro de delegados"
+      first_line: "Ha sido registrado como delegado en el"
     section_delegated:
-      subject:
-      intro: 
-      looping: 
-      access: 
-      dashboard: 
-    questionnaire_delegated:
-      subject: 
-      intro: 
-      access: 
-      dashboard: 
+      subject: "Apartado delegado"
+      intro: 'Se le ha delegado el apartado siguiente:'
+      looping: 'Este es un subapartado; se le han delegado los elementos siguientes:'
+      access: 'Puede acceder a este apartado a través del enlace para la presentación de cuestionarios:'
+      dashboard: 'También podrá acceder a él desde su panel de control.
+    questionnaire_delegated:'
+      subject: "Cuestionario delegado"
+      intro: 'Se le ha delegado el cuestionario siguiente:'
+      access: 'Puede acceder a este cuestionario a través del enlace siguiente:'
+      dashboard: 'También podrá acceder a él desde su panel de control.'
     new_respondent:
-      first_line: 
+      subject: "Ha sido añadido al Sistema de presentación de informes en línea"
+      first_line: "Ha sido registrado como encuestado en el"
     authorisation_granted:
-      subject: 
-      first_line: 
-      start_filling:
-      available_from_dashboard:
+      subject: "Se ha autorizado su acceso a un cuestionario"
+      first_line: "Se ha autorizado su acceso al cuestionario siguiente:"
+      start_filling: "Puede comenzar a completar este cuestionario en"
+      available_from_dashboard: "También estará disponible en su panel de presentación."
     questionnaire_submitted:
-      subject:
-      first_line: 
-      second_line: 
-      admin_subject: 
-      admin_line: 
+      subject: "Cuestionario enviado correctamente"
+      first_line: "El cuestionario titulado '%{questionnaire}'  se ha enviado correctamente."
+      second_line: "Gracias por el tiempo que ha dedicado a su cumplimentación."
+      admin_subject: "Cuestionario enviado por"
+      admin_line: "%{user} ha enviado el cuestionario titulado '%{questionnaire}'."
     unsubmission_request:
-      first_line:
-      start_message:
-      end_message:
-      guidance:
-      user_details:
-      administrator_footer:
+      first_line: "%{user} le ha solicitado que cancele la presentación del cuestionario titulado: '%{questionnaire}'."
+      start_message: "%{user} ha escrito el mensaje siguiente"
+      end_message: "Fin del mensaje del usuario"
+      guidance: "Para cancelar el envío, visite la <a href='%{link}'>página de los encuestados del cuestionario</a>."
+      user_details: "Los datos del usuario son"
+      administrator_footer: "Ha recibido este correo electrónico porque es el administrador de este cuestionario."
     pdf_generated:
-      subject: 
-      first_line: 
-      download:
+      subject: "Ya puede descargar el PDF"
+      first_line: "El PDF del cuestionario titulado '%{questionnaire}' se ha generado correctamente"
+      first_line_user: "para el usuario"
+      download: "Ya puede descargarlo de su panel de control."
     pdf_generation_failed:
-      subject: 
-      first_line: 
+      subject: "Error al generar el PDF"
+      first_line: "El PDF del cuestionario titulado '%{questionnaire}'%{for_user} no se ha generado debido al error siguiente"
+      first_line_3: "no se ha generado debido al error siguiente"
     csv_file_generated:
-      subject:
-      first_line:
-      download:
+      subject: "el archivo CSV se ha generado correctamente"
+      first_line: "El archivo CSV del %{section}cuestionario titulado '%{questionnaire}' se ha generado correctamente."
+      download: "Puede descargarlo en la página “Administración de cuestionarios."
     csv_generation_failed:
-      subject: 
-      first_line:
+      subject: "Error al generar el archivo CSV"
+      first_line: "El archivo CSV del %{section}el cuestionario titulado '%{questionnaire}' no se ha generado debido al error siguiente"
     delegate_request:
-      subject: 
-      first_line:
+      subject: "Ha sido añadido como delegado"
+      first_line: "El usuario %{user} le ha añadido como uno de sus delegados."
     questionnaire_duplicated:
-      subject:
-      first_line:
-      second_line:
+      subject: "El cuestionario se ha duplicado correctamente."
+      first_line: "El cuestionario titulado '%{questionnaire}' se ha duplicado correctamente."
+      second_line: "Puede encontrar el nuevo cuestionario en su panel de control o a través de este enlace <a href='%{link}>%{link}</a>."
     questionnaire_duplication_failed:
-      subject: 
-      first_line:
+      subject: "Error al duplicar el cuestionario"
+      first_line: "El cuestionario titulado '%{questionnaire}' no se ha duplicado debido al error siguiente"
   languages:
     arabic: "Árabe"
     chinese: "Chino"
     english: "Inglés"
     french: "Francés"
-    russian: "Rusia"
+    russian: "Ruso"
     spanish: "Español"
-  
-  number:
-    # Used in number_with_delimiter()
-    # These are also the defaults for 'currency', 'percentage', 'precision', and 'human'
-    format:
-      # Sets the separator between the units, for more precision (e.g. 1.0 / 2.0 == 0.5)
-      separator: "," 
-      # Delimets thousands (e.g. 1,000,000 is a million) (always in groups of three)
-      delimiter: "." 
-      # Number of decimals, behind the separator (1 with a precision of 2 gives: 1.00)
-      precision: 3
-
-    # Used in number_to_currency()
-    currency:
-      format:
-        # Where is the currency sign? %u is the currency unit, %n the number (default: $5.00)
-        format: "%n %u" 
-        unit: "€" 
-        # These three are to override number.format and are optional
-        separator: "," 
-        delimiter: "." 
-        precision: 2
-
-    # Used in number_to_percentage()
-    percentage:
-      format:
-        # These three are to override number.format and are optional
-        # separator: 
-        delimiter: "" 
-        # precision: 
-
-    # Used in number_to_precision()
-    precision:
-      format:
-        # These three are to override number.format and are optional
-        # separator:
-        delimiter: "" 
-        # precision:
-
-    # Used in number_to_human_size()
-    human:
-      format:
-        # These three are to override number.format and are optional
-        # separator: 
-        delimiter: "" 
-        precision: 1
-      # Rails <= v2.2.2
-      # storage_units: [Bytes, KB, MB, GB, TB]
-      # Rails >= v2.3
-      storage_units:
-        format: "%n %u"
-        units:
-          byte:
-            one:   "Byte"
-            other: "Bytes"
-          kb: "KB"
-          mb: "MB"
-          gb: "GB"
-          tb: "TB"
-
-  # Used in distance_of_time_in_words(), distance_of_time_in_words_to_now(), time_ago_in_words()
-  datetime:
-    distance_in_words:
-      half_a_minute: "medio minuto" 
-      less_than_x_seconds:
-        one:  "menos de 1 segundo" 
-        other: "menos de {{count}} segundos"
-      x_seconds:
-        one:  "1 segundo" 
-        other: "{{count}} segundos" 
-      less_than_x_minutes:
-        one:  "menos de 1 minuto" 
-        other: "menos de {{count}} minutos" 
-      x_minutes:
-        one:  "1 minuto" 
-        other: "{{count}} minutos" 
-      about_x_hours:
-        one:  "alrededor de 1 hora" 
-        other: "alrededor de {{count}} horas" 
-      x_days:
-        one:  "1 día" 
-        other: "{{count}} días" 
-      about_x_months:
-        one:  "alrededor de 1 mes" 
-        other: "alrededor de {{count}} meses" 
-      x_months:
-        one:  "1 mes" 
-        other: "{{count}} meses" 
-      about_x_years:
-        one:  "alrededor de 1 año" 
-        other: "alrededor de {{count}} años" 
-      over_x_years:
-        one:  "más de 1 año" 
-        other: "más de {{count}} años" 
-      almost_x_years:
-        one: "casi 1 año"
-        other: "casi {{count}} años"
-    prompts:
-      year:   "Año"
-      month:  "Mes"
-      day:    "Día"
-      hour:   "Hora"
-      minute: "Minutos"
-      second: "Segundos"
-
-  activerecord:
-    errors:
-      template:
-        header:
-          one:   "no se pudo guardar este {{model}} porque se encontró 1 error" 
-          other:  "no se pudo guardar este {{model}} porque se encontraron {{count}} errores" 
-        # The variable :count is also available
-        body: "Se encontraron problemas con los siguientes campos:" 
-
-      # The values :model, :attribute and :value are always available for interpolation
-      # The value :count is available when applicable. Can be used for pluralization.
-      messages:
-        inclusion: "no está incluido en la lista" 
-        exclusion: "está reservado" 
-        invalid: "no es válido" 
-        confirmation: "no coincide con la confirmación"
-        accepted: "debe ser aceptado"
-        empty: "no puede estar vacío"
-        blank: "no puede estar en blanco"
-        too_long: "es demasiado largo ({{count}} caracteres máximo)"
-        too_short: "es demasiado corto ({{count}} caracteres mínimo)"
-        wrong_length: "no tiene la longitud correcta ({{count}} caracteres exactos)"
-        taken: "ya está en uso"
-        not_a_number: "no es un número"
-        greater_than: "debe ser mayor que {{count}}"
-        greater_than_or_equal_to: "debe ser mayor que o igual a {{count}}"
-        equal_to: "debe ser igual a {{count}}"
-        less_than: "debe ser menor que {{count}}"
-        less_than_or_equal_to: "debe ser menor que o igual a {{count}}"
-        odd: "debe ser impar"
-        even: "debe ser par"
-        record_invalid: "La validación falló: {{errors}}"
-        # Append your own errors here or at the model/attributes scope.
-
-      models:
-        # Overrides default messages
-
-      attributes:
-        # Overrides model and default messages.
-
   date:
     formats:
-      # Use the strftime parameters for formats.
-      # When no format has been given, it uses default.
-      # You can provide other formats here if you like!
-      default: "%e/%m/%Y"
-      short: "%e de %b" 
-      long: "%e de %B de %Y" 
-
-    day_names: [Domingo, Lunes, Martes, Miércoles, Jueves, Viernes, Sábado]
-    abbr_day_names: [Dom, Lun, Mar, Mie, Jue, Vie, Sab]
-
-    # Don't forget the nil at the beginning; there's no such thing as a 0th month
-    month_names: [~, Enero, Febrero, Marzo, Abril, Mayo, Junio, Julio, Agosto, Septiembre, Octubre, Noviembre, Diciembre]
-    abbr_month_names: [~, Ene, Feb, Mar, Abr, May, Jun, Jul, Ago, Sep, Oct, Nov, Dic]
-    # Used in date_select and datime_select.
-    order:
-      - :day
-      - :month
-      - :year
-
+      default: "%d/%m/%Y"
   time:
     formats:
       default: "%d %B %Y"
-      short: "%e de %b %H:%M" 
-      long: "%e de %B de %Y %H:%M" 
       with_time: "%d %B %Y, %H:%M"
-    am: "am" 
-    pm: "pm" 
-
-# Used in array.to_sentence.
-  support:
-    select:
-      # default value for :prompt => true in FormOptionsHelper
-      prompt: "Por favor seleccione"
-    array:
-      # Rails <= v.2.2.2
-      # sentence_connector: "y"
-      # Rails >= v.2.3
-      words_connector: ", "
-      two_words_connector: " y "
-      last_word_connector: " y "

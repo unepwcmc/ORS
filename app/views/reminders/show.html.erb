@@ -1,15 +1,29 @@
 <div class="span-24 last" id="content">
-
+<div class="page-header">
+  <h2>Reminder: <%= @reminder.title %></h2>
+</div>
   <div id="content_header">
     <% info_tip_text = "<p></p>"%>
     <%= render :partial => "administration/menu", :locals => {:header => "Reminder " + info_tip("Reminder", info_tip_text), :include_options => "administration"} -%>
   </div>
   <div class="clear" id="q_dashboard" style="margin-bottom: 25px">
-    <p><strong>Title</strong><%=h @reminder.title %></p>
-    <p><strong>Alert</strong><%= pluralize @reminder.days, 'day' %> before</p>
-    <p><strong>Alert message</strong><%=h @reminder.body %></p>
+    <div class="row padded group">
+      <div class="col col-3">Title</div>
+      <div class="col col-9 border-left"><%=h @reminder.title %></div>
+    </div>
+    <div class="row padded group">
+      <div class="col col-3">Alert</div>
+      <div class="col col-9 border-left"><%= pluralize @reminder.days, 'day' %></div>
+    </div>
+    <div class="row padded group">
+      <div class="col col-3">Alert message</div>
+      <div class="col col-9 border-left"><%= h @reminder.body %></div>
+    </div>
   </div>
-  <h5>Associated deadlines</h5>
+  <div class="page-header">
+    <h5>Associated deadlines</h5>
+  </div>
+
   <table class="tablesorter">
     <thead>
         <tr>

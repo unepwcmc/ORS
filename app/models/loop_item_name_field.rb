@@ -15,6 +15,7 @@ class LoopItemNameField < ActiveRecord::Base
   ###   Validations
   ###
   validates_uniqueness_of :language, :scope => :loop_item_name_id
+  validates :item_name, presence: true
 end
 
 # == Schema Information
@@ -22,10 +23,10 @@ end
 # Table name: loop_item_name_fields
 #
 #  id                  :integer          not null, primary key
-#  language            :string(255)
-#  item_name           :string(255)
-#  is_default_language :boolean
-#  loop_item_name_id   :integer
-#  created_at          :datetime
-#  updated_at          :datetime
+#  language            :string(255)      not null
+#  item_name           :text             not null
+#  is_default_language :boolean          default(FALSE), not null
+#  loop_item_name_id   :integer          not null
+#  created_at          :datetime         not null
+#  updated_at          :datetime         not null
 #

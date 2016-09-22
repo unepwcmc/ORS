@@ -6,7 +6,7 @@
   <li>
     <% #default language appears expanded %>
     <%= aux_builder.object.answer_type_fields.sort_by{ |a| a.is_default_language? ? 0 : 1 }.
-      map{|field| "<a href='#' class='display_lang' id='#{the_id.nil? ? "new_multi_answer_options" : the_id }_ofield_#{field.language}'>#{field.language_english_name} #{field.is_default_language? ? "-": "+"}</a> " }.
+      map{|field| "<a href='#' class='display_lang' id='#{the_id.nil? ? "new_multi_answer_options" : the_id }_ofield_#{field.language}'>#{field.language_english_name} #{field.is_default_language? ? "<i class='fa fa-caret-up'></i>" : "<i class='fa fa-caret-down'></i>"}</a> " }.
       join(" | ").html_safe %>
     |
     <a href="#" class="show_all_lang_fields">Expand all</a>
@@ -27,12 +27,10 @@
                 </legend>
                 <%= builder.hidden_field :language, :value => answer_type_field.language %>
                 <%= builder.hidden_field :is_default_language, :value => answer_type_field.is_default_language %>
-                <ol>
-                  <li>
-                    <%= builder.label :option_text, "Option text #{ answer_type_field.language == main_lang ? "*" : ""}" %>
-                    <%= builder.text_area :option_text, :rows => 2, :cols => 55, :dir => answer_type_field.language == "ar" ? "rtl" : "ltr", :class => "grow #{ builder.object.id ? " " : "option_text hide"}", :validate => "#{builder.object.language == main_lang ? "{required:true, messages:{required:'Option text in #{builder.object.language_english_name} is required'}}" : "" }" %>
-                  </li>
-                </ol>
+                <div class="row group padded">
+                  <%= builder.label :option_text, "Option text #{ answer_type_field.language == main_lang ? "*" : ""}" %>
+                  <%= builder.text_area :option_text, :rows => 2, :cols => 55, :dir => answer_type_field.language == "ar" ? "rtl" : "ltr", :class => "grow #{ builder.object.id ? " " : "option_text hide"}", :validate => "#{builder.object.language == main_lang ? "{required:true, messages:{required:'Option text in #{builder.object.language_english_name} is required'}}" : "" }" %>
+                </div>
               </fieldset>
             </div>
         <% end %>

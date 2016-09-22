@@ -14,6 +14,8 @@
         <tr>
           <th>Name</th>
           <th>E-mail</th>
+          <th>Country</th>
+          <th>Region</th>
           <th>Created At</th>
           <th>Created By</th>
           <th>Roles</th>
@@ -26,6 +28,8 @@
             <tr>
               <td><%= user.full_name %></td>
               <td><%= mail_to h(user.email), h(user.email)  %></td>
+              <td><%= user.country %></td>
+              <td><%= user.region %></td>
               <td><%= user.created_at ? user.created_at.to_formatted_s(:long_ordinal) : "-" %></td>
               <td><%= raw user.creator ? "#{link_to h(user.creator.full_name), user_path(user.creator)}" : "None" %></td>
               <td><%= user.roles.map(&:name).join(', ') if user.roles.present? %></td>

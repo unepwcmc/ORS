@@ -22,6 +22,6 @@ class SourceFilesController < ApplicationController
     @loop_source = source_file.loop_source
     source_file.destroy
     flash[:notice] = "Source file successfully destroyed"
-    redirect_to @loop_source 
+    redirect_to @loop_source
   end
 end

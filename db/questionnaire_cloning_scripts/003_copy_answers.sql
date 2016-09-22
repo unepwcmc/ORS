@@ -1,12 +1,17 @@
 DROP FUNCTION IF EXISTS copy_answers(
   old_questionnaire_id INTEGER, new_questionnaire_id INTEGER
 );
-CREATE OR REPLACE FUNCTION copy_answers(
+DROP FUNCTION IF EXISTS copy_answers_start(
+  old_questionnaire_id INTEGER, new_questionnaire_id INTEGER
+);
+CREATE OR REPLACE FUNCTION copy_answers_start(
   old_questionnaire_id INTEGER, new_questionnaire_id INTEGER
 ) RETURNS VOID
 LANGUAGE plpgsql AS $$
 BEGIN
   CREATE TEMP TABLE tmp_answers () INHERITS (answers);
+  CREATE TEMP TABLE tmp_documents () INHERITS (documents);
+  CREATE TEMP TABLE tmp_answer_links () INHERITS (answer_links);
 
   INSERT INTO tmp_answers (
     user_id,
@@ -77,7 +82,7 @@ BEGIN
   FROM resolved_looping_identifiers
   WHERE resolved_looping_identifiers.answer_id = tmp_answers.id;
 
-  INSERT INTO answer_links (
+  INSERT INTO tmp_answer_links (
     answer_id,
     url,
     description,
@@ -96,7 +101,7 @@ BEGIN
   JOIN tmp_answers
   ON tmp_answers.original_id = answer_links.id;
 
-  INSERT INTO documents (
+  INSERT INTO tmp_documents (
     answer_id,
     doc_file_name,
     doc_content_type,
@@ -121,9 +126,24 @@ BEGIN
   JOIN tmp_answers
   ON tmp_answers.original_id = documents.answer_id;
 
-  PERFORM copy_answer_parts(old_questionnaire_id, new_questionnaire_id);
+  PERFORM copy_answer_parts_start(old_questionnaire_id, new_questionnaire_id);
+END;
+$$;
 
+DROP FUNCTION IF EXISTS copy_answers_end(
+  old_questionnaire_id INTEGER, new_questionnaire_id INTEGER
+);
+CREATE OR REPLACE FUNCTION copy_answers_end()
+RETURNS VOID
+LANGUAGE plpgsql AS $$
+BEGIN
   INSERT INTO answers SELECT * FROM tmp_answers;
   DROP TABLE tmp_answers;
+  INSERT INTO documents SELECT * FROM tmp_documents;
+  DROP TABLE tmp_documents;
+  INSERT INTO answer_links SELECT * FROM tmp_answer_links;
+  DROP TABLE tmp_answer_links;
+
+  PERFORM copy_answer_parts_end();
 END;
 $$;

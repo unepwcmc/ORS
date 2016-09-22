@@ -26,10 +26,10 @@ end
 # Table name: multi_answer_option_fields
 #
 #  id                     :integer          not null, primary key
-#  language               :string(255)
+#  language               :string(255)      not null
 #  option_text            :text
-#  multi_answer_option_id :integer
-#  created_at             :datetime
-#  updated_at             :datetime
-#  is_default_language    :boolean          default(FALSE)
+#  multi_answer_option_id :integer          not null
+#  created_at             :datetime         not null
+#  updated_at             :datetime         not null
+#  is_default_language    :boolean          default(FALSE), not null
 #
