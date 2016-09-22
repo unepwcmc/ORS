@@ -31,8 +31,8 @@
           <%= select "delegation", "questionnaire_id", @available_questionnaires.collect{|p| [h(p.title(I18n.locale.to_s)[0,50])+"...", p.id] }, { :include_blank => t('manage_delegates.select_a_q') } %>
         </div>
         <div class="row group padded">
-          <%= f.check_box :can_view_all_questionnaire %>
-          <%= f.label :can_view_all_questionnaire, 'Delegate can view the entire questionnaire but edit only delegated sections' %>
+          <%= f.check_box :can_view_only_assigned_sections %>
+          <%= f.label :can_view_only_assigned_sections, 'Delegate can view the entire questionnaire but edit only delegated sections' %>
         </div>
         <p id="submit_p"><%= f.submit t('generic.delegate') %></p>
       </fieldset>

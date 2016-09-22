@@ -1,7 +1,7 @@
 <% @sections_to_display_in_tab_loops_expanded.each do |section_loops_expanded| %>
   <% section, loop_item, submission_state = *section_loops_expanded %>
 
-  <% if delegation.try(:can_view_only_assigned_sections?) && !section.is_or_has_parents_delegated_to?(delegation) && !section.has_sections_delegated_to?(delegation) # if it's not delegated to this section, and doesn't have any children sections that are delegated to this delegation render it as a disabled tab and move on to the next one %>
+  <% if delegation.try(:can_view_only_assigned_sections) && !section.is_or_has_parents_delegated_to?(delegation) && !section.has_sections_delegated_to?(delegation) # if it's not delegated to this section, and doesn't have any children sections that are delegated to this delegation render it as a disabled tab and move on to the next one %>
     <%#= render :partial => "disabled_tab", :locals => { :section => section } %>
     <% next %>
   <% end %>
