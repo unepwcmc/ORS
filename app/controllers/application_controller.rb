@@ -44,6 +44,7 @@ class ApplicationController < ActionController::Base
 
   def render_error(exception)
     Rails.logger.warn(exception)
+    Appsignal.add_exception(exception)
     render :template => "errors/500.html.erb", :status => 500, :layout => false
   end
 
