@@ -15,3 +15,4 @@ nbproject/private/
 /.yardoc/
 .sass-cache/
 .vagrant
+.env
