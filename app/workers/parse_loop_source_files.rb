@@ -28,7 +28,7 @@ class ParseLoopSourceFiles
         source_file_obj.save
       end
     rescue => e
-      ExceptionNotifier.notify_exception(e)
+      Appsignal.add_exception(e)
     end
   end
 end

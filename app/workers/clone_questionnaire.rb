@@ -45,7 +45,7 @@ class CloneQuestionnaire
       logger.error e.message
       e.backtrace.each{ |l| logger.error l }
       UserMailer.questionnaire_duplication_failed(user, questionnaire, e.message).deliver
-      ExceptionNotifier.notify_exception(e)
+      Appsignal.add_exception(e)
     end
   end
 end

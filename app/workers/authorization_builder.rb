@@ -27,7 +27,7 @@ class AuthorizationBuilder
       logger.info("#{Time.now}: Built submission states of questionnaire: #{questionnaire.title}, for user #{user.full_name}.")
       logger.info(" User has been notified through email to: #{user.email}") unless disable_emails == "on"
     rescue => e
-      ExceptionNotifier.notify_exception(e)
+      Appsignal.add_exception(e)
     end
   end
 

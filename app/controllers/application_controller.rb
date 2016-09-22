@@ -3,7 +3,6 @@
 
 class ApplicationController < ActionController::Base
   include Authentication
-  #include ExceptionNotification::Notifiable
 
   helper :all # include all helpers, all the time
 
@@ -45,10 +44,7 @@ class ApplicationController < ActionController::Base
 
   def render_error(exception)
     Rails.logger.warn(exception)
-    ExceptionNotifier.notify_exception(exception,
-     :env => request.env,
-     :data => {:message => "Something went wrong"}
-    )
+    Appsignal.add_exception(exception)
     render :template => "errors/500.html.erb", :status => 500, :layout => false
   end
 

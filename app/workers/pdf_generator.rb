@@ -11,7 +11,7 @@ class PdfGenerator
         QuestionnairePdf.new.to_pdf requester, user, questionnaire, url_prefix, short_version
       end
     rescue => e
-      ExceptionNotifier.notify_exception(e)
+      Appsignal.add_exception(e)
     end
   end
 end
