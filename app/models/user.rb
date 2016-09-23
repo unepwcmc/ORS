@@ -336,7 +336,7 @@ class User < ActiveRecord::Base
 
   def is_authorized_to_answer? section, user_delegate_id
     delegated = section.is_delegated?(user_delegate_id)
-    delegated || (!delegated && authorized_to_answer?(section, user_delegate_id))
+    delegated || (!delegated && authorized_to_answer?(section.questionnaire, user_delegate_id))
   end
 
   def deliver_password_reset_instructions!
