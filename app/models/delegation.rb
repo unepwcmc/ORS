@@ -14,7 +14,7 @@ class Delegation < ActiveRecord::Base
   validates :questionnaire_id, presence: true
 
   def can_view_only_assigned_sections?
-    !self.can_view_all_questionnaire?
+    !self.can_view_all_questionnaire? && !self.delegation_sections.empty?
   end
 
   def available_sections

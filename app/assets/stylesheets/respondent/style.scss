@@ -143,6 +143,10 @@ input[type='checkbox'] { margin: 0 5px 0 0; }
   vertical-align: middle;
 }
 
+.disabled-section-tab {
+  color: $grey-33;
+}
+
 .section-tab {
   display:inline-block;
   width: 220px;

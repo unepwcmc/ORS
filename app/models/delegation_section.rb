@@ -6,7 +6,7 @@ class DelegationSection < ActiveRecord::Base
 
   validates_uniqueness_of :delegation_id, :scope => :section_id
 
-  attr_accessible :section_id
+  attr_accessible :section_id, :delegation_id
 
   def add_loop_item_names_from params
     params.each do |loop_item_name_id|
@@ -45,8 +45,9 @@ class DelegationSection < ActiveRecord::Base
       delegation_section = delegation.delegation_sections.create(params[:delegation_section])
     #Or from the Delegates Dashboard
     elsif params[:delegation_section] && params[:delegation_section][:section_id].present?
+      delegation_section_params = params[:delegation_section].merge(delegation_id: params[:delegation_id])
       delegation = Delegation.find(params[:delegation_id])
-      delegation_section = DelegationSection.create(params[:delegation_section])
+      delegation_section = DelegationSection.create(delegation_section_params)
       delegation.delegation_sections << delegation_section
     end
     delegation_section
