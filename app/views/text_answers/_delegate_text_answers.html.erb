@@ -16,6 +16,9 @@
     <% end %>
   <% end %>
   <% delegate_text_answers.each do |delegate_text_answer| %>
+    <% answer_disabled = answer.question_answered ||
+      !current_user.can_edit_delegate_text_answer?(question.section, @current_user_delegate)
+    %>
     <% unless delegate_answers_div %>
       <div class="delegate-text-answers-wrapper">
       <div class="delegate-text-answers">
@@ -24,7 +27,7 @@
     <div class="delegate-text-answer">
       <% if current_user.id == delegate_text_answer.user_id %>
         <%= hidden_field_tag "delegate_text_answers[#{unique_id}][delegate_answer_id]", delegate_text_answer.id, class: 'disabled_section_information' %>
-        <%= text_area_tag "delegate_text_answers[#{unique_id}][value]", delegate_text_answer.answer_text, :rows => 5, :cols => 68, :readonly => answer.question_answered, :class => ("disabled" if answer.question_answered), style: "float:left;" %>
+        <%= text_area_tag "delegate_text_answers[#{unique_id}][value]", delegate_text_answer.answer_text, :rows => 5, :cols => 68, :readonly => answer_disabled, :class => ("disabled" if answer_disabled), style: "float:left;" %>
       <% else %>
         <%= text_area_tag "other_delegates_answers[#{delegate_text_answer.id}]", delegate_text_answer.answer_text, :rows => 5, :cols => 68, :readonly => true, :class => "disabled", style: "float:left;" %>
         <i class='fa fa-lock'></i>
@@ -37,7 +40,7 @@
     </p>
     </div>
   <% end %>
-<% elsif current_user.is_authorized_to_answer?(question.section, @current_user_delegate)  %>
+<% elsif current_user.can_edit_delegate_text_answer?(question.section, @current_user_delegate) %>
   <div class="delegate-text-answers-wrapper">
   <div class="delegate-text-answers">
   <% delegate_answers_div = true %>
