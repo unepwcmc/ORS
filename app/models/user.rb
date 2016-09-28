@@ -343,6 +343,19 @@ class User < ActiveRecord::Base
     reset_perishable_token!
     UserMailer.deliver_password_reset_instructions(self).deliver
   end
+
+  def can_edit_delegate_text_answer?(section, user_delegate)
+    questionnaire_id = section.questionnaire.id
+    if self.role?(:delegate) && (
+      section.is_delegated?(user_delegate.id) ||
+        user_delegate.delegations.
+          find_by_questionnaire_id_and_user_delegate_id(questionnaire_id, user_delegate.id).
+            try(:can_view_and_edit_all_questionnaire?)
+    )
+      return true
+    end
+    return false
+  end
 end
 
 # == Schema Information
