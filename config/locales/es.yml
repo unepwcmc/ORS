@@ -130,6 +130,7 @@ es:
     delegations_show_sl: "Apartados delegados"
     help_line: "<p>Un delegado es un usuario que puede colaborar con usted en la cumplimentación de los cuestionarios. Puede asignarle todos los apartados de los cuestionarios o un subconjunto de apartados. Si desea añadir un delegado, pulse en “Añadir delegado”.</p><p>Para cada uno de sus delegados, enumerados en el cuadro siguiente, dispone de dos opciones <strong>Mostrar</strong> y <strong>Eliminar</strong>. La opción <strong>Eliminar</strong> eliminará al delegado y todas las delegaciones que se le habían asignado. La opción <strong>Mostrar</strong> le dirigirá a una página en la que encontrará todos los datos del delegado, incluidos los cuestionarios que le ha asignado. <p/><p>Puede asignar un cuestionario a un delegado directamente desde la página de presentación de cuestionarios. No obstante, tenga en cuenta que no todos los cuestionarios tienen activada la opción de delegación.</p>"
     delegate_show_help: "Podrá responder cuestionarios en nombre del encuestado responsable. A continuación puede ver una lista de los cuestionarios que está autorizado a responder."
+    can_view_all_questionnaire: "Al delegar secciones limitadas, todavía se permite ver (pero no editar) todo el cuestionario."
   flash_messages:
     nothing_to_save: "No hay nada para guardar"
     saved_successfully: "las respuestas se han guardado correctamente"

@@ -131,6 +131,7 @@ fr:
     delegations_show_sl: "Sections déléguées"
     help_line: "<p>Un délégué est un utilisateur qui peut vous aider à répondre à vos questionnaires. Vous pouvez lui attribuer toutes les sections de vos questionnaires ou un ensemble de sections. Pour ajouter un délégué, cliquez sur le bouton 'Ajouter un délégué'.</p><p>Pour chacun de vos délégués répertoriés dans le tableau ci-dessous, deux options sont disponibles <strong>Afficher</strong> et <strong>Supprimer</strong>. L'option <strong>Supprimer</strong> supprimera ce délégué et toutes les délégations associées à ce délégué. L'option <strong>Afficher</strong> affichera une page comprenant les informations sur le délégué, dont les questionnaires que vous lui avez délégués.<p/><p>Vous pouvez associer un délégué à un questionnaire directement à partir de la page de soumission du questionnaire. Notez que la fonction de délégation n'est pas activée pour tous les questionnaires.</p>"
     delegate_show_help: "Vous pourrez répondre à des questionnaires à sa place. La liste ci-dessous répertorie les questionnaires auxquels vous êtes autorisé à répondre."
+    can_view_all_questionnaire: "Lorsqu’un délégué est assigné à des sections limitées, veillez à bien lui donner un accès de type lecture (et non édition) à l’intégralité du questionnaire."
   flash_messages:
     nothing_to_save: "Rien à enregistrer"
     saved_successfully: "réponses enregistrées"
