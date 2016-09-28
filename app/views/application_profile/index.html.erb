@@ -4,8 +4,16 @@
 
   <fieldset>
     <div class="row padded group" >
-      <%= f.label :title %>
-      <%= f.text_field :title %>
+      <%= f.label :title_en, "English Title" %>
+      <%= f.text_field :title_en %>
+    </div>
+    <div class="row padded group" >
+      <%= f.label :title_fr, "French Title" %>
+      <%= f.text_field :title_fr %>
+    </div>
+    <div class="row padded group" >
+      <%= f.label :title_es, "Spanish Title" %>
+      <%= f.text_field :title_es %>
     </div>
     <div class="row padded group" >
       <%= f.label :short_title %>
