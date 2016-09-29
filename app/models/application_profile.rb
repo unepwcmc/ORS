@@ -17,8 +17,11 @@
 
 class ApplicationProfile < ActiveRecord::Base
 
-  attr_accessible :title, :title_en, :title_fr, :title_es, :short_title, :sub_title, :logo, :logo_url, :show_sign_up
-  translates :title
+  attr_accessible :title, :title_en, :title_fr, :title_es,
+    :short_title, :short_title_en, :short_title_fr, :short_title_es,
+    :sub_title, :sub_title_en, :sub_title_fr, :sub_title_es,
+    :logo, :logo_url, :show_sign_up
+  translates :title, :short_title, :sub_title
   # The # symbol after the size will scale and crop to exactly that size
   has_attached_file :logo, :styles => { :small => 'x55' }, :default_url => "/images/:style/missing.png"
   validates_attachment :logo, :size => { :in => 0..2.megabytes, :message => "The file's size must be less than 2MB"}
