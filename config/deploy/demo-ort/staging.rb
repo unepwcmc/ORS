@@ -1,6 +1,6 @@
 set :stage, :staging
 
-set :branch, "develop"
+set :branch, :master
 
 server "demo-ort.ort-staging.linode.unep-wcmc.org", user: "wcmc", roles: %w{app web db}
 
