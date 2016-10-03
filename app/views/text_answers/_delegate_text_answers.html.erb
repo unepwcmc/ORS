@@ -41,9 +41,12 @@
           <span><%= editor.id != current_user.id ? (link_to h(editor.full_name)[0,30], user_path(editor), :title => h(editor.full_name)) : 'You' -%></span>
           <span>(<%= delegate_text_answer.updated_at %>)</span>
         </div>
-        <div class="accept-btn-container">
-          <%= link_to 'Accept answer', '#', class: 'btn accept-btn' %>
-        </div>
+        <% if current_user.role?(:respondent) &&
+             current_user.authorized_submitter_of?(question.questionnaire) %>
+          <div class="accept-btn-container">
+            <%= link_to 'Accept answer', '#', class: 'btn accept-btn' %>
+          </div>
+        <% end %>
       </div>
     </div>
   <% end %>
