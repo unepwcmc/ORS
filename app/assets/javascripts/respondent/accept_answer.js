@@ -3,6 +3,6 @@ $(document).ready(function() {
     e.preventDefault();
     answer = $(this).closest('.delegate-text-answer').find('textarea').val();
     text_answer = $(this).closest('.answer_fields_wrapper').find('.text-answer')
-    $(text_answer).find('textarea').val(answer);
+    $(text_answer).find('.text-answer-field').val(answer);
   });
 });
