@@ -94,9 +94,22 @@ input[type='checkbox'] { margin: 0 5px 0 0; }
     vertical-align: middle;
     .delegate-text-answer {
       width: 690px;
-      height: 160px;
+      height: 180px;
       border-right: 8px $grey-10 solid;
     }
+  }
+}
+
+.delegate-answer-details {
+  width: 640px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  .tooltips, .accept-btn-container {
+    display: inline-block;
+  }
+  .accept-btn-container {
+    margin-left: 100px;
   }
 }
 

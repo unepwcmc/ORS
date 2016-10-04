@@ -25,19 +25,29 @@
       <% delegate_answers_div = true %>
     <% end %>
     <div class="delegate-text-answer">
-      <% if current_user.id == delegate_text_answer.user_id %>
-        <%= hidden_field_tag "delegate_text_answers[#{unique_id}][delegate_answer_id]", delegate_text_answer.id, class: 'disabled_section_information' %>
-        <%= text_area_tag "delegate_text_answers[#{unique_id}][value]", delegate_text_answer.answer_text, :rows => 5, :cols => 68, :readonly => answer_disabled, :class => ("disabled" if answer_disabled), style: "float:left;" %>
-      <% else %>
-        <%= text_area_tag "other_delegates_answers[#{delegate_text_answer.id}]", delegate_text_answer.answer_text, :rows => 5, :cols => 68, :readonly => true, :class => "disabled", style: "float:left;" %>
-        <i class='fa fa-lock'></i>
-      <% end %>
-    <p class="tooltips" style="float:left; clear:both;">
-      Answered by:
-      <% editor = delegate_text_answer.user %>
-      <span><%= editor.id != current_user.id ? (link_to h(editor.full_name)[0,30], user_path(editor), :title => h(editor.full_name)) : 'You' -%></span>
-      <span>(<%= delegate_text_answer.updated_at %>)</span>
-    </p>
+      <div class="delegate-text-area">
+        <% if current_user.id == delegate_text_answer.user_id %>
+          <%= hidden_field_tag "delegate_text_answers[#{unique_id}][delegate_answer_id]", delegate_text_answer.id, class: 'disabled_section_information' %>
+          <%= text_area_tag "delegate_text_answers[#{unique_id}][value]", delegate_text_answer.answer_text, :rows => 5, :cols => 68, :readonly => answer_disabled, :class => ("disabled" if answer_disabled), style: "float:left;" %>
+        <% else %>
+          <%= text_area_tag "other_delegates_answers[#{delegate_text_answer.id}]", delegate_text_answer.answer_text, :rows => 5, :cols => 68, :readonly => true, :class => "disabled", style: "float:left;" %>
+          <i class='fa fa-lock'></i>
+        <% end %>
+      </div>
+      <div class="delegate-answer-details row">
+        <div class="tooltips col-9">
+          Answered by:
+          <% editor = delegate_text_answer.user %>
+          <span><%= editor.id != current_user.id ? (link_to h(editor.full_name)[0,30], user_path(editor), :title => h(editor.full_name)) : 'You' -%></span>
+          <span>(<%= delegate_text_answer.updated_at %>)</span>
+        </div>
+        <% if current_user.role?(:respondent) &&
+             current_user.authorized_submitter_of?(question.questionnaire) %>
+          <div class="accept-btn-container col-3">
+            <%= link_to 'Accept answer', '#', class: 'btn accept-btn' %>
+          </div>
+        <% end %>
+      </div>
     </div>
   <% end %>
 <% elsif current_user.can_edit_delegate_text_answer?(question.section, @current_user_delegate) %>
