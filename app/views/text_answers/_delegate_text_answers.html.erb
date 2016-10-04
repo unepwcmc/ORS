@@ -34,8 +34,8 @@
           <i class='fa fa-lock'></i>
         <% end %>
       </div>
-      <div class="delegate-answer-details">
-        <div class="tooltips">
+      <div class="delegate-answer-details row">
+        <div class="tooltips col-9">
           Answered by:
           <% editor = delegate_text_answer.user %>
           <span><%= editor.id != current_user.id ? (link_to h(editor.full_name)[0,30], user_path(editor), :title => h(editor.full_name)) : 'You' -%></span>
@@ -43,7 +43,7 @@
         </div>
         <% if current_user.role?(:respondent) &&
              current_user.authorized_submitter_of?(question.questionnaire) %>
-          <div class="accept-btn-container">
+          <div class="accept-btn-container col-3">
             <%= link_to 'Accept answer', '#', class: 'btn accept-btn' %>
           </div>
         <% end %>
