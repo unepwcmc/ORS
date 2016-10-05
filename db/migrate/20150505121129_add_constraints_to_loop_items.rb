@@ -1,5 +1,11 @@
 class AddConstraintsToLoopItems < ActiveRecord::Migration
   def up
+    # if API views already in place, need to drop before changing columns
+    if ActiveRecord::Base.connection.table_exists? 'api_sections_looping_contexts_view'
+      drop_view_and_dependent_views
+      re_create_view = true
+    end
+
     # add foreign key constraint
     # index on parent_id already in place
     execute <<-SQL
@@ -27,9 +33,11 @@ class AddConstraintsToLoopItems < ActiveRecord::Migration
     add_index :loop_items, :loop_item_type_id
     execute <<-SQL
       DELETE FROM loop_items
-      WHERE loop_item_type_id IS NULL
-      OR loop_item_type_id NOT IN (
-        SELECT id FROM loop_item_types
+      WHERE id IN (
+        SELECT li.id
+        FROM loop_items AS li
+        LEFT OUTER JOIN loop_item_types AS lit ON li.loop_item_type_id = lit.id
+        WHERE lit.id IS NULL OR li.loop_item_type_id IS NULL
       )
     SQL
 
@@ -45,9 +53,11 @@ class AddConstraintsToLoopItems < ActiveRecord::Migration
     add_index :loop_items, :loop_item_name_id
     execute <<-SQL
       DELETE FROM loop_items
-      WHERE loop_item_name_id IS NOT NULL
-      AND loop_item_name_id NOT IN (
-        SELECT id FROM loop_item_names
+      WHERE id IN (
+        SELECT li.id
+        FROM loop_items AS li
+        LEFT OUTER JOIN loop_item_names AS lin ON li.loop_item_name_id = lin.id
+        WHERE lin.id IS NULL AND li.loop_item_name_id IS NOT NULL
       )
     SQL
 
@@ -62,9 +72,18 @@ class AddConstraintsToLoopItems < ActiveRecord::Migration
     change_column :loop_items, :created_at, :datetime, null: false
     execute "UPDATE loop_items SET updated_at = NOW() WHERE updated_at IS NULL"
     change_column :loop_items, :updated_at, :datetime, null: false
+
+    # re-create the view if necessary
+    create_view_and_dependent_views if re_create_view
   end
 
   def down
+    # if API views already in place, need to drop before changing columns
+    if ActiveRecord::Base.connection.table_exists? 'api_sections_looping_contexts_view'
+      drop_view_and_dependent_views
+      re_create_view = true
+    end
+
     remove_foreign_key :loop_items, column: :parent_id
 
     remove_index :loop_items, :loop_item_type_id
@@ -79,5 +98,18 @@ class AddConstraintsToLoopItems < ActiveRecord::Migration
       :created_at, :datetime, null: true
     change_column :loop_items,
       :updated_at, :datetime, null: true
+
+    # re-create the view if necessary
+    create_view_and_dependent_views if re_create_view
+  end
+
+  def drop_view_and_dependent_views
+    execute 'DROP VIEW api_questions_looping_contexts_view'
+    execute 'DROP VIEW api_sections_looping_contexts_view'
+  end
+
+  def create_view_and_dependent_views
+    execute view_sql('20151111125036', 'api_sections_looping_contexts_view')
+    execute view_sql('20151111125036', 'api_questions_looping_contexts_view')
   end
 end

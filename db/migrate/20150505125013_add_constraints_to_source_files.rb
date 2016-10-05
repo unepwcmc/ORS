@@ -4,9 +4,11 @@ class AddConstraintsToSourceFiles < ActiveRecord::Migration
     add_index :source_files, :loop_source_id
     execute <<-SQL
       DELETE FROM source_files
-      WHERE loop_source_id IS NULL
-      OR loop_source_id NOT IN (
-        SELECT id FROM loop_sources
+      WHERE id IN (
+        SELECT sf.id
+        FROM source_files AS sf
+        LEFT OUTER JOIN loop_sources AS ls ON sf.loop_source_id = ls.id
+        WHERE ls.id IS NULL OR sf.loop_source_id IS NULL
       )
     SQL
 

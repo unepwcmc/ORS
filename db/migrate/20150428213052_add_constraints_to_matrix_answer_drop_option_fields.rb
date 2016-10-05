@@ -5,9 +5,11 @@ class AddConstraintsToMatrixAnswerDropOptionFields < ActiveRecord::Migration
       name: 'index_matrix_answer_drop_option_fields_on_drop_option_id'
     execute <<-SQL
       DELETE FROM matrix_answer_drop_option_fields
-      WHERE matrix_answer_drop_option_id IS NULL
-      OR matrix_answer_drop_option_id NOT IN (
-        SELECT id FROM matrix_answer_drop_options
+      WHERE id IN (
+        SELECT madof.id
+        FROM matrix_answer_drop_option_fields AS madof
+        LEFT OUTER JOIN matrix_answer_drop_options AS mado ON madof.matrix_answer_drop_option_id = mado.id
+        WHERE mado.id IS NULL OR madof.matrix_answer_drop_option_id IS NULL
       )
     SQL
 

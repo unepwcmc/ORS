@@ -5,9 +5,11 @@ class AddConstraintsToDelegatedLoopItemNames < ActiveRecord::Migration
     add_index :delegated_loop_item_names, :loop_item_name_id
     execute <<-SQL
       DELETE FROM delegated_loop_item_names
-      WHERE loop_item_name_id IS NULL
-      OR loop_item_name_id NOT IN (
-        SELECT id FROM loop_item_names
+      WHERE id IN (
+        SELECT dlin.id
+        FROM delegated_loop_item_names AS dlin
+        LEFT OUTER JOIN loop_item_names AS lin ON dlin.loop_item_name_id = lin.id
+        WHERE lin.id IS NULL OR dlin.loop_item_name_id IS NULL
       )
     SQL
 
@@ -23,9 +25,11 @@ class AddConstraintsToDelegatedLoopItemNames < ActiveRecord::Migration
     add_index :delegated_loop_item_names, :delegation_section_id
     execute <<-SQL
       DELETE FROM delegated_loop_item_names
-      WHERE delegation_section_id IS NOT NULL
-      AND delegation_section_id NOT IN (
-        SELECT id FROM delegation_sections
+      WHERE id IN (
+        SELECT dlin.id
+        FROM delegated_loop_item_names AS dlin
+        LEFT OUTER JOIN delegation_sections AS ds ON dlin.delegation_section_id = ds.id
+        WHERE ds.id IS NULL AND dlin.delegation_section_id IS NOT NULL
       )
     SQL
 

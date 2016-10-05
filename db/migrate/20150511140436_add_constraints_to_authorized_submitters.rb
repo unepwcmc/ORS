@@ -1,5 +1,11 @@
 class AddConstraintsToAuthorizedSubmitters < ActiveRecord::Migration
   def up
+    # if API views already in place, need to drop before changing columns
+    if ActiveRecord::Base.connection.table_exists? 'api_respondents_view'
+      drop_view_and_dependent_views
+      re_create_view = true
+    end
+
     # make user_id NOT NULL & add foreign key constraint
     add_index :authorized_submitters, :user_id
     execute <<-SQL
@@ -53,9 +59,18 @@ class AddConstraintsToAuthorizedSubmitters < ActiveRecord::Migration
     change_column :authorized_submitters, :created_at, :datetime, null: false
     execute "UPDATE authorized_submitters SET updated_at = NOW() WHERE updated_at IS NULL"
     change_column :authorized_submitters, :updated_at, :datetime, null: false
+
+    # re-create the view if necessary
+    create_view_and_dependent_views if re_create_view
   end
 
   def down
+    # if API views already in place, need to drop before changing columns
+    if ActiveRecord::Base.connection.table_exists? 'api_respondents_view'
+      drop_view_and_dependent_views
+      re_create_view = true
+    end
+
     remove_index :authorized_submitters, :user_id
     change_column :authorized_submitters,
       :user_id, :integer, null: true
@@ -70,5 +85,16 @@ class AddConstraintsToAuthorizedSubmitters < ActiveRecord::Migration
       :created_at, :datetime, null: true
     change_column :authorized_submitters,
       :updated_at, :datetime, null: true
+
+    # re-create the view if necessary
+    create_view_and_dependent_views if re_create_view
+  end
+
+  def drop_view_and_dependent_views
+    execute 'DROP VIEW api_respondents_view'
+  end
+
+  def create_view_and_dependent_views
+    execute view_sql('20151030151237', 'api_respondents_view')
   end
 end

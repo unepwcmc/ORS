@@ -4,9 +4,11 @@ class AddConstraintsToTextAnswerFields < ActiveRecord::Migration
     add_index :text_answer_fields, :text_answer_id
     execute <<-SQL
       DELETE FROM text_answer_fields
-      WHERE text_answer_id IS NULL
-      OR text_answer_id NOT IN (
-        SELECT id FROM text_answers
+      WHERE id IN (
+        SELECT taf.id
+        FROM text_answer_fields AS taf
+        LEFT OUTER JOIN text_answers AS ta ON taf.text_answer_id = ta.id
+        WHERE ta.id IS NULL OR taf.text_answer_id IS NULL
       )
     SQL
 

@@ -1,12 +1,20 @@
 class AddConstraintsToQuestionnaireFields < ActiveRecord::Migration
   def up
+    # if API views already in place, need to drop before changing columns
+    if ActiveRecord::Base.connection.table_exists? 'api_questionnaires_view'
+      drop_view_and_dependent_views
+      re_create_view = true
+    end
+
     # make questionnaire_id NOT NULL & add foreign key constraint
     add_index :questionnaire_fields, :questionnaire_id
     execute <<-SQL
       DELETE FROM questionnaire_fields
-      WHERE questionnaire_id IS NULL
-      OR questionnaire_id NOT IN (
-        SELECT id FROM questionnaires
+      WHERE id IN (
+        SELECT qf.id
+        FROM questionnaire_fields AS qf
+        LEFT OUTER JOIN questionnaires AS q ON qf.questionnaire_id = q.id
+        WHERE q.id IS NULL OR qf.questionnaire_id IS NULL
       )
     SQL
 
@@ -33,9 +41,18 @@ class AddConstraintsToQuestionnaireFields < ActiveRecord::Migration
     change_column :questionnaire_fields, :created_at, :datetime, null: false
     execute "UPDATE questionnaire_fields SET updated_at = NOW() WHERE updated_at IS NULL"
     change_column :questionnaire_fields, :updated_at, :datetime, null: false
+
+    # re-create the view if necessary
+    create_view_and_dependent_views if re_create_view
   end
 
   def down
+    # if API views already in place, need to drop before changing columns
+    if ActiveRecord::Base.connection.table_exists? 'api_questionnaires_view'
+      drop_view_and_dependent_views
+      re_create_view = true
+    end
+
     remove_index :questionnaire_fields, :questionnaire_id
     change_column :questionnaire_fields,
       :questionnaire_id, :integer, null: true
@@ -51,6 +68,16 @@ class AddConstraintsToQuestionnaireFields < ActiveRecord::Migration
       :created_at, :datetime, null: true
     change_column :questionnaire_fields,
       :updated_at, :datetime, null: true
+
+    # re-create the view if necessary
+    create_view_and_dependent_views if re_create_view
   end
 
+  def drop_view_and_dependent_views
+    execute 'DROP VIEW api_questionnaires_view'
+  end
+
+  def create_view_and_dependent_views
+    execute view_sql('20151030151237', 'api_questionnaires_view')
+  end
 end

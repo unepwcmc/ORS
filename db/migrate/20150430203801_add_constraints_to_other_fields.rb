@@ -4,9 +4,11 @@ class AddConstraintsToOtherFields < ActiveRecord::Migration
     add_index :other_fields, :multi_answer_id
     execute <<-SQL
       DELETE FROM other_fields
-      WHERE multi_answer_id IS NULL
-      OR multi_answer_id NOT IN (
-        SELECT id FROM multi_answers
+      WHERE id IN (
+        SELECT of.id
+        FROM other_fields AS of
+        LEFT OUTER JOIN multi_answers AS ma ON of.multi_answer_id = ma.id
+        WHERE ma.id IS NULL OR of.multi_answer_id IS NULL
       )
     SQL
 
