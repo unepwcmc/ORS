@@ -4,9 +4,11 @@ class AddConstraintsToQuestionnaireParts < ActiveRecord::Migration
     # index on parent_id already in place
     execute <<-SQL
       DELETE FROM questionnaire_parts
-      WHERE parent_id IS NOT NULL
-      AND parent_id NOT IN (
-        SELECT id FROM questionnaire_parts
+      WHERE id IN (
+        SELECT qp.id
+        FROM questionnaire_parts AS qp
+        LEFT OUTER JOIN questionnaire_parts AS qp2 ON qp.parent_id = qp2.id
+        WHERE qp2.id IS NULL AND qp.parent_id IS NOT NULL
       )
     SQL
 
@@ -20,9 +22,11 @@ class AddConstraintsToQuestionnaireParts < ActiveRecord::Migration
     add_index :questionnaire_parts, :questionnaire_id
     execute <<-SQL
       DELETE FROM questionnaire_parts
-      WHERE questionnaire_id IS NOT NULL
-      AND questionnaire_id NOT IN (
-        SELECT id FROM questionnaires
+      WHERE id IN (
+        SELECt qp.id
+        FROM questionnaire_parts AS qp
+        LEFT OUTER JOIN questionnaires AS q ON qp.questionnaire_id = q.id
+        WHERE q.id IS NULL AND qp.questionnaire_id IS NOT NULL
       )
     SQL
 

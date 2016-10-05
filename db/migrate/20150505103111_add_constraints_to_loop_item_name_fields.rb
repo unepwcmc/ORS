@@ -4,9 +4,11 @@ class AddConstraintsToLoopItemNameFields < ActiveRecord::Migration
     add_index :loop_item_name_fields, :loop_item_name_id
     execute <<-SQL
       DELETE FROM loop_item_name_fields
-      WHERE loop_item_name_id IS NULL
-      OR loop_item_name_id NOT IN (
-        SELECT id FROM loop_item_names
+      WHERE id IN (
+        SELECT linf.id
+        FROM loop_item_name_fields AS linf
+        LEFT OUTER JOIN loop_item_names AS lin ON linf.loop_item_name_id = lin.id
+        WHERE lin.id IS NULL OR linf.loop_item_name_id IS NULL
       )
     SQL
 

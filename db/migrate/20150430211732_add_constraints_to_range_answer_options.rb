@@ -4,9 +4,11 @@ class AddConstraintsToRangeAnswerOptions < ActiveRecord::Migration
     add_index :range_answer_options, :range_answer_id
     execute <<-SQL
       DELETE FROM range_answer_options
-      WHERE range_answer_id IS NULL
-      OR range_answer_id NOT IN (
-        SELECT id FROM range_answers
+      WHERE id IN (
+        SELECT rao.id
+        FROM range_answer_options AS rao
+        LEFT OUTER JOIN range_answers AS ra ON rao.range_answer_id = ra.id
+        WHERE ra.id IS NULL OR rao.range_answer_id IS NULL
       )
     SQL
 

@@ -4,9 +4,11 @@ class AddConstraintsToRankAnswerOptionFields < ActiveRecord::Migration
     add_index :rank_answer_option_fields, :rank_answer_option_id
     execute <<-SQL
       DELETE FROM rank_answer_option_fields
-      WHERE rank_answer_option_id IS NULL
-      OR rank_answer_option_id NOT IN (
-        SELECT id FROM rank_answer_options
+      WHERE id IN (
+        SELECT raof.id
+        FROM rank_answer_option_fields AS raof
+        LEFT OUTER JOIN rank_answer_options AS rao ON raof.rank_answer_option_id = rao.id
+        WHERE rao.id IS NULL OR raof.rank_answer_option_id IS NULL
       )
     SQL
 

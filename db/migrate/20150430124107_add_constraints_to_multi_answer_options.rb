@@ -4,9 +4,11 @@ class AddConstraintsToMultiAnswerOptions < ActiveRecord::Migration
     add_index :multi_answer_options, :multi_answer_id
     execute <<-SQL
       DELETE FROM multi_answer_options
-      WHERE multi_answer_id IS NULL
-      OR multi_answer_id NOT IN (
-        SELECT id FROM multi_answers
+      WHERE id IN (
+        SELECT mao.id
+        FROM multi_answer_options AS mao
+        LEFT OUTER JOIN multi_answers AS ma ON mao.multi_answer_id = ma.id
+        WHERE ma.id IS NULL OR mao.multi_answer_id IS NULL
       )
     SQL
 

@@ -4,9 +4,11 @@ class AddConstraintsToItemExtraFields < ActiveRecord::Migration
     add_index :item_extra_fields, :item_extra_id
     execute <<-SQL
       DELETE FROM item_extra_fields
-      WHERE item_extra_id IS NULL
-      OR item_extra_id NOT IN (
-        SELECT id FROM item_extras
+      WHERE id IN (
+        SELECT ief.id
+        FROM item_extra_fields AS ief
+        LEFT OUTER JOIN item_extras AS ie ON ief.item_extra_id = ie.id
+        WHERE ie.id IS NULL OR ief.item_extra_id IS NULL
       )
     SQL
 

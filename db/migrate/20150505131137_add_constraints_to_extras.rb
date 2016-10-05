@@ -4,9 +4,11 @@ class AddConstraintsToExtras < ActiveRecord::Migration
     add_index :extras, :loop_item_type_id
     execute <<-SQL
       DELETE FROM extras
-      WHERE loop_item_type_id IS NULL
-      OR loop_item_type_id NOT IN (
-        SELECT id FROM loop_item_types
+      WHERE id IN (
+        SELECT e.id
+        FROM extras AS e
+        LEFT OUTER JOIN loop_item_types AS lit ON e.loop_item_type_id = lit.id
+        WHERE lit.id IS NULL OR e.loop_item_type_id IS NULL
       )
     SQL
 

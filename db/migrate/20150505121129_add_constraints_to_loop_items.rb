@@ -1,5 +1,6 @@
 class AddConstraintsToLoopItems < ActiveRecord::Migration
   def up
+    # TO AMEND?
     # add foreign key constraint
     # index on parent_id already in place
     execute <<-SQL
@@ -27,9 +28,11 @@ class AddConstraintsToLoopItems < ActiveRecord::Migration
     add_index :loop_items, :loop_item_type_id
     execute <<-SQL
       DELETE FROM loop_items
-      WHERE loop_item_type_id IS NULL
-      OR loop_item_type_id NOT IN (
-        SELECT id FROM loop_item_types
+      WHERE id IN (
+        SELECT li.id
+        FROM loop_items AS li
+        LEFT OUTER JOIN loop_item_types AS lit ON li.loop_item_type_id = lit.id
+        WHERE lit.id IS NULL OR li.loop_item_type_id IS NULL
       )
     SQL
 
@@ -45,9 +48,11 @@ class AddConstraintsToLoopItems < ActiveRecord::Migration
     add_index :loop_items, :loop_item_name_id
     execute <<-SQL
       DELETE FROM loop_items
-      WHERE loop_item_name_id IS NOT NULL
-      AND loop_item_name_id NOT IN (
-        SELECT id FROM loop_item_names
+      WHERE id IN (
+        SELECT li.id
+        FROM loop_items AS li
+        LEFT OUTER JOIN loop_item_names AS lin ON li.loop_item_name_id = lin.id
+        WHERE lin.id IS NULL AND li.loop_item_name_id IS NOT NULL
       )
     SQL
 

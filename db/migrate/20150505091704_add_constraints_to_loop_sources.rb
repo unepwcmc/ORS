@@ -4,9 +4,11 @@ class AddConstraintsToLoopSources < ActiveRecord::Migration
     add_index :loop_sources, :questionnaire_id
     execute <<-SQL
       DELETE FROM loop_sources
-      WHERE questionnaire_id IS NULL
-      OR questionnaire_id NOT IN (
-        SELECT id FROM questionnaires
+      WHERE id IN (
+        SELECT ls.id
+        FROM loop_sources AS ls
+        LEFT OUTER JOIN questionnaires AS q ON ls.questionnaire_id = q.id
+        WHERE q.id IS NULL OR ls.questionnaire_id IS NULL
       )
     SQL
 

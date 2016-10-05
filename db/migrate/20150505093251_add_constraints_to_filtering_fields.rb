@@ -4,9 +4,11 @@ class AddConstraintsToFilteringFields < ActiveRecord::Migration
     add_index :filtering_fields, :questionnaire_id
     execute <<-SQL
       DELETE FROM filtering_fields
-      WHERE questionnaire_id IS NULL
-      OR questionnaire_id NOT IN (
-        SELECT id FROM questionnaires
+      WHERE id IN (
+        SELECT ff.id
+        FROM filtering_fields AS ff
+        LEFT OUTER JOIN questionnaires AS q ON ff.questionnaire_id = q.id
+        WHERE q.id IS NULL OR ff.questionnaire_id IS NULL
       )
     SQL
 

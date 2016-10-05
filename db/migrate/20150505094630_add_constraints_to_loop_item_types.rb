@@ -4,9 +4,11 @@ class AddConstraintsToLoopItemTypes < ActiveRecord::Migration
     # index on parent_id already in place
     execute <<-SQL
       DELETE FROM loop_item_types
-      WHERE parent_id IS NOT NULL
-      AND parent_id NOT IN (
-        SELECT id FROM loop_item_types
+      WHERE id IN (
+        SELECT lit.id
+        FROM loop_item_types AS lit
+        LEFT OUTER JOIN loop_item_types AS lit2 ON lit.parent_id = lit2.id
+        WHERE lit2.id IS NULL AND lit.parent_id IS NOT NULL
       )
     SQL
 

@@ -4,9 +4,11 @@ class AddConstraintsToSectionFields < ActiveRecord::Migration
     add_index :section_fields, :section_id
     execute <<-SQL
       DELETE FROM section_fields
-      WHERE section_id IS NULL
-      OR section_id NOT IN (
-        SELECT id FROM sections
+      WHERE id IN (
+        SELECT sf.id
+        FROM section_fields AS sf
+        LEFT OUTER JOIN sections AS s ON sf.section_id = s.id
+        WHERE s.id IS NULL OR sf.section_id IS NULL
       )
     SQL
 

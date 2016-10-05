@@ -4,9 +4,11 @@ class AddConstraintsToItemExtras < ActiveRecord::Migration
     add_index :item_extras, :loop_item_name_id
     execute <<-SQL
       DELETE FROM item_extras
-      WHERE loop_item_name_id IS NULL
-      OR loop_item_name_id NOT IN (
-        SELECT id FROM loop_item_names
+      WHERE id IN (
+        SELECT ie.id
+        FROM item_extras AS ie
+        LEFT OUTER JOIN loop_item_names AS lin ON ie.loop_item_name_id = lin.id
+        WHERE lin.id IS NULL OR ie.loop_item_name_id IS NULL
       )
     SQL
 
@@ -22,9 +24,11 @@ class AddConstraintsToItemExtras < ActiveRecord::Migration
     add_index :item_extras, :extra_id
     execute <<-SQL
       DELETE FROM item_extras
-      WHERE extra_id IS NULL
-      OR extra_id NOT IN (
-        SELECT id FROM extras
+      WHERE id IN (
+        SELECT ie.id
+        FROM item_extras AS ie
+        LEFT OUTER JOIN extras AS e ON ie.extra_id = e.id
+        WHERE e.id IS NULL OR ie.extra_id IS NULL
       )
     SQL
 

@@ -4,9 +4,11 @@ class AddConstraintsToLoopItemNames < ActiveRecord::Migration
     add_index :loop_item_names, :loop_source_id
     execute <<-SQL
       DELETE FROM loop_item_names
-      WHERE loop_source_id IS NULL
-      OR loop_source_id NOT IN (
-        SELECT id FROM loop_sources
+      WHERE id IN (
+        SELECT lin.id
+        FROM loop_item_names AS lin
+        LEFT OUTER JOIN loop_sources AS ls ON lin.loop_source_id = ls.id
+        WHERE ls.id IS NULL OR lin.loop_source_id IS NULL
       )
     SQL
 
@@ -22,9 +24,11 @@ class AddConstraintsToLoopItemNames < ActiveRecord::Migration
     add_index :loop_item_names, :loop_item_type_id
     execute <<-SQL
       DELETE FROM loop_item_names
-      WHERE loop_item_type_id IS NULL
-      OR loop_item_type_id NOT IN (
-        SELECT id FROM loop_item_types
+      WHERE id IN (
+        SELECT lin.id
+        FROM loop_item_names AS lin
+        LEFT OUTER JOIN loop_item_types AS lit ON lin.loop_item_type_id = lit.id
+        WHERE lit.id IS NULL OR lin.loop_item_type_id IS NULL
       )
     SQL
 

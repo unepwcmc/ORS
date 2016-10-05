@@ -4,9 +4,11 @@ class AddConstraintsToMatrixAnswerQueries < ActiveRecord::Migration
     add_index :matrix_answer_queries, :matrix_answer_id
     execute <<-SQL
       DELETE FROM matrix_answer_queries
-      WHERE matrix_answer_id IS NULL
-      OR matrix_answer_id NOT IN (
-        SELECT id FROM matrix_answers
+      WHERE id IN (
+        SELECT maq.id
+        FROM matrix_answer_queries AS maq
+        LEFT OUTER JOIN matrix_answers AS ma ON maq.matrix_answer_id = ma.id
+        WHERE ma.id IS NULL OR maq.matrix_answer_id IS NULL
       )
     SQL
 

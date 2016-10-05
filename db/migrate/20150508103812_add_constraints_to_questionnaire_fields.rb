@@ -4,9 +4,11 @@ class AddConstraintsToQuestionnaireFields < ActiveRecord::Migration
     add_index :questionnaire_fields, :questionnaire_id
     execute <<-SQL
       DELETE FROM questionnaire_fields
-      WHERE questionnaire_id IS NULL
-      OR questionnaire_id NOT IN (
-        SELECT id FROM questionnaires
+      WHERE id IN (
+        SELECT qf.id
+        FROM questionnaire_fields AS qf
+        LEFT OUTER JOIN questionnaires AS q ON qf.questionnaire_id = q.id
+        WHERE q.id IS NULL OR qf.questionnaire_id IS NULL
       )
     SQL
 

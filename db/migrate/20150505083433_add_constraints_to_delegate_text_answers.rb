@@ -4,9 +4,11 @@ class AddConstraintsToDelegateTextAnswers < ActiveRecord::Migration
     add_index :delegate_text_answers, :answer_id
     execute <<-SQL
       DELETE FROM delegate_text_answers
-      WHERE answer_id IS NULL
-      OR answer_id NOT IN (
-        SELECT id FROM answers
+      WHERE id IN (
+        SELECT dta.id
+        FROM delegate_text_answers AS dta
+        LEFT OUTER JOIN answers AS a ON dta.answer_id = a.id
+        WHERE a.id IS NULL OR dta.answer_id IS NULL
       )
     SQL
 
