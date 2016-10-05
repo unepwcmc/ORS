@@ -1,5 +1,11 @@
 class AddConstraintsToAnswers < ActiveRecord::Migration
   def up
+    # if API views already in place, need to drop before changing columns
+    if ActiveRecord::Base.connection.table_exists? 'api_answers_view'
+      drop_view_and_dependent_views
+      re_create_view = true
+    end
+
     # prepare for a long-running delete
     execute <<-SQL
       CREATE TEMP TABLE answers_to_delete AS
@@ -160,9 +166,18 @@ class AddConstraintsToAnswers < ActiveRecord::Migration
     change_column :answers, :created_at, :datetime, null: false
     execute "UPDATE answers SET updated_at = NOW() WHERE updated_at IS NULL"
     change_column :answers, :updated_at, :datetime, null: false
+
+    # re-create the view if necessary
+    create_view_and_dependent_views if re_create_view
   end
 
   def down
+    # if API views already in place, need to drop before changing columns
+    if ActiveRecord::Base.connection.table_exists? 'api_answers_view'
+      drop_view_and_dependent_views
+      re_create_view = true
+    end
+
     remove_index :answers, :user_id
     change_column :answers,
       :user_id, :integer, null: true
@@ -188,5 +203,16 @@ class AddConstraintsToAnswers < ActiveRecord::Migration
       :created_at, :datetime, null: true
     change_column :answers,
       :updated_at, :datetime, null: true
+
+    # re-create the view if necessary
+    create_view_and_dependent_views if re_create_view
+  end
+
+  def drop_view_and_dependent_views
+    execute 'DROP VIEW api_answers_view'
+  end
+
+  def create_view_and_dependent_views
+    execute view_sql('20160203162148', 'api_answers_view')
   end
 end

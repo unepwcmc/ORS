@@ -1,5 +1,11 @@
 class AddConstraintsToRangeAnswerOptionFields < ActiveRecord::Migration
   def up
+    # if API views already in place, need to drop before changing columns
+    if ActiveRecord::Base.connection.table_exists? 'api_range_answer_options_view'
+      drop_view_and_dependent_views
+      re_create_view = true
+    end
+
     # make range_answer_option_id NOT NULL & add foreign key constraint
     add_index :range_answer_option_fields, :range_answer_option_id
     execute <<-SQL
@@ -35,9 +41,18 @@ class AddConstraintsToRangeAnswerOptionFields < ActiveRecord::Migration
     change_column :range_answer_option_fields, :created_at, :datetime, null: false
     execute "UPDATE range_answer_option_fields SET updated_at = NOW() WHERE updated_at IS NULL"
     change_column :range_answer_option_fields, :updated_at, :datetime, null: false
+
+    # re-create the view if necessary
+    create_view_and_dependent_views if re_create_view
   end
 
   def down
+    # if API views already in place, need to drop before changing columns
+    if ActiveRecord::Base.connection.table_exists? 'api_range_answer_options_view'
+      drop_view_and_dependent_views
+      re_create_view = true
+    end
+
     remove_index :range_answer_option_fields, :range_answer_option_id
     change_column :range_answer_option_fields,
       :range_answer_option_id, :integer, null: true
@@ -53,6 +68,20 @@ class AddConstraintsToRangeAnswerOptionFields < ActiveRecord::Migration
       :created_at, :datetime, null: true
     change_column :range_answer_option_fields,
       :updated_at, :datetime, null: true
+
+    # re-create the view if necessary
+    create_view_and_dependent_views if re_create_view
   end
 
+  def drop_view_and_dependent_views
+    execute 'DROP VIEW api_answers_view'
+    execute 'DROP VIEW api_questions_tree_view'
+    execute 'DROP VIEW api_range_answer_options_view'
+  end
+
+  def create_view_and_dependent_views
+    execute view_sql('20151030151237', 'api_range_answer_options_view')
+    execute view_sql('20160202174508', 'api_questions_tree_view')
+    execute view_sql('20160203162148', 'api_answers_view')
+  end
 end

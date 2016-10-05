@@ -1,5 +1,11 @@
 class AddConstraintsToLoopItemNameFields < ActiveRecord::Migration
   def up
+    # if API views already in place, need to drop before changing columns
+    if ActiveRecord::Base.connection.table_exists? 'api_sections_looping_contexts_view'
+      drop_view_and_dependent_views
+      re_create_view = true
+    end
+
     # make loop_item_name_id NOT NULL & add foreign key constraint
     add_index :loop_item_name_fields, :loop_item_name_id
     execute <<-SQL
@@ -40,9 +46,18 @@ class AddConstraintsToLoopItemNameFields < ActiveRecord::Migration
     change_column :loop_item_name_fields, :created_at, :datetime, null: false
     execute "UPDATE loop_item_name_fields SET updated_at = NOW() WHERE updated_at IS NULL"
     change_column :loop_item_name_fields, :updated_at, :datetime, null: false
+
+    # re-create the view if necessary
+    create_view_and_dependent_views if re_create_view
   end
 
   def down
+    # if API views already in place, need to drop before changing columns
+    if ActiveRecord::Base.connection.table_exists? 'api_sections_looping_contexts_view'
+      drop_view_and_dependent_views
+      re_create_view = true
+    end
+
     remove_index :loop_item_name_fields, :loop_item_name_id
     change_column :loop_item_name_fields,
       :loop_item_name_id, :integer, null: true
@@ -61,6 +76,18 @@ class AddConstraintsToLoopItemNameFields < ActiveRecord::Migration
       :created_at, :datetime, null: true
     change_column :loop_item_name_fields,
       :updated_at, :datetime, null: true
+
+    # re-create the view if necessary
+    create_view_and_dependent_views if re_create_view
   end
 
+  def drop_view_and_dependent_views
+    execute 'DROP VIEW api_questions_looping_contexts_view'
+    execute 'DROP VIEW api_sections_looping_contexts_view'
+  end
+
+  def create_view_and_dependent_views
+    execute view_sql('20151111125036', 'api_sections_looping_contexts_view')
+    execute view_sql('20151111125036', 'api_questions_looping_contexts_view')
+  end
 end
