@@ -27,6 +27,9 @@ es:
     remarks: "Observaciones"
     manage: "Administrar"
     delegate: "Delegar"
+    the_delegate: "Delegado"
+    delegate_first_name: "Nombre del delegado"
+    delegate_last_name: "Apellido(s) del delegado"
     delegator: "Encuestado responsable"
     edit: "Editar"
     all: "Todos"
@@ -39,6 +42,19 @@ es:
     send: "Enviar"
     title: "Título"
     of: "de"
+    country: "País"
+    document: "Documento"
+    browse: "Navegar"
+    description: "Descripción"
+    respondent: "Encuestado"
+    role_respondent: "Perfil de encuestado"
+    support_centre: "Centro de ayuda"
+    save_all: "Salvar todo"
+    questionnaire_info: "Información sobre el questionario"
+    copyright: "Copyright © 2016 UNEP-WCMC. Todos los derechos reservados"
+    powered_by: "Creado por"
+    ors: "Sistema de informes en línea"
+    admin: "Administrador"
   questionnaire_feedback:
     state0: "No se ha respondido ninguna pregunta"
     state1: "Algunas preguntas obligatorias no se han respondido (en rojo*)"
@@ -46,6 +62,7 @@ es:
     state3: "Se han respondido todas las preguntas"
     state4: "Nuevo apartado"
   s_details: #submission_details
+    submission_guidance: "Instrucciones para el envío"
     fill_instructions: "Para completar este cuestionario, escoja entre los apartados de la izquierda."
     confirm_submission: "Declaro que la información proporcionada en el presente informe ha sido verificada y que su presentación ha sido aprobada por la institución estatal pertinente."
     submission_disabled: "Algunas respuestas no se han guardado. Guarde todas las respuestas antes de enviar el cuestionario."
@@ -79,11 +96,14 @@ es:
     delegate_section: "Delegar apartado"
     delegate_section_tooltip: "Delegar apartado: puede delegar este apartado en uno de sus delegados para que responda en su nombre. Puede administrar a sus delegados a través del enlace “Administrar delegados” en el panel de control."
   delegation_details:
+    update_delegation: "Actualizarla  delegación"
     header_p: "Se le han delegado los apartados siguientes del presente cuestionario"
     root_section_th: 'Apartado principal'
     loop_th: 'Subapartados'
     whole_q: "Se le ha delegado la totalidad del cuestionario."
   delegate_section:
+    delegate_section: "Apartado delegado"
+    delegate_this_section: "Delegar este apartado:"
     existing_t: "Delegados con acceso a este apartado y sus subapartados"
     delegates_whole: "Delegados con acceso a la totalidad del cuestionario"
     delegate_to: "Delegar en"
@@ -115,6 +135,7 @@ es:
       Si una delegación no tiene apartados asociados a ella, significa que el delegado podrá responder todas las preguntas del cuestionario. Si desea limitar el acceso del delegado, añada un conjunto de apartados a esa delegación. Al delegar un apartado del cuestionario permitirá el acceso a ese apartado y sus subapartados."
     delegate_details: "Nombre del delegado"
   manage_delegates:
+    manage_delegates: 'Gestionar delegados'
     title: "Delegados"
     u_have_delegates: "Sus delegados son los siguientes"
     u_are_delegate: "Usted es un delegado de"
@@ -163,6 +184,8 @@ es:
     files_remove: "quitar documento"
     files_add: "añadir documento"
     files_you_have: "Ha adjuntado a esta respuesta los documentos siguientes."
+    choose_file: "Elegir archivo"
+    no_file_chosen: "Ningún archivo elegido"
     links_dialog_title: "Administrar enlaces/URL"
     links_title: "Título"
     links_remove: "quitar enlace/URL"

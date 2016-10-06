@@ -30,6 +30,9 @@ en:
     remarks: "Remarks"
     manage: "Manage"
     delegate: "Delegate"
+    the_delgate: "Delegate"
+    delegate_first_name: "Delegate first name"
+    delegate_last_name: "Delegate last name"
     delegator: "Delegator"
     edit: "Edit"
     all: "All"
@@ -44,6 +47,18 @@ en:
     of: "of"
     region: 'Region'
     country: 'Country'
+    document: 'Document'
+    browse: 'Browse'
+    description: "Description"
+    respondent: "Respondent"
+    role_respondent: "Role Respondent"
+    support_centre: "Support Centre"
+    save_all: "Save all"
+    questionnaire_info: "Questionnaire Information"
+    copyright: "Copyright © 2016 UNEP-WCMC. All rights reserved."
+    powered_by: "Powered By"
+    ors: "Online Reporting System"
+    admin: "Admin"
   questionnaire_feedback:
     state0: "All questions unanswered"
     state1: "There are mandatory questions without an answer (questions with a red *)"
@@ -51,6 +66,7 @@ en:
     state3: "All questions are answered"
     state4: "New section"
   s_details: #submission_details
+    submission_guidance: "Submission Guidance"
     fill_instructions: "To fill this questionnaire please choose from the sections on the left."
     confirm_submission: "I declare that the information provided in this report has been verified and the report has been approved for submission by the appropriate state institution in the country."
     submission_disabled: "You have unsaved answers, please save these answers before submitting the questionnaire."
@@ -84,11 +100,14 @@ en:
     delegate_section: "Delegate section"
     delegate_section_tooltip: "Delegate section - You can delegate this section to one of your delegates to answer on your behalf. You can manage your delegates through the 'Manage Delegates' link on your dashboard."
   delegation_details:
+    update_delegation: 'Update delegation'
     header_p: "You have been delegated with the following sections of this questionnaire:"
     root_section_th: 'Main Section'
     loop_th: 'Loop items'
     whole_q: "You have been delegated with the whole questionnaire."
   delegate_section:
+    delegate_section: "Delegate section"
+    delegate_this_section: "Delegate this section:"
     existing_t: "Delegates with access to this and descendant sections"
     delegates_whole: "Delegates with access to the whole questionnaire"
     delegate_to: "Delegate to"
@@ -121,6 +140,7 @@ en:
       access by adding a set of sections to that delegation. Delegating a section of a questionnaire will give access to that section and to that section's descendant sections."
     delegate_details: "Delegate name"
   manage_delegates:
+    manage_delegates: 'Manage Delegates'
     title: "Delegates"
     u_have_delegates: "You have the following delegates"
     u_are_delegate: "You are a delegate of"
@@ -169,6 +189,8 @@ en:
     files_remove: "remove document"
     files_add: "add a document"
     files_you_have: "You have attached the following documents to this answer."
+    choose_file: "Choose file"
+    no_file_chosen: "No file chosen"
     links_dialog_title: "Manage Weblinks/URLs"
     links_title: "Title"
     links_remove: "remove Web link/URL"
