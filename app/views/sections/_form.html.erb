@@ -35,7 +35,7 @@
             </div>
 
             <div class="row padded">
-              <div class="col col-4"><%= builder.label :description, "Description" %></div>
+              <div class="col col-4"><%= builder.label :description, t("generic.description") %></div>
               <div class="col col-8 border-left description-area"><%= builder.text_area :description, :rows => 2, :cols => 55, :dir => builder.object.language == "ar" ? "rtl" : "ltr", :class => "tinymce object_description" %></div>
             </div>
 

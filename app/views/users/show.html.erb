@@ -28,7 +28,7 @@
         <td><%=h (@user.category.present? ? @user.category : "Other") %></td>
       </tr>
       <% if current_user.role?(:admin) %>
-        <tr><th>Roles:</th>
+        <tr><th><%= t("generic.role_respondent") %>:</th>
           <td><%= @user.roles.map{|r| r.name.titleize}.join(", ")%></td>
         </tr>
       <% end %>

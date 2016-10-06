@@ -6,7 +6,7 @@
   <div class="row padded group">
     <div class="col col-6 panel">
       <div class="page-header">
-        <h5>Questionnaire Information</h5>
+        <h5><%= t('generic.questionnaire_info') %></h5>
       </div>
       <p>
         <strong><%= t 's_details.default_lang' %>:</strong> <%=h @questionnaire.language_full_name %><br />
@@ -39,7 +39,7 @@
 
     <div class="col col-6 panel">
       <div class="page-header">
-        <h5>Submission Guidance</h5>
+        <h5><%= t("s_details.submission_guidance") %></h5>
       </div>
       <p>
         <% if @authorization[:status] == 2 -%>
