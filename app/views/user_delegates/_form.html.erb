@@ -15,10 +15,10 @@
       <%= text_field_tag :delegate_email, @user_delegate.new_record? ? "" : @user_delegate.delegate.email, :size => "40"   %>
     </p>
     <p>
-      <%= label_tag :delegate_first_name %><br />
+      <%= label_tag :delegate_first_name, t('generic.delegate_first_name') %><br />
       <%= text_field_tag :delegate_first_name, @user_delegate.new_record? ? "" : @user_delegate.delegate.first_name %><br />
-      <%= label_tag :delegate_last_name %><br />
-      <%= text_field_tag :delegate_last_name, @user_delegate.new_record? ? "" : @user_delegate.delegate.last_name %><br />    
+      <%= label_tag :delegate_last_name, t('generic.delegate_last_name') %><br />
+      <%= text_field_tag :delegate_last_name, @user_delegate.new_record? ? "" : @user_delegate.delegate.last_name %><br />
     </p>
     <p>
       <%= label_tag :language, t("generic.language") %><br />
