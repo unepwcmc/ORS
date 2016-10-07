@@ -5,7 +5,7 @@
         <h4><%= h( yield(:title).presence || ApplicationProfile.title) %></h4>
         <h6><%= ApplicationProfile.sub_title %></h6><br>
         <%= link_to 'http://orssupport.unep-wcmc.org/home', target: '_blank', class: 'btn' do %>
-          <%= fa_icon 'question-circle' %> Support Centre
+          <%= fa_icon 'question-circle' %> <%= t('generic.support_centre') %>
         <% end %>
       </div>
 
@@ -43,10 +43,10 @@
     <div class="container">
       <div class="row group">
         <div class="col col-8" id="left">
-          <p>Copyright &copy; <%= DateTime.now.year %> UNEP-WCMC. All rights reserved.</p>
+          <p>Copyright &copy; <%= DateTime.now.year %> UNEP-WCMC. <%= t('generic.copyright') %></p>
         </div>
         <div class="col col-4" id="right">
-          <p>Powered By UNEP-WCMC</p>
+          <p><%= t('generic.powered_by') %> UNEP-WCMC</p>
           <%= image_tag 'wcmc_logo.png', id: 'unep-wcmc-logo' %>
         </div>
       </div>

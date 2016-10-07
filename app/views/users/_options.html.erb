@@ -6,7 +6,7 @@
     <% end %>
 
     <% if @user && ( @user.role?(:admin) || @user.role?(:respondent) ) %>
-      <li><%= sub_nav_link_with_class "Manage Delegates", user_user_delegates_path(@user.id) %></li>
+      <li><%= sub_nav_link_with_class t("manage_delegates.manage_delegates"), user_user_delegates_path(@user.id) %></li>
     <% end %>
 
     <% if @user && @user.role?(:delegate) %>

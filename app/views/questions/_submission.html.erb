@@ -37,7 +37,7 @@
       <% if question.answer_type_type == 'TextAnswer'%>
         </div>
         <div class="text-answers-flag">
-          <span>Respondent</span>
+          <span><%= t('generic.respondent') %></span>
         </div>
         </div> <!-- text-answer-container -->
         <%= render partial: "text_answers/delegate_text_answers", locals: {

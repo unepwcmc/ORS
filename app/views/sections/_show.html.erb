@@ -28,7 +28,7 @@
               <%= content_field("Title", title) %>
 
               <% description = strip_tags(Sanitize.clean(field.description.present? ? field.description : "#Not specified#", OrtSanitize::Config::ORT)) %>
-              <%= content_field("Description", description) %>
+              <%= content_field(t("generic.description"), description) %>
 
               <%= content_field("Section Type", @section.section_type_humanize) %>
 

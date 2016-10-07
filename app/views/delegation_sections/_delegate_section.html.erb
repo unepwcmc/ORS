@@ -15,7 +15,7 @@
       <legend></legend>
       <p><ol>
         <li>
-        <%= label_tag 'Delegate this section' %>:
+        <%= label_tag t('delegate_section.delegate_this_section') %>:
         <%= OrtSanitize.white_space_cleanse((@section.root? ? @section.tab_title : @section.title)) %>
         <%= hidden_field_tag "delegation_section[section_id]", @section.id %>
         </li>

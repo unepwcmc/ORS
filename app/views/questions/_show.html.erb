@@ -29,7 +29,7 @@
             <%= content_field("Short title", field.short_title) %>
 
             <% description = strip_tags(Sanitize.clean(field.description.present? ? field.description : "#Not Specified#", OrtSanitize::Config::ORT)) -%>
-            <%= content_field("Description", description) %>
+            <%= content_field(t("generic.description"), description) %>
 
             <% if @question.is_mandatory -%>
                 <p>This question is mandatory.</p>
