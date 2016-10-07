@@ -80,7 +80,7 @@ es:
     choose_lang: "Elegir idioma"
     change_button: "Cambiar"
     download_pdf: "Para descargar la versión en PDF de este cuestionario, vaya al"
-    save_all: "Guardar todas"
+    save: "Guardar todas"
     save_tip: "Guardar: pulse este botón para guardar todas las respuestas de la página actual."
     collapse: "Minimizar"
     expand: "Expandir"
