@@ -35,7 +35,7 @@
       %>
 
       <% if question.answer_type_type == 'TextAnswer'%>
-        </div>
+        </div> <!-- text-answer -->
         <div class="text-answers-flag">
           <span><%= t('generic.respondent') %></span>
         </div>
@@ -48,7 +48,7 @@
         %>
       <% end %>
 
-    </div>
+    </div> <!-- answer_fields_wrapper -->
 
     <div id="answer_doc_<%= question.id.to_s + (looping_identifier ? "_#{looping_identifier}" : "")%>">
       <% if answer.present? && answer.documents.present? -%>
