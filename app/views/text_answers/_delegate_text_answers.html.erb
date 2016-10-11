@@ -5,15 +5,15 @@
   <% delegate_answers_div = false %>
   <% if !DelegateTextAnswer.find_by_user_id_and_answer_id(current_user.id, answer.id).present? && answer.user_id != current_user.id && !disabled%>
     <div class="delegate-text-answers-wrapper">
-    <div class="delegate-text-answers">
-    <% delegate_answers_div = true %>
-    <div class="delegate-text-answer">
-      <%= hidden_field_tag "delegate_text_answers[#{unique_id}][delegate_answer_id]", 'new', class: 'disabled_section_information' %>
-      <%= text_area_tag "delegate_text_answers[#{unique_id}][value]", '', :rows => 5, :cols => 68, :readonly => disabled || answer.question_answered, :class => ("disabled" if answer.question_answered) %>
-    </div>
-    <% if answer.question_answered %>
-      <i class='fa fa-lock'></i>
-    <% end %>
+      <div class="delegate-text-answers">
+        <% delegate_answers_div = true %>
+        <div class="delegate-text-answer">
+          <%= hidden_field_tag "delegate_text_answers[#{unique_id}][delegate_answer_id]", 'new', class: 'disabled_section_information' %>
+          <%= text_area_tag "delegate_text_answers[#{unique_id}][value]", '', :rows => 5, :cols => 68, :readonly => disabled || answer.question_answered, :class => ("disabled" if answer.question_answered) %>
+        </div>
+        <% if answer.question_answered %>
+          <i class='fa fa-lock'></i>
+        <% end %>
   <% end %>
   <% delegate_text_answers.each do |delegate_text_answer| %>
     <% answer_disabled = answer.question_answered ||
@@ -21,8 +21,8 @@
     %>
     <% unless delegate_answers_div %>
       <div class="delegate-text-answers-wrapper">
-      <div class="delegate-text-answers">
-      <% delegate_answers_div = true %>
+        <div class="delegate-text-answers">
+        <% delegate_answers_div = true %>
     <% end %>
     <div class="delegate-text-answer">
       <div class="delegate-text-area">
@@ -33,7 +33,7 @@
           <%= text_area_tag "other_delegates_answers[#{delegate_text_answer.id}]", delegate_text_answer.answer_text, :rows => 5, :cols => 68, :readonly => true, :class => "disabled", style: "float:left;" %>
           <i class='fa fa-lock'></i>
         <% end %>
-      </div>
+      </div> <!-- delegate-text-area -->
       <div class="delegate-answer-details row">
         <div class="tooltips col-9">
           Answered by:
@@ -47,23 +47,24 @@
             <%= link_to 'Accept answer', '#', class: 'btn accept-btn' %>
           </div>
         <% end %>
-      </div>
-    </div>
+      </div> <!-- delegate-answer-details -->
+    </div> <!-- delegate-text-answer -->
   <% end %>
 <% elsif current_user.can_edit_delegate_text_answer?(question.section, @current_user_delegate) %>
   <div class="delegate-text-answers-wrapper">
-  <div class="delegate-text-answers">
-  <% delegate_answers_div = true %>
-  <div class="delegate-answer">
-    <%= hidden_field_tag :user_delegate, @current_user_delegate.try(:id), class: 'disabled_section_information' %>
-    <%= hidden_field_tag "delegate_text_answers[#{unique_id}][delegate_answer_id]", 'new', class: 'disabled_section_information' %>
-    <%= hidden_field_tag "delegate_text_answers[#{unique_id}][looping_id]", looping_identifier, class: 'disabled_section_information' %>
-    <%= text_area_tag "delegate_text_answers[#{unique_id}][value]", nil, :rows => 5, :cols => 68, style: "float:left;" %>
-  </div>
+    <div class="delegate-text-answers">
+      <% delegate_answers_div = true %>
+      <div class="delegate-answer">
+        <%= hidden_field_tag :user_delegate, @current_user_delegate.try(:id), class: 'disabled_section_information' %>
+        <%= hidden_field_tag "delegate_text_answers[#{unique_id}][delegate_answer_id]", 'new', class: 'disabled_section_information' %>
+        <%= hidden_field_tag "delegate_text_answers[#{unique_id}][looping_id]", looping_identifier, class: 'disabled_section_information' %>
+        <%= text_area_tag "delegate_text_answers[#{unique_id}][value]", nil, :rows => 5, :cols => 68, style: "float:left;" %>
+      </div>
 <% end %>
 <% if delegate_answers_div %>
-  </div>
+</div> <!-- delegate-text-answers -->
   <div class="text-answers-flag">
     <span>Delegate(s)</span>
   </div>
+</div> <!-- delegate-text-answers-wrapper -->
 <% end %>
