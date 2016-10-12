@@ -21,7 +21,8 @@
   <% if answer && answer.user_id == current_user.id %>
     <div class="row padded">
       <%= hidden_field_tag "question_answered[#{answer.id}]", "" %>
-      <%= (check_box_tag "question_answered[#{answer.id}]", true, answer.question_answered) + 'Mark question as answered' %>
+      <%= check_box_tag "question_answered[#{answer.id}]", true, answer.question_answered, class: "question-answered-box" %>
+      <%= label_tag "question_answered[#{answer.id}]", "Mark question as answered" %>
     </div>
   <% end %>
 </div>
