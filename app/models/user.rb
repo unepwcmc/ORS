@@ -346,11 +346,11 @@ class User < ActiveRecord::Base
 
   def can_edit_delegate_text_answer?(section, user_delegate)
     questionnaire_id = section.questionnaire.id
+    delegation = user_delegate.delegations.
+      find_by_questionnaire_id_and_user_delegate_id(questionnaire_id, user_delegate.id)
     if self.role?(:delegate) && (
-      section.is_delegated?(user_delegate.id) ||
-        user_delegate.delegations.
-          find_by_questionnaire_id_and_user_delegate_id(questionnaire_id, user_delegate.id).
-            try(:can_view_and_edit_all_questionnaire?)
+      section.is_or_has_parents_delegated_to?(delegation) ||
+        delegation.try(:can_view_and_edit_all_questionnaire?)
     )
       return true
     end
