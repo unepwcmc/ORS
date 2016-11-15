@@ -6,6 +6,10 @@
   <a href="#" class="show_all_lang_fields btn">Expand all</a>
   <a href="#" class="hide_all_lang_fields btn">Collapse all</a>
 </li>
+<div class="row padded">
+  <div class="col col-4"><%= f.label(:uidentifier){ 'ID' } %></div>
+  <div class="col col-8 border-left"><%= f.text_field :uidentifier %></div>
+</div>
 <li>
   <%= f.fields_for :question_fields, f.object.question_fields.sort_by{ |a| a.is_default_language? ? 0 : 1 } do |builder| %>
       <div class="<%= builder.object.is_default_language? ? "" : "hide"%> lang_fields" id="fields_for_quest_<%= builder.object.language %>">
