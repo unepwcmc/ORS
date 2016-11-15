@@ -61,6 +61,7 @@ BEGIN
     AND tmp.original_id = questions_to_copy.answer_type_id
   )
   INSERT INTO tmp_questions (
+    uidentifier,
     section_id,
     answer_type_id,
     answer_type_type,
@@ -71,6 +72,7 @@ BEGIN
     original_id
   )
   SELECT
+    uidentifier,
     tmp_sections.id,
     new_answer_type_id,
     t.answer_type_type,
