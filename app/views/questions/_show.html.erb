@@ -24,6 +24,8 @@
           </div>
           <div class="language-content info-content <%= field.is_default_language? ? "" : "hidden-content" %>">
             <% title = strip_tags( Sanitize.clean(field.title.present? ? field.title : "#Not Specified#", OrtSanitize::Config::ORT)) -%>
+            <%= content_field("ID", @question.uidentifier) %>
+
             <%= content_field("Full title", title) %>
 
             <%= content_field("Short title", field.short_title) %>

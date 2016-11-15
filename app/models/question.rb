@@ -9,7 +9,7 @@ class Question < ActiveRecord::Base
   attr_accessible :section_id, :answer_type_id, :answer_type_type,
     :question_fields_attributes, :is_mandatory, :answer_type,
     :loop_item_type_ids, :question_extras_ids, :other_text,
-    :allow_attachments
+    :allow_attachments, :uidentifier
   #attr_protected :id, :created_at, :updated_at, :last_edited, :answer_type
 
   before_destroy :destroy_answer_type
