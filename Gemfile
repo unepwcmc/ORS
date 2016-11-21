@@ -36,6 +36,7 @@ gem 'faker'
 #gem 'Ascii85', :require => 'ascii85'
 gem 'prawn'
 gem 'htmlentities'
+gem 'axlsx'
 
 gem 'redis'
 gem 'sidekiq'

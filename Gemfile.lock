@@ -54,6 +54,10 @@ GEM
       activesupport (>= 3.2)
     awesome_nested_set (2.1.6)
       activerecord (>= 3.0.0)
+    axlsx (2.0.1)
+      htmlentities (~> 4.3.1)
+      nokogiri (>= 1.4.1)
+      rubyzip (~> 1.0.0)
     builder (3.0.4)
     byebug (6.0.2)
     cancan (1.6.10)
@@ -264,6 +268,7 @@ GEM
     ruby-prof (0.15.8)
     ruby-progressbar (1.7.5)
     ruby-rc4 (0.1.5)
+    rubyzip (1.0.0)
     sanitize (2.0.4)
       nokogiri (~> 1.6.0)
     sass (3.4.13)
@@ -333,6 +338,7 @@ DEPENDENCIES
   appsignal
   authlogic
   awesome_nested_set
+  axlsx
   byebug
   cancan
   capistrano (~> 3.4.0)
@@ -392,4 +398,4 @@ DEPENDENCIES
   uglifier
 
 BUNDLED WITH
-   1.10.6
+   1.13.2
