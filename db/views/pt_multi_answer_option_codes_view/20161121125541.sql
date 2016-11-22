@@ -5,7 +5,9 @@ SELECT
   mao.id As multi_answer_option_id,
   uidentifier,
   maof.option_text,
-  substring(maof.option_text from 1 for 1) AS option_code
+  SUBSTRING(
+    COALESCE(SQUISH_NULL(maof.option_text), 'UNKNOWN') FROM 1 FOR 1
+  ) AS option_code
 FROM questions
 JOIN multi_answers ma ON questions.answer_type_id = ma.id
 JOIN multi_answer_options mao ON ma.id = mao.multi_answer_id
