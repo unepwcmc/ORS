@@ -72,11 +72,11 @@
             datatype: "json",
             colNames:[
                 "Leaf Id"
-                <%= "," + @loop_source.loop_item_type.self_and_descendants.sort.map{|a| "\"#{a.name}\""}.join(',') %>
+                <%= raw "," + @loop_source.loop_item_type.self_and_descendants.sort.map{|a| "\"#{a.name}\""}.join(',') %>
             ],
             colModel:[
                 {name: 'leaf_id', index: 'leaf_id', hidden: true, editable: true, key: true }
-                <%= "," + @loop_source.loop_item_type.self_and_descendants.sort.map{|a| "{name: \"#{a.name}\", index: \"#{a.name}\", editable: true, editrules: {required: false}}"}.join(', ') %>
+                <%= raw "," + @loop_source.loop_item_type.self_and_descendants.sort.map{|a| "{name: \"#{a.name}\", index: \"#{a.name}\", editable: true, editrules: {required: false}}"}.join(', ') %>
             ],
             rowNum: 10,
             sortorder: 'asc',
