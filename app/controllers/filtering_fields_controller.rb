@@ -1,4 +1,5 @@
 class FilteringFieldsController < ApplicationController
+  before_filter :admin_required
   # GET /filtering_fields
   # GET /filtering_fields.xml
   def index

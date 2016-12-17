@@ -1,5 +1,7 @@
 class LoopSourcesController < ApplicationController
 
+  before_filter :admin_required
+
   def index
     #@loop_sources = LoopSource.all
     @questionnaire = Questionnaire.find(params[:questionnaire_id], :include => [{:loop_sources => :loop_item_type}, :questionnaire_fields])
@@ -112,4 +114,5 @@ class LoopSourcesController < ApplicationController
       format.js
     end
   end
+
 end
