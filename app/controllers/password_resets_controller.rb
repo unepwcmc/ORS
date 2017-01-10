@@ -3,7 +3,7 @@ class PasswordResetsController < ApplicationController
   before_filter :load_user_using_perishable_token, :only => [ :edit, :update ]
 
   def new
-    @email = params[:email] || ''
+    @email = params[:email].downcase || ''
   end
 
   def create
