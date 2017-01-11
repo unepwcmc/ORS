@@ -3,7 +3,7 @@ class User < ActiveRecord::Base
   ###
   ###   Before something, do something
   ###
-  before_save :downcase_email
+  before_validation :downcase_email
 
   ###
   ###   Include Libs
