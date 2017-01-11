@@ -3,17 +3,17 @@ class PasswordResetsController < ApplicationController
   before_filter :load_user_using_perishable_token, :only => [ :edit, :update ]
 
   def new
-    @email = params[:email] || ''
+    @email = params[:email]|| ''
   end
 
   def create
-    @user = User.find_by_email(params[:email])
+    @user = User.find_by_email(params[:email].downcase)
     if @user
       @user.deliver_password_reset_instructions!
       flash[:notice] = "Instructions to reset your password have been emailed to you"
       redirect_to root_path
     else
-      flash.now[:error] = "No user was found with email address #{params[:email]}"
+      flash.now[:error] = "No user was found with email address #{params[:email].downcase}"
       render :action => :new
     end
   end

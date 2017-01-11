@@ -1,5 +1,9 @@
 class User < ActiveRecord::Base
   require 'csv'
+  ###
+  ###   Before something, do something
+  ###
+  before_validation :downcase_email
 
   ###
   ###   Include Libs
@@ -354,6 +358,11 @@ class User < ActiveRecord::Base
     end
     return false
   end
+
+  private
+    def downcase_email
+      self.email.downcase!
+    end
 end
 
 # == Schema Information
