@@ -31,9 +31,10 @@
               <div class="row group padded">
                 <% q_options = @section.depends_on_option ? ( questions_based_on_dependency_of @section ) : { } -%>
                 <%= label_tag :section_depends_on_question, "Question * #{info_tip("Dependency", "Here will be listed the available questions for the selected section. Only questions with Multiple Options answer type will be available for you to select.")}".html_safe %>
-                <%= select :section, :depends_on_question, q_options , { :include_blank => "Choose a question" }, { :validate => "{required:true}"} %>
+                <%= select :section, :depends_on_question, q_options , { :include_blank => "Choose a question" }, { :validate => "{required:true}", id: 'search_question' } %>
               </div>
           </div><!-- /question -->
+
           <div id="options">
             <div class="row group padded">
               <%= label_tag :depends_on_option, "Option * #{info_tip("Dependency", "Here will be displayed the options of the Multi Options question that you selected above. Select the option that this section will depend on.")}".html_safe -%>
