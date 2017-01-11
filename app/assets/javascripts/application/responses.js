@@ -26,7 +26,7 @@ $(function() {
       };
     }
     if(question_id !== '') {
-      $.get(RAILS_ROOT+'/questions/'+question_id+'/dependency_options', null, null, 'script');
+      $.get(RAILS_ROOT+'/questions/'+question_id+'/answers', data, null, 'script');
     }
   });
 

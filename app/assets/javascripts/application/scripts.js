@@ -97,7 +97,7 @@ function initialiseDefineDependencyPage(targetSectionId) {
 
     if(selectedVal !== '') {
       $.ajax({
-        url:RAILS_ROOT+'/sections/'+selectedVal+'/questions',
+        url:RAILS_ROOT+'/sections/'+selectedVal+'/questions_for_dependency',
         type:'get',
         dataType:'script',
         data: { section_id: targetSectionId}
