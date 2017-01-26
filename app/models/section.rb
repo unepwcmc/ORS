@@ -539,6 +539,27 @@ class Section < ActiveRecord::Base
     result
   end
 
+  # used in pivot table report
+  def build_all_looping_identifiers
+    if self.loop_item_type.present?
+      loop_item_type = self.loop_item_type
+      loop_item_types = [loop_item_type]
+      while loop_item_type.parent.present?
+        loop_item_type = loop_item_type.parent
+        loop_item_types << loop_item_type
+      end
+      loop_item_ids_combinations =
+        loop_item_types.map do |lit|
+          lit.loop_items.pluck(:id)
+        end.inject{ |memo, last| last.product(memo) }.map(&:flatten)
+      loop_item_ids_combinations.map do |loop_item_ids_ary|
+        loop_item_ids_ary.join(LoopItem::LOOPING_ID_SEPARATOR)
+      end
+    else
+      []
+    end
+  end
+
   def any_answers_from? user, loop_sources_items, loop_item, looping_identifier=nil
     answers = Answer.find(:all, :conditions => {:question_id => self.questions.map(&:id), :user_id => user.id, :looping_identifier => looping_identifier})
     return true if !answers.select(&:filled_answer?).empty?

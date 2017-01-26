@@ -34,7 +34,8 @@ module PivotTables
       Rails.logger.debug("#{Time.now} Started generating pivot tables")
       elapsed_time = Benchmark.realtime do
         Axlsx::Package.new do |p|
-          create_multi_answer_questions_sheet(p.workbook, @questionnaire)
+          create_data_sheet(p.workbook, @questionnaire)
+          # create_multi_answer_questions_sheet(p.workbook, @questionnaire)
           p.serialize(new_file_path(@questionnaire))
         end
       end
@@ -50,6 +51,143 @@ module PivotTables
         @dir_path,
         new_file_name(questionnaire)
       ].join('/')
+    end
+
+    def looping_identifier_as_text(looping_identifier, lng)
+      looping_identifier.split(LoopItem::LOOPING_ID_SEPARATOR).map do |li_id|
+        li = LoopItem.find_by_id(li_id).try(:loop_item_name).try(:item_name, lng)
+      end
+    end
+
+    def matrix_query_identifier_as_text(matrix_answer_query_id, lng)
+      maq = MatrixAnswerQuery.find(matrix_answer_query_id)
+      return '?' unless maq
+      maq_f = maq.matrix_answer_query_fields.where(language: lng).first
+      return '?' unless maq_f
+      maq_f.title.split[0]
+    end
+
+    def create_data_sheet(workbook, questionnaire)
+      questions = Question.
+        from('pt_questions_view questions').
+        where(
+          questionnaire_id: questionnaire.id,
+          root_section: 'Section 3',
+          answer_type_type: ['MultiAnswer', 'MatrixAnswer']
+        ).
+        order(:lft)
+
+      questions_with_looping_identifiers = {}
+      questions.each do |q|
+        looping_section = q.section.self_and_ancestors.select{ |s| s.looping? }.first
+        if looping_section.present?
+          questions_with_looping_identifiers[q.id] = looping_section.build_all_looping_identifiers
+        end
+      end
+
+      questions_with_matrix_queries = {}
+      questions.where(answer_type_type: 'MatrixAnswer').each do |q|
+        questions_with_matrix_queries[q.id] = q.answer_type.matrix_answer_queries.includes(:matrix_answer_query_fields).where('matrix_answer_query_fields.is_default_language' => true)
+      end
+
+      headers_with_looping_contexts = []
+      identifiers_with_looping_contexts = []
+
+      questions.each do |q|
+        header_segments, identifier_segments = [[q.uidentifier]], [[q.id]]
+        matrix_queries = questions_with_matrix_queries[q.id]
+        matrix_header_segments, matrix_identifier_segments = if matrix_queries.present?
+          [
+            matrix_queries.map { |mq| matrix_query_identifier_as_text(mq.id, 'en') },
+            matrix_queries.map { |mq| mq.id }
+          ]
+        else
+          [
+            [nil],
+            [nil]
+          ]
+        end
+        header_segments = header_segments.product(matrix_header_segments)
+        identifier_segments = identifier_segments.product(matrix_identifier_segments)
+        looping_identifiers = questions_with_looping_identifiers[q.id]
+        looping_header_segments, looping_identifier_segments = if looping_identifiers.present?
+          [
+            looping_identifiers.map { |li| looping_identifier_as_text(li, 'en') },
+            identifier_segments.product(looping_identifiers)
+          ]
+        else
+          [
+            [nil],
+            [nil]
+          ]
+        end
+        header_segments = header_segments.product(looping_header_segments)
+        identifier_segments = identifier_segments.product(looping_identifier_segments)
+        header_segments.each do |hs|
+          headers_with_looping_contexts << hs.flatten.compact.join(' | ')
+        end
+        identifier_segments.each do |is|
+          identifiers_with_looping_contexts << is.flatten
+        end
+      end
+
+      respondents = User.
+        select([:user_id, :country, :region, :status]).
+        from('api_respondents_view users').
+        where(status: 'Submitted')
+      
+      workbook.add_worksheet(name: 'Data') do |sheet|
+        sheet.add_row ['REGION_Ramsar', 'CNTRY_Ramsar'] + headers_with_looping_contexts
+        respondents.each do |respondent|
+          sheet.add_row data_row_for_respondent(questionnaire, respondent, identifiers_with_looping_contexts)
+        end
+      end
+    end
+    
+    # identifiers_with_looping_contexts is an array of arrays like so:
+    # [question identifier, matrix query identifier, looping identifier]
+    # both matrix query identifier and looping identifier may be nil
+    # e.g. [['19.4', nil], ['19.5', '216S218']]
+    # the question identifier comes from questions.id column
+    # the looping identifier comes from answers.looping_identifier column
+    # the looping identifier is constructed from loop item ids joined using a looping separator ('S')
+    def data_row_for_respondent(questionnaire, respondent, identifiers_with_looping_contexts)
+      index_hash = Hash[identifiers_with_looping_contexts.each_with_index.map { |x, i| [x, i] }]
+      result = Array.new(identifiers_with_looping_contexts.size)
+      #tmp = Hash[identifiers_with_looping_contexts.map {|x| [x, nil]}]
+      multi_answers_base = MultiAnswer.
+        from('pt_multi_answer_answers_by_user_view multi_answers').
+        joins('JOIN pt_questions_view q ON multi_answers.question_id = q.id').
+        where(
+          'q.questionnaire_id' => questionnaire.id,
+          'q.root_section' => 'Section 3',
+          user_id: respondent.user_id
+        )
+      # multi answer question answers
+      multi_answers = multi_answers_base.
+        where('NOT details_field') # this to exclude the "exact" etc pseudo-numeric questions
+      multi_answers.each do |ma|
+        result[index_hash[[ma.question_id.to_i, nil, ma.looping_identifier]]] = ma.option_code
+      end
+      # pseudo-numeric question answers
+      numeric_answers = multi_answers_base.
+        where('details_field') # this to only include the "exact" etc pseudo-numeric questions
+      numeric_answers.each do |na|
+        result[index_hash[[na.question_id.to_i, nil, na.looping_identifier]]] = na.details_text
+      end
+      # matrix answer question answers
+      matrix_answers = MatrixAnswer.
+        from('pt_matrix_answer_answers_by_user_view matrix_answers').
+        joins('JOIN pt_questions_view q ON matrix_answers.question_id = q.id').
+        where(
+          'q.questionnaire_id' => questionnaire.id,
+          'q.root_section' => 'Section 3',
+          user_id: respondent.user_id
+        )
+      matrix_answers.each do |ma|
+        result[index_hash[[ma.question_id.to_i, ma.matrix_answer_query_id.to_i, ma.looping_identifier]]] = ma.option_code
+      end
+      [respondent.region, respondent.country] + result
     end
 
     def create_multi_answer_questions_sheet(workbook, questionnaire)
