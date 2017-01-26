@@ -67,8 +67,8 @@ module PivotTables
       maq_f.title.split[0]
     end
 
-    def create_data_sheet(workbook, questionnaire)
-      questions = Question.
+    def questions_rel(questionnaire)
+      Question.
         from('pt_questions_view questions').
         where(
           questionnaire_id: questionnaire.id,
@@ -76,6 +76,41 @@ module PivotTables
           answer_type_type: ['MultiAnswer', 'MatrixAnswer']
         ).
         order(:lft)
+    end
+
+    def matrix_answer_questions_rel(questionnaire)
+      questions_rel(questionnaire).where(answer_type_type: 'MatrixAnswer')
+    end
+
+
+    def multi_answer_answers_rel(questionnaire)
+      MultiAnswer.
+        from('pt_multi_answer_answers_by_user_view multi_answers').joins(
+          'JOIN (' + questions_rel(questionnaire).to_sql + ') questions' +
+          " ON multi_answers.question_id = questions.id AND questions.answer_type_type = 'MultiAnswer'"
+        ).
+        where('NOT details_field') # this to exclude the "exact" etc pseudo-numeric questions
+    end
+
+    def numeric_answer_answers_rel(questionnaire)
+      MultiAnswer.
+        from('pt_multi_answer_answers_by_user_view multi_answers').joins(
+          'JOIN (' + questions_rel(questionnaire).to_sql + ') questions' +
+          " ON multi_answers.question_id = questions.id AND questions.answer_type_type = 'MultiAnswer'"
+        ).
+        where('details_field') # this to include only the "exact" etc pseudo-numeric questions
+    end
+
+    def matrix_answer_answers_rel(questionnaire)
+      MatrixAnswer.
+        from('pt_matrix_answer_answers_by_user_view matrix_answers').joins(
+          'JOIN (' + questions_rel(questionnaire).to_sql + ') questions' +
+          " ON matrix_answers.question_id = questions.id AND questions.answer_type_type = 'MatrixAnswer'"
+        )
+    end
+
+    def create_data_sheet(workbook, questionnaire)
+      questions = questions_rel(questionnaire)
 
       questions_with_looping_identifiers = {}
       questions.each do |q|
@@ -86,7 +121,7 @@ module PivotTables
       end
 
       questions_with_matrix_queries = {}
-      questions.where(answer_type_type: 'MatrixAnswer').each do |q|
+      matrix_answer_questions_rel(questionnaire).each do |q|
         questions_with_matrix_queries[q.id] = q.answer_type.matrix_answer_queries.includes(:matrix_answer_query_fields).where('matrix_answer_query_fields.is_default_language' => true)
       end
 
@@ -123,6 +158,7 @@ module PivotTables
         end
         header_segments = header_segments.product(looping_header_segments)
         identifier_segments = identifier_segments.product(looping_identifier_segments)
+
         header_segments.each do |hs|
           headers_with_looping_contexts << hs.flatten.compact.join(' | ')
         end
@@ -136,10 +172,42 @@ module PivotTables
         from('api_respondents_view users').
         where(status: 'Submitted')
       
-      workbook.add_worksheet(name: 'Data') do |sheet|
-        sheet.add_row ['REGION_Ramsar', 'CNTRY_Ramsar'] + headers_with_looping_contexts
+      number_of_data_columns = 3 + headers_with_looping_contexts.size
+      number_of_data_rows = respondents.size + 1
+      data_sheet = workbook.add_worksheet(name: 'Data') do |sheet|
+        sheet.add_row ['REGION_Ramsar2', 'REGION_Ramsar', 'CNTRY_Ramsar'] + headers_with_looping_contexts,
+          types: Array.new(number_of_data_columns){:string}
         respondents.each do |respondent|
           sheet.add_row data_row_for_respondent(questionnaire, respondent, identifiers_with_looping_contexts)
+        end
+      end
+      numeric_question_ids = numeric_answer_answers_rel(questionnaire).uniq(:question_id).pluck(:question_id).map(&:to_i)
+      workbook.add_worksheet(name: 'PivotTables') do |sheet|
+        current_row = 1
+        data_range = "A1:#{column_index(number_of_data_columns -1)}#{number_of_data_rows}"
+        headers_with_looping_contexts.each_with_index do |h, idx|
+          is_numeric = numeric_question_ids.include?(identifiers_with_looping_contexts[idx].first)
+
+          sheet.add_pivot_table(
+            "A#{current_row}:G#{current_row + 12}",
+            data_range
+          ) do |pivot_table|
+            pivot_table.data_sheet = data_sheet
+            pivot_table.rows = ['REGION_Ramsar2', 'REGION_Ramsar']
+            pivot_table.columns =
+              if is_numeric
+                []
+              else
+                [h]
+              end
+            pivot_table.data =
+              if is_numeric
+                [{ref: h, subtotal: 'sum'}]
+              else
+                [{ref: h, subtotal: 'count'}]
+              end
+          end
+          current_row += 13
         end
       end
     end
@@ -154,40 +222,29 @@ module PivotTables
     def data_row_for_respondent(questionnaire, respondent, identifiers_with_looping_contexts)
       index_hash = Hash[identifiers_with_looping_contexts.each_with_index.map { |x, i| [x, i] }]
       result = Array.new(identifiers_with_looping_contexts.size)
-      #tmp = Hash[identifiers_with_looping_contexts.map {|x| [x, nil]}]
-      multi_answers_base = MultiAnswer.
-        from('pt_multi_answer_answers_by_user_view multi_answers').
-        joins('JOIN pt_questions_view q ON multi_answers.question_id = q.id').
-        where(
-          'q.questionnaire_id' => questionnaire.id,
-          'q.root_section' => 'Section 3',
-          user_id: respondent.user_id
-        )
-      # multi answer question answers
-      multi_answers = multi_answers_base.
-        where('NOT details_field') # this to exclude the "exact" etc pseudo-numeric questions
+
+      multi_answers = multi_answer_answers_rel(questionnaire).where(user_id: respondent.user_id)
       multi_answers.each do |ma|
         result[index_hash[[ma.question_id.to_i, nil, ma.looping_identifier]]] = ma.option_code
       end
-      # pseudo-numeric question answers
-      numeric_answers = multi_answers_base.
-        where('details_field') # this to only include the "exact" etc pseudo-numeric questions
+
+      numeric_answers = numeric_answer_answers_rel(questionnaire).where(user_id: respondent.user_id)
       numeric_answers.each do |na|
         result[index_hash[[na.question_id.to_i, nil, na.looping_identifier]]] = na.details_text
       end
-      # matrix answer question answers
-      matrix_answers = MatrixAnswer.
-        from('pt_matrix_answer_answers_by_user_view matrix_answers').
-        joins('JOIN pt_questions_view q ON matrix_answers.question_id = q.id').
-        where(
-          'q.questionnaire_id' => questionnaire.id,
-          'q.root_section' => 'Section 3',
-          user_id: respondent.user_id
-        )
+
+      matrix_answers = matrix_answer_answers_rel(questionnaire).where(user_id: respondent.user_id)
       matrix_answers.each do |ma|
         result[index_hash[[ma.question_id.to_i, ma.matrix_answer_query_id.to_i, ma.looping_identifier]]] = ma.option_code
       end
-      [respondent.region, respondent.country] + result
+      region2 = if respondent.region == 'Asia' || respondent.region == 'Oceania'
+        'Asia/Oceania'
+      elsif respondent.region == 'North America' || respondent.region == 'Latin America and the Caribbean'
+        'Americas'
+      else
+        respondent.region
+      end
+      [region2, respondent.region, respondent.country] + result
     end
 
     def create_multi_answer_questions_sheet(workbook, questionnaire)
