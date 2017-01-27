@@ -128,6 +128,8 @@ module PivotTables
       headers_with_looping_contexts = []
       identifiers_with_looping_contexts = []
 
+      numeric_question_ids = numeric_answer_answers_rel(questionnaire).uniq(:question_id).pluck(:question_id).map(&:to_i)
+
       questions.each do |q|
         header_segments, identifier_segments = [[q.uidentifier]], [[q.id]]
         matrix_queries = questions_with_matrix_queries[q.id]
@@ -135,6 +137,11 @@ module PivotTables
           [
             matrix_queries.map { |mq| matrix_query_identifier_as_text(mq.id, 'en') },
             matrix_queries.map { |mq| mq.id }
+          ]
+        elsif numeric_question_ids.include?(q.id)
+          [
+            [nil, 'val'],
+            [nil, 'val']
           ]
         else
           [
@@ -181,32 +188,40 @@ module PivotTables
           sheet.add_row data_row_for_respondent(questionnaire, respondent, identifiers_with_looping_contexts)
         end
       end
-      numeric_question_ids = numeric_answer_answers_rel(questionnaire).uniq(:question_id).pluck(:question_id).map(&:to_i)
+
       workbook.add_worksheet(name: 'PivotTables') do |sheet|
         current_row = 1
         data_range = "A1:#{column_index(number_of_data_columns -1)}#{number_of_data_rows}"
+        numeric_option_header = nil
         headers_with_looping_contexts.each_with_index do |h, idx|
           is_numeric = numeric_question_ids.include?(identifiers_with_looping_contexts[idx].first)
-
-          sheet.add_pivot_table(
-            "A#{current_row}:G#{current_row + 12}",
-            data_range
-          ) do |pivot_table|
-            pivot_table.data_sheet = data_sheet
-            pivot_table.rows = ['REGION_Ramsar2', 'REGION_Ramsar']
-            pivot_table.columns =
-              if is_numeric
-                []
-              else
-                [h]
-              end
-            pivot_table.data =
-              if is_numeric
-                [{ref: h, subtotal: 'sum'}]
-              else
-                [{ref: h, subtotal: 'count'}]
-              end
+          if is_numeric && numeric_option_header.nil?
+            numeric_option_header = h
+            # if this is the "option code" numeric column, save its header
+            # and skip to next iteration to process it with the value column
+            next
           end
+
+          table_range = "A#{current_row}:G#{current_row + 12}"
+          rows = ['REGION_Ramsar2', 'REGION_Ramsar']
+          columns = if is_numeric
+            [numeric_option_header]
+          else
+            [h]
+          end
+          data = if is_numeric
+            [{ref: h, subtotal: 'sum'}]
+          else
+            [{ref: h, subtotal: 'count'}]
+          end
+
+          sheet.add_pivot_table(table_range, data_range) do |pivot_table|
+            pivot_table.data_sheet = data_sheet
+            pivot_table.rows = rows
+            pivot_table.columns = columns
+            pivot_table.data = data
+          end
+          numeric_option_header = nil if is_numeric
           current_row += 13
         end
       end
@@ -230,7 +245,8 @@ module PivotTables
 
       numeric_answers = numeric_answer_answers_rel(questionnaire).where(user_id: respondent.user_id)
       numeric_answers.each do |na|
-        result[index_hash[[na.question_id.to_i, nil, na.looping_identifier]]] = na.details_text
+        result[index_hash[[na.question_id.to_i, nil, na.looping_identifier]]] = na.option_code
+        result[index_hash[[na.question_id.to_i, 'val', na.looping_identifier]]] = na.details_text
       end
 
       matrix_answers = matrix_answer_answers_rel(questionnaire).where(user_id: respondent.user_id)
