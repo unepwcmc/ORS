@@ -26,6 +26,85 @@ module PivotTables
       @questionnaire = questionnaire
       @dir_path = PivotTables.dir_path(questionnaire)
       @section_3_questions = section_3_questions_rel
+      @respondents = User.
+        select([:user_id, :country, :region, :status]).
+        from('api_respondents_view users').
+        where(status: 'Submitted', questionnaire_id: @questionnaire.id)
+      @goals = ['Goal 1', 'Goal 2', 'Goal 3', 'Goal 4']
+      initialize_expanded_headers
+    end
+
+    def initialize_expanded_headers
+      @expanded_headers_index = Hash[@goals.map { |g| [g, []] }]
+      questions = @section_3_questions
+
+      questions_with_looping_identifiers = {}
+      questions.each do |q|
+        looping_section = q.section.self_and_ancestors.select{ |s| s.looping? }.first
+        if looping_section.present?
+          questions_with_looping_identifiers[q.id] = looping_section.build_all_looping_identifiers
+        end
+      end
+
+      questions_with_matrix_queries = {}
+      matrix_answer_questions_rel(questions).each do |q|
+        questions_with_matrix_queries[q.id] = q.answer_type.matrix_answer_queries.includes(:matrix_answer_query_fields).where('matrix_answer_query_fields.is_default_language' => true)
+      end
+
+      @numeric_question_ids = numeric_answer_answers_rel(questions).uniq(:question_id).pluck(:question_id).map(&:to_i)
+
+      @headers_with_looping_contexts = []
+      @identifiers_with_looping_contexts = []
+
+      questions.each do |q|
+        header_segments, identifier_segments = [[q.uidentifier]], [[q.id]]
+        matrix_queries = questions_with_matrix_queries[q.id]
+        matrix_header_segments, matrix_identifier_segments = if matrix_queries.present?
+          [
+            matrix_queries.map { |mq| matrix_query_identifier_as_text(mq.id, 'en') },
+            matrix_queries.map { |mq| mq.id }
+          ]
+        elsif @numeric_question_ids.include?(q.id)
+          [
+            [nil, 'val'],
+            [nil, 'val']
+          ]
+        else
+          [
+            [nil],
+            [nil]
+          ]
+        end
+        header_segments = header_segments.product(matrix_header_segments)
+        identifier_segments = identifier_segments.product(matrix_identifier_segments)
+        looping_identifiers = questions_with_looping_identifiers[q.id]
+        looping_header_segments, looping_identifier_segments = if looping_identifiers.present?
+          [
+            looping_identifiers.map { |li| looping_identifier_as_text(li, 'en') },
+            identifier_segments.product(looping_identifiers)
+          ]
+        else
+          [
+            [nil],
+            [nil]
+          ]
+        end
+        header_segments = header_segments.product(looping_header_segments)
+        identifier_segments = identifier_segments.product(looping_identifier_segments)
+
+        header_segments.each do |hs|
+          @headers_with_looping_contexts << hs.flatten.compact.join(' | ')
+          @expanded_headers_index[q.goal] << @headers_with_looping_contexts.length - 1
+        end
+        identifier_segments.each do |is|
+          @identifiers_with_looping_contexts << is.flatten
+        end
+      end
+      
+      puts @expanded_headers_index.inspect
+
+      @number_of_data_columns = 3 + @headers_with_looping_contexts.size
+      @number_of_data_rows = @respondents.size + 1
     end
 
     def run
@@ -36,7 +115,10 @@ module PivotTables
       elapsed_time = Benchmark.realtime do
 
         Axlsx::Package.new do |p|
-          create_data_sheet(p.workbook)
+          data = create_data_sheet(p.workbook)
+          @goals.each do |goal|
+            create_pivot_tables_sheet(p.workbook, goal, data)
+          end
           p.serialize(new_file_path(@questionnaire))
         end
       end
@@ -69,91 +151,25 @@ module PivotTables
     end
 
     def create_data_sheet(workbook)
-      questions = @section_3_questions
-
-      questions_with_looping_identifiers = {}
-      questions.each do |q|
-        looping_section = q.section.self_and_ancestors.select{ |s| s.looping? }.first
-        if looping_section.present?
-          questions_with_looping_identifiers[q.id] = looping_section.build_all_looping_identifiers
+      workbook.add_worksheet(name: 'Data') do |sheet|
+        sheet.add_row ['REGION_Ramsar2', 'REGION_Ramsar', 'CNTRY_Ramsar'] + @headers_with_looping_contexts,
+          types: Array.new(@number_of_data_columns){:string}
+        @respondents.each do |respondent|
+          sheet.add_row data_row_for_respondent(@section_3_questions, respondent, @identifiers_with_looping_contexts)
         end
       end
+    end
 
-      questions_with_matrix_queries = {}
-      matrix_answer_questions_rel(questions).each do |q|
-        questions_with_matrix_queries[q.id] = q.answer_type.matrix_answer_queries.includes(:matrix_answer_query_fields).where('matrix_answer_query_fields.is_default_language' => true)
-      end
-
-      numeric_question_ids = numeric_answer_answers_rel(questions).uniq(:question_id).pluck(:question_id).map(&:to_i)
-
-      headers_with_looping_contexts = []
-      identifiers_with_looping_contexts = []
-
-      questions.each do |q|
-        header_segments, identifier_segments = [[q.uidentifier]], [[q.id]]
-        matrix_queries = questions_with_matrix_queries[q.id]
-        matrix_header_segments, matrix_identifier_segments = if matrix_queries.present?
-          [
-            matrix_queries.map { |mq| matrix_query_identifier_as_text(mq.id, 'en') },
-            matrix_queries.map { |mq| mq.id }
-          ]
-        elsif numeric_question_ids.include?(q.id)
-          [
-            [nil, 'val'],
-            [nil, 'val']
-          ]
-        else
-          [
-            [nil],
-            [nil]
-          ]
-        end
-        header_segments = header_segments.product(matrix_header_segments)
-        identifier_segments = identifier_segments.product(matrix_identifier_segments)
-        looping_identifiers = questions_with_looping_identifiers[q.id]
-        looping_header_segments, looping_identifier_segments = if looping_identifiers.present?
-          [
-            looping_identifiers.map { |li| looping_identifier_as_text(li, 'en') },
-            identifier_segments.product(looping_identifiers)
-          ]
-        else
-          [
-            [nil],
-            [nil]
-          ]
-        end
-        header_segments = header_segments.product(looping_header_segments)
-        identifier_segments = identifier_segments.product(looping_identifier_segments)
-
-        header_segments.each do |hs|
-          headers_with_looping_contexts << hs.flatten.compact.join(' | ')
-        end
-        identifier_segments.each do |is|
-          identifiers_with_looping_contexts << is.flatten
-        end
-      end
-
-      respondents = User.
-        select([:user_id, :country, :region, :status]).
-        from('api_respondents_view users').
-        where(status: 'Submitted')
-      
-      number_of_data_columns = 3 + headers_with_looping_contexts.size
-      number_of_data_rows = respondents.size + 1
-      data_sheet = workbook.add_worksheet(name: 'Data') do |sheet|
-        sheet.add_row ['REGION_Ramsar2', 'REGION_Ramsar', 'CNTRY_Ramsar'] + headers_with_looping_contexts,
-          types: Array.new(number_of_data_columns){:string}
-        respondents.each do |respondent|
-          sheet.add_row data_row_for_respondent(questions, respondent, identifiers_with_looping_contexts)
-        end
-      end
-
-      workbook.add_worksheet(name: 'PivotTables') do |sheet|
+    def create_pivot_tables_sheet(workbook, goal, data_sheet)
+      # select subset of columns from the data sheet that relate to this goal
+      headers_with_looping_contexts = @headers_with_looping_contexts.values_at(*@expanded_headers_index[goal])
+      identifiers_with_looping_contexts = @identifiers_with_looping_contexts.values_at(*@expanded_headers_index[goal])
+      workbook.add_worksheet(name: goal) do |sheet|
         current_row = 1
-        data_range = "A1:#{column_index(number_of_data_columns -1)}#{number_of_data_rows}"
+        data_range = "A1:#{column_index(@number_of_data_columns -1)}#{@number_of_data_rows}"
         numeric_option_header = nil
         headers_with_looping_contexts.each_with_index do |h, idx|
-          is_numeric = numeric_question_ids.include?(identifiers_with_looping_contexts[idx].first)
+          is_numeric = @numeric_question_ids.include?(identifiers_with_looping_contexts[idx].first)
           if is_numeric && numeric_option_header.nil?
             numeric_option_header = h
             # if this is the "option code" numeric column, save its header
