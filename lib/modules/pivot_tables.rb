@@ -25,6 +25,7 @@ module PivotTables
     def initialize(questionnaire)
       @questionnaire = questionnaire
       @dir_path = PivotTables.dir_path(questionnaire)
+      @section_3_questions = section_3_questions_rel
     end
 
     def run
@@ -33,9 +34,9 @@ module PivotTables
       end
       Rails.logger.debug("#{Time.now} Started generating pivot tables")
       elapsed_time = Benchmark.realtime do
+
         Axlsx::Package.new do |p|
-          create_data_sheet(p.workbook, @questionnaire)
-          # create_multi_answer_questions_sheet(p.workbook, @questionnaire)
+          create_data_sheet(p.workbook)
           p.serialize(new_file_path(@questionnaire))
         end
       end
@@ -67,50 +68,8 @@ module PivotTables
       maq_f.title.split[0]
     end
 
-    def questions_rel(questionnaire)
-      Question.
-        from('pt_questions_view questions').
-        where(
-          questionnaire_id: questionnaire.id,
-          root_section: 'Section 3',
-          answer_type_type: ['MultiAnswer', 'MatrixAnswer']
-        ).
-        order(:lft)
-    end
-
-    def matrix_answer_questions_rel(questionnaire)
-      questions_rel(questionnaire).where(answer_type_type: 'MatrixAnswer')
-    end
-
-
-    def multi_answer_answers_rel(questionnaire)
-      MultiAnswer.
-        from('pt_multi_answer_answers_by_user_view multi_answers').joins(
-          'JOIN (' + questions_rel(questionnaire).to_sql + ') questions' +
-          " ON multi_answers.question_id = questions.id AND questions.answer_type_type = 'MultiAnswer'"
-        ).
-        where('NOT details_field') # this to exclude the "exact" etc pseudo-numeric questions
-    end
-
-    def numeric_answer_answers_rel(questionnaire)
-      MultiAnswer.
-        from('pt_multi_answer_answers_by_user_view multi_answers').joins(
-          'JOIN (' + questions_rel(questionnaire).to_sql + ') questions' +
-          " ON multi_answers.question_id = questions.id AND questions.answer_type_type = 'MultiAnswer'"
-        ).
-        where('details_field') # this to include only the "exact" etc pseudo-numeric questions
-    end
-
-    def matrix_answer_answers_rel(questionnaire)
-      MatrixAnswer.
-        from('pt_matrix_answer_answers_by_user_view matrix_answers').joins(
-          'JOIN (' + questions_rel(questionnaire).to_sql + ') questions' +
-          " ON matrix_answers.question_id = questions.id AND questions.answer_type_type = 'MatrixAnswer'"
-        )
-    end
-
-    def create_data_sheet(workbook, questionnaire)
-      questions = questions_rel(questionnaire)
+    def create_data_sheet(workbook)
+      questions = @section_3_questions
 
       questions_with_looping_identifiers = {}
       questions.each do |q|
@@ -121,14 +80,14 @@ module PivotTables
       end
 
       questions_with_matrix_queries = {}
-      matrix_answer_questions_rel(questionnaire).each do |q|
+      matrix_answer_questions_rel(questions).each do |q|
         questions_with_matrix_queries[q.id] = q.answer_type.matrix_answer_queries.includes(:matrix_answer_query_fields).where('matrix_answer_query_fields.is_default_language' => true)
       end
 
+      numeric_question_ids = numeric_answer_answers_rel(questions).uniq(:question_id).pluck(:question_id).map(&:to_i)
+
       headers_with_looping_contexts = []
       identifiers_with_looping_contexts = []
-
-      numeric_question_ids = numeric_answer_answers_rel(questionnaire).uniq(:question_id).pluck(:question_id).map(&:to_i)
 
       questions.each do |q|
         header_segments, identifier_segments = [[q.uidentifier]], [[q.id]]
@@ -185,7 +144,7 @@ module PivotTables
         sheet.add_row ['REGION_Ramsar2', 'REGION_Ramsar', 'CNTRY_Ramsar'] + headers_with_looping_contexts,
           types: Array.new(number_of_data_columns){:string}
         respondents.each do |respondent|
-          sheet.add_row data_row_for_respondent(questionnaire, respondent, identifiers_with_looping_contexts)
+          sheet.add_row data_row_for_respondent(questions, respondent, identifiers_with_looping_contexts)
         end
       end
 
@@ -234,22 +193,22 @@ module PivotTables
     # the question identifier comes from questions.id column
     # the looping identifier comes from answers.looping_identifier column
     # the looping identifier is constructed from loop item ids joined using a looping separator ('S')
-    def data_row_for_respondent(questionnaire, respondent, identifiers_with_looping_contexts)
+    def data_row_for_respondent(questions_rel, respondent, identifiers_with_looping_contexts)
       index_hash = Hash[identifiers_with_looping_contexts.each_with_index.map { |x, i| [x, i] }]
       result = Array.new(identifiers_with_looping_contexts.size)
 
-      multi_answers = multi_answer_answers_rel(questionnaire).where(user_id: respondent.user_id)
+      multi_answers = multi_answer_answers_rel(questions_rel).where(user_id: respondent.user_id)
       multi_answers.each do |ma|
         result[index_hash[[ma.question_id.to_i, nil, ma.looping_identifier]]] = ma.option_code
       end
 
-      numeric_answers = numeric_answer_answers_rel(questionnaire).where(user_id: respondent.user_id)
+      numeric_answers = numeric_answer_answers_rel(questions_rel).where(user_id: respondent.user_id)
       numeric_answers.each do |na|
         result[index_hash[[na.question_id.to_i, nil, na.looping_identifier]]] = na.option_code
         result[index_hash[[na.question_id.to_i, 'val', na.looping_identifier]]] = na.details_text
       end
 
-      matrix_answers = matrix_answer_answers_rel(questionnaire).where(user_id: respondent.user_id)
+      matrix_answers = matrix_answer_answers_rel(questions_rel).where(user_id: respondent.user_id)
       matrix_answers.each do |ma|
         result[index_hash[[ma.question_id.to_i, ma.matrix_answer_query_id.to_i, ma.looping_identifier]]] = ma.option_code
       end
@@ -267,5 +226,49 @@ module PivotTables
       index_hash = Hash.new {|hash,key| hash[key] = hash[key - 1].next }.merge({0 => "A"})
       index_hash[column_number]
     end
+
+    private
+
+    def section_3_questions_rel
+      Question.
+        from('pt_questions_view questions').
+        where(
+          questionnaire_id: @questionnaire.id,
+          root_section: 'Section 3',
+          answer_type_type: ['MultiAnswer', 'MatrixAnswer']
+        ).
+        order(:lft)
+    end
+
+    def matrix_answer_questions_rel(questions_rel)
+      questions_rel.where(answer_type_type: 'MatrixAnswer')
+    end
+
+    def multi_answer_answers_rel(questions_rel)
+      MultiAnswer.
+        from('pt_multi_answer_answers_by_user_view multi_answers').joins(
+          'JOIN (' + questions_rel.to_sql + ') questions' +
+          " ON multi_answers.question_id = questions.id AND questions.answer_type_type = 'MultiAnswer'"
+        ).
+        where('NOT details_field') # this to exclude the "exact" etc pseudo-numeric questions
+    end
+
+    def numeric_answer_answers_rel(questions_rel)
+      MultiAnswer.
+        from('pt_multi_answer_answers_by_user_view multi_answers').joins(
+          'JOIN (' + questions_rel.to_sql + ') questions' +
+          " ON multi_answers.question_id = questions.id AND questions.answer_type_type = 'MultiAnswer'"
+        ).
+        where('details_field') # this to include only the "exact" etc pseudo-numeric questions
+    end
+
+    def matrix_answer_answers_rel(questions_rel)
+      MatrixAnswer.
+        from('pt_matrix_answer_answers_by_user_view matrix_answers').joins(
+          'JOIN (' + questions_rel.to_sql + ') questions' +
+          " ON matrix_answers.question_id = questions.id AND questions.answer_type_type = 'MatrixAnswer'"
+        )
+    end
+
   end
 end
