@@ -6,6 +6,28 @@ A user guide for the application is available from the repository's doc folder.
 
 ## Development
 
+### Installing with Nanobox
+
+1. Create an account with [Nanobox](http://nanobox.io) and install Nanobox on your system
+2. Clone the repo
+
+`git clone https://github.com/unepwcmc/ORS.git`
+
+3. Go to the application folder
+
+`cd ORS`
+
+4. Fire up nanobox
+
+`nanobox run bundle install`
+`nanobox run rails s`
+
+5. Check it out in your browser at
+
+`ors.dev:3000`
+
+
+
 ### Installing locally
 
 1 Install necessary software
@@ -52,13 +74,13 @@ After installing this software run "bundle install" again.
     rake db:migrate
     rake db:seed
 ````
-    
+
 7 Fire up your server
 
 ````
     rails server
-````    
-    
+````
+
 8 And visit the home page in:
 
 ````
