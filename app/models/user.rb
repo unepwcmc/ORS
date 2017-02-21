@@ -18,6 +18,8 @@ class User < ActiveRecord::Base
   acts_as_authentic do |c|
     c.login_field = 'email'
     c.disable_perishable_token_maintenance true
+    c.validates_format_of_email_field_options = {:with => Authlogic::Regex.email_nonascii}
+    c.merge_validates_length_of_password_field_options({:minimum => 5})
   end
 
   ###
