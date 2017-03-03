@@ -82,8 +82,4 @@ class ApplicationController < ActionController::Base
   def set_current_user_delegate
     @current_user_delegate = UserDelegate.find(params[:user_delegate]) if params[:user_delegate].present?
   end
-
-  def admin_required
-    raise CanCan::AccessDenied.new(t('flash_messages.not_authorized')) if !current_user || !current_user.role?(:admin)
-  end
 end

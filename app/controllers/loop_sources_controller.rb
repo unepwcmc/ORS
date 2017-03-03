@@ -1,6 +1,6 @@
 class LoopSourcesController < ApplicationController
 
-  before_filter :admin_required
+  authorize_resource
 
   def index
     #@loop_sources = LoopSource.all
