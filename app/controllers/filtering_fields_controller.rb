@@ -1,4 +1,7 @@
 class FilteringFieldsController < ApplicationController
+
+  authorize_resource
+
   # GET /filtering_fields
   # GET /filtering_fields.xml
   def index
