@@ -167,7 +167,7 @@ module PivotTables
 
     def create_data_sheet(workbook)
       workbook.add_worksheet(name: 'Data') do |sheet|
-        sheet.add_row ['REGION_Ramsar2', 'REGION_Ramsar', 'CNTRY_Ramsar'] + @expanded_headers,
+        sheet.add_row ['Wider Region', 'Region', 'Country'] + @expanded_headers,
           types: Array.new(@number_of_data_columns){:string}
         @respondents.each do |respondent|
           sheet.add_row data_row_for_respondent(@section_3_questions, respondent, @expanded_headers_identifiers)
