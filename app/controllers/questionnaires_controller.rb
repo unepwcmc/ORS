@@ -373,8 +373,9 @@ class QuestionnairesController < ApplicationController
 
   def generate_pivot_tables
     PivotTables::Generator.new(@questionnaire).run
+    flash[:notice] = "Pivot Table has been generated."
     respond_to do |format|
-      format.js { render "questionnaires/to_csv" }
+      format.js { render inline: 'location.reload();' }
     end
   end
 

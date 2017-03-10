@@ -2,6 +2,7 @@ window.QuestionnairesComponent = class QuestionnairesComponent
   @initialize: ->
     QuestionnairesComponent.IndexPage.initialize()
     QuestionnairesComponent.NewPage.initialize()
+    QuestionnairesComponent.DashboardPage.initialize()
 
     @addEventListeners()
 

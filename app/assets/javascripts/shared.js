@@ -99,7 +99,13 @@ function ajaxLinks() {
     return function() {
       var $el = $(this);
 
-      $el.unbind('click');
+      //unbind only if it's not the pivot-table-regenerate button
+      //this is to prevent something unespected happening with removing
+      //the unbind click for all elements
+      if(!$el.hasClass('pivot-table-regenerate')) {
+        $el.unbind('click');
+      }
+
       $el.click(function() {
         method($el.attr("href"), $el.serialize(), null, "script");
         return false;

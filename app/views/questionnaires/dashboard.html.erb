@@ -193,7 +193,11 @@
             <%= fa_icon 'file-excel-o' %> <%= link_to "Get file", download_pivot_tables_questionnaire_path(@questionnaire) %>
             (Last generated on: <%= PivotTables.last_generated_on(questionnaire).strftime('%H:%M %b %d, %Y') %>)<br>
           <% end %>
-          <%= fa_icon 'refresh' %> <%= link_to "Regenerate", generate_pivot_tables_questionnaire_path(@questionnaire), :class => "get" %>
+          <div class='pivot-table-loading'>
+            <%= fa_icon 'spinner spin' %>
+            Pivot table is being generated and it can take some minutes.
+          </div>
+          <%= fa_icon 'refresh' %> <%= link_to "Regenerate", generate_pivot_tables_questionnaire_path(@questionnaire), :class => "get pivot-table-regenerate" %>
         </div>
     <% end %>
   </div>
