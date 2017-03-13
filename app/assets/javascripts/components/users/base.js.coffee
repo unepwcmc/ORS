@@ -7,15 +7,17 @@ window.UsersComponent = class UsersComponent
 
   @userDetailsTooltip: ->
     tooltipClass = '.information-tooltip'
-    $("#{tooltipClass}-trigger").toggle( (ev) ->
+    $(document).on('click', "#{tooltipClass}-trigger", (ev) ->
       ev.preventDefault()
-      $("#{tooltipClass}-trigger").not(@).siblings(tooltipClass).hide()
-      $(@).html('<i class="fa fa-close"></i> close')
-      $(@).siblings(tooltipClass).show()
-    , (ev) ->
-      ev.preventDefault()
-      $(@).html('<i class="fa fa-align-left"></i> details')
-      $(@).siblings(tooltipClass).hide()
+      $this = $(@)
+      if ($this.find('.fa-align-left').length)
+        $("#{tooltipClass}-trigger").not(@).siblings(tooltipClass).hide()
+        $("#{tooltipClass}-trigger").not(@).html('<i class="fa fa-align-left"></i> details')
+        $this.html('<i class="fa fa-close"></i> close')
+        $this.siblings(tooltipClass).show()
+      else
+        $this.html('<i class="fa fa-align-left"></i> details')
+        $this.siblings(tooltipClass).hide()
     )
 
 $(document).ready -> UsersComponent.initialize()

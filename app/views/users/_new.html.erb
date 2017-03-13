@@ -64,11 +64,11 @@
               <div class="clear">
                 <p>Roles</p>
                 <ul>
-                  <%= hidden_field_tag "user[role_ids][]", "" %>
                   <% for role in Role.all %>
-                      <li><label><%=h role.name.titleize %></label>
-                        <%= check_box_tag( "role_#{role.name}" ) %>
-                      </li>
+                    <li>
+                      <label><%=h role.name.titleize %></label>
+                      <%= check_box_tag("user[role_ids][]", role.id) %>
+                    </li>
                   <% end -%>
                 </ul>
               </div>
