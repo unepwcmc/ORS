@@ -19,12 +19,13 @@ $(function() {
             $users_index.prepend("<tr id='row_<%=@user.id.to_s%>'>" +
                                   "<td><%= escape_javascript( check_box_tag "users["+@user.id.to_s+"]", @user.id.to_s, false, {:class => "checkboxes"} ) %></td>" +
                                   "<td><%= escape_javascript(link_to h(@user.full_name), user_path(@user)) %></td>"+
-                                  "<td><%= escape_javascript(mail_to @user.email, h(@user.email))%></td>"+
-                                  "<td><%= escape_javascript(@user.created_at.to_formatted_s(:long_ordinal)) %></td>"+
-                                  "<td><%= escape_javascript(@user.creator ? "#{link_to h(@user.creator.full_name), user_path(@user.creator)}" : "None").html_safe %></td>"+
+                                  "<td><%= @user.created_at.strftime("%d/%m/%Y") %></td>"+
                                   "<td><%= @user.roles.map(&:name).join(', ') if @user.roles.present? %></td>"+
                                   "<td id='groups_<%=@user.id.to_s%>' class='user_groups'></td>"+
-                                  "<td></td>"+
+                                  "<td>"+
+                                    "<a href='#' class='information-tooltip-trigger'><%= escape_javascript(fa_icon 'align-left') %> details</a> | <%= escape_javascript(link_to "view", @user) %>" +
+                                  " | <%= escape_javascript(link_to "delete", delete_user_path(@user)) if !@user.role?(:admin) %>" +
+                                  "</td>" +
                                   "</tr>")
                         .trigger("update") //tell the table that it has been updated
                         .trigger("sorton",[[]]); //remove the sorting
