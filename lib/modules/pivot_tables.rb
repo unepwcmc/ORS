@@ -236,6 +236,10 @@ module PivotTables
       matrix_answers.each do |ma|
         result[index_hash[[ma.question_id.to_i, ma.matrix_answer_query_id.to_i, ma.looping_identifier]]] = ma.option_code
       end
+      #Also consider the non-answered questions and put a dash instead of empty cell
+      #This also affects the pivot tables in the goals sheets, but it also counts the empty answer in the total result
+      #which probably is not the intended behaviour. Need discussion with Manuel.
+      result.map! { |r| r.present? ? r : '-' }
       region2 = if respondent.region == 'Asia' || respondent.region == 'Oceania'
         'Asia/Oceania'
       elsif respondent.region == 'North America' || respondent.region == 'Latin America and the Caribbean'
