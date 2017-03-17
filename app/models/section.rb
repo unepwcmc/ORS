@@ -284,7 +284,7 @@ class Section < ActiveRecord::Base
     state_tracker.save if state_tracker.changed?
     self.children.each do |s|
      if s.looping?
-       items = s.next_loop_items(loop_item, loop_sources_items)
+       items = s.next_loop_items(loop_item, loop_sources_items) || []
        items.each do |item|
          if s.available_for? user, item
            loop_sources_items[s.loop_source.id.to_s] = item
