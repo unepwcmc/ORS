@@ -51,9 +51,7 @@ class QuestionsController < ApplicationController
   def delete
     @question = Question.find(params[:id], :include => :question_fields)
     questionnaire = @question.questionnaire
-    if @question.questionnaire.user != current_user
-      raise CanCan::AccessDenied.new(t('flash_messages.not_authorized'))
-    elsif  @question.questionnaire.active?
+    if  @question.questionnaire.active?
       flash[:error] = "This question's questionnaire is active, and so you can not delete its questions."
       redirect_to dashboard_questionnaire_path(@questionnaire) and return
     end
@@ -71,8 +69,6 @@ class QuestionsController < ApplicationController
     @questionnaire = @question.questionnaire
     if params[:cancel]
       redirect_to(dashboard_questionnaire_path(@questionnaire)) and return
-    elsif @questionnaire.user != current_user
-      raise CanCan::AccessDenied.new(t('flash_messages.not_authorized'))
     elsif  @questionnaire.active?
       flash[:error] = "This question's questionnaire is active, and so you can not delete its questions."
       redirect_to dashboard_questionnaire_path(@questionnaire) and return
