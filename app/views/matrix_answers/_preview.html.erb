@@ -30,7 +30,7 @@
               <% elsif answer_type.drop_down_list? -%>
                 <%
                    options = [[t("submission_pages.select_option"), ""]]
-                   answer_type.matrix_answer_drop_options.each do |mado|
+                   answer_type.matrix_answer_drop_options.order('id DESC').each do |mado|
                        options += [[h(mado.option_text), mado.id]]
                    end
                 -%>

@@ -26,7 +26,7 @@
 <% if answer_type.display_reply == 3 -%>
     <p>Drop down options</p>
     <ul>
-      <% answer_type.matrix_answer_drop_options.each do |drop_option| -%>
+      <% answer_type.matrix_answer_drop_options.order('id DESC').each do |drop_option| -%>
       <li>
         <%=h drop_option.option_text(language) %>
       </li>
