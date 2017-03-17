@@ -71,17 +71,18 @@
 
         <% else -%>
             <% j = 0 %>
+                <% matrix_answer_queries =  type.matrix_answer_queries.order('id DESC') %>
                 var queriesData = [
-                    <% type.matrix_answer_queries.sort{ |a, b| a.created_at <=> b.created_at }.each_index do |i| %>
+                    <% matrix_answer_queries.each_index do |i| %>
                         {
                             id: "<%= j %>",
-                            <% query_fields = type.matrix_answer_queries[i].matrix_answer_query_fields.sort_by{|a| a.is_default_language? ? 0 : 1} %>
+                            <% query_fields = matrix_answer_queries[i].matrix_answer_query_fields.sort_by{|a| a.is_default_language? ? 0 : 1} %>
                             <% query_fields.each_with_index do |qf, n| %>
                               "<%= qf.language_english_name %>": "<%= escape_javascript(qf.title) %>"<%= "," if n < query_fields.size %>
                             <% end %>
-                            <%#= ", " + type.matrix_answer_queries[i].matrix_answer_query_fields.sort_by{ |a| a.is_default_language? ? 0 : 1 }.map{|a| "#{a.language_english_name} : '#{h(a.title)}'"}.join(', ') %>
+                            <%#= ", " + matrix_answer_queries[i].matrix_answer_query_fields.sort_by{ |a| a.is_default_language? ? 0 : 1 }.map{|a| "#{a.language_english_name} : '#{h(a.title)}'"}.join(', ') %>
                         }
-                        <% if i < type.matrix_answer_queries.size %>
+                        <% if i < matrix_answer_queries.size %>
                                 ,
                         <% end -%>
                         <% j += 1 %>

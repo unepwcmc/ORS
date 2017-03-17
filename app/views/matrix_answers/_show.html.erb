@@ -9,7 +9,7 @@
 </p>
 <p>Queries</p>
 <ul>
-  <% answer_type.matrix_answer_queries.each do |query| %>
+  <% answer_type.matrix_answer_queries.order('id DESC').each do |query| %>
       <li>
         <%= h query.title(language) %>
       </li>
