@@ -503,6 +503,8 @@ hr {
 
 .ui-dialog {
   padding: 1.25em;
+  max-height: 550px;
+  top: 20% !important;
 
   .ui-dialog-titlebar-close {
     border:none;
@@ -512,6 +514,11 @@ hr {
   .ui-dialog-titlebar {
     padding: 0 0 0.5em 0;
     //color: $blue;
+  }
+
+  .ui-dialog-content {
+    max-height: 450px;
+    overflow-y: auto;
   }
 }
 
