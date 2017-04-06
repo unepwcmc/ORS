@@ -352,7 +352,7 @@ class User < ActiveRecord::Base
 
   def can_edit_delegate_text_answer?(section, user_delegate)
     questionnaire_id = section.questionnaire.id
-    if self.role?(:delegate)
+    if self.role?(:delegate) && user_delegate
       delegation = user_delegate.delegations.
         find_by_questionnaire_id_and_user_delegate_id(questionnaire_id, user_delegate.id)
       return section.is_or_has_parents_delegated_to?(delegation) ||
