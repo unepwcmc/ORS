@@ -21,7 +21,8 @@ class Ability
         can [:update, :add_document, :add_link], Answer
         if user.role?(:delegate)
           can [:show, :update], User, :id => user.id
-        elsif user.role?(:respondent)
+        end
+        if user.role?(:respondent)
           can [:create ], User
           can [:show, :update, :update_submission_page, :upload_list_of, :group, :remove_group, :delegate_section], User, :id => user.id
           can [:submit, :download_user_pdf, :to_pdf], Questionnaire do |questionnaire|
