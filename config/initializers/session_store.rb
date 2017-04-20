@@ -4,6 +4,7 @@
 OnlineReportingTool::Application.config.session_store :redis_session_store, {
   key: '_report_manager_session',
   redis: {
+    expire_after: 3.weeks,
     key_prefix: 'online_reporting_tool:session:',
     url: Rails.application.secrets.redis['url']
   }
