@@ -38,6 +38,7 @@ gem 'prawn'
 gem 'htmlentities'
 
 gem 'redis'
+gem 'redis-session-store'
 gem 'sidekiq'
 gem 'sidekiq-status'
 gem 'sinatra', :require => nil
