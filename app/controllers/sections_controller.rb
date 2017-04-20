@@ -2,7 +2,7 @@ class SectionsController < ApplicationController
 
   authorize_resource
 
-  before_filter :set_current_user_delegate, only: [:submission, :save_answers]
+  before_filter :set_current_user_delegate, only: [:submission, :save_answers, :load_lazy]
 
   # GET /sections/1
   # GET /sections/1.xml
