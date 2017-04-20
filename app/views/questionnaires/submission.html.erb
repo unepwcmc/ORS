@@ -3,14 +3,6 @@
 
 <%= render 'users/options' %>
 
-<% content_for :header do %>
-  <div class="custom-header-image">
-    <% unless @questionnaire.header.url == "/assets/headers/default/default_original_header.png" %>
-      <%= image_tag @questionnaire.header.url %>
-    <% end %>
-  </div>
-<% end %>
-
 <% content_for :sidebar do %>
   <div class="page-header">
     <h4><%=h @questionnaire.value_in(:title, @authorization[:language]) %></h4>
