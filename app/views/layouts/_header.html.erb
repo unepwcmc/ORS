@@ -13,14 +13,6 @@
           <% end %>
           <%= link_to t("login_menu.login"), root_path(:lang => (params[:lang]||"en")) %>
           | <%= select :display, :language, [["English","en"], ["Français","fr"], ["Español","es"]], {:selected => (params[:lang] || "en")}  %>
-          <script type="text/javascript">
-            $("#display_language").change(function(){
-              var selected_lang = $(this).val();
-              if(selected_lang != ""){
-                window.location = "?lang="+selected_lang;
-              }
-            });
-          </script>
         <% end %>
       </p>
     </div>
