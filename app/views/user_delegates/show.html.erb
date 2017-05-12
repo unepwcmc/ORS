@@ -62,7 +62,7 @@
         <% if delegation.sections.present? %>
           <div class="delegation-details hide" id="delegation_details_<%= delegation.id %>">
             <table>
-              <thead>
+              <thead
                 <tr>
                   <th><%= t('generic.section')%></th>
                   <th><%= t('delegation_details.root_section_th')%></th>
@@ -87,15 +87,3 @@
   </div>
 <% end %>
 </div><!-- /content -->
-<script type="text/javascript">
-  $(function(){
-      $(".show-details").click(function(e){
-        e.preventDefault();
-        $(this).parent().siblings('.delegation-details').toggle('slow');
-      });
-      $("#delegated_tasks_table").tablesorter({
-        sortList: [[0,0]],
-        widgets: ['zebra']
-      });
-    });
-</script>
