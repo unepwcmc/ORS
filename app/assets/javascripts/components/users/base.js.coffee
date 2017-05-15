@@ -1,5 +1,6 @@
 window.UsersComponent = class UsersComponent
   @initialize: ->
+    UsersComponent.UserDelegates.initialize()
     @addEventListeners()
 
   @addEventListeners: ->

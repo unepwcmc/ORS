@@ -71,22 +71,3 @@
     <% end -%>
   </div>
 </div>
-<script type="text/javascript">
-    $(function(){
-        $("#questionnaire_original_id").change(function(){
-            var val = $(this).val();
-            var closedAny = false;
-            $(".questionnaires_info").each(function(){
-                if($(this).is(":visible"))
-                {
-                    $(this).slideUp("slow", function(){
-                        $("#questionnaire_"+val).slideDown("slow");
-                    });
-                    closedAny = true;
-                }
-            });
-            if(!closedAny)
-                $("#questionnaire_"+val).slideDown("slow");
-        })
-    })
-</script>
