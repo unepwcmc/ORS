@@ -9,6 +9,7 @@ window.QuestionnairesComponent = class QuestionnairesComponent
     @hideInfoContent()
     @addCloseEvent()
     @addHideInfoEvent()
+    @slideDuplicateQuestionnaire()
 
   @hideInfoContent: ->
     $('.app-content').on('click', '.info-toggle-header', (ev) ->
@@ -51,6 +52,22 @@ window.QuestionnairesComponent = class QuestionnairesComponent
       if toggle_info.text().indexOf("Hide") != 1
         toggle_info.text("Show")
     )
+
+  @slideDuplicateQuestionnaire: ->
+    $("#questionnaire_original_id").change( ->
+        val = $(@).val()
+        closedAny = false
+        $(".questionnaires_info").each( ->
+          if($(@).is(":visible"))
+            $(@).slideUp("slow", ->
+              $("#questionnaire_"+val).slideDown("slow")
+            )
+            closedAny = true
+        )
+        if(!closedAny)
+          $("#questionnaire_"+val).slideDown("slow")
+    )
+
 
 $(document).ready -> QuestionnairesComponent.initialize()
 
