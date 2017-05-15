@@ -28,4 +28,5 @@
 //= require_tree ./components/users
 //= require_tree ./components/questionnaires
 //= require_tree ./components/loop_items
+//= require_tree ./components/loop_sources
 //= require_tree ./application
