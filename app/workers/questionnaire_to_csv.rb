@@ -14,7 +14,10 @@ class QuestionnaireToCsv
     end
     file_location << "questionnaire_generating.csv"
 
-    if File.exist?(file_location) && File.atime(file_location) < 30.minutes.ago
+    # stop here if a "questionnaire_generating.csv" file is found, created less than
+    # 30 minutes ago. This means that an import is already running, and we shouldn't
+    # start another one
+    if File.exist?(file_location) && File.atime(file_location) > 30.minutes.ago
       return false
     end
 
