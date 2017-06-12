@@ -116,7 +116,7 @@ class Section < ActiveRecord::Base
     if self.matching_loop_sources?(loop_item_type)
       self.loop_item_type
     else
-      self.parent.nil? ? nil : self.parent.first_ancestor_item_type(loop_item_type)
+      (self.parent.nil? || self.parent.id == self.id) ? nil : self.parent.first_ancestor_item_type(loop_item_type)
     end
   end
 
