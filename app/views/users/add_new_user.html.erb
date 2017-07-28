@@ -57,7 +57,6 @@
             <label id="radio">
               <%= f.radio_button :category, "Other" %>
               <%= t("generic.other")%>
-<<<<<<< HEAD
             </label>
           </div>
         </div>
@@ -82,7 +81,7 @@
               <% for role in Role.all %>
                 <li>
                   <label><%=h role.name.titleize %></label>
-                  <%= check_box_tag "user[role_ids][]", role.id, (@user.role? role.name.to_sym), {:id => "user_#{role.id}" } %>
+                  <%= check_box_tag "user[role_ids][]", role.id, (@user.role? role.name.to_sym), {id: "user_#{role.id}", class: "#{role.name}-box" } %>
                 </li>
               <% end -%>
             </ul>
