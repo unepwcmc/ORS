@@ -10,7 +10,7 @@ class UsersController < ApplicationController
 
   def new # Used for authentication
     raise CanCan::AccessDenied.new(t('flash_messages.not_authorized')) if current_user
-    @user = User.new
+    #@user = User.new
   end
 
   def add_new_user # User for adding a user from manage users page
