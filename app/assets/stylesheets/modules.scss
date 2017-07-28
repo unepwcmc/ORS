@@ -828,7 +828,10 @@ div.ui-dynatree-container {
 
 li#s_answer_type { overflow: visible !important; }
 
-.respondents-table-container {
-  height: 500px;
-  overflow-y: scroll;
+.respondents-list {
+  display: none;
+  .respondents-table-container {
+    height: 500px;
+    overflow-y: scroll;
+  }
 }
