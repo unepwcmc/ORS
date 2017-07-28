@@ -26,7 +26,10 @@
       <%= link_to add_list_users_path do %>
         <%= fa_icon 'plus-circle' %> Add list of users
       <% end %>
-      <a href="#" id="add_new_user"><%= fa_icon 'plus-circle' %> Add user</a>
+
+      <%= link_to add_new_user_users_path do %>
+        <%= fa_icon 'plus-circle' %> Add new user
+      <% end %>
     </div>
   </div>
 
@@ -116,7 +119,6 @@
       </div><!-- /the_table -->
   <% end %>
 </div><!-- /content -->
-<div id="user_dialog" title="Add new user"><%= render :partial => "users/new" %></div>
 <script type="text/javascript">
   $(window).load(function(){
       myLib.questionnaire_authorized_submitters.init();
