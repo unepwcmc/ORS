@@ -164,6 +164,7 @@ en:
     logged_out: "You have been logged out."
     sign_up_success: "Thank you for signing up! You are now logged in."
     delegate_success: "Delegate successfully added to the system."
+    user_success: "User successfully added to the system."
     update_profile_s: "Successfully updated the user profile."
     not_authorized: "You are not authorized to access this page."
     questionnaire_submitted: "You can not access this page because you have already submitted this questionnaire."
