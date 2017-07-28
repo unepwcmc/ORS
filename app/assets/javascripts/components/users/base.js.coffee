@@ -4,6 +4,8 @@ window.UsersComponent = class UsersComponent
 
   @addEventListeners: ->
     @userDetailsTooltip()
+    #Enables search through users table
+    enableSearch()
 
   @userDetailsTooltip: ->
     tooltipClass = '.information-tooltip'
