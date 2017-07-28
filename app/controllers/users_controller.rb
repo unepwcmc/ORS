@@ -43,8 +43,8 @@ class UsersController < ApplicationController
             flash[:notice] = t('flash_messages.sign_up_success')
             redirect_to root_url
           else
-            flash[:notice] = t('flash_messages.delegate_success')
-            redirect_to user_user_delegates_path(current_user)
+            flash[:notice] = t('flash_messages.user_success')
+            redirect_to users_path
           end
         }
         format.js
