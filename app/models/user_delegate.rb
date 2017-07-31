@@ -9,7 +9,9 @@ class UserDelegate < ActiveRecord::Base
 
   validates_uniqueness_of :user_id, :scope => :delegate_id
 
-  attr_accessible :details
+  attr_accessible :details, :delegations_attributes
+
+  accepts_nested_attributes_for :delegations
 
   def <=>other
     self.delegate.full_name <=> other.delegate.full_name

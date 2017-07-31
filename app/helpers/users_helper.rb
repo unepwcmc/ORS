@@ -6,7 +6,7 @@ module UsersHelper
 
   def select_delegation_questionnaire(user)
     if user.available_questionnaires.present?
-      select "delegation", "questionnaire_id", user.available_questionnaires.collect{|p| [h(p.title(I18n.locale.to_s)[0,50])+"...", p.id] }, { include_blank: t('manage_delegates.select_a_q') }, class: 'select-delegation-questionnaire'
+      select "user[user_delegates_attributes][delegations_attributes]", "questionnaire_id", user.available_questionnaires.collect{|p| [h(p.title(I18n.locale.to_s)[0,50])+"...", p.id] }, { include_blank: t('manage_delegates.select_a_q') }, class: 'select-delegation-questionnaire'
     else
       t('delegation_details.no_questionnaires_available')
     end

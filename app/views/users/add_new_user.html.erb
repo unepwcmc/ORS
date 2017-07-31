@@ -94,7 +94,7 @@
           </div>
         <% end -%>
 
-        <%= render partial: 'delegations' %>
+        <%= render partial: 'delegations', locals: {f: f} %>
 
       </fieldset>
       <p><%= f.submit "Register" %></p>
