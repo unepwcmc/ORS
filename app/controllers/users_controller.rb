@@ -8,9 +8,12 @@ class UsersController < ApplicationController
     @groups = User.group_counts
   end
 
-  def new
+  def new # Used for authentication
     raise CanCan::AccessDenied.new(t('flash_messages.not_authorized')) if current_user
     #@user = User.new
+  end
+
+  def add_new_user # User for adding a user from manage users page
   end
 
   def create
@@ -40,8 +43,8 @@ class UsersController < ApplicationController
             flash[:notice] = t('flash_messages.sign_up_success')
             redirect_to root_url
           else
-            flash[:notice] = t('flash_messages.delegate_success')
-            redirect_to user_user_delegates_path(current_user)
+            flash[:notice] = t('flash_messages.user_success')
+            redirect_to users_path
           end
         }
         format.js

@@ -142,12 +142,6 @@ function initialiseAuthorizedSubmittersPage() {
   initialiseSelectAll();
   $('#user_dialog').dialog({autoOpen:false, resizable:false, modal:true, width: 500, height: 700, overflow: "auto"});
 
-  // Clicking on the "add_new_user" link it will open the Dialog with the New User Form.
-  $('#add_new_user').livequery('click', function(e) {
-    e.preventDefault();
-    $('#user_dialog').dialog('open');
-  });
-
   // Set the "tableSorter" for the table "MyTable"
   // Starts with the sorting on the "Authorizated" Column and the Name Column
   // Sorting is disabled for the first column (the checkboxes)

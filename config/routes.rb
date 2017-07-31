@@ -160,6 +160,7 @@ OnlineReportingTool::Application.routes.draw do
     collection do
       get :add_list
       post :upload_list
+      get :add_new_user
     end
 
     member do

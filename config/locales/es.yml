@@ -159,6 +159,7 @@ es:
     logged_out: "Sesión cerrada correctamente."
     sign_up_success: "Gracias por registrarse. Se ha iniciado sesión."
     delegate_success: "El delegado se ha añadido al sistema correctamente."
+    user_success: "Usuario se ha añadido al sistema correctamente."
     update_profile_s: "El perfil del usuario se ha actualizado correctamente."
     not_authorized: "No está autorizado a acceder a esta página."
     questionnaire_submitted: "No puede acceder a esta página; ya ha enviado este cuestionario."
