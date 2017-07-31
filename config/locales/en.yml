@@ -105,6 +105,7 @@ en:
     root_section_th: 'Main Section'
     loop_th: 'Loop items'
     whole_q: "You have been delegated with the whole questionnaire."
+    no_questionnaires_available: 'There are no questionnaires available for this respondent'
   delegate_section:
     delegate_section: "Delegate section"
     delegate_this_section: "Delegate this section:"
