@@ -16,6 +16,9 @@ class UsersController < ApplicationController
   def add_new_user # User for adding a user from manage users page
     @user = User.new
     @user.user_delegates.build
+    @user.user_delegates.each do |ud|
+      ud.build_delegate
+    end
   end
 
   def create
@@ -57,6 +60,30 @@ class UsersController < ApplicationController
           render :action => "new", :params => {:lang => (params[:lang]||"en")}
         }
         format.js
+      end
+    end
+  end
+
+  def create_new_user
+    @user = User.new(params[:user].dup.except!("user_delegates_attributes"))
+    byebug
+    if @user.save
+      @user.add_or_update_filtering_fields(params[:filtering_field]) if params[:filtering_field]
+      #@user.add_delegations(get_user_delegates_params)
+      @user.update_attributes(get_user_delegates_params)
+      url = "http://#{request.host}/"
+      UserMailer.user_registration(@user, params[:user][:password], url).deliver
+      respond_to do |format|
+        format.html {
+            flash[:notice] = t('flash_messages.user_success')
+            redirect_to users_path
+        }
+      end
+    else
+      respond_to do |format|
+        format.html {
+          render :action => "new", :params => {:lang => (params[:lang]||"en")}
+        }
       end
     end
   end
@@ -152,5 +179,13 @@ class UsersController < ApplicationController
   private
   def find_with_questionnaires
     @user = User.find(params[:id], :include => [:available_questionnaires, :pdf_files])
+  end
+
+  def get_user_delegates_params
+    user_delegates_attributes =
+      params['user']['user_delegates_attributes'].select do |key, value|
+        value['user_id'].present? && value.merge!(delegate_id: @user.id)
+      end
+    {user_delegates_attributes: user_delegates_attributes}
   end
 end
