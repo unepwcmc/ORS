@@ -14,6 +14,8 @@ class UsersController < ApplicationController
   end
 
   def add_new_user # User for adding a user from manage users page
+    @user = User.new
+    @user.user_delegates.build
   end
 
   def create
