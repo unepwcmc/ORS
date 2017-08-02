@@ -4,9 +4,11 @@ module UsersHelper
     obj.present? ? obj.field_value : nil
   end
 
-  def select_delegation_questionnaire(user)
+  def select_delegation_questionnaire(form, user)
     if user.available_questionnaires.present?
-      select "delegation", "questionnaire_id", user.available_questionnaires.collect{|p| [h(p.title(I18n.locale.to_s)[0,50])+"...", p.id] }, { include_blank: t('manage_delegates.select_a_q') }, class: 'select-delegation-questionnaire'
+      form.fields_for :delegations, form.object.delegations.build do |f|
+        f.select :questionnaire_id, user.available_questionnaires.collect{|p| [h(p.title(I18n.locale.to_s)[0,50])+"...", p.id] }, { include_blank: t('manage_delegates.select_a_q') }, class: 'select-delegation-questionnaire'
+      end
     else
       t('delegation_details.no_questionnaires_available')
     end

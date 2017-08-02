@@ -74,7 +74,10 @@ class User < ActiveRecord::Base
 
   attr_accessible :creator_id, :first_name, :last_name, :language, :email,
     :category, :password, :password_confirmation, :role_ids,
-    :single_access_token, :region, :country, :perishable_token
+    :single_access_token, :region, :country, :perishable_token,
+    :user_delegates_attributes, :user_delegators_attributes
+
+  accepts_nested_attributes_for :user_delegates, :user_delegators
 
   ###
   ###   Methods
@@ -359,6 +362,14 @@ class User < ActiveRecord::Base
            delegation.try(:can_view_and_edit_all_questionnaire?)
     end
     return false
+  end
+
+  def add_delegations(delegations)
+    delegations.each do |key, value|
+      user_delegate = UserDelegate.create(user_id: value["user_id"], delegate_id: self.id)
+      questionnaire_id = value["delegations_attributes"].first["questionnaire_id"]
+      Delegation.create(questionnaire_id: questionnaire_id, user_delegate_id: user_delegate.id)
+    end
   end
 
   private

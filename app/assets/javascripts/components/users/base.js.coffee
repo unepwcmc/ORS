@@ -25,7 +25,10 @@ window.UsersComponent = class UsersComponent
 
   @respondentsTable: ->
     $('.delegate-box').on('click', ->
-      $('.respondents-list').slideToggle()
+      if $(@).attr('checked')
+        $('.respondents-list').slideDown()
+      else
+        $('.respondents-list').slideUp()
     )
 
 $(document).ready -> UsersComponent.initialize()
