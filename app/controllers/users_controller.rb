@@ -69,8 +69,6 @@ class UsersController < ApplicationController
     @user              = User.new(delegators_params)
     @user.creator_id   = current_user.id
 
-    byebug
-
     if @user.save
       @user.add_or_update_filtering_fields(params[:filtering_field]) if params[:filtering_field]
       #@user.add_delegations(get_user_delegates_params) assign delegations through user model
