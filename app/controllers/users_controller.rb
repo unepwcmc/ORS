@@ -15,8 +15,8 @@ class UsersController < ApplicationController
 
   def add_new_user # User for adding a user from manage users page
     @user = User.new
-    @user.user_delegates.build
-    @user.user_delegates.each do |ud|
+    @user.user_delegators.build
+    @user.user_delegators.each do |ud|
       ud.build_delegate
     end
   end
@@ -65,12 +65,11 @@ class UsersController < ApplicationController
   end
 
   def create_new_user
-    @user = User.new(params[:user].dup.except!("user_delegates_attributes"))
-    byebug
+    @user = User.new(params[:user].dup.except!("user_delegators_attributes"))
     if @user.save
       @user.add_or_update_filtering_fields(params[:filtering_field]) if params[:filtering_field]
-      #@user.add_delegations(get_user_delegates_params)
-      @user.update_attributes(get_user_delegates_params)
+      #@user.add_delegations(get_user_delegates_params) assign delegations through user model
+      @user.update_attributes(get_user_delegators_params)
       url = "http://#{request.host}/"
       UserMailer.user_registration(@user, params[:user][:password], url).deliver
       respond_to do |format|
@@ -181,11 +180,11 @@ class UsersController < ApplicationController
     @user = User.find(params[:id], :include => [:available_questionnaires, :pdf_files])
   end
 
-  def get_user_delegates_params
-    user_delegates_attributes =
-      params['user']['user_delegates_attributes'].select do |key, value|
+  def get_user_delegators_params
+    user_delegators_attributes =
+      params['user']['user_delegators_attributes'].select do |key, value|
         value['user_id'].present? && value.merge!(delegate_id: @user.id)
       end
-    {user_delegates_attributes: user_delegates_attributes}
+    {user_delegators_attributes: user_delegators_attributes}
   end
 end
