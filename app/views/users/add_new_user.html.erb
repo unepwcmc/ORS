@@ -1,4 +1,4 @@
-<%= form_for (@user ||= User.new(creator_id: current_user.id)), url: {action: 'create_new_user'}, html: { :class => "formtastic" } do |f| %>
+<%= form_for (@user ||= User.new, url: {action: 'create_new_user'}, html: { :class => "formtastic" } do |f| %>
     <% if @user.errors.any? %>
       <div id="errorExplanation">
         <ul id='error_messages'>
@@ -10,7 +10,6 @@
     <% end %>
 
     <%= hidden_field_tag :questionnaire_id, @questionnaire.id  if @questionnaire%>
-      <%= f.hidden_field :creator_id %>
       <p>User will be added with the role of respondent.</p>
       <fieldset>
         <div class="row padded">

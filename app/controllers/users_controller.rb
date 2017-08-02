@@ -65,7 +65,12 @@ class UsersController < ApplicationController
   end
 
   def create_new_user
-    @user = User.new(params[:user].dup.except!("user_delegators_attributes"))
+    delegators_params  = params[:user].dup.except!("user_delegators_attributes")
+    @user              = User.new(delegators_params)
+    @user.creator_id   = current_user.id
+
+    byebug
+
     if @user.save
       @user.add_or_update_filtering_fields(params[:filtering_field]) if params[:filtering_field]
       #@user.add_delegations(get_user_delegates_params) assign delegations through user model
