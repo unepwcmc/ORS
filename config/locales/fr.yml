@@ -161,6 +161,7 @@ fr:
     logged_out: "Vous avez été déconnecté."
     sign_up_success: "Merci de vous être enregistré. Vous êtes maintenant connecté."
     delegate_success: "Délégué ajouté au système."
+    user_success: "Utilisateur ajouté au système."
     update_profile_s: "Profil utilisateur mis à jour."
     not_authorized: "Vous n'êtes pas autorisé à accéder à cette page."
     questionnaire_submitted: "Vous ne pouvez pas accéder à cette page car vous avez déjà soumis ce questionnaire."

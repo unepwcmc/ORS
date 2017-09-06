@@ -4,6 +4,9 @@ window.UsersComponent = class UsersComponent
 
   @addEventListeners: ->
     @userDetailsTooltip()
+    @respondentsTable()
+    #Enables search through users table
+    enableSearch()
 
   @userDetailsTooltip: ->
     tooltipClass = '.information-tooltip'
@@ -18,6 +21,14 @@ window.UsersComponent = class UsersComponent
       else
         $this.html('<i class="fa fa-align-left"></i> details')
         $this.siblings(tooltipClass).hide()
+    )
+
+  @respondentsTable: ->
+    $('.delegate-box').on('click', ->
+      if $(@).attr('checked')
+        $('.respondents-list').slideDown()
+      else
+        $('.respondents-list').slideUp()
     )
 
 $(document).ready -> UsersComponent.initialize()
