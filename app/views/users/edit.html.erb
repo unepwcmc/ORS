@@ -120,6 +120,9 @@
                   <%= f.hidden_field :role_ids, :value => role.id %>
                 </div>
             <% end -%>
+
+            <%= render partial: 'delegations', locals: {f: f} %>
+
         </fieldset>
         <p><%= f.submit t("generic.update") %></p>
     <% end -%>

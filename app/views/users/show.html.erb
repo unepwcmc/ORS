@@ -75,4 +75,29 @@
           :questionnaires => @user.available_questionnaires } %>
       </div><!-- /questionnaires -->
   <% end %>
+
+
+  <h1> Delegations </h1>
+
+    <div class="respondents-table-container">
+    <table id="respondents_table" class="tablesorter">
+      <thead>
+        <tr>
+          <th>Respondent</th>
+          <th>Questionnaire</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @user.delegated_tasks.each do |d| %>
+          <tr>
+            <td> <%= d.user_delegate.user.full_name %></td>
+            <td> <%= d.questionnaire.title %></td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+
+
+
 </div><!-- /content -->
