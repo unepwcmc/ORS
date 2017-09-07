@@ -24,7 +24,7 @@ window.UsersComponent = class UsersComponent
     )
 
   @respondentsTable: ->
-    $('.delegate-box').on('click', ->
+    $('.delegate-box, .super_delegate-box').on('click', ->
       if $(@).attr('checked')
         $('.respondents-list').slideDown()
       else
