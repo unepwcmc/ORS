@@ -71,7 +71,7 @@ class UsersController < ApplicationController
 
     if validate_delegations && @user.save
       @user.add_or_update_filtering_fields(params[:filtering_field]) if params[:filtering_field]
-      @user.update_attributes(get_user_delegators_params) if @user.role?(:delegate)
+      @user.update_attributes(get_user_delegators_params) if @user.is_delegate?
       url = "http://#{request.host}/"
       UserMailer.user_registration(@user, params[:user][:password], url).deliver
       respond_to do |format|
@@ -192,7 +192,7 @@ class UsersController < ApplicationController
   end
 
   def validate_delegations
-    return true unless @user.role? :delegate
+    return true if (@user.role?(:respondent) || @user.role?(:admin))
     delegators = get_user_delegators_params[:user_delegators_attributes]
     if delegators.present?
       empty_questionnaires = delegators.select do |key, attrs|
