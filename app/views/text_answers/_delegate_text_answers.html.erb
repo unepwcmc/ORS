@@ -1,5 +1,5 @@
 <% unique_id = append_identifier(question, looping_identifier) %>
-<% if answer %>
+<% if answer && !current_user.role?(:super_delegate) %>
   <%= hidden_field_tag "delegate_text_answers[#{unique_id}][answer_id]", answer.id, class: 'disabled_section_information' %>
   <% delegate_text_answers = answer.delegate_text_answers.order('updated_at DESC') %>
   <% delegate_answers_div = false %>
