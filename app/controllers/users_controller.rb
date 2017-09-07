@@ -197,7 +197,7 @@ class UsersController < ApplicationController
     delegators = get_user_delegators_params[:user_delegators_attributes]
     if delegators.present?
       empty_questionnaires = delegators.select do |key, attrs|
-        !attrs["delegations_attributes"]["0"]["questionnaire_id"].present?
+        attrs["delegations_attributes"]["0"]["questionnaire_id"].blank?
       end
       return true unless empty_questionnaires.present?
     end
