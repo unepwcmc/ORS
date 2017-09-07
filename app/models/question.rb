@@ -210,6 +210,7 @@ class Question < ActiveRecord::Base
   end
 
   def can_edit_text_answer? answer, user_delegate
+    return true if user_delegate.present? && user_delegate.delegate.role?(:super_delegate)
     !((self.answer_type_type == 'TextAnswer' && user_delegate.present?) || (answer && answer.question_answered))
   end
 
