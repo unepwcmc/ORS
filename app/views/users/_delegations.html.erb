@@ -23,9 +23,9 @@
         <% User.submitters.each do |user| %>
           <%= f.fields_for :user_delegators, @user.user_delegators do |ff| %>
             <tr id="row_<%=user.id.to_s%>">
-              <td><%= ff.check_box :user_id, {class: "checkboxes" }, user.id, ''%></td>
+              <td><%= ff.check_box :user_id, {checked: is_respondent_of?(@user, user), class: "checkboxes" }, user.id, ''%></td>
               <td><%= link_to h(user.full_name), user_path(user) %></td>
-              <td><%= select_delegation_questionnaire(ff, user) %></td>
+              <td><%= select_delegation_questionnaire(ff, user, @user) %></td>
             </tr>
           <% end %>
         <% end %>
