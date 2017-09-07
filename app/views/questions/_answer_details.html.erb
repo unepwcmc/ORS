@@ -12,7 +12,7 @@
   <% if answer -%>
     <p class="tooltips">
       Answered by:
-      <% editor = answer.user %>
+      <% editor = answer.last_editor %>
       <span><%= editor.id != current_user.id ? (link_to h(editor.full_name)[0,30], user_path(editor), :title => h(editor.full_name)) : 'You' -%></span>
       <span>(<%= answer.updated_at %>)</span>
     </p>
