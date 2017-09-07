@@ -69,9 +69,8 @@ class UsersController < ApplicationController
     @user              = User.new(delegators_params)
     @user.creator_id   = current_user.id
 
-    if @user.save
+    if validate_delegations && @user.save
       @user.add_or_update_filtering_fields(params[:filtering_field]) if params[:filtering_field]
-      #@user.add_delegations(get_user_delegates_params) assign delegations through user model
       @user.update_attributes(get_user_delegators_params) if @user.role?(:delegate)
       url = "http://#{request.host}/"
       UserMailer.user_registration(@user, params[:user][:password], url).deliver
@@ -84,7 +83,8 @@ class UsersController < ApplicationController
     else
       respond_to do |format|
         format.html {
-          render :action => "new", :params => {:lang => (params[:lang]||"en")}
+          flash[:error] = flash[:error]
+          render :action => "add_new_user", :params => {:lang => (params[:lang]||"en")}
         }
       end
     end
@@ -189,5 +189,18 @@ class UsersController < ApplicationController
         value['user_id'].present? && value.merge!(delegate_id: @user.id)
       end
     {user_delegators_attributes: user_delegators_attributes}
+  end
+
+  def validate_delegations
+    return true unless @user.role? :delegate
+    delegators = get_user_delegators_params[:user_delegators_attributes]
+    if delegators.present?
+      empty_questionnaires = delegators.select do |key, attrs|
+        attrs["delegations_attributes"]["0"]["questionnaire_id"].blank?
+      end
+      return true unless empty_questionnaires.present?
+    end
+    flash[:error] = "No delegations assigned for delegate user"
+    return false
   end
 end
