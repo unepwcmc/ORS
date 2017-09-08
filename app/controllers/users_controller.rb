@@ -101,7 +101,8 @@ class UsersController < ApplicationController
   def update
     #@user = User.find(params[:id])
     update_authorizations = params[:user][:language] != @user.language
-    if @user.update_attributes(params[:user])
+    user_params = params[:user].dup.except!("user_delegators_attributes")
+    if @user.update_attributes(user_params)
       @user.update_authorizations if update_authorizations
       @user.add_or_update_filtering_fields(params[:filtering_field]) if params[:filtering_field]
       @user.update_attributes(get_user_delegators_params) if @user.role?(:delegate)
