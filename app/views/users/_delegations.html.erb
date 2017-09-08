@@ -17,7 +17,7 @@
       </thead>
       <tbody>
         <% User.submitters.each do |user| %>
-          <%= f.fields_for :user_delegators, @user.user_delegators do |ff| %>
+          <%= f.fields_for :user_delegators, @user.user_delegators.build do |ff| %>
             <tr id="row_<%=user.id.to_s%>">
               <td><%= ff.check_box :user_id, {class: "checkboxes" }, user.id, ''%></td>
               <td><%= link_to h(user.full_name), user_path(user) %></td>
