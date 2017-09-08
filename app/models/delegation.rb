@@ -11,7 +11,8 @@ class Delegation < ActiveRecord::Base
   has_many :delegated_loop_item_names, :through => :delegation_sections
   has_many :loop_item_names, :through => :delegated_loop_item_names, :include => :loop_item_name_fields
 
-  attr_accessible :questionnaire_id
+  attr_accessible :questionnaire_id, :user_delegate_id, :can_view_all_questionnaire,
+    :from_submission, :remarks
 
   validates :questionnaire_id, presence: true
 

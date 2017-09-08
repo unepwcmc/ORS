@@ -121,7 +121,7 @@
                 </div>
             <% end -%>
 
-            <%= render partial: 'delegations', locals: {f: f} %>
+            <%= render 'existing_delegations' %>
 
         </fieldset>
         <p><%= f.submit t("generic.update") %></p>
