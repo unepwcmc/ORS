@@ -10,7 +10,7 @@ class Ability
       can :create, User do
         user.id.nil?
       end
-      if user.role?(:respondent) || user.role?(:delegate)
+      if user.role?(:respondent) || user.is_delegate?
         can :submission, Questionnaire do |questionnaire|
           user.authorized_to_answer? questionnaire
         end

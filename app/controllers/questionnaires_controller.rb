@@ -232,7 +232,7 @@ class QuestionnairesController < ApplicationController
   def submission
     @authorization = current_user ? current_user.authorization_for(@questionnaire) : false
     raise CanCan::AccessDenied.new(t("flash_messages.#{@authorization ? @authorization[:error_message] : "not_authorized"}"), :submission, Questionnaire) if !@authorization || @authorization[:error_message]
-    if current_user.role?(:delegate)
+    if current_user.is_delegate?
       @delegation = current_user.delegated_tasks.find_by_questionnaire_id(@questionnaire.id)
     end
     @sections_to_display_in_tab = @questionnaire.sections_to_display_in_tab.
