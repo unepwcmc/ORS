@@ -4,17 +4,21 @@
 
 # Create roles if they don't exist
 
-admin         = Role.where(name: "admin").first_or_create do |u|
-                  puts "Created admin role"
-                end
+admin               = Role.where(name: "admin").first_or_create do |u|
+                        puts "Created admin role"
+                      end
 
-respondent    = Role.where(name: "respondent").first_or_create do |u|
-                  puts "Created respondent role"
-                end
+respondent          = Role.where(name: "respondent").first_or_create do |u|
+                        puts "Created respondent role"
+                      end
 
-delegate_role = Role.where(name: "delegate").first_or_create do |u|
-                  puts "Created delegate role"
-                end
+delegate_role       = Role.where(name: "delegate").first_or_create do |u|
+                        puts "Created delegate role"
+                      end
+
+super_delegate_role = Role.where(name: 'super_delegate').first_or_create do |u|
+                        puts "Created super delegate role"
+                      end
 
 # Create admin user if it does not exist
 
