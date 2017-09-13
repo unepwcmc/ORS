@@ -24,12 +24,14 @@ window.UsersComponent = class UsersComponent
     )
 
   @respondentsTable: ->
+    table = $('.respondents-list')
+    table.slideDown() if @delegateBoxChecked()
     that = @
     $('.delegate-box, .super_delegate-box').on('click', ->
       if $(@).attr('checked') || that.delegateBoxChecked()
-        $('.respondents-list').slideDown()
+        table.slideDown()
       else
-        $('.respondents-list').slideUp()
+        table.slideUp()
     )
 
   @delegateBoxChecked: ->
