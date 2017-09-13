@@ -355,6 +355,10 @@ class Questionnaire < ActiveRecord::Base
     end
     part_to_move.save
   end
+
+  def can_act_as_a_super_delegate?(user)
+    enable_super_delegates && user.role?(:super_delegate)
+  end
 end
 
 # == Schema Information

@@ -78,6 +78,11 @@
     </div>
 
     <div class="row padded">
+      <div class="col col-5"><strong>Super Delegates Feature</strong></div>
+      <div class="col col-7 border-left"><%= @questionnaire.enable_super_delegates? ? "Enabled" : "Disabled" %></div>
+    </div>
+
+    <div class="row padded">
       <div class="col col-5"><strong>Text Answers Translator</strong></div>
       <div class="col col-7 border-left"><%= @questionnaire.translator_visible? ? "Enabled" : "Disabled" %></div>
     </div>

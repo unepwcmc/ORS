@@ -49,18 +49,27 @@
       <div class="col col-4"><%= f.label :header, "Change header #{info_tip("Header", "The header banner dimensions should be 940px per 90px. The format should be either JPEG or PNG, and the file should not be more than five megabytes.")}".html_safe %></div>
       <div class="col col-8 border-left"><%= f.file_field :header %></div>
     </div>
+
     <div class="row padded">
       <div class="col col-4"><%= f.label :display_in_tab_max_level, ("Section maximum tab display level #{info_tip("Section maximum tab display level", "specifies the level of nesting up to which a section can be set to be displayed in the left tab menu of the submission side, together with the root sections. Default is 3.")}").html_safe %></div>
       <div class="col col-8 border-left"><%= f.text_field :display_in_tab_max_level, :validate => 'number:true'%></div>
     </div>
+
     <div class="row padded">
       <div class="col col-4"><%= f.label :delegation_enabled, ("Questionnaire delegation feature enabled? #{info_tip("Delegation", "If this is enabled then the respondents will have the ability to assign respondents to sections for this questionnaire.")}").html_safe %></div>
       <div class="col col-8 border-left"><%= f.check_box :delegation_enabled %></div>
     </div>
+
+    <div class="row padded">
+      <div class="col col-4"><%= f.label :enable_super_delegates, ("Super delegates feature enabled? #{info_tip("Super Delegation", "Unchecking this box will cause Super Delegates to behave as regular Delegates on this particular questionnaire.")}").html_safe %></div>
+      <div class="col col-8 border-left"><%= f.check_box :enable_super_delegates %></div>
+    </div>
+
     <div class="row padded">
       <div class="col col-4"><%= f.label :translator_visible, ("Display translator for text type answers #{info_tip("Translation","If this is enabled then the respondents will have the ability to translate text-type answers in the questionnaire into the default language of the questionnaire.")}").html_safe %></div>
       <div class="col col-8 border-left"><%= f.check_box :translator_visible %></div>
     </div>
+
     <div class="row padded">
       <div class="col col-4"><%= f.label :private_documents, ("Documents attached to answers are private?  #{info_tip("Attached documents","If this is enabled then the PDFs that are generated will not allow documents to be downloadable by users that are not registered in the system. If you want documents that are part of the questionnaire to be downloaded, then leave this unticked.")}").html_safe %></div>
       <div class="col col-8 border-left"><%= f.check_box :private_documents %></div>
