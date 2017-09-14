@@ -136,6 +136,10 @@ fr:
       If a delegation does not have any sections associated with it it will mean that the delegate will be able to answer every question of the questionnaire. You can limit the delegate's       access by adding a set of section to that delegation. Delegating a section of a questionnaire will give access to that section and to that section's descendant sections.
       Si une délégation n'est associée à aucune section, cela signifie alors que le délégué sera en mesure de répondre a toutes les questions du questionnaire. Vous pouvez limiter l'accès du délégué en ajoutant un ensemble de sections à cette délégation. Déléguer une section d'un questionnaire donnera accès a cette section et aux sections découlant de celle-ci."
     delegate_details: "Nom du délégué"
+    select_delegate: "Select an existing delegate"
+    create_delegate: "Create a new delegate"
+    already_a_delegate: "This user is already in your list of delegates."
+    email_already_a_delegate: "The user with that email is already in your list of delegates."
   manage_delegates:
     manage_delegates: 'Gérer les profils des délégués'
     title: "Délégués"
