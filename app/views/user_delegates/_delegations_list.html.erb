@@ -1,0 +1,36 @@
+<div id="q_dashboard">
+  <% @user_delegate.delegations.each do |delegation| -%>
+    <p><strong><%=t('generic.questionnaire')%>: </strong><%= link_to h(delegation.questionnaire.title), submission_questionnaire_path(delegation.questionnaire, user_delegate: @user_delegate.id) %></p>
+    <p><strong><%=t('delegate_dashboard.delegator_remarks')%></strong><%= delegation.remarks.present? ? h(delegation.remarks) : ": " %></p>
+    <p><strong><%=t('generic.details')%></strong>
+    <% if delegation.sections.present? -%>
+      <%= pluralize(delegation.sections.count, "section")%> <%= t('delegate_dashboard.to_fill') %> <a href="#" class="show-details" id="show_details_<%= delegation.id %>"><%=t('generic.details')%></a>
+    <% else -%>
+      <%= t('delegate_dashboard.fill_all') %>
+    <% end -%>
+    </p>
+    <% if delegation.sections.present? %>
+      <div class="delegation-details hide" id="delegation_details_<%= delegation.id %>">
+        <table>
+          <thead>
+            <tr>
+              <th><%= t('generic.section')%></th>
+              <th><%= t('delegation_details.root_section_th')%></th>
+              <th><%= t('delegation_details.loop_th')%></th>
+            </tr>
+          </thead>
+          <tbody>
+            <% delegation.delegation_sections.each do |delegation_section| -%>
+              <tr>
+                <td><%= OrtSanitize.white_space_cleanse(delegation_section.section.value_in((delegation_section.section.root? ? :tab_title : :title), current_user.language)) %></td>
+                <td><%= OrtSanitize.white_space_cleanse(delegation_section.section.root.value_in(:tab_title, current_user.language))%></td>
+                <td><%= delegation_section.loop_item_names.map{|loop_item_name| h(loop_item_name.item_name(current_user.language))}.join(', ') %></td>
+              </tr>
+            <% end -%>
+          </tbody>
+        </table>
+      </div>
+    <% end -%>
+    <hr />
+  <% end -%>
+</div>

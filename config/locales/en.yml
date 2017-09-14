@@ -145,7 +145,7 @@ en:
     title: "Delegates"
     u_have_delegates: "You have the following delegates"
     u_are_delegate: "You are a delegate of"
-    delegate_q: "Delegate questionnaire"
+    delegate_q: "Delegate new questionnaire"
     delegate_details: "Delegate details"
     delegator_details: "Delegator details"
     delegated_q_t: "Delegated Questionnaires"
