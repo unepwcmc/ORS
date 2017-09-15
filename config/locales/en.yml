@@ -147,8 +147,10 @@ en:
   manage_delegates:
     manage_delegates: 'Manage Delegates'
     title: "Delegates"
+    admin_title: "Manage Delegates of"
     u_have_delegates: "You have the following delegates"
     u_are_delegate: "You are a delegate of"
+    user_has_delegates: "has the following delegates"
     delegate_q: "Delegate new questionnaire"
     delegate_details: "Delegate details"
     delegator_details: "Delegator details"

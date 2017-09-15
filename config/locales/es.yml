@@ -141,8 +141,10 @@ es:
   manage_delegates:
     manage_delegates: 'Gestionar delegados'
     title: "Delegados"
+    admin_title: "Manage Delegates of"
     u_have_delegates: "Sus delegados son los siguientes"
     u_are_delegate: "Usted es un delegado de"
+    user_has_delegates: "has the following delegates"
     delegate_q: "Delegar cuestionario"
     delegate_details: "Datos del delegado"
     delegator_details: "Datos del encuestado responsable"

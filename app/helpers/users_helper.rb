@@ -13,4 +13,16 @@ module UsersHelper
       t('delegation_details.no_questionnaires_available')
     end
   end
+
+  def manage_delegates_title(user)
+    return '' unless user
+    title = t('manage_delegates.admin_title')
+    user.role?(:admin) ? "#{title} #{user.full_name}" : title
+  end
+
+  def delegates_list_title(user)
+    return '' unless user
+    title = t('manage_delegates.user_has_delegates')
+    user.role?(:admin) ? "#{user.full_name} #{title}" : title
+  end
 end

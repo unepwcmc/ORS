@@ -142,9 +142,11 @@ fr:
     email_already_a_delegate: "The user with that email is already in your list of delegates."
   manage_delegates:
     manage_delegates: 'Gérer les profils des délégués'
+    admin_title: "Manage Delegates of"
     title: "Délégués"
     u_have_delegates: "Vous disposez des délégués suivants"
     u_are_delegate: "Vous êtes un délégué de"
+    user_has_delegates: "has the following delegates"
     delegate_q: "Déléguer le questionnaire"
     delegate_details: "Détails sur le délégué"
     delegator_details: "Détails sur le délégateur"

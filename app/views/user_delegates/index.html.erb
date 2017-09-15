@@ -2,7 +2,7 @@
   <%= render 'users/options' %>
 
   <div class="page-header">
-    <h2><%= t('manage_delegates.title') %></h2>
+    <h2><%= manage_delegates_title(current_user) %></h2>
   </div>
 
 <% @user ||= (current_user || nil) %>
@@ -21,7 +21,7 @@
   </div>
 
   <div class="page-header">
-    <h4><%=t('manage_delegates.u_have_delegates') %></h4>
+    <h4><%= delegates_list_title(current_user) %></h4>
   </div>
 
   <table id="delegates_index">
