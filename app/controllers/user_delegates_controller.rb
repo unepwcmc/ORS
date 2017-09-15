@@ -5,10 +5,14 @@ class UserDelegatesController < ApplicationController
   before_filter :check_permissions, except: [:index, :delete, :dashboard]
 
   def index
-    user = User.find(params[:user_id], :include => :created_users)
-    raise CanCan::AccessDenied.new(t('flash_messages.not_authorized')) if user != current_user || (!user.role?(:admin) && !user.role?(:respondent))
-    @user_delegates = user.user_delegates
-    @user_delegators = user.user_delegators
+    @user = User.find(params[:user_id], :include => :created_users)
+    if !current_user.role?(:admin)
+      if @user != current_user || (!@user.role?(:admin) && !@user.role?(:respondent))
+        raise CanCan::AccessDenied.new(t('flash_messages.not_authorized'))
+      end
+    end
+    @user_delegates = @user.user_delegates
+    @user_delegators = @user.user_delegators
   end
 
   def show
