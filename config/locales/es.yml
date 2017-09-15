@@ -134,6 +134,10 @@ es:
       En esta página puede seleccionar un nuevo cuestionario para delegarlo a este delegado, o puede administrar las delegaciones existentes (añadir o quitar apartados) enumeradas en el cuadro siguiente.
       Si una delegación no tiene apartados asociados a ella, significa que el delegado podrá responder todas las preguntas del cuestionario. Si desea limitar el acceso del delegado, añada un conjunto de apartados a esa delegación. Al delegar un apartado del cuestionario permitirá el acceso a ese apartado y sus subapartados."
     delegate_details: "Nombre del delegado"
+    select_delegate: "Select an existing delegate"
+    create_delegate: "Create a new delegate"
+    already_a_delegate: "This user is already in your list of delegates."
+    email_already_a_delegate: "The user with that email is already in your list of delegates."
   manage_delegates:
     manage_delegates: 'Gestionar delegados'
     title: "Delegados"
