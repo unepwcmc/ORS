@@ -143,10 +143,12 @@ fr:
   manage_delegates:
     manage_delegates: 'Gérer les profils des délégués'
     admin_title: "Manage Delegates of"
+    admin_delegate_title: "Manage Delegators of"
     title: "Délégués"
     u_have_delegates: "Vous disposez des délégués suivants"
     u_are_delegate: "Vous êtes un délégué de"
-    user_has_delegates: "has the following delegates"
+    user_has_delegates: "has the following Delegates"
+    user_is_a_delegate: "is a Delegate of"
     delegate_q: "Déléguer le questionnaire"
     delegate_details: "Détails sur le délégué"
     delegator_details: "Détails sur le délégateur"

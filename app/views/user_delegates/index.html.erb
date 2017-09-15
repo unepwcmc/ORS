@@ -5,9 +5,8 @@
     <h2><%= manage_delegates_title(current_user, @user) %></h2>
   </div>
 
-<% @user ||= (current_user || nil) %>
   <ul>
-    <% if @user && can?( :update, @user) %>
+    <% if current_user && can?( :update, @user) %>
       <li class="<%= 'active' if controller_name == 'user_delegates' && action_name == 'new' %>"><%= link_to t('user_new.add_delegate'), new_user_user_delegate_path(current_user), class: 'btn' %></li>
     <% end %>
   </ul>
@@ -49,7 +48,7 @@
     </tbody>
   </table>
   <% if @user_delegators.present? -%>
-    <h4><%= t('manage_delegates.u_are_delegate') %></h4>
+    <h4><%= delegators_list_title(current_user, @user) %></h4>
     <table id="delegates_index">
       <thead>
         <tr>

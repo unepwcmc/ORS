@@ -15,7 +15,7 @@ module UsersHelper
   end
 
   def manage_delegates_title(current_user, user)
-    title = t('manage_delegates.admin_title')
+    title = user.is_delegate? ? t('manage_delegates.admin_delegate_title') : t('manage_delegates.admin_title')
     return title unless user || current_user
     current_user.role?(:admin) ? "#{title} #{user.full_name}" : title
   end
@@ -25,4 +25,11 @@ module UsersHelper
     return title unless user || current_user
     current_user.role?(:admin) ? "#{user.full_name} #{title}" : title
   end
+
+  def delegators_list_title(current_user, user)
+    title = t('manage_delegates.user_is_a_delegate')
+    return title unless user || current_user
+    current_user.role?(:admin) ? "#{user.full_name} #{title}" : title
+  end
+
 end
