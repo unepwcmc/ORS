@@ -61,11 +61,12 @@ class User < ActiveRecord::Base
   ###
 
   scope :last_created, lambda { |num| {:limit => num, :order => 'created_at DESC'} }
-  scope :submitters, :joins => :roles, :conditions => ['roles.name = ?', "respondent"]
-  scope :administrators, :joins => :roles, :conditions => ['roles.name = ?', 'admin']
+  scope :submitters, joins: :roles, conditions: ['roles.name = ?', "respondent"]
+  scope :administrators, joins: :roles, conditions:  ['roles.name = ?', 'admin']
   # users with submitter role that have not yet been authorized to answer a specific questionnaire
   # excluding is a condition: users.id NOT IN (set of id's of authorized submitters for the questionnaire)
-  scope :available_submitters, lambda { |excluding| {:joins => :roles, :conditions => ['roles.name = ? AND '+ excluding, "respondent"]} }
+  scope :available_submitters, lambda { |excluding| {joins: :roles, conditions: ['roles.name = ? AND '+ excluding, "respondent"]} }
+  scope :delegates, joins: :roles, conditions: ['roles.name = ?', 'delegate']
 
   ###
   ###   Validations
