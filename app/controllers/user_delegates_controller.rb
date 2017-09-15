@@ -1,6 +1,9 @@
 require 'securerandom'
 
 class UserDelegatesController < ApplicationController
+
+  before_filter :check_permissions, except: [:index, :delete, :dashboard]
+
   def index
     user = User.find(params[:user_id], :include => :created_users)
     raise CanCan::AccessDenied.new(t('flash_messages.not_authorized')) if user != current_user || (!user.role?(:admin) && !user.role?(:respondent))
@@ -9,19 +12,16 @@ class UserDelegatesController < ApplicationController
   end
 
   def show
-    raise CanCan::AccessDenied.new(t('flash_messages.not_authorized')) if !current_user || (!current_user.role?(:admin) && !current_user.role?(:respondent))
     @user_delegate = UserDelegate.find(params[:id], :include => :delegations)
   end
 
   def new
-    raise CanCan::AccessDenied.new(t('flash_messages.not_authorized')) if !current_user || (!current_user.role?(:admin) && !current_user.role?(:respondent))
     user = User.find(params[:user_id])
     @delegates = User.delegates
     @user_delegate = user.user_delegates.new
   end
 
   def create
-    raise CanCan::AccessDenied.new(t('flash_messages.not_authorized')) if !current_user || (!current_user.role?(:admin) && !current_user.role?(:respondent))
     success = false
     @user_delegate = UserDelegate.new(params[:user_delegate])
     @user_delegate.user = current_user
@@ -72,7 +72,6 @@ class UserDelegatesController < ApplicationController
   end
 
   def destroy
-    raise CanCan::AccessDenied.new(t('flash_messages.not_authorized')) if !current_user || (!current_user.role?(:admin) && !current_user.role?(:respondent))
     current_user.user_delegates.destroy UserDelegate.find params[:id]
     respond_to do |format|
       flash[:notice] = "Delegate has been successfully deleted."
@@ -85,5 +84,11 @@ class UserDelegatesController < ApplicationController
     @delegate = User.find(params[:id], :include => [:delegated_tasks])
     raise CanCan::AccessDenied.new(t('flash_messages.not_authorized')) if @delegate != current_user
     @delegated_tasks = @delegate.delegated_tasks.reject{ |d| d.questionnaire.nil? }
+  end
+
+  private
+
+  def check_permissions
+    raise CanCan::AccessDenied.new(t('flash_messages.not_authorized')) if !current_user || (!current_user.role?(:admin) && !current_user.role?(:respondent))
   end
 end
