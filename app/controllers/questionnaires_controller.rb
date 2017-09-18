@@ -230,7 +230,12 @@ class QuestionnairesController < ApplicationController
 
   #Access questionnaire to fill in answers as a respondent
   def submission
-    @authorization = current_user ? current_user.authorization_for(@questionnaire) : false
+    if current_user.is_admin_or_respondent_admin? && params[:respondent_id]
+      @respondent = User.find(params[:respondent_id])
+      @authorization = @respondent ? @respondent.authorization_for(@questionnaire, nil, @respondent.id) : false
+    else
+      @authorization = current_user ? current_user.authorization_for(@questionnaire) : false
+    end
     raise CanCan::AccessDenied.new(t("flash_messages.#{@authorization ? @authorization[:error_message] : "not_authorized"}"), :submission, Questionnaire) if !@authorization || @authorization[:error_message]
     if current_user.is_delegate?
       @delegation = current_user.delegated_tasks.find_by_questionnaire_id(@questionnaire.id)
@@ -244,7 +249,7 @@ class QuestionnairesController < ApplicationController
     @sections_to_display_in_tab.each do |section|
       if section.looping? && section.loop_item_type
         section.loop_item_type.loop_items.each do |loop_item|
-          if section.available_for? current_user, loop_item
+          if section.available_for?(@respondent || current_user, loop_item)
             submission_state = section.submission_states.find do |s|
               s.user_id == @authorization[:user].id && s.loop_item_id == loop_item.id
             end

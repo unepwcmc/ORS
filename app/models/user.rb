@@ -97,8 +97,12 @@ class User < ActiveRecord::Base
     roles_to_sym.include? role
   end
 
-  def authorized_to_answer? questionnaire, user_delegate = nil
+  def authorized_to_answer? questionnaire, user_delegate = nil, respondent_id = nil
     authorization = false
+    if (is_admin_or_respondent_admin?) && respondent_id
+      authorization = AuthorizedSubmitter.find_by_questionnaire_id_and_user_id(questionnaire.id, respondent_id)
+      return authorization if authorization
+    end
     if self.role?(:respondent)
       authorization = AuthorizedSubmitter.find_by_questionnaire_id_and_user_id(questionnaire.id, self.id)
       return authorization if authorization
@@ -113,7 +117,7 @@ class User < ActiveRecord::Base
 
   #fill the authorization object that will be used in the pages for questionnaire submission
   #object can be questionnaire, section, or even question
-  def authorization_for object, user_delegate = nil
+  def authorization_for object, user_delegate = nil, respondent_id = nil
     authorization = {}
     authorization[:error_message] = nil
     #as the object might not be a questionnaire itself it is necessary to do this check and load the questionnaire
@@ -126,7 +130,7 @@ class User < ActiveRecord::Base
       return authorization
     end
     #load and check authorization
-    aux = self.authorized_to_answer?(questionnaire, user_delegate)
+    aux = self.authorized_to_answer?(questionnaire, user_delegate, respondent_id)
     if !aux
       authorization[:error_message] = "not_authorized"
       return authorization
@@ -375,6 +379,10 @@ class User < ActiveRecord::Base
 
   def is_delegate?
     role?(:delegate) || role?(:super_delegate)
+  end
+
+  def is_admin_or_respondent_admin?
+    role?(:admin) || role?(:respondent_admin)
   end
 
   private
