@@ -192,7 +192,7 @@ class UsersController < ApplicationController
   end
 
   def validate_delegations
-    return true if (@user.role?(:respondent) || @user.role?(:admin))
+    return true unless @user.is_delegate?
     delegators = get_user_delegators_params[:user_delegators_attributes]
     if delegators.present?
       empty_questionnaires = delegators.select do |key, attrs|
