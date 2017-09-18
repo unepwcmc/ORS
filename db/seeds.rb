@@ -20,7 +20,7 @@ super_delegate_role = Role.where(name: 'super_delegate').first_or_create do |u|
                         puts "Created super delegate role"
                       end
 
-respondent_admin_role = Role.where(name: 'respondent-admin').first_or_create do |u|
+respondent_admin_role = Role.where(name: 'respondent_admin').first_or_create do |u|
                           puts "Created respondent admin role"
                         end
 
