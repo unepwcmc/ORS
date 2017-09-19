@@ -32,4 +32,9 @@ module UsersHelper
     current_user.role?(:admin) ? "#{user.full_name} #{title}" : title
   end
 
+  def add_delegate_button
+    user = @user && current_user.role?(:admin) ? @user : current_user
+    link_to t('user_new.add_delegate'), new_user_user_delegate_path(user), class: 'btn'
+  end
+
 end

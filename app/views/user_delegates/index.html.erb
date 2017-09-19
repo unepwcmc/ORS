@@ -6,8 +6,10 @@
   </div>
 
   <ul>
-    <% if current_user && can?( :update, @user) %>
-      <li class="<%= 'active' if controller_name == 'user_delegates' && action_name == 'new' %>"><%= link_to t('user_new.add_delegate'), new_user_user_delegate_path(current_user), class: 'btn' %></li>
+    <% if current_user && can?(:update, @user) %>
+      <li class="<%= 'active' if controller_name == 'user_delegates' && action_name == 'new' %>">
+        <%= add_delegate_button %>
+      </li>
     <% end %>
   </ul>
 
