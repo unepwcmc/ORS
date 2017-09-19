@@ -96,7 +96,8 @@
                         disabled: "<%= disabled %>",
                         user_delegate: "<%= params[:user_delegate] %>",
                         section_visible: "<%= section_visible -%>",
-                        looping_identifier: "<%= l[:looping_identifier] %>"
+                        looping_identifier: "<%= l[:looping_identifier] %>",
+                        respondent_id: $('#questionnaire_submission').data('respondent_id')
                     },
                     //on success of the request :
                     success: function(){

@@ -385,6 +385,10 @@ class User < ActiveRecord::Base
     role?(:admin) || role?(:respondent_admin)
   end
 
+  def admin_can_submit_questionnaire?(respondent)
+    is_admin_or_respondent_admin? && (respondent && respondent.role?(:respondent))
+  end
+
   private
     def downcase_email
       self.email.downcase!
