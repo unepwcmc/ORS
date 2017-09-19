@@ -118,6 +118,7 @@
              <% if status == 2 %>
                <%= link_to "Revert submission", unsubmit_questionnaire_url(@questionnaire, {user_id: submitter.id}), :method => :put %>
              <% end -%>
+             <%= link_to "Edit", submission_questionnaire_path(@questionnaire, respondent_id: submitter.id) %>
            </td>
            <td width="10%">
              <% pdf_file = @questionnaire.pdf_files.find_by_user_id_and_is_long(submitter.id, true) -%>
