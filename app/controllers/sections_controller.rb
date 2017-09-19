@@ -324,7 +324,7 @@ class SectionsController < ApplicationController
     end
   end
 
-  def load_authorization(section, current_user_delegate)
+  def load_authorization(section, current_user_delegate=nil)
     if (current_user.is_admin_or_respondent_admin?) && params[:respondent_id]
       @respondent = User.find(params[:respondent_id])
       @authorization = @respondent ? @respondent.authorization_for(section, nil, @respondent.id) : false
