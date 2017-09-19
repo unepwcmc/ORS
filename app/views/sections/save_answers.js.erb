@@ -7,7 +7,7 @@ $(function(){
             <% @result[:fields_to_clear].each do |field| -%>
                 $("#<%= field %>").val("");
             <% end -%>
-            <% if @authorization[:user].id == current_user.id -%>
+            <% if @authorization[:user].id == current_user.id || current_user.is_admin_or_respondent_admin? -%>
                 <% @result[:questions_saved].each do |question_saved| -%>
                 if($("#edited_by_<%= question_saved %>").length > 0){
                   question_div = $("#question_div_<%= question_saved %>")

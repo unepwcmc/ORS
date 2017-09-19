@@ -3,7 +3,7 @@
   <%= hidden_field_tag "delegate_text_answers[#{unique_id}][answer_id]", answer.id, class: 'disabled_section_information' %>
   <% delegate_text_answers = answer.delegate_text_answers.order('updated_at DESC') %>
   <% delegate_answers_div = false %>
-  <% if !DelegateTextAnswer.find_by_user_id_and_answer_id(current_user.id, answer.id).present? && answer.user_id != current_user.id && !disabled%>
+  <% if !DelegateTextAnswer.find_by_user_id_and_answer_id(current_user.id, answer.id).present? && answer.user_id != current_user.id && !current_user.is_admin_or_respondent_admin? && !disabled%>
     <div class="delegate-text-answers-wrapper">
       <div class="delegate-text-answers">
         <% delegate_answers_div = true %>
