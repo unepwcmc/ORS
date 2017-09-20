@@ -169,7 +169,8 @@
                         disabled: "<%= disabled %>",
                         user_delegate: "<%= params[:user_delegate] %>",
                         section_visible: "<%= section_visible %>",
-                        looping_identifier: "<%= looping_identifier %>"
+                        looping_identifier: "<%= looping_identifier %>",
+                        respondent_id: $('#questionnaire_submission').data('respondent_id')
                     }
                 });
                 $(this).addClass("show_info");

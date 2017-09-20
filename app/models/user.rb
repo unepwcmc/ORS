@@ -390,6 +390,10 @@ class User < ActiveRecord::Base
     where(id: delegate_ids - respondent.delegates.map(&:id))
   end
 
+  def admin_can_submit_questionnaire?(respondent)
+    is_admin_or_respondent_admin? && (respondent && respondent.role?(:respondent))
+  end
+
   private
     def downcase_email
       self.email.downcase!
