@@ -270,10 +270,18 @@ class QuestionnairesController < ApplicationController
   end
 
   def submit
+    #submit questionnaire on behalf of respondent if admin
+    respondent = User.find(params[:respondent_id]) if params[:respondent_id]
+    unless current_user.admin_can_submit_questionnaire?(respondent)
+      flash[:error] = t('flash_messages.not_authorized')
+      redirect_to submission_questionnaire_path(@questionnaire)
+      return
+    end
+    user = respondent || current_user
     #check if mandatory questions were answered
-    @authorized_submitter = AuthorizedSubmitter.find_by_questionnaire_id_and_user_id(@questionnaire.id, current_user.id)
-    if current_user.submission_states.find(:all, :conditions => {:section_id => @questionnaire.sections.map(&:self_and_descendants).
-                                           flatten.map(&:id), :section_state => 1, :dont_care => false}).empty? &&
+    @authorized_submitter = AuthorizedSubmitter.find_by_questionnaire_id_and_user_id(@questionnaire.id, user.id)
+    if user.submission_states.find(:all, conditions: {section_id: @questionnaire.sections.map(&:self_and_descendants).
+                                           flatten.map(&:id), section_state: 1, dont_care: false}).empty? &&
                                            @authorized_submitter
       @authorized_submitter.status = SubmissionStatus::SUBMITTED
       if @authorized_submitter.save!
