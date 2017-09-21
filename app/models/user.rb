@@ -66,7 +66,7 @@ class User < ActiveRecord::Base
   # users with submitter role that have not yet been authorized to answer a specific questionnaire
   # excluding is a condition: users.id NOT IN (set of id's of authorized submitters for the questionnaire)
   scope :available_submitters, lambda { |excluding| {joins: :roles, conditions: ['roles.name = ? AND '+ excluding, "respondent"]} }
-  scope :delegates, joins: :roles, conditions: ['roles.name = ?', 'delegate']
+  scope :delegates, joins: :roles, conditions: ['roles.name = ? OR roles.name = ?', 'delegate', 'super_delegate']
 
   ###
   ###   Validations
@@ -383,6 +383,11 @@ class User < ActiveRecord::Base
 
   def is_admin_or_respondent_admin?
     role?(:admin) || role?(:respondent_admin)
+  end
+
+  def self.unassigned_delegates(respondent)
+    delegate_ids = delegates.map(&:id)
+    where(id: delegate_ids - respondent.delegates.map(&:id))
   end
 
   def admin_can_submit_questionnaire?(respondent)

@@ -21,7 +21,7 @@ class UserDelegatesController < ApplicationController
 
   def new
     user = User.find(params[:user_id])
-    @delegates = User.delegates
+    @delegates = User.unassigned_delegates(user)
     @user_delegate = user.user_delegates.new
   end
 
