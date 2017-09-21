@@ -117,6 +117,8 @@
              <%#= link_to "Send deadline warning", questionnaire_send_deadline_warning_path(@questionnaire, submitter), :class => "get" %>
              <% if status == 2 %>
                <%= link_to "Revert submission", unsubmit_questionnaire_url(@questionnaire, {user_id: submitter.id}), :method => :put %>
+             <% else %>
+               <%= link_to "Edit", submission_questionnaire_path(@questionnaire, respondent_id: submitter.id) %>
              <% end -%>
            </td>
            <td width="10%">
