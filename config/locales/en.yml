@@ -166,6 +166,7 @@ en:
     help_line: "<p>A delegate is a user that can help you fill your questionnaires. A delegate can be assigned with all the sections of your questionnaires or a subset of sections.You can add a delegate by clicking on the 'Add delegate' button.</p><p>For each of your delegates, listed in the table below, you have two available options: <strong>Show</strong>, and <strong>Remove</strong>. The <strong>Remove</strong> option will remove that delegate and all the delegations that were associated with it. The <strong>Show</strong> option will take you to a page with the details of the delegate, including the questionnaires that you have delegated it to.<p/><p>You can associate a delegate with a questionnaire directly from the questionnaire's submission page. Bare in mind that not all questionnaires have the delegation feature enabled.</p>"
     delegate_show_help: "You will be able to answer questionnaires on his behalf. See below a list of the questionnaires that you are authorised to answer."
     can_view_all_questionnaire: "When delegate is assigned limited sections, still allow delegate to view (but not edit) entire questionnaire."
+    no_delegations: "No current delegations"
   flash_messages:
     nothing_to_save: "Nothing to save"
     saved_successfully: "answers were successfully saved"
