@@ -1,6 +1,8 @@
 <div class="span-24 last user_profile" id="content">
   <%= render :partial => "users/options" %>
-  <h2><%= t("user_show.details")%></h2>
+  <div class="page-header">
+    <h2><%= t("user_show.details")%></h2>
+  </div>
   <table>
     <tbody>
       <tr>
@@ -79,23 +81,29 @@
 <% end %>
 
 <div class="respondents-table-container mt-1">
-  <h2> User's Delegations</h2>
-  <table id="respondents_table" class="tablesorter">
-    <thead>
-      <tr>
-        <th>Respondent</th>
-        <th>Questionnaire</th>
-      </tr>
-    </thead>
-    <tbody>
-      <% @user.delegated_tasks.each do |d| %>
+  <div class="page-header">
+    <h2> User's Delegations</h2>
+  </div>
+  <% if @user.delegated_tasks.any? %>
+    <table id="respondents_table" class="tablesorter">
+      <thead>
         <tr>
-          <td> <%= link_to d.user_delegate.user.full_name, user_path(d.user_delegate.user) %></td>
-          <td> <%= d.questionnaire.title %></td>
+          <th>Respondent</th>
+          <th>Questionnaire</th>
         </tr>
-      <% end %>
-    </tbody>
-  </table>
+      </thead>
+      <tbody>
+        <% @user.delegated_tasks.each do |d| %>
+          <tr>
+            <td> <%= link_to d.user_delegate.user.full_name, user_path(d.user_delegate.user) %></td>
+            <td> <%= d.questionnaire.title %></td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  <% else %>
+    No current delegations
+  <% end %>
 </div>
 
 
