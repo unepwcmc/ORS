@@ -24,6 +24,14 @@ respondent_admin_role = Role.where(name: 'respondent_admin').first_or_create do 
                           puts "Created respondent admin role"
                         end
 
+Role.find_by_name('admin').update_attributes(order_index: 1)
+Role.find_by_name('respondent_admin').update_attributes(order_index: 2)
+Role.find_by_name('respondent').update_attributes(order_index: 3)
+Role.find_by_name('super_delegate').update_attributes(order_index: 4)
+Role.find_by_name('delegate').update_attributes(order_index: 5)
+
+puts "Roles order index updated"
+
 # Create admin user if it does not exist
 
 user_created = false
