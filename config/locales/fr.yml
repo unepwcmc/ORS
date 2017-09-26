@@ -287,6 +287,7 @@ fr:
     login: "Se connecter"
     add_delegate: "Ajouter un délégué"
     role: "Rôle"
+    redundant_roles: "Admin and Respondent Admin or Delegate and Super Delegate can't be selected at the same time."
   user_session_new:
     title: "Se connecter"
     no_account: "Vous ne disposez pas encore de compte ?"
