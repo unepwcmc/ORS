@@ -77,10 +77,10 @@
           </div>
           <ul>
             <%= hidden_field_tag "user[role_ids][]", "" %>
-            <% for role in Role.all %>
+            <% for role in Role.order_by_index %>
               <li>
-                <label><%=h role.name.titleize %></label>
                 <%= check_box_tag "user[role_ids][]", role.id, (@user.role? role.name.to_sym), {id: "user_#{role.id}", class: "#{role.name}-box" } %>
+                <label><%=h role.name.titleize %></label>
               </li>
             <% end -%>
           </ul>
