@@ -20,15 +20,16 @@ class UserDelegatesController < ApplicationController
   end
 
   def new
-    user = User.find(params[:user_id])
-    @delegates = User.unassigned_delegates(user)
-    @user_delegate = user.user_delegates.new
+    @user = User.find(params[:user_id])
+    @delegates = User.unassigned_delegates(@user)
+    @user_delegate = @user.user_delegates.new
   end
 
   def create
     success = false
     @user_delegate = UserDelegate.new(params[:user_delegate])
-    @user_delegate.user = current_user
+    user = current_user.role?(:admin) ? User.find(params[:user_id]) : current_user
+    @user_delegate.user = user
     if @user_delegate.delegate_id
       if UserDelegate.find_by_user_id_and_delegate_id(@user_delegate.user_id, @user_delegate.delegate_id)
         flash[:error] = t('user_delegates.already_a_delegate')
@@ -65,7 +66,7 @@ class UserDelegatesController < ApplicationController
       end
     end
     if success
-      redirect_to user_user_delegates_path(current_user)
+      redirect_to user_user_delegates_path(user)
     else
       flash[:error] = delegate.errors.messages.map{ |key, value| "#{key} #{value}" }.join("<br/>")
       render :action => "new"
