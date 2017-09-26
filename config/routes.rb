@@ -120,7 +120,6 @@ OnlineReportingTool::Application.routes.draw do
   resources :range_answers
   resources :rank_answers
   resources :reminders
-  resources :roles
 
   resources :sections do
     member do
