@@ -5,27 +5,27 @@
 # Create roles if they don't exist
 
 admin               = Role.where(name: "admin").first_or_create do |r|
-                        r.update_attributes(:order_index: 1)
+                        r.order_index = 1
                         puts "Created admin role"
                       end
 
 respondent          = Role.where(name: "respondent").first_or_create do |r|
-                        r.update_attributes(:order_index: 3)
+                        r.order_index = 3
                         puts "Created respondent role"
                       end
 
 delegate_role       = Role.where(name: "delegate").first_or_create do |r|
-                        r.update_attributes(:order_index: 5)
+                        r.order_index = 5
                         puts "Created delegate role"
                       end
 
 super_delegate_role = Role.where(name: 'super_delegate').first_or_create do |r|
-                        r.update_attributes(:order_index: 4)
+                        r.order_index = 4
                         puts "Created super delegate role"
                       end
 
 respondent_admin_role = Role.where(name: 'respondent_admin').first_or_create do |r|
-                          r.update_attributes(:order_index: 2)
+                          r.order_index = 2
                           puts "Created respondent admin role"
                         end
 
