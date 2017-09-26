@@ -4,31 +4,30 @@
 
 # Create roles if they don't exist
 
-admin               = Role.where(name: "admin").first_or_create do |u|
+admin               = Role.where(name: "admin").first_or_create do |r|
+                        r.update_attributes(:order_index: 1)
                         puts "Created admin role"
                       end
 
-respondent          = Role.where(name: "respondent").first_or_create do |u|
+respondent          = Role.where(name: "respondent").first_or_create do |r|
+                        r.update_attributes(:order_index: 3)
                         puts "Created respondent role"
                       end
 
-delegate_role       = Role.where(name: "delegate").first_or_create do |u|
+delegate_role       = Role.where(name: "delegate").first_or_create do |r|
+                        r.update_attributes(:order_index: 5)
                         puts "Created delegate role"
                       end
 
-super_delegate_role = Role.where(name: 'super_delegate').first_or_create do |u|
+super_delegate_role = Role.where(name: 'super_delegate').first_or_create do |r|
+                        r.update_attributes(:order_index: 4)
                         puts "Created super delegate role"
                       end
 
-respondent_admin_role = Role.where(name: 'respondent_admin').first_or_create do |u|
+respondent_admin_role = Role.where(name: 'respondent_admin').first_or_create do |r|
+                          r.update_attributes(:order_index: 2)
                           puts "Created respondent admin role"
                         end
-
-Role.find_by_name('admin').update_attributes(order_index: 1)
-Role.find_by_name('respondent_admin').update_attributes(order_index: 2)
-Role.find_by_name('respondent').update_attributes(order_index: 3)
-Role.find_by_name('super_delegate').update_attributes(order_index: 4)
-Role.find_by_name('delegate').update_attributes(order_index: 5)
 
 puts "Roles order index updated"
 
