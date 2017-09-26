@@ -3,15 +3,15 @@
     <h2>Delegations</h2>
   </div>
 
-  <div class="datatable-filters">
-    <div class="datatable-filters__right">
-      <input type="text" name="filter" id="filter" value="" placeholder="Type your search here... " size="25"/>
-      <a href="#" id="clear_search" class="btn">Clear Search</a><br>
+  <% if @user.delegated_tasks.any? %>
+    <div class="datatable-filters">
+      <div class="datatable-filters__right">
+        <input type="text" name="filter" id="filter" value="" placeholder="Type your search here... " size="25"/>
+        <a href="#" id="clear_search" class="btn">Clear Search</a><br>
+      </div>
     </div>
-  </div>
 
-  <div class="respondents-table-container">
-    <% if @user.delegated_tasks.any? %>
+    <div class="respondents-table-container">
       <table id="respondents_table" class="tablesorter">
         <thead>
           <tr>
@@ -30,9 +30,9 @@
           <% end %>
         </tbody>
       </table>
+    </div>
     <% else %>
-      <%= t('no_current_delegations') %>
+      <%= t('manage_delegates.no_delegations') %>
     <% end %>
-  </div>
 </div>
 
