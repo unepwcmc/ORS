@@ -291,6 +291,7 @@ en:
     login: "Log in"
     add_delegate: "Add delegate"
     role: "Role"
+    redundant_roles: "Admin and Respondent Admin or Delegate and Super Delegate can't be selected at the same time."
   user_session_new:
     title: "Log in"
     no_account: "Don't have an account?"

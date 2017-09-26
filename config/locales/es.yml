@@ -285,6 +285,7 @@ es:
     login: "Iniciar sesión"
     add_delegate: "Añadir un delegado"
     role: "Función"
+    redundant_roles: "Admin and Respondent Admin or Delegate and Super Delegate can't be selected at the same time."
   user_session_new:
     title: "Iniciar sesión"
     no_account: "¿No ha creado una cuenta?"

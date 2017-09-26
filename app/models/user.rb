@@ -72,6 +72,7 @@ class User < ActiveRecord::Base
   ###   Validations
   ###
   validates_presence_of :first_name, :last_name, :language
+  validate :redundant_roles
 
   attr_accessible :creator_id, :first_name, :last_name, :language, :email,
     :category, :password, :password_confirmation, :role_ids,
@@ -397,6 +398,13 @@ class User < ActiveRecord::Base
   private
     def downcase_email
       self.email.downcase!
+    end
+
+    def redundant_roles
+      if ((role?(:admin) && role?(:respondent_admin)) ||
+        (role?(:delegate) && role?(:super_delegate)))
+        errors.add(:roles, I18n.t('user_new.redundant_roles'))
+      end
     end
 end
 
