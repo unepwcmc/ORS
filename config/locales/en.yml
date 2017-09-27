@@ -145,6 +145,7 @@ en:
     already_a_delegate: "This user is already in your list of delegates."
     email_already_a_delegate: "The user with that email is already in your list of delegates."
   manage_delegates:
+    manage_my_delegations: "Manage my Delegations"
     manage_delegates: 'Manage Delegates'
     title: "Delegates"
     admin_title: "Manage Delegates of"
@@ -244,6 +245,7 @@ en:
     manage_u: "Manage users - This page presents a list of all users registered in the system and some of their characteristics, like name, e-mail, roles, groups and authorized questionnaires. It also allows you to search through the list of users, add or remove a user from a group and also add new users."
     q_answers: "Questionnaire Answers - Allows an administrator to view the answers to each question of a questionnaire."
   user_dashboard:
+    edit_my_account: "Edit my Account"
     welcome_msg: "Welcome"
     table_title: "Questionnaires for submission"
     edit_u: "Edit User"

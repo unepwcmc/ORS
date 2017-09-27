@@ -1,8 +1,19 @@
+<% if @user && can?( :update, @user) %>
+  <%= link_to t("user_dashboard.edit_u"), edit_user_path(@user.id), class: "btn" %>
+<% end %>
+
+<% if @user && ( @user.role?(:admin) || @user.role?(:respondent) ) %>
+  <%= link_to t("manage_delegates.manage_delegates"), user_user_delegates_path(@user.id), class: "btn" %>
+<% end %>
+
 <div class="span-24 last user_profile" id="content">
   <%= render :partial => "users/options" %>
   <div class="page-header">
     <h2><%= t("user_show.details")%></h2>
   </div>
+
+
+
   <table>
     <tbody>
       <tr>

@@ -141,6 +141,7 @@ fr:
     already_a_delegate: "This user is already in your list of delegates."
     email_already_a_delegate: "The user with that email is already in your list of delegates."
   manage_delegates:
+    manage_my_delegations: "Manage my Delegations"
     manage_delegates: 'Gérer les profils des délégués'
     admin_title: "Manage Delegates of"
     admin_delegate_title: "Manage Delegators of"
@@ -240,6 +241,7 @@ fr:
     manage_u: "Gérer les utilisateurs - Cette page répertorie tous les utilisateurs enregistrés sur le système et certaines de leurs caractéristiques, par ex., leur nom, leur e-mail, leur rôle, leur groupe et les questionnaires qui leur sont autorisés. Vous pouvez également effectuer une recherche dans la liste des utilisateurs, ajouter ou supprimer un utilisateur d'un groupe ou ajouter de nouveaux utilisateurs."
     q_answers: "Réponses au questionnaire - Permet à un administrateur de consulter les réponses à chaque question d'un questionnaire."
   user_dashboard:
+    edit_my_account: "Edit my Account"
     welcome_msg: "Bienvenue"
     table_title: "Questionnaires à soumettre"
     edit_u: "Modifier l'utilisateur"
