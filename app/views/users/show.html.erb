@@ -80,7 +80,14 @@
   </div><!-- /questionnaires -->
 <% end %>
 
-<%= render 'existing_delegations' %>
+<% if @user.is_delegate? %>
+  <div class='respondents-list-delegations'>
+    <div class="page-header">
+      <h2>Delegations</h2>
+    </div>
+    <%= render 'existing_delegations' %>
+  </div>
+<% end %>
 
 </div>
 
