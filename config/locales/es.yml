@@ -284,7 +284,7 @@ es:
     last_n: "Apellidos"
     already_registered: "¿Ya ha creado una cuenta?"
     login: "Iniciar sesión"
-    add_delegate: "Añadir un delegado"
+    add_delegate: "Añadir un delegado para"
     role: "Función"
     redundant_roles: "Admin and Respondent Admin or Delegate and Super Delegate can't be selected at the same time."
   user_session_new:
