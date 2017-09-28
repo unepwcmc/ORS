@@ -49,8 +49,12 @@
       <% end -%>
     </tbody>
   </table>
+
   <% if @user_delegators.present? -%>
-    <h4><%= delegators_list_title(current_user, @user) %></h4>
+    <div class="page-header">
+      <h4><%= delegators_list_title(current_user, @user) %></h4>
+    </div>
+
     <table id="delegates_index">
       <thead>
         <tr>
