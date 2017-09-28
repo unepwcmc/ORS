@@ -290,7 +290,8 @@ en:
     last_n: "Last name"
     already_registered: "Already have an account?"
     login: "Log in"
-    add_delegate: "Add delegate for"
+    add_delegate: "Add delegate"
+    add_delegate_for: "Add delegate for"
     role: "Role"
     redundant_roles: "Admin and Respondent Admin or Delegate and Super Delegate can't be selected at the same time."
   user_session_new:

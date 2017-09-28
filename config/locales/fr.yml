@@ -286,7 +286,8 @@ fr:
     last_n: "Nom"
     already_registered: "Vous disposez déjà d'un compte ?"
     login: "Se connecter"
-    add_delegate: "Ajouter un délégué pour"
+    add_delegate: "Ajouter un délégué"
+    add_delegate_for: "Ajouter un délégué pour"
     role: "Rôle"
     redundant_roles: "Admin and Respondent Admin or Delegate and Super Delegate can't be selected at the same time."
   user_session_new:
