@@ -1,13 +1,34 @@
 <% @user ||= (current_user || nil) %>
 <% content_for :subnav do %>
-  <ul>
-    <li><%= sub_nav_link_with_class t("user_dashboard.edit_my_account"), edit_user_path(current_user.id) %></li>
-    <li><%= sub_nav_link_with_class t("manage_delegates.manage_my_delegations"), user_user_delegates_path(current_user.id) %></li>
+  <% if is_administration_page? %>
+    <ul>
+      <li title="<%= t('administration_help.manage_q')%>">
+        <%= sub_nav_link_with_class "Manage Questionnaires", questionnaires_path %>
+      </li>
+      <li title="<%= t('administration_help.new_q') %>">
+        <%= sub_nav_link_with_class "New Questionnaire", new_questionnaire_path %>
+      </li>
+      <li title="<%= t('administration_help.duplicate_q') %>">
+        <%= sub_nav_link_with_class "Duplicate Questionnaire", duplicate_questionnaires_path %>
+      </li>
+      <li title="<%= t('administration_help.manage_u') %>">
+        <%= sub_nav_link_with_class "Manage Users", users_path %>
+      </li>
+      <li title="<%= t('administration_help.q_answers')%>">
+        <%= sub_nav_link_with_class "Search Responses", search_questionnaires_path %>
+      </li>
+      <li title="<%= t('administration_help.q_answers')%>">
+        <%= sub_nav_link_with_class "Manage Reminders", reminders_path %>
+      </li>
+    </ul>
+  <% else %>
+    <ul>
+      <li><%= sub_nav_link_with_class t("user_dashboard.edit_my_account"), edit_user_path(current_user.id) %></li>
+      <li><%= sub_nav_link_with_class t("manage_delegates.manage_my_delegations"), user_user_delegates_path(current_user.id) %></li>
 
-
-
-    <% if @user && @user.role?(:delegate) %>
-      <li><%= sub_nav_link_with_class "Delegated To Me", dashboard_user_delegate_path(@user.id) %></li>
-    <% end %>
-  </ul>
+      <% if @user && @user.role?(:delegate) %>
+        <li><%= sub_nav_link_with_class "Delegated To Me", dashboard_user_delegate_path(@user.id) %></li>
+      <% end %>
+    </ul>
+  <% end %>
 <% end %>
