@@ -1,8 +1,4 @@
-<div class='respondents-list-edit'>
-  <div class="page-header">
-    <h3>Delegations</h3>
-  </div>
-
+<% if @user.delegated_tasks.any? %>
   <div class="datatable-filters">
     <div class="datatable-filters__right">
       <input type="text" name="filter" id="filter" value="" placeholder="Type your search here... " size="25"/>
@@ -30,5 +26,6 @@
       </tbody>
     </table>
   </div>
-</div>
-
+<% else %>
+  <%= t('manage_delegates.no_delegations') %>
+<% end %>
