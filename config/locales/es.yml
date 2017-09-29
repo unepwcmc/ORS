@@ -139,6 +139,7 @@ es:
     already_a_delegate: "This user is already in your list of delegates."
     email_already_a_delegate: "The user with that email is already in your list of delegates."
   manage_delegates:
+    manage_my_delegations: "Manage my Delegations"
     manage_delegates: 'Gestionar delegados'
     title: "Delegados"
     admin_title: "Manage Delegates of"
@@ -239,6 +240,7 @@ es:
     manage_u: "Administrar usuarios: esta página presenta una lista de todos los usuarios registrados en el sistema y algunas de sus características, como el nombre, el correo electrónico, sus funciones, sus grupos y los cuestionarios que están autorizados a responder. También le permite buscar en la lista de usuarios, añadir un usuario a un grupo o eliminarlo y agregar nuevos usuarios."
     q_answers: "Respuestas al cuestionario: permite que el administrador vea las respuestas a cada pregunta de un cuestionario."
   user_dashboard:
+    edit_my_account: "Edit my Account"
     welcome_msg: "Bienvenido"
     table_title: "Cuestionarios para presentar"
     edit_u: "Editar usuario"

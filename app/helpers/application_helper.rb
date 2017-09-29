@@ -1,11 +1,12 @@
 # Methods added to this helper will be available to all templates in the application.
 module ApplicationHelper
   def is_administration_page?
+    # Used in navigation to identify if the page is an admin page or not
+    !current_page_is_a_submission_page? ||
     current_page?(administration_path) ||
     current_page?(new_questionnaire_path) ||
     current_page?(duplicate_questionnaires_path) ||
     current_page?(questionnaires_path) ||
-    current_page?(users_path) ||
     current_page?(search_questionnaires_path) ||
     current_page?(reminders_path) ||
     current_page?(new_reminder_path) ||
@@ -20,6 +21,13 @@ module ApplicationHelper
     ( params[:controller] == 'filtering_fields' ) ||
     ( params[:controller] == 'questionnaires' && params[:action] == 'show' ) ||
     ( params[:controller] == 'sections' && params[:action] == 'define_dependency' )
+  end
+
+  def current_page_is_a_submission_page?
+    current_page?(root_path) ||
+    (params[:controller] == 'user_delegates'  && params[:user_id].to_i == current_user.id) ||
+    (params[:controller] == 'users'           && params[:action] == 'edit'  && params[:id].to_i == current_user.id) ||
+    (params[:controller] == 'users'           && params[:action] == 'show'  && params[:id].to_i == current_user.id)
   end
 
   def main_nav_link_with_class title, path
