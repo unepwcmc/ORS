@@ -71,20 +71,7 @@
       </div>
 
       <% if current_user.role?(:admin)-%> <!--a user loop_item_types are filtering fields from some questionnaire-->
-        <div class="clear">
-          <div class="page-header">
-            <h3><%= t("user_edit.roles") %></h3>
-          </div>
-          <ul>
-            <%= hidden_field_tag "user[role_ids][]", "" %>
-            <% for role in Role.order_by_index %>
-              <li>
-                <%= check_box_tag "user[role_ids][]", role.id, (@user.role? role.name.to_sym), {id: "user_#{role.id}", class: "#{role.name}-box" } %>
-                <label><%=h role.name.titleize %></label>
-              </li>
-            <% end -%>
-          </ul>
-        </div>
+        <%= render "roles" %>
       <% else -%>
         <% role = current_user.role?(:respondent) ? Role.find_by_name('respondent') : Role.find_by_name('delegate') -%>
         <div>
