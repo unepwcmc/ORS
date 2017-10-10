@@ -155,6 +155,7 @@ en:
     manage_your_delegators: "Manage your delegators"
     u_have_delegates: "You have the following Delegates"
     u_are_delegate: "You are a Delegate of"
+    u_are_delegator: "You are a Delegator of"
     user_has_delegates: "has the following Delegates"
     user_is_a_delegate: "is a Delegate of"
     delegate_q: "Delegate new questionnaire"

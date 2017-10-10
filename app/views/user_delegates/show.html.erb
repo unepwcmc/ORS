@@ -26,11 +26,7 @@
     <div class="page-header">
       <h3><%= t('generic.help') %></h3>
     </div>
-    <% if current_user.role?(:admin) %>
-      <p><%= raw t('user_delegates.help_text') %></p>
-    <% elsif current_user == @user_delegate.user %>
-      <%= t('manage_delegates.u_are_delegate')%> <%=h @user_delegate.user.full_name %>. <%= t('manage_delegates.delegate_show_help')%>
-    <% end %>
+    <%= help_text %>
 
   </div>
 

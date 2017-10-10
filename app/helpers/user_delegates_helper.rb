@@ -11,4 +11,25 @@ module UserDelegatesHelper
     end +
     content_tag(:div, '', class: 'border-bottom')
   end
+
+  def help_text
+    content = ''
+    if current_user.role?(:admin)
+      content = raw(t('user_delegates.help_text'))
+    elsif current_user.id == @user_delegate.delegate_id
+      content =
+        """
+          #{t('manage_delegates.u_are_delegate')}
+          #{h @user_delegate.user.full_name}.
+          #{t('manage_delegates.delegate_show_help')}
+        """
+    elsif current_user.id == @user_delegate.user_id
+      content =
+        """
+          #{t('manage_delegates.u_are_delegator')}
+          #{h @user_delegate.delegate.full_name}.
+        """
+    end
+    content_tag(:p, content)
+  end
 end

@@ -151,6 +151,7 @@ fr:
     title: "Délégués"
     u_have_delegates: "Vous disposez des délégués suivants"
     u_are_delegate: "Vous êtes un délégué de"
+    u_are_delegator: "You are a Delegator of"
     user_has_delegates: "has the following Delegates"
     user_is_a_delegate: "is a Delegate of"
     delegate_q: "Déléguer le questionnaire"
