@@ -10,13 +10,7 @@
   <% end %>
 
   <fieldset>
-    <div class='select-delegate form-section'>
-      <span class='subtitle'><%= t('user_delegates.select_delegate') %></span>
-      <span class='select-delegate-dropdown'>
-        <%= f.select :delegate_id, @delegates.collect{ |d| [d.full_name, d.id] }, {include_blank: 'Select a delegate...'} %>
-      </span>
-    </div>
-    <div class='border-bottom'></div>
+    <%= select_existing_delegate(f) %>
     <div class='create-new-delegate form-section'>
       <span class='subtitle'><%= t('user_delegates.create_delegate') %></span>
       <p>
