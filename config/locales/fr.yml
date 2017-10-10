@@ -140,6 +140,7 @@ fr:
     create_delegate: "Create a new delegate"
     already_a_delegate: "This user is already in your list of delegates."
     email_already_a_delegate: "The user with that email is already in your list of delegates."
+    allow_super_delegate: "Allow this delegate to overwrite text answers."
   manage_delegates:
     manage_my_delegations: "Manage my Delegations"
     manage_delegates: 'Gérer les profils des délégués'
