@@ -30,7 +30,7 @@
 
   </div>
 
-  <% if current_user.role?(:admin) # Show the admin view %>
+  <% if current_user.role?(:admin) || current_user.id == @user_delegate.user_id %>
     <div class="page-header">
       <h3><%= t('manage_delegates.delegated_q_t') %></h3>
     </div>
