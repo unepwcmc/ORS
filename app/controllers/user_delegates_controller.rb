@@ -39,7 +39,7 @@ class UserDelegatesController < ApplicationController
       success = true
     else
       delegate = User.find_by_email(params[:delegate_email])
-      role = Role.find_by_name("delegate")
+      role = params["super_delegate"] == "false" ? Role.find_by_name("delegate") : Role.find_by_name("super_delegate")
       if delegate
         @user_delegate.delegate_id = delegate.id
         delegate.roles << role unless delegate.roles.include?(role)

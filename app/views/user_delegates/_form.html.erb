@@ -27,6 +27,10 @@
         <%= label_tag :language, t("generic.language") %><br />
         <%= select :delegate, :language, [[t("languages.english"),"en"], [t("languages.french"),"fr"], [t("languages.spanish"),"es"]], {:selected => "en"}  %>
       </p>
+      <p>
+        <%= check_box nil, :super_delegate, {}, 'true', 'false' %>
+        <%= label_tag :super_delegate, t('user_delegates.allow_super_delegate') %>
+      </p>
       <%= hidden_field_tag :user_id, @user.id %>
       <p>
         <%= f.submit (@user_delegate.new_record? ? t('user_new.add_delegate') : t('generic.update')) %>
