@@ -32,7 +32,7 @@ module ApplicationHelper
 
   def main_nav_link_with_class title, path
     puts params.inspect
-    if path == administration_path
+    if path == administration_path || path == respondent_admin_path
       classes = is_administration_page? ? 'current' : ''
     else
       classes = !is_administration_page? ? 'current' : ''
@@ -114,6 +114,14 @@ module ApplicationHelper
     if logo_path.present?
       link_to root_path do
         image_tag logo_path
+      end
+    end
+  end
+
+  def subnavigation(&block)
+    if current_user.role?(:admin)
+      content_tag(:div, {id: 'nav-level-2', class: 'row'}) do
+        content_tag(:div, content_for(:subnav), {class: 'container'})
       end
     end
   end
