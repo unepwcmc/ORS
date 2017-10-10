@@ -146,6 +146,8 @@ fr:
     manage_delegates: 'Gérer les profils des délégués'
     admin_title: "Manage Delegates of"
     admin_delegate_title: "Manage Delegators of"
+    manage_your_delegates: "Manage your delegates"
+    manage_your_delegators: "Manage your delegators"
     title: "Délégués"
     u_have_delegates: "Vous disposez des délégués suivants"
     u_are_delegate: "Vous êtes un délégué de"

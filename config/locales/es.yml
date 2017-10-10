@@ -145,6 +145,8 @@ es:
     title: "Delegados"
     admin_title: "Manage Delegates of"
     admin_delegate_title: "Manage Delegators of"
+    manage_your_delegates: "Manage your delegates"
+    manage_your_delegators: "Manage your delegators"
     u_have_delegates: "Sus delegados son los siguientes"
     u_are_delegate: "Usted es un delegado de"
     user_has_delegates: "has the following Delegates"

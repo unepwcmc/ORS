@@ -15,15 +15,23 @@ module UsersHelper
   end
 
   def manage_delegates_title(current_user, user)
-    title = user.is_delegate? ? t('manage_delegates.admin_delegate_title') : t('manage_delegates.admin_title')
-    return title unless user || current_user
-    current_user.role?(:admin) ? "#{title} #{user.full_name}" : title
+    return '' unless user || current_user
+    if user.id != current_user.id && current_user.role?(:admin)
+      title = user.is_delegate? ? t('manage_delegates.admin_delegate_title') : t('manage_delegates.admin_title')
+      "#{title} #{user.full_name}"
+    else
+      user.is_delegate? ? t('manage_delegates.manage_your_delegators') : t('manage_delegates.manage_your_delegates')
+    end
   end
 
   def delegates_list_title(current_user, user)
     title = t('manage_delegates.user_has_delegates')
     return title unless user || current_user
-    current_user.role?(:admin) ? "#{user.full_name} #{title}" : title
+    if user.id != current_user.id && current_user.role?(:admin)
+      "#{user.full_name} #{title}"
+    else
+      t('manage_delegates.u_have_delegates')
+    end
   end
 
   def delegators_list_title(current_user, user)
