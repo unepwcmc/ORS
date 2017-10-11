@@ -11,7 +11,7 @@ class Ability
         user.id.nil?
       end
       if user.role?(:respondent_admin)
-        can [:respondents, :submit, :submission, :download_user_pdf, :to_pdf], Questionnaire
+        can [:respondents, :submit, :submission, :unsubmit, :download_user_pdf, :to_pdf], Questionnaire
         can [:save_answers, :submission, :load_lazy, :questions, :loop_item_names], Section
         can [:update, :add_document, :add_link], Answer
         can [:show, :update], User, id: user.id
