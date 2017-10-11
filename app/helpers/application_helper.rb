@@ -119,10 +119,8 @@ module ApplicationHelper
   end
 
   def subnavigation(&block)
-    if current_user.role?(:admin)
-      content_tag(:div, {id: 'nav-level-2', class: 'row'}) do
-        content_tag(:div, content_for(:subnav), {class: 'container'})
-      end
+    content_tag(:div, {id: 'nav-level-2', class: 'row'}) do
+      content_tag(:div, content_for(:subnav), {class: 'container'})
     end
   end
 end
