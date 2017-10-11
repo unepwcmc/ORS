@@ -22,7 +22,7 @@
 <% else -%>
   <ul class="multi-options-answer">
     <% options.each do |text, id| -%>
-      <li>
+      <li class="answer-option-<%= the_id.to_s %>">
       <% if answer_type.single? -%>
         <%= hidden_field_tag "answers[#{the_id}]", "" %>
         <%= radio_button_tag "answers[#{the_id}]", id, selection.include?(id), :disabled => disabled %>
@@ -68,6 +68,7 @@ $(document).ready(function(){
         e.preventDefault();
         <% if answer_type.display_type != 1 -%>
           $("input[name='answers[<%= the_id.to_s %>]']:radio").attr('checked', false).change();
+          $("li.answer-option-<%= the_id.to_s %> textarea").val('');
         <% else -%>
           $("select#answers_<%= the_id.to_s %>").val('').change();
         <% end -%>
