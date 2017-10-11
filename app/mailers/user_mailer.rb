@@ -107,7 +107,7 @@ class UserMailer < ActionMailer::Base
     @questionnaire = questionnaire
     @requester = requester
     mail(
-      to: user.email,
+      to: requester.email,
       subject: (questionnaire.email_subject(requester.language) ? questionnaire.email_subject(requester.language) + " - " : "") + I18n.t('user_mailer.pdf_generated.subject')
     )
   end
@@ -119,7 +119,7 @@ class UserMailer < ActionMailer::Base
     @requester = requester
     @error_message = error_message
     mail(
-      to: user.email,
+      to: requester.email,
       subject: (questionnaire.email_subject(requester.language) ? questionnaire.email_subject(requester.language) + " - " : "") + I18n.t('user_mailer.pdf_generation_failed.subject')
     )
   end
