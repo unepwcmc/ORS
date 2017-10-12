@@ -15,6 +15,7 @@ class Delegation < ActiveRecord::Base
     :from_submission, :remarks
 
   validates :questionnaire_id, presence: true
+  validates_uniqueness_of :questionnaire_id, scope: :user_delegate_id
 
   def can_view_only_assigned_sections?
     !self.can_view_all_questionnaire && !self.delegation_sections.empty?
