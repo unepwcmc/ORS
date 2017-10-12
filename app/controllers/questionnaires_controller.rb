@@ -272,7 +272,7 @@ class QuestionnairesController < ApplicationController
   def submit
     #submit questionnaire on behalf of respondent if admin
     respondent = User.find(params[:respondent_id]) if params[:respondent_id]
-    unless current_user.admin_can_submit_questionnaire?(respondent)
+    if respondent && !current_user.admin_can_submit_questionnaire?(respondent)
       flash[:error] = t('flash_messages.not_authorized')
       redirect_to submission_questionnaire_path(@questionnaire)
       return
