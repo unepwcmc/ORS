@@ -16,7 +16,7 @@ namespace :export do
     File.open('ors_users.csv', 'w') do |file|
       file << "#{COLUMNS.join(',')},Roles,#{FILTERING_FIELD_NAME}\n"
       users = questionnaire.authorized_submitters.map(&:user)
-      users.each do |user|
+      users.sort_by{ |user| user.first_name }.each do |user|
         user_filtering_field = user.user_filtering_fields.find_by_filtering_field_id(filtering_field_id)
         values = user.attributes.values_at(*ATTRIBUTES)
         roles = user.roles.map(&:name).join(';')
