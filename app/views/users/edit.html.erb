@@ -103,10 +103,14 @@
               <% end -%>
               <%= render "roles" %>
             <% else -%>
-                <% role = current_user.role?(:respondent) ? Role.find_by_name('respondent') : Role.find_by_name('delegate') -%>
                 <div>
-                  <li><label>Role</label> <%= role.name.titleize %></li>
-                  <%= f.hidden_field :role_ids, :value => role.id %>
+                  <label>Roles</label>
+                  <div>
+                    <% current_user.roles.each do |role| %>
+                      <li><%= role.name.titleize %></li>
+                    <% end %>
+                  </div>
+                  <%#= f.hidden_field :role_ids, :value => role.id %>
                 </div>
             <% end -%>
 
