@@ -16,6 +16,9 @@ class Ability
         can [:update, :add_document, :add_link], Answer
         can [:show, :update], User, id: user.id
       end
+      if user.role?(:super_delegate)
+        can [:show, :update], User, id: user.id
+      end
       if user.role?(:respondent) || user.is_delegate?
         can :submission, Questionnaire do |questionnaire|
           user.authorized_to_answer? questionnaire
