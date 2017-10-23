@@ -222,6 +222,7 @@ en:
     rank_limit_word_p: "choices"
     rank_choices_t:  "Your choices, ordered from first to last preferred."
     rank_choices_info:  "Deselect by clicking on the values."
+    mark_question_as_answered: "Mark question as answered"
   s_help:
     submit_title: "Submit"
     submit_text:  "<p>After filling the questionnaire you can submit it by clicking this link. You will then receive an e-mail confirming the submission.</p><p>After submitting the questionnaire you will still be able to visit the page, but you will not be able to make any changes to your answers.</p>"

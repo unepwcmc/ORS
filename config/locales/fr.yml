@@ -137,12 +137,12 @@ fr:
       Si une délégation n'est associée à aucune section, cela signifie alors que le délégué sera en mesure de répondre a toutes les questions du questionnaire. Vous pouvez limiter l'accès du délégué en ajoutant un ensemble de sections à cette délégation. Déléguer une section d'un questionnaire donnera accès a cette section et aux sections découlant de celle-ci."
     delegate_details: "Nom du délégué"
     select_delegate: "Select an existing delegate"
-    create_delegate: "Create a new delegate"
+    create_delegate: "Créer un nouveau délégué"
     already_a_delegate: "This user is already in your list of delegates."
     email_already_a_delegate: "The user with that email is already in your list of delegates."
-    allow_super_delegate: "Allow this delegate to overwrite text answers."
+    allow_super_delegate: "Autoriser ce délégué à remplacer les réponses textes."
   manage_delegates:
-    manage_my_delegations: "Manage my Delegations"
+    manage_my_delegations: "Gérer mes délégués"
     manage_delegates: 'Gérer les profils des délégués'
     admin_title: "Manage Delegates of"
     admin_delegate_title: "Manage Delegators of"
@@ -218,6 +218,7 @@ fr:
     rank_limit_word_p: "choix"
     rank_choices_t: "Vos choix, par ordre de préférence, le préféré en premier."
     rank_choices_info: "Cliquez sur les valeurs pour les désélectionner."
+    mark_question_as_answered: "Marquer la question comme répondu"
   s_help:
     submit_title: "Soumettre"
     submit_text: "<p>Après avoir répondu au questionnaire, cliquez sur ce lien pour le soumettre. Vous recevrez un e-mail de confirmation de sa soumission.</p><p>Une fois le questionnaire soumis, vous pourrez toujours accéder à la page, mais vous ne pourrez plus modifier vos réponses.</p>"
@@ -246,7 +247,7 @@ fr:
     manage_u: "Gérer les utilisateurs - Cette page répertorie tous les utilisateurs enregistrés sur le système et certaines de leurs caractéristiques, par ex., leur nom, leur e-mail, leur rôle, leur groupe et les questionnaires qui leur sont autorisés. Vous pouvez également effectuer une recherche dans la liste des utilisateurs, ajouter ou supprimer un utilisateur d'un groupe ou ajouter de nouveaux utilisateurs."
     q_answers: "Réponses au questionnaire - Permet à un administrateur de consulter les réponses à chaque question d'un questionnaire."
   user_dashboard:
-    edit_my_account: "Edit my Account"
+    edit_my_account: "Gérer mon compte"
     welcome_msg: "Bienvenue"
     table_title: "Questionnaires à soumettre"
     edit_u: "Modifier l'utilisateur"

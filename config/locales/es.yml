@@ -135,12 +135,12 @@ es:
       Si una delegación no tiene apartados asociados a ella, significa que el delegado podrá responder todas las preguntas del cuestionario. Si desea limitar el acceso del delegado, añada un conjunto de apartados a esa delegación. Al delegar un apartado del cuestionario permitirá el acceso a ese apartado y sus subapartados."
     delegate_details: "Nombre del delegado"
     select_delegate: "Select an existing delegate"
-    create_delegate: "Create a new delegate"
+    create_delegate: "Crear un nuevo delegado"
     already_a_delegate: "This user is already in your list of delegates."
     email_already_a_delegate: "The user with that email is already in your list of delegates."
-    allow_super_delegate: "Allow this delegate to overwrite text answers."
+    allow_super_delegate: "Permitir a este delegado sobreescribir las respuestas de texto."
   manage_delegates:
-    manage_my_delegations: "Manage my Delegations"
+    manage_my_delegations: "Gestionar a mis delegados"
     manage_delegates: 'Gestionar delegados'
     title: "Delegados"
     admin_title: "Manage Delegates of"
@@ -216,6 +216,7 @@ es:
     rank_limit_word_p: "opciones"
     rank_choices_t: "Su selección, por orden descendente de preferencia."
     rank_choices_info: "Si desea anular la selección, haga clic en los valores."
+    mark_question_as_answered: "Marcar la pregunta como respondida"
   s_help:
     submit_title: "Enviar"
     submit_text: "<p>Cuando haya completado el cuestionario, puede enviarlo haciendo clic en este enlace. Seguidamente recibirá un correo electrónico de confirmación de su presentación.</p><p>Una vez presentado el cuestionario podrá visitar la página, pero no podrá modificar sus respuestas.</p>"
@@ -244,7 +245,7 @@ es:
     manage_u: "Administrar usuarios: esta página presenta una lista de todos los usuarios registrados en el sistema y algunas de sus características, como el nombre, el correo electrónico, sus funciones, sus grupos y los cuestionarios que están autorizados a responder. También le permite buscar en la lista de usuarios, añadir un usuario a un grupo o eliminarlo y agregar nuevos usuarios."
     q_answers: "Respuestas al cuestionario: permite que el administrador vea las respuestas a cada pregunta de un cuestionario."
   user_dashboard:
-    edit_my_account: "Edit my Account"
+    edit_my_account: "Editar mi Cuenta"
     welcome_msg: "Bienvenido"
     table_title: "Cuestionarios para presentar"
     edit_u: "Editar usuario"
