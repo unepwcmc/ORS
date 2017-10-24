@@ -395,6 +395,10 @@ class User < ActiveRecord::Base
     is_admin_or_respondent_admin? && (respondent && respondent.role?(:respondent))
   end
 
+  def role_can_edit_respondents_answers?
+    is_admin_or_respondent_admin? || role?(:super_delegate)
+  end
+
   private
     def downcase_email
       self.email.downcase!
