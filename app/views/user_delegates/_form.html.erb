@@ -15,7 +15,7 @@
       <span class='subtitle'><%= t('user_delegates.create_delegate') %></span>
       <p>
         <%= label_tag :delegate_email, t("generic.email") %><br />
-        <%= text_field_tag :delegate_email, @user_delegate.new_record? ? "" : @user_delegate.delegate.email, :size => "40"   %>
+        <%= email_field_tag :delegate_email, @user_delegate.new_record? ? "" : @user_delegate.delegate.email, :size => "40"   %>
       </p>
       <p>
         <%= label_tag :delegate_first_name, t('generic.delegate_first_name') %><br />
