@@ -22,7 +22,7 @@
     <div class="row padded">
       <%= hidden_field_tag "question_answered[#{answer.id}]", "" %>
       <%= check_box_tag "question_answered[#{answer.id}]", true, answer.question_answered, class: "question-answered-box", data: { the_id: append_identifier(question, looping_identifier)} %>
-      <%= label_tag "question_answered[#{answer.id}]", "t('submission_pages.mark_question_as_answered')" %>
+      <%= label_tag "question_answered[#{answer.id}]", t('submission_pages.mark_question_as_answered') %>
     </div>
   <% end %>
 </div>
