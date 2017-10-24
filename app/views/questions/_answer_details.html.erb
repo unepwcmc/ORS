@@ -18,7 +18,7 @@
     </p>
   <% end -%>
 
-  <% if answer && (answer.user_id == current_user.id || current_user.is_admin_or_respondent_admin?) %>
+  <% if answer && (answer.user_id == current_user.id || current_user.role_can_edit_respondents_answers?) %>
     <div class="row padded">
       <%= hidden_field_tag "question_answered[#{answer.id}]", "" %>
       <%= check_box_tag "question_answered[#{answer.id}]", true, answer.question_answered, class: "question-answered-box", data: { the_id: append_identifier(question, looping_identifier)} %>
