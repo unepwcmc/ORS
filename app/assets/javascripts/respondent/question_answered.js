@@ -7,6 +7,7 @@ $(document).ready(function() {
       $(text_answer_field).addClass("disabled")
       $("input[name='answers["+the_id+"]']:radio").attr("disabled", true)
       $("li.answer-option-"+the_id+" textarea").attr("disabled", true)
+      $("select#answers_"+the_id).attr("disabled", true)
     }
     else {
       $(text_answer_field).attr("disabled", false)
@@ -14,6 +15,7 @@ $(document).ready(function() {
       $(text_answer_field).removeClass("disabled")
       $("input[name='answers["+the_id+"]']:radio").attr("disabled", false)
       $("li.answer-option-"+the_id+" textarea").attr("disabled", false)
+      $("select#answers_"+the_id).attr("disabled", false)
       $('.sticky_save_all').click();
     }
   });
