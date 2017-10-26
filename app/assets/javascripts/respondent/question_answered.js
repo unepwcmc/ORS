@@ -10,6 +10,7 @@ $(document).ready(function() {
       $("li.answer-option-"+the_id+" textarea").attr("disabled", true)
       $("select#answers_"+the_id).attr("disabled", true)
       $(matrix_answer_field).find('select').attr("disabled", true)
+      $(matrix_answer_field).find('input').attr("disabled", true)
     }
     else {
       $(text_answer_field).attr("disabled", false)
@@ -19,6 +20,7 @@ $(document).ready(function() {
       $("li.answer-option-"+the_id+" textarea").attr("disabled", false)
       $("select#answers_"+the_id).attr("disabled", false)
       $(matrix_answer_field).find('select').attr("disabled", false)
+      $(matrix_answer_field).find('input').attr("disabled", false)
       $('.sticky_save_all').click();
     }
   });
