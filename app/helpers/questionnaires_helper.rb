@@ -170,7 +170,7 @@ module QuestionnairesHelper
 
   def manage_respondents_filtering_fields
     if current_user.role?(:admin)
-      "#{h(@questionnaire.authorized_submitters.count)} (#{link_to("Manage", questionnaire_authorized_submitters_path(@questionnaire))})"
+      "#{h(@questionnaire.authorized_submitters.count)} (#{link_to("Manage", questionnaire_authorized_submitters_path(@questionnaire))})".html_safe
     else
       ''
     end
