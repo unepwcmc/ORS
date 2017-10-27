@@ -21,6 +21,7 @@ module PivotTables
   end
 
   class Generator
+    include ActionView::Helpers::SanitizeHelper
 
     def initialize(questionnaire)
       @questionnaire = questionnaire
@@ -179,6 +180,7 @@ module PivotTables
       # select subset of columns from the data sheet that relate to this goal
       expanded_headers = @expanded_headers.values_at(*@expanded_headers_index[goal])
       expanded_headers_identifiers = @expanded_headers_identifiers.values_at(*@expanded_headers_index[goal])
+      section_3_questions = @section_3_questions.to_a
       workbook.add_worksheet(name: goal) do |sheet|
         current_row = 1
         data_range = "A1:#{column_index(@number_of_data_columns -1)}#{@number_of_data_rows}"
@@ -192,7 +194,10 @@ module PivotTables
             next
           end
 
-          table_range = "A#{current_row}:G#{current_row + 12}"
+          rows_range = 14
+          table_starts = current_row + 2
+          table_ends = table_starts + 12
+          table_range = "A#{table_starts}:G#{table_ends}"
           rows = ['REGION_Ramsar2', 'REGION_Ramsar']
           columns = if is_numeric
             [numeric_option_header]
@@ -205,6 +210,15 @@ module PivotTables
             [{ref: h, subtotal: 'count'}]
           end
 
+          #Skip rows occupied by pivot table to insert title
+          if idx > 0
+            (rows_range+1).times do |index|
+              Axlsx::Row.new sheet, ['']
+            end
+          end
+          title = HTMLEntities.new.decode(strip_tags(section_3_questions[idx].title))
+          Axlsx::Row.new sheet, [title]
+
           sheet.add_pivot_table(table_range, data_range) do |pivot_table|
             pivot_table.data_sheet = data_sheet
             pivot_table.rows = rows
@@ -212,7 +226,7 @@ module PivotTables
             pivot_table.data = data
           end
           numeric_option_header = nil if is_numeric
-          current_row += 13
+          current_row += rows_range + 2
         end
       end
     end
