@@ -111,7 +111,9 @@ class Answer < ActiveRecord::Base
     auth_error = false
     user_answers.each do |identifiers, val|
       question_id, looping_identifier, field_id, extra_val = identifiers.split("_")
+      #This is another line that is related to find_or_create take about the multiple answers issue
       looping_identifier = nil if !looping_identifier.present? || looping_identifier == "0"
+      #looping_identifier = !looping_identifier.present? ? nil : looping_identifier == "0" ? "0" : looping_identifier
       question = Question.find(question_id)
       if ((user.id != editor.id && !editor.role_can_edit_respondents_answers?) && question.answer_type_type == "TextAnswer")
         auth_error = true
@@ -123,9 +125,9 @@ class Answer < ActiveRecord::Base
       #The dependent_section answer parts will be destroyed
       if from_dependent_section && dependent_section && dependent_sections_state && dependent_sections_state["#{dependent_section}_#{looping_identifier||"0"}"] == "1"
         if looping_identifier
-          answer = Answer.find_by_question_id_and_user_id_and_questionnair_id_and_looping_identifier_and_from_dependent_section(question.id, user.id, questionnaire.id, looping_identifier, from_dependent_section)
+          answer = Answer.find_by_question_id_and_user_id_and_questionnaire_id_and_looping_identifier_and_from_dependent_section(question.id, user.id, questionnaire.id, looping_identifier, from_dependent_section)
         else
-          answer = Answer.find_by_question_id_and_user_id_and_questionnair_id_and_from_dependent_section(question.id, user.id, questionnaire.id, from_dependent_section)
+          answer = Answer.find_by_question_id_and_user_id_and_questionnaire_id_and_from_dependent_section(question.id, user.id, questionnaire.id, from_dependent_section)
         end
         if answer && !answer.question_answered
           if question.answer_type_type == "MatrixAnswer"
@@ -140,6 +142,7 @@ class Answer < ActiveRecord::Base
         end
         next #move to the next answer
       end
+      #The following is probably the issue for multiple answers for same question and user
       answer = self.find_or_create_new_answer(question, user, questionnaire, from_dependent_section, looping_identifier)
       answers << answer if !answers.include?(answer)
       #Depending on the question's answer_type a different method is called.
