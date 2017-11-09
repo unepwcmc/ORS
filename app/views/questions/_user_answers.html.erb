@@ -15,8 +15,8 @@
         <% if answer %>
           <% answer_text = [] %>
           <td>
-            <% answer.answer_parts.each do |ap| 
-              if ap.field_type_type.present? %> 
+            <% answer.answer_parts.each do |ap|
+              if ap.field_type_type.present? %>
                 <% if ["MultiAnswerOption", "RangeAnswerOption",
                  "RankAnswerOption"].include?(ap.field_type_type) %>
                   <% answer_text << h(ap.field_type.try(:option_text)) %>
@@ -38,7 +38,7 @@
         </td>
         <td><%= answer.documents.map{ |d|
           link_to(h(d.doc_file_name), d.doc.url)
-        }.join("<br />")%></td>
+        }.join("<br />").html_safe%></td>
       <td><%= answer.answer_links.map{ |l|
         link_to(h(l.title.present? ? l.title : l.url), l.url, :target => "_blank")
       }.join("<br />") %>
