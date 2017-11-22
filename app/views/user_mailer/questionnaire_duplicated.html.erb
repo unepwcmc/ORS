@@ -2,7 +2,7 @@
 
 <p><%= I18n.t('user_mailer.questionnaire_duplicated.first_line', :questionnaire => h(@questionnaire.title(@user.language)) ).html_safe%></p>
 
-<p><%= I18n.t('user_mailer.questionnaire_duplicated.second_line' %>
+<p><%= I18n.t('user_mailer.questionnaire_duplicated.second_line') %>
 
 <a href="<%= @url %>/questionnaires/<%= @new_questionnaire.id %>/dashboard"><%= @url %>/questionnaires/<%= @new_questionnaire.id %>/dashboard</a></p>
 
