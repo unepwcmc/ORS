@@ -208,7 +208,7 @@ en:
     rank_choices_info:  "Deselect by clicking on the values."
   s_help:
     submit_title: "Submit"
-    submit_text:  "<p>After filling the questionnaire you can submit it by clicking this link. You will then receive an e-mail confirming the submission.</p><p>After submitting the questionnaire you will still be able to visit the page, but you will not be able to make any changes to your answers.</p>"
+    submit_text:  "<p>After filling the questionnaire you can submit it by clicking the 'submit questionnaire' button. You will then receive an e-mail confirming the submission.</p><p>After submitting the questionnaire you will still be able to visit the page, but you will not be able to make any changes to your answers.</p>"
     lang_change_title:  "Change language"
     lang_change_text: "<p>Questionnaires can have more than one language available, in which case you can choose which language to see it in.</p><p>You can change language at any point without jeopardizing your answers. The language you choose will be defined as your default language for this questionnaire.</p>"
     s_guidance_title: "Filling the questionnaire"

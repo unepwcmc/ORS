@@ -205,7 +205,7 @@ fr:
     rank_choices_info: "Cliquez sur les valeurs pour les désélectionner."
   s_help:
     submit_title: "Soumettre"
-    submit_text: "<p>Après avoir répondu au questionnaire, cliquez sur ce lien pour le soumettre. Vous recevrez un e-mail de confirmation de sa soumission.</p><p>Une fois le questionnaire soumis, vous pourrez toujours accéder à la page, mais vous ne pourrez plus modifier vos réponses.</p>"
+    submit_text: "<p>Après avoir répondu au questionnaire, cliquez sur le 'soumettre le questionnaire' bouton. Vous recevrez un e-mail de confirmation de sa soumission.</p><p>Une fois le questionnaire soumis, vous pourrez toujours accéder à la page, mais vous ne pourrez plus modifier vos réponses.</p>"
     lang_change_title: "Changer de langue"
     lang_change_text: "<p>Des questionnaires peuvent être proposés dans plusieurs langues. Dans ce cas, vous pouvez choisir la langue dans laquelle vous souhaitez l'afficher.</p><p>Vous pouvez changer de langue à tout moment sans affecter vos réponses. La langue que vous choisirez sera définie comme votre langue par défaut pour ce questionnaire.</p>"
     s_guidance_title: "Réponse au questionnaire"
