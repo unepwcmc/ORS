@@ -66,6 +66,7 @@ module PivotTables
       # so that we know which columns from the Data sheet refer to a goal.
       @expanded_headers_index = Hash[@goals.map { |g| [g, []] }]
 
+      @expanded_titles = []
 
       @section_3_questions.each do |q|
         # Initially we assume we have just 1 column per question
@@ -123,6 +124,7 @@ module PivotTables
         # We also add that position to the relevant goal's index.
         header_segments.each do |hs|
           @expanded_headers << hs.flatten.compact.join(' | ')
+          @expanded_titles << q.title
           @expanded_headers_index[q.goal] << @expanded_headers.length - 1
         end
         identifier_segments.each do |is|
@@ -176,9 +178,11 @@ module PivotTables
       end
     end
 
+    ROWS_RANGE = 14
     def create_pivot_tables_sheet(workbook, goal, data_sheet)
       # select subset of columns from the data sheet that relate to this goal
       expanded_headers = @expanded_headers.values_at(*@expanded_headers_index[goal])
+      expanded_titles = @expanded_titles.values_at(*@expanded_headers_index[goal])
       expanded_headers_identifiers = @expanded_headers_identifiers.values_at(*@expanded_headers_index[goal])
       section_3_questions = @section_3_questions.to_a
       workbook.add_worksheet(name: goal) do |sheet|
@@ -194,7 +198,6 @@ module PivotTables
             next
           end
 
-          rows_range = 14
           table_starts = current_row + 2
           table_ends = table_starts + 12
           table_range = "A#{table_starts}:G#{table_ends}"
@@ -212,11 +215,11 @@ module PivotTables
 
           #Skip rows occupied by pivot table to insert title
           if idx > 0
-            (rows_range+1).times do |index|
+            (ROWS_RANGE+1).times do |index|
               Axlsx::Row.new sheet, ['']
             end
           end
-          title = HTMLEntities.new.decode(strip_tags(section_3_questions[idx].title))
+          title = HTMLEntities.new.decode(strip_tags(expanded_titles[idx]))
           Axlsx::Row.new sheet, [title]
 
           sheet.add_pivot_table(table_range, data_range) do |pivot_table|
@@ -226,7 +229,7 @@ module PivotTables
             pivot_table.data = data
           end
           numeric_option_header = nil if is_numeric
-          current_row += rows_range + 2
+          current_row += ROWS_RANGE + 2
         end
       end
     end
