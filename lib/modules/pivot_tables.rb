@@ -259,7 +259,9 @@ module PivotTables
       result.map! { |r| r.present? ? r : '-' }
       region2 = if respondent.region == 'Asia' || respondent.region == 'Oceania'
         'Asia/Oceania'
-      elsif respondent.region == 'North America' || respondent.region == 'Latin America and the Caribbean'
+      elsif respondent.region == 'North America' ||
+        respondent.region == 'Latin America and the Caribbean' ||
+        respondent.region == 'Latin America & Caribbean'
         'Americas'
       else
         respondent.region
