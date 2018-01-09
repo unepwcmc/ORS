@@ -240,7 +240,9 @@ module PivotTables
 
       multi_answers = multi_answer_answers_rel(questions_rel).where(user_id: respondent.user_id)
       multi_answers.each do |ma|
-        result[index_hash[[ma.question_id.to_i, nil, ma.looping_identifier]]] = ma.option_code
+        idx = index_hash[[ma.question_id.to_i, 'code', ma.looping_identifier]]
+        result[idx] = ma.option_code if idx.present?
+        result[index_hash[[ma.question_id.to_i, nil, ma.looping_identifier]]] = ma.details_text
       end
 
       numeric_answers = numeric_answer_answers_rel(questions_rel).where(user_id: respondent.user_id)
