@@ -168,9 +168,10 @@ module PivotTables
       ].join('/')
     end
 
+    REGIONS = ['Wider Region', 'Region', 'Country']
     def create_data_sheet(workbook)
       workbook.add_worksheet(name: 'Data') do |sheet|
-        sheet.add_row ['Wider Region', 'Region', 'Country'] + @expanded_headers,
+        sheet.add_row REGIONS + @expanded_headers,
           types: Array.new(@number_of_data_columns){:string}
         @respondents.each do |respondent|
           sheet.add_row data_row_for_respondent(@section_3_questions, respondent, @expanded_headers_identifiers)
@@ -201,7 +202,6 @@ module PivotTables
           table_starts = current_row + 2
           table_ends = table_starts + 12
           table_range = "A#{table_starts}:G#{table_ends}"
-          rows = ['REGION_Ramsar2', 'REGION_Ramsar']
           columns = if is_numeric
             [numeric_option_header]
           else
@@ -224,7 +224,7 @@ module PivotTables
 
           sheet.add_pivot_table(table_range, data_range) do |pivot_table|
             pivot_table.data_sheet = data_sheet
-            pivot_table.rows = rows
+            pivot_table.rows = REGIONS
             pivot_table.columns = columns
             pivot_table.data = data
           end
