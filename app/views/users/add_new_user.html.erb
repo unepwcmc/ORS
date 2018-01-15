@@ -1,0 +1,87 @@
+<%= form_for (@user ||= User.new), url: {action: 'create_new_user'}, html: { :class => "formtastic" } do |f| %>
+  <% if @user.errors.any? %>
+    <div id="errorExplanation">
+      <ul id='error_messages'>
+        <% @user.errors.full_messages.each do |msg| %>
+          <li><%= msg %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <%= hidden_field_tag :questionnaire_id, @questionnaire.id  if @questionnaire%>
+    <p>User will be added with the role of respondent.</p>
+    <fieldset>
+      <div class="row padded">
+        <div class="col col-5"><%= f.label :first_name, t("user_edit.first_n") %></div>
+        <div class="col col-7 border-left"><%= f.text_field :first_name%></div>
+      </div>
+
+      <div class="row padded">
+        <div class="col col-5"><%= f.label :last_name, t("user_edit.last_n") %></div>
+        <div class="col col-7 border-left"><%= f.text_field :last_name %></div>
+      </div>
+
+      <div class="row padded">
+        <div class="col col-5"><%= f.label :language, t("generic.language") %></div>
+        <div class="col col-7 border-left"><%= select :user, :language, [["English","en"], ["Français","fr"], ["Español","es"]]  %></div>
+      </div>
+
+      <div class="row padded">
+        <div class="col col-5"><%= f.label :email, t("generic.email")%></div>
+        <div class="col col-7 border-left"><%= f.text_field :email %></div>
+      </div>
+
+      <div class="row padded">
+        <div class="col col-5"><%= f.label :country, t("generic.country") %></div>
+        <div class="col col-7 border-left"><%= f.text_field :country %></div>
+      </div>
+
+      <div class="row padded">
+        <div class="col col-5"><%= f.label :region, t("generic.region") %></div>
+        <div class="col col-7 border-left"><%= f.text_field :region %></div>
+      </div>
+
+      <div class="row padded">
+        <div class="col col-5"><%= f.label :category, t("generic.category")%></div>
+        <div class="col col-7 border-left">
+          <label id="radio">
+            <%= f.radio_button :category, "Management Authority" %>
+            <%= t("generic.management")%>
+          </label>
+          <label id="radio">
+            <%= f.radio_button :category, "Scientific Authority" %>
+            <%= t("generic.scientific")%>
+          </label>
+          <label id="radio">
+            <%= f.radio_button :category, "Other" %>
+            <%= t("generic.other")%>
+          </label>
+        </div>
+      </div>
+
+      <div class="row padded">
+        <div class="col col-5"><%= f.label :password, t("generic.password") %></div>
+        <div class="col col-7 border-left"><%= f.password_field :password, autocomplete: 'off' %></div>
+      </div>
+
+      <div class="row padded">
+        <div class="col col-5"><%= f.label :password_confirmation, t("generic.password_c")%></div>
+        <div class="col col-7 border-left"><%= f.password_field :password_confirmation %></div>
+      </div>
+
+      <% if current_user.role?(:admin)-%> <!--a user loop_item_types are filtering fields from some questionnaire-->
+        <%= render "roles" %>
+      <% else -%>
+        <% role = current_user.role?(:respondent) ? Role.find_by_name('respondent') : Role.find_by_name('delegate') -%>
+        <div>
+          <li><label>Role</label> <%= role.name.titleize %></li>
+          <%= f.hidden_field :role_ids, :value => role.id %>
+        </div>
+      <% end -%>
+
+      <%= render partial: 'delegations', locals: {f: f} %>
+
+    </fieldset>
+    <p><%= f.submit "Register" %></p>
+<% end -%>

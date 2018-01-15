@@ -177,7 +177,7 @@ class SectionsController < ApplicationController
 
   def submission
     @section = Section.find(params[:id], :include => [{:questions => [:answer_type, :loop_item_types]}])
-    @authorization = current_user ? current_user.authorization_for(@section, @current_user_delegate.try(:id)) : false
+    load_authorization(@section, @current_user_delegate)
     raise CanCan::AccessDenied.new(t("flash_messages.#{@authorization ? @authorization[:error_message] : "not_authorized"}")) if !@authorization || @authorization[:error_message]
     I18n.locale = @authorization[:language]
     @fields = {}
@@ -190,7 +190,7 @@ class SectionsController < ApplicationController
 
   def load_lazy
     @section = Section.find(params[:id], :include => [{:questions => [:answer_type , :question_fields]}])
-    @authorization = current_user ? current_user.authorization_for(@section) : false
+    load_authorization(@section)
     raise CanCan::AccessDenied.new(t("flash_messages.#{@authorization ? @authorization[:error_message] : "not_authorized"}")) if !@authorization || @authorization[:error_message]
     I18n.locale = @authorization[:language]
     @fields = {}
@@ -219,7 +219,7 @@ class SectionsController < ApplicationController
     else
       @result = {}
       @result[:section] = Section.find(params[:section])
-      @authorization = current_user ? current_user.authorization_for(@result[:section], @current_user_delegate.try(:id)) : false
+      load_authorization(@result[:section], @current_user_delegate)
       raise CanCan::AccessDenied.new(t("flash_messages.#{@authorization ? @authorization[:error_message] : "not_authorized"}")) if !@authorization || @authorization[:error_message]
       I18n.locale = @authorization[:language]
       if params[:answers].present?
@@ -321,6 +321,15 @@ class SectionsController < ApplicationController
           new_notice.prepend("#{flash[:notice]}. ") if flash[:notice]
         }
       end
+    end
+  end
+
+  def load_authorization(section, current_user_delegate=nil)
+    if (current_user.is_admin_or_respondent_admin?) && params[:respondent_id].present?
+      @respondent = User.find(params[:respondent_id])
+      @authorization = @respondent ? @respondent.authorization_for(section, nil, @respondent.id) : false
+    else
+      @authorization = current_user ? current_user.authorization_for(section, current_user_delegate.try(:id)) : false
     end
   end
 

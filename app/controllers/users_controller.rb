@@ -8,9 +8,17 @@ class UsersController < ApplicationController
     @groups = User.group_counts
   end
 
-  def new
+  def new # Used for authentication
     raise CanCan::AccessDenied.new(t('flash_messages.not_authorized')) if current_user
     #@user = User.new
+  end
+
+  def add_new_user # User for adding a user from manage users page
+    @user = User.new
+    @user.user_delegators.build
+    @user.user_delegators.each do |ud|
+      ud.build_delegate
+    end
   end
 
   def create
@@ -40,8 +48,8 @@ class UsersController < ApplicationController
             flash[:notice] = t('flash_messages.sign_up_success')
             redirect_to root_url
           else
-            flash[:notice] = t('flash_messages.delegate_success')
-            redirect_to user_user_delegates_path(current_user)
+            flash[:notice] = t('flash_messages.user_success')
+            redirect_to users_path
           end
         }
         format.js
@@ -52,6 +60,32 @@ class UsersController < ApplicationController
           render :action => "new", :params => {:lang => (params[:lang]||"en")}
         }
         format.js
+      end
+    end
+  end
+
+  def create_new_user
+    delegators_params  = params[:user].dup.except!("user_delegators_attributes")
+    @user              = User.new(delegators_params)
+    @user.creator_id   = current_user.id
+
+    if validate_delegations && @user.save
+      @user.add_or_update_filtering_fields(params[:filtering_field]) if params[:filtering_field]
+      @user.update_attributes(get_user_delegators_params) if @user.is_delegate?
+      url = "http://#{request.host}/"
+      UserMailer.user_registration(@user, params[:user][:password], url).deliver
+      respond_to do |format|
+        format.html {
+            flash[:notice] = t('flash_messages.user_success')
+            redirect_to users_path
+        }
+      end
+    else
+      respond_to do |format|
+        format.html {
+          flash[:error] = flash[:error]
+          render :action => "add_new_user", :params => {:lang => (params[:lang]||"en")}
+        }
       end
     end
   end
@@ -147,5 +181,26 @@ class UsersController < ApplicationController
   private
   def find_with_questionnaires
     @user = User.find(params[:id], :include => [:available_questionnaires, :pdf_files])
+  end
+
+  def get_user_delegators_params
+    user_delegators_attributes =
+      params['user']['user_delegators_attributes'].select do |key, value|
+        value['user_id'].present? && value.merge!(delegate_id: @user.id)
+      end
+    {user_delegators_attributes: user_delegators_attributes}
+  end
+
+  def validate_delegations
+    return true unless @user.is_delegate?
+    delegators = get_user_delegators_params[:user_delegators_attributes]
+    if delegators.present?
+      empty_questionnaires = delegators.select do |key, attrs|
+        attrs["delegations_attributes"]["0"]["questionnaire_id"].blank?
+      end
+      return true unless empty_questionnaires.present?
+    end
+    flash[:error] = "No delegations assigned for delegate user"
+    return false
   end
 end

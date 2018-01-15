@@ -12,17 +12,17 @@
   <% if answer -%>
     <p class="tooltips">
       Answered by:
-      <% editor = answer.user %>
+      <% editor = answer.last_editor || answer.user %>
       <span><%= editor.id != current_user.id ? (link_to h(editor.full_name)[0,30], user_path(editor), :title => h(editor.full_name)) : 'You' -%></span>
       <span>(<%= answer.updated_at %>)</span>
     </p>
   <% end -%>
 
-  <% if answer && answer.user_id == current_user.id %>
+  <% if answer && (answer.user_id == current_user.id || current_user.role_can_edit_respondents_answers?) %>
     <div class="row padded">
       <%= hidden_field_tag "question_answered[#{answer.id}]", "" %>
-      <%= check_box_tag "question_answered[#{answer.id}]", true, answer.question_answered, class: "question-answered-box" %>
-      <%= label_tag "question_answered[#{answer.id}]", "Mark question as answered" %>
+      <%= check_box_tag "question_answered[#{answer.id}]", true, answer.question_answered, class: "question-answered-box", data: { the_id: append_identifier(question, looping_identifier)} %>
+      <%= label_tag "question_answered[#{answer.id}]", t('submission_pages.mark_question_as_answered') %>
     </div>
   <% end %>
 </div>

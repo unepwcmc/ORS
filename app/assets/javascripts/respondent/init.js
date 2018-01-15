@@ -110,6 +110,7 @@ function saveDirtyAnswers() {
   vals += '&save_from_button='+$('#save_from_button').val();
   vals += '&timed_save='+$('#timed_save').val();
   vals += '&auto_save='+$('#auto_save').val();
+  vals += '&respondent_id='+$('#questionnaire_submission').data('respondent_id')
 
   $('input.dirty, textarea.dirty, select.dirty').removeClass('dirty');
 

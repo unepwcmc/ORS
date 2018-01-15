@@ -230,9 +230,14 @@ class QuestionnairesController < ApplicationController
 
   #Access questionnaire to fill in answers as a respondent
   def submission
-    @authorization = current_user ? current_user.authorization_for(@questionnaire) : false
+    if current_user.is_admin_or_respondent_admin? && params[:respondent_id]
+      @respondent = User.find(params[:respondent_id])
+      @authorization = @respondent ? @respondent.authorization_for(@questionnaire, nil, @respondent.id) : false
+    else
+      @authorization = current_user ? current_user.authorization_for(@questionnaire) : false
+    end
     raise CanCan::AccessDenied.new(t("flash_messages.#{@authorization ? @authorization[:error_message] : "not_authorized"}"), :submission, Questionnaire) if !@authorization || @authorization[:error_message]
-    if current_user.role?(:delegate)
+    if current_user.is_delegate?
       @delegation = current_user.delegated_tasks.find_by_questionnaire_id(@questionnaire.id)
     end
     @sections_to_display_in_tab = @questionnaire.sections_to_display_in_tab.
@@ -244,7 +249,7 @@ class QuestionnairesController < ApplicationController
     @sections_to_display_in_tab.each do |section|
       if section.looping? && section.loop_item_type
         section.loop_item_type.loop_items.each do |loop_item|
-          if section.available_for? current_user, loop_item
+          if section.available_for?(@respondent || current_user, loop_item)
             submission_state = section.submission_states.find do |s|
               s.user_id == @authorization[:user].id && s.loop_item_id == loop_item.id
             end
@@ -265,10 +270,18 @@ class QuestionnairesController < ApplicationController
   end
 
   def submit
+    #submit questionnaire on behalf of respondent if admin
+    respondent = User.find(params[:respondent_id]) if params[:respondent_id]
+    if respondent && !current_user.admin_can_submit_questionnaire?(respondent)
+      flash[:error] = t('flash_messages.not_authorized')
+      redirect_to submission_questionnaire_path(@questionnaire)
+      return
+    end
+    user = respondent || current_user
     #check if mandatory questions were answered
-    @authorized_submitter = AuthorizedSubmitter.find_by_questionnaire_id_and_user_id(@questionnaire.id, current_user.id)
-    if current_user.submission_states.find(:all, :conditions => {:section_id => @questionnaire.sections.map(&:self_and_descendants).
-                                           flatten.map(&:id), :section_state => 1, :dont_care => false}).empty? &&
+    @authorized_submitter = AuthorizedSubmitter.find_by_questionnaire_id_and_user_id(@questionnaire.id, user.id)
+    if user.submission_states.find(:all, conditions: {section_id: @questionnaire.sections.map(&:self_and_descendants).
+                                           flatten.map(&:id), section_state: 1, dont_care: false}).empty? &&
                                            @authorized_submitter
       @authorized_submitter.status = SubmissionStatus::SUBMITTED
       if @authorized_submitter.save!

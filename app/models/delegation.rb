@@ -11,7 +11,11 @@ class Delegation < ActiveRecord::Base
   has_many :delegated_loop_item_names, :through => :delegation_sections
   has_many :loop_item_names, :through => :delegated_loop_item_names, :include => :loop_item_name_fields
 
+  attr_accessible :questionnaire_id, :user_delegate_id, :can_view_all_questionnaire,
+    :from_submission, :remarks
+
   validates :questionnaire_id, presence: true
+  validates_uniqueness_of :questionnaire_id, scope: :user_delegate_id
 
   def can_view_only_assigned_sections?
     !self.can_view_all_questionnaire && !self.delegation_sections.empty?

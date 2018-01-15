@@ -4,6 +4,7 @@ OnlineReportingTool::Application.routes.draw do
   match 'logout' => 'user_sessions#destroy', :as => :logout
   match 'login' => 'user_sessions#new', :as => :login
   match 'administration/' => 'administration#index', :as => :administration
+  match 'respondent_admin/' => 'respondent_admin#index', as: :respondent_admin
   match 'loop_sources/:id/item_types/:parent_id' => 'loop_sources#item_types', :as => :loop_source_item_types
   match 'loop_sources/:id/item_types/edit/:section_id' => 'loop_sources#item_types', :as => :loop_source_item_types
   match 'questionnaires/:questionnaire_id/authorized_submitters/add/:users' => 'authorized_submitters#add', :as => :authorize_submitter, :method => 'post'
@@ -120,7 +121,6 @@ OnlineReportingTool::Application.routes.draw do
   resources :range_answers
   resources :rank_answers
   resources :reminders
-  resources :roles
 
   resources :sections do
     member do
@@ -160,6 +160,8 @@ OnlineReportingTool::Application.routes.draw do
     collection do
       get :add_list
       post :upload_list
+      get :add_new_user
+      post :create_new_user
     end
 
     member do

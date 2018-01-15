@@ -61,20 +61,25 @@ class User < ActiveRecord::Base
   ###
 
   scope :last_created, lambda { |num| {:limit => num, :order => 'created_at DESC'} }
-  scope :submitters, :joins => :roles, :conditions => ['roles.name = ?', "respondent"]
-  scope :administrators, :joins => :roles, :conditions => ['roles.name = ?', 'admin']
+  scope :submitters, joins: :roles, conditions: ['roles.name = ?', "respondent"]
+  scope :administrators, joins: :roles, conditions:  ['roles.name = ?', 'admin']
   # users with submitter role that have not yet been authorized to answer a specific questionnaire
   # excluding is a condition: users.id NOT IN (set of id's of authorized submitters for the questionnaire)
-  scope :available_submitters, lambda { |excluding| {:joins => :roles, :conditions => ['roles.name = ? AND '+ excluding, "respondent"]} }
+  scope :available_submitters, lambda { |excluding| {joins: :roles, conditions: ['roles.name = ? AND '+ excluding, "respondent"]} }
+  scope :delegates, joins: :roles, conditions: ['roles.name = ? OR roles.name = ?', 'delegate', 'super_delegate']
 
   ###
   ###   Validations
   ###
   validates_presence_of :first_name, :last_name, :language
+  validate :redundant_roles
 
   attr_accessible :creator_id, :first_name, :last_name, :language, :email,
     :category, :password, :password_confirmation, :role_ids,
-    :single_access_token, :region, :country, :perishable_token
+    :single_access_token, :region, :country, :perishable_token,
+    :user_delegates_attributes, :user_delegators_attributes
+
+  accepts_nested_attributes_for :user_delegates, :user_delegators
 
   ###
   ###   Methods
@@ -93,13 +98,17 @@ class User < ActiveRecord::Base
     roles_to_sym.include? role
   end
 
-  def authorized_to_answer? questionnaire, user_delegate = nil
+  def authorized_to_answer? questionnaire, user_delegate = nil, respondent_id = nil
     authorization = false
+    if (is_admin_or_respondent_admin?) && respondent_id
+      authorization = AuthorizedSubmitter.find_by_questionnaire_id_and_user_id(questionnaire.id, respondent_id)
+      return authorization if authorization
+    end
     if self.role?(:respondent)
       authorization = AuthorizedSubmitter.find_by_questionnaire_id_and_user_id(questionnaire.id, self.id)
       return authorization if authorization
     end
-    if !authorization && self.role?(:delegate)
+    if !authorization && is_delegate?
       delegation = user_delegate.present? ? self.delegated_tasks.find_by_questionnaire_id_and_user_delegate_id(questionnaire.id, user_delegate) : self.delegated_tasks.find_by_questionnaire_id(questionnaire.id)
       return false if !delegation
       return delegation.user.authorized_to_answer?(questionnaire)
@@ -109,7 +118,7 @@ class User < ActiveRecord::Base
 
   #fill the authorization object that will be used in the pages for questionnaire submission
   #object can be questionnaire, section, or even question
-  def authorization_for object, user_delegate = nil
+  def authorization_for object, user_delegate = nil, respondent_id = nil
     authorization = {}
     authorization[:error_message] = nil
     #as the object might not be a questionnaire itself it is necessary to do this check and load the questionnaire
@@ -122,7 +131,7 @@ class User < ActiveRecord::Base
       return authorization
     end
     #load and check authorization
-    aux = self.authorized_to_answer?(questionnaire, user_delegate)
+    aux = self.authorized_to_answer?(questionnaire, user_delegate, respondent_id)
     if !aux
       authorization[:error_message] = "not_authorized"
       return authorization
@@ -142,7 +151,7 @@ class User < ActiveRecord::Base
     authorization[:language_full_name] = aux.language_full_name
     authorization[:user] = aux.user
     #get the delegation details if the user is a delegate and it has been delegated with this questionnaire
-    if self.role?(:delegate)
+    if is_delegate?
       #no check for the existence of delegation, because that is checked in the 'is_authorized_to_answer?' method
       delegation = user_delegate ? self.delegated_tasks.find_by_questionnaire_id_and_user_delegate_id(questionnaire, user_delegate) : self.delegated_tasks.find_by_questionnaire_id(questionnaire)
       #if the sections aren't defined the delegate can answer the whole questionnaire
@@ -361,9 +370,45 @@ class User < ActiveRecord::Base
     return false
   end
 
+  def add_delegations(delegations)
+    delegations.each do |key, value|
+      user_delegate = UserDelegate.create(user_id: value["user_id"], delegate_id: self.id)
+      questionnaire_id = value["delegations_attributes"].first["questionnaire_id"]
+      Delegation.create(questionnaire_id: questionnaire_id, user_delegate_id: user_delegate.id)
+    end
+  end
+
+  def is_delegate?
+    role?(:delegate) || role?(:super_delegate)
+  end
+
+  def is_admin_or_respondent_admin?
+    role?(:admin) || role?(:respondent_admin)
+  end
+
+  def self.unassigned_delegates(respondent)
+    delegate_ids = delegates.map(&:id)
+    where(id: delegate_ids - respondent.delegates.map(&:id))
+  end
+
+  def admin_can_submit_questionnaire?(respondent)
+    is_admin_or_respondent_admin? && (respondent && respondent.role?(:respondent))
+  end
+
+  def role_can_edit_respondents_answers?
+    is_admin_or_respondent_admin? || role?(:super_delegate)
+  end
+
   private
     def downcase_email
       self.email.downcase!
+    end
+
+    def redundant_roles
+      if ((role?(:admin) && role?(:respondent_admin)) ||
+        (role?(:delegate) && role?(:super_delegate)))
+        errors.add(:roles, I18n.t('user_new.redundant_roles'))
+      end
     end
 end
 

@@ -14,9 +14,15 @@
     </ul>
   </div>
 <% end %>
+    <% if params[:respondent_id].present? %>
+       <div class="grey-box">
+         You are viewing the questionnaire of the respondent: <strong><%= User.find(params[:respondent_id]).full_name %></strong>
+       </div>
+    <% end %>
+
     <%= render "sections/sticky_toolbar" %>
 
-<div id="questionnaire_submission" class="span-24 last">
+    <div id="questionnaire_submission" class="span-24 last" data-respondent_id=<%=@respondent.try(:id)%>>
   <div>
     <div>
       <%= raw (current_user && current_user.role?(:delegate) && current_user != @authorization[:user]) ? " | <a href='#' id='toggle_delegation_details'>#{t 'tab_details.delegation_sections'}</a>" : "" %>

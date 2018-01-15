@@ -1,0 +1,31 @@
+<div class='respondents-list'>
+  <div class="datatable-filters">
+    <div class="datatable-filters__right">
+      <input type="text" name="filter" id="filter" value="" placeholder="Type your search here... " size="25"/>
+      <a href="#" id="clear_search" class="btn">Clear Search</a><br>
+    </div>
+  </div>
+
+  <div class="respondents-table-container">
+    <table id="respondents_table" class="tablesorter">
+      <thead>
+        <tr>
+          <th><%= check_box_tag :select_all, nil, false, class: 'select-all-checkbox' %></th>
+          <th>Name</th>
+          <th>Questionnaire</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% User.submitters.each do |user| %>
+          <%= f.fields_for :user_delegators, @user.user_delegators.build do |ff| %>
+            <tr id="row_<%=user.id.to_s%>">
+              <td><%= ff.check_box :user_id, {class: "checkboxes" }, user.id, ''%></td>
+              <td><%= link_to h(user.full_name), user_path(user) %></td>
+              <td><%= select_delegation_questionnaire(ff, user) %></td>
+            </tr>
+          <% end %>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+</div>

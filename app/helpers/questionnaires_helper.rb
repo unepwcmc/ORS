@@ -160,4 +160,19 @@ module QuestionnairesHelper
     end
   end
 
+  def respondents_page_link(title, path)
+    if current_user.role?(:admin)
+      link_to h(title), path
+    else
+      h(title)
+    end
+  end
+
+  def manage_respondents_filtering_fields
+    if current_user.role?(:admin)
+      "#{h(@questionnaire.authorized_submitters.count)} (#{link_to("Manage", questionnaire_authorized_submitters_path(@questionnaire))})".html_safe
+    else
+      ''
+    end
+  end
 end

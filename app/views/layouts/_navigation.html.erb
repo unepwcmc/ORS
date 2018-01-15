@@ -7,15 +7,13 @@
 
           <% if current_user.role?(:admin) %>
             <li><%= main_nav_link_with_class "Administration dashboard", administration_path %></li>
+          <% elsif current_user.role?(:respondent_admin) %>
+            <li><%= main_nav_link_with_class "Administration dashboard", respondent_admin_path %></li>
           <% end %>
 
         </ul>
       </div>
     </div>
-    <div class="row" id="nav-level-2">
-      <div class="container">
-        <%= yield :subnav %>
-      </div>
-    </div>
+    <%= subnavigation %>
   </div>
 <% end %>

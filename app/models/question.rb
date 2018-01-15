@@ -210,6 +210,8 @@ class Question < ActiveRecord::Base
   end
 
   def can_edit_text_answer? answer, user_delegate
+    delegate = user_delegate.present? ? user_delegate.delegate : nil
+    return true if delegate && questionnaire.can_act_as_a_super_delegate?(delegate)
     !((self.answer_type_type == 'TextAnswer' && user_delegate.present?) || (answer && answer.question_answered))
   end
 

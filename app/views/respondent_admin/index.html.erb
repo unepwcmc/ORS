@@ -1,0 +1,26 @@
+<div class="page-header">
+  <h2>Respondent Admin Dashboard</h2>
+</div>
+
+<div class="datatable-filters__right">
+  <input type="text" name="filter" id="filter" value="" placeholder="Type your search here... " size="25"/>
+  <a href="#" id="clear_search" class="btn">Clear Search</a><br>
+</div>
+<table class='respondent_admin-questionnaires'>
+  <thead>
+    <tr>
+      <th>Title</th>
+      <th>Created by</th>
+      <th>Created At</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @questionnaires.each do |questionnaire| %>
+      <tr>
+        <td><%= link_to questionnaire.title, respondents_questionnaire_path(questionnaire) %></td>
+        <td><%= questionnaire.user.full_name %></td>
+        <td><%= questionnaire.created_at.strftime("%m/%d/%Y")%></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
