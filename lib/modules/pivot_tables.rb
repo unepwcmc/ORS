@@ -202,6 +202,7 @@ module PivotTables
           table_starts = current_row + 2
           table_ends = table_starts + 12
           table_range = "A#{table_starts}:G#{table_ends}"
+          rows = REGIONS - ['Country']
           columns = if is_numeric
             [numeric_option_header]
           else
@@ -224,7 +225,7 @@ module PivotTables
 
           sheet.add_pivot_table(table_range, data_range) do |pivot_table|
             pivot_table.data_sheet = data_sheet
-            pivot_table.rows = REGIONS
+            pivot_table.rows = rows
             pivot_table.columns = columns
             pivot_table.data = data
           end
