@@ -17,7 +17,7 @@ class User < ActiveRecord::Base
   acts_as_taggable_on :groups
   acts_as_authentic do |c|
     c.login_field = 'email'
-    c.crypto_provider = Authlogic::CryptoProviders::Sha512
+    #c.crypto_provider = Authlogic::CryptoProviders::Sha512
     c.disable_perishable_token_maintenance true
     c.validates_format_of_login_field_options = { with: Authlogic::Regex.email_nonascii }
     c.merge_validates_length_of_password_field_options({:minimum => 5})
