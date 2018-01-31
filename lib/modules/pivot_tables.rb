@@ -223,7 +223,7 @@ module PivotTables
           title = HTMLEntities.new.decode(strip_tags(expanded_titles[idx]))
           Axlsx::Row.new sheet, [title]
 
-          sheet.add_pivot_table(table_range, data_range) do |pivot_table|
+          sheet.add_pivot_table(table_range, data_range, {no_subtotals_on_headers: REGIONS}) do |pivot_table|
             pivot_table.data_sheet = data_sheet
             pivot_table.rows = rows
             pivot_table.columns = columns
