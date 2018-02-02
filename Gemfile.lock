@@ -426,8 +426,4 @@ DEPENDENCIES
   uglifier
 
 BUNDLED WITH
-<<<<<<< HEAD
    1.16.1
-=======
-   1.11.2
->>>>>>> master
