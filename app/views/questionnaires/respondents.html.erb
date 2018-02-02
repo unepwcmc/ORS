@@ -13,11 +13,15 @@
   <div id="q_dashboard" class="span-24 last">
     <div class="row padded">
       <div class="col col-4">Title</div>
-      <div class="col col-8 border-left"><%= link_to h(@questionnaire.title), dashboard_questionnaire_path(@questionnaire) %></div>
+      <div class="col col-8 border-left">
+        <%= respondents_page_link(@questionnaire.title, dashboard_questionnaire_path(@questionnaire)) %>
+      </div>
     </div>
     <div class="row padded">
       <div class="col col-4">Creator</div>
-      <div class="col col-8 border-left"><%= link_to h(@questionnaire.user.full_name), user_path(@questionnaire.user) %></div>
+      <div class="col col-8 border-left">
+        <%= respondents_page_link(@questionnaire.user.full_name, user_path(@questionnaire.user)) %>
+      </div>
     </div>
     <div class="row padded">
       <div class="col col-4">Date</div>
@@ -25,7 +29,9 @@
     </div>
     <div class="row padded">
       <div class="col col-4">Respondents</div>
-      <div class="col col-8 border-left"><%=h @questionnaire.authorized_submitters.count %> (<%= link_to "Manage", questionnaire_authorized_submitters_path(@questionnaire) %>)</div>
+      <div class="col col-8 border-left">
+        <%= manage_respondents_filtering_fields %>
+      </div>
     </div>
     <div class="row group">
       <div class="col col-4">Filtering fields</div>
@@ -37,7 +43,7 @@
 
   <div class="datatable-filters">
     <div class="datatable-filters__left">
-      <% if @questionnaire %>
+      <% if @questionnaire && current_user.role?(:admin) %>
        Filter by
         <%= select_tag :authorized_filter, options_for_select([['All',''],['Underway'],['Submitted']]) %>
 
@@ -101,7 +107,7 @@
        <% @questionnaire.submitters.each do |submitter| -%>
          <tr id="row_<%=submitter.id.to_s%>">
            <td><%= check_box_tag "users["+submitter.id.to_s+"]", submitter.id.to_s, false, {:class => "checkboxes" }%></td>
-           <td><%= link_to h(submitter.full_name), user_path(submitter) %></td>
+           <td><%= current_user.role?(:admin) ? link_to(h(submitter.full_name), user_path(submitter)) : submitter.full_name %></td>
            <% auth = @questionnaire.authorized_submitters.find_by_user_id(submitter) %>
            <td id="q_status_<%= submitter.id.to_s %>"><%= auth.status == 2 ? "Submitted #{if auth.requested_unsubmission? then "(Requested Unsubmission)" end}" : "Underway" %></td>
            <!--<td><%#= @questionnaire.percentage_of_completion_for( submitter ) %>%</td>-->
@@ -117,6 +123,8 @@
              <%#= link_to "Send deadline warning", questionnaire_send_deadline_warning_path(@questionnaire, submitter), :class => "get" %>
              <% if status == 2 %>
                <%= link_to "Revert submission", unsubmit_questionnaire_url(@questionnaire, {user_id: submitter.id}), :method => :put %>
+             <% else %>
+               <%= link_to "Edit", submission_questionnaire_path(@questionnaire, respondent_id: submitter.id) %>
              <% end -%>
            </td>
            <td width="10%">

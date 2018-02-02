@@ -113,7 +113,7 @@ class Answer < ActiveRecord::Base
       question_id, looping_identifier, field_id, extra_val = identifiers.split("_")
       looping_identifier = nil if !looping_identifier.present? || looping_identifier == "0"
       question = Question.find(question_id)
-      if user.id != editor.id && question.answer_type_type == "TextAnswer"
+      if ((user.id != editor.id && !editor.role_can_edit_respondents_answers?) && question.answer_type_type == "TextAnswer")
         auth_error = true
         next
       end

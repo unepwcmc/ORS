@@ -98,6 +98,9 @@
         <% delegation_enabled = @questionnaire.delegation_enabled? ? "Enabled" : "Disabled" %>
         <%= content_field("Delegation feature", delegation_enabled) %>
 
+        <% super_delegates_enabled = @questionnaire.enable_super_delegates? ? "Enabled" : "Disabled" %>
+        <%= content_field("Super Delegates feature", super_delegates_enabled) %>
+
         <% translator_visible = @questionnaire.translator_visible? ? "Enabled" : "Disabled" %>
         <%= content_field("Text answer translator", translator_visible) %>
 

@@ -116,7 +116,7 @@ class Section < ActiveRecord::Base
     if self.matching_loop_sources?(loop_item_type)
       self.loop_item_type
     else
-      self.parent.nil? ? nil : self.parent.first_ancestor_item_type(loop_item_type)
+      (self.parent.nil? || self.parent.id == self.id) ? nil : self.parent.first_ancestor_item_type(loop_item_type)
     end
   end
 
@@ -284,7 +284,7 @@ class Section < ActiveRecord::Base
     state_tracker.save if state_tracker.changed?
     self.children.each do |s|
      if s.looping?
-       items = s.next_loop_items(loop_item, loop_sources_items)
+       items = s.next_loop_items(loop_item, loop_sources_items) || []
        items.each do |item|
          if s.available_for? user, item
            loop_sources_items[s.loop_source.id.to_s] = item

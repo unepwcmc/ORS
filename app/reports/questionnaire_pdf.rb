@@ -417,7 +417,7 @@ class QuestionnairePdf < Prawn::Document
     #bounding_box [5, cursor], :width => box_width, :height => box_rows do
     span(box_width) do
       if entered_text
-        txt = @coder.decode(OrtSanitize.white_space_cleanse(entered_text))
+        txt = @coder.decode(OrtSanitize.white_space_cleanse(entered_text, false))
         text "› " + txt
       else
         text "›"

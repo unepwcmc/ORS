@@ -335,11 +335,11 @@ class Questionnaire < ActiveRecord::Base
     else
       parent_destination = QuestionnairePart.find(params[:new_parent])
       if parent_destination.children.size != params[:position_index].to_i
-        gonna_be_right_sibling = parent_destination.children.sort[params[:position_index].to_i]
+        gonna_be_right_sibling = parent_destination.children[params[:position_index].to_i]
         part_to_move.move_to_left_of gonna_be_right_sibling
       else
         if parent_destination.children.present?
-          part_to_move.move_to_right_of parent_destination.children.sort.last
+          part_to_move.move_to_right_of parent_destination.children.last
         else
           part_to_move.move_to_child_of parent_destination
         end
@@ -354,6 +354,10 @@ class Questionnaire < ActiveRecord::Base
       part_to_move.questionnaire = nil
     end
     part_to_move.save
+  end
+
+  def can_act_as_a_super_delegate?(user)
+    enable_super_delegates && user.role?(:super_delegate)
   end
 end
 

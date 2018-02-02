@@ -1,7 +1,7 @@
 <% queries_as_rows = answer_type.matrix_orientation == 0 %>
-<% columns = queries_as_rows ? answer_type.matrix_answer_options : answer_type.matrix_answer_queries  -%>
-<% rows = queries_as_rows ? answer_type.matrix_answer_queries : answer_type.matrix_answer_options  -%>
-<% drop_down_options = answer_type.matrix_answer_drop_options %>
+<% columns = queries_as_rows ? answer_type.matrix_answer_options.order('id DESC') : answer_type.matrix_answer_queries  -%>
+<% rows = queries_as_rows ? answer_type.matrix_answer_queries : answer_type.matrix_answer_options.order('id DESC')  -%>
+<% drop_down_options = answer_type.matrix_answer_drop_options.order('id DESC') %>
 <% selection = {} %>
 <% if answer
     answer.matrix_cells_answers(selection)

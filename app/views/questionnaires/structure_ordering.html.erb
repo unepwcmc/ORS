@@ -50,24 +50,21 @@
             //var position = data.rslt.p;
             var new_parent = data.rslt.np;
             var cp = data.rslt.cp;
-            if(data.rslt.rt.check_move())
-            {
-                $.ajax({ url: RAILS_ROOT+"/questionnaires/<%= @questionnaire.id %>/move_questionnaire_part/",
-                    type:'put',
-                    dataType:'script',
-                    data : {
-                        node_id: moved_node.attr("id"),
-                        new_parent: new_parent.attr("id"),
-                        position_index: cp
-                    },
-                    success: function(){
-                        flash_message("notice", "Move successful");
-                    },
-                    error: function(){
-                        flash_message("error", "Move is not possible");
-                    }
-                })
-            }
+            $.ajax({ url: RAILS_ROOT+"/questionnaires/<%= @questionnaire.id %>/move_questionnaire_part/",
+                type: 'put',
+                dataType: 'script',
+                data: {
+                    node_id: moved_node.attr("id"),
+                    new_parent: new_parent.attr("id"),
+                    position_index: cp
+                },
+                success: function(){
+                    flash_message("notice", "Move successful");
+                },
+                error: function(){
+                    flash_message("error", "Move is not possible");
+                }
+            })
         }).bind('hover_node.jstree', function(e, data){
             var selected_node = data.rslt.obj;
             if(selected_node.attr("id") != "root")

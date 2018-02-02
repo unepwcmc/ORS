@@ -4,7 +4,7 @@
     <% if disabled %>
       <span class="disabled-section-tab"><%= (section.level == 1 ? "► " : "") + OrtSanitize.white_space_cleanse(section.value_in((section.root? ? :tab_title : :title), @authorization[:language])) %></span>
     <% else %>
-      <%= link_to (section.level == 1 ? "► " : "") + OrtSanitize.white_space_cleanse(section.value_in((section.root? ? :tab_title : :title), @authorization[:language])), submission_section_path(section.id, user_delegate: params[:user_delegate]), :title=> "section content #{section.id.to_s}", class: 'section-link section-tab' %>
+      <%= link_to (section.level == 1 ? "► " : "") + OrtSanitize.white_space_cleanse(section.value_in((section.root? ? :tab_title : :title), @authorization[:language])), submission_section_path(section.id, user_delegate: params[:user_delegate], respondent_id: params[:respondent_id]), :title=> "section content #{section.id.to_s}", class: 'section-link section-tab' %>
       <span id="img<%=section.id.to_s%>" class="section-icon"></span>
     <% end %>
   </span>

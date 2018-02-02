@@ -3,14 +3,6 @@
 
 <%= render 'users/options' %>
 
-<% content_for :header do %>
-  <div class="custom-header-image">
-    <% unless @questionnaire.header.url == "/assets/headers/default/default_original_header.png" %>
-      <%= image_tag @questionnaire.header.url %>
-    <% end %>
-  </div>
-<% end %>
-
 <% content_for :sidebar do %>
   <div class="page-header">
     <h4><%=h @questionnaire.value_in(:title, @authorization[:language]) %></h4>
@@ -22,9 +14,15 @@
     </ul>
   </div>
 <% end %>
+    <% if params[:respondent_id].present? %>
+       <div class="grey-box">
+         You are viewing the questionnaire of the respondent: <strong><%= User.find(params[:respondent_id]).full_name %></strong>
+       </div>
+    <% end %>
+
     <%= render "sections/sticky_toolbar" %>
 
-<div id="questionnaire_submission" class="span-24 last">
+    <div id="questionnaire_submission" class="span-24 last" data-respondent_id=<%=@respondent.try(:id)%>>
   <div>
     <div>
       <%= raw (current_user && current_user.role?(:delegate) && current_user != @authorization[:user]) ? " | <a href='#' id='toggle_delegation_details'>#{t 'tab_details.delegation_sections'}</a>" : "" %>

@@ -22,14 +22,16 @@
 
 class OrtSanitize
 
-  def self.white_space_cleanse text_obj
+  def self.white_space_cleanse text_obj, sanitize=true
     if text_obj
       text_obj = text_obj.gsub("<br />", "\n")
       text_obj = text_obj.gsub("\t", " ")
-      sanitized = Sanitize.clean(text_obj, Config::PRAWN)
-      if sanitized
-        return sanitized.gsub(/&#13;$/,"\n").gsub(/&#([0-9]*);$/," ").squeeze(" ").gsub(%r{( )*(\r)+}, "").squeeze("\n").strip
+      if sanitize
+        sanitized = Sanitize.clean(text_obj, Config::PRAWN)
+      else # Used to generate pdf correctly without stripping < for text answers
+        text_obj = text_obj.gsub("<", "&lt;")
       end
+      return (sanitized || text_obj).gsub(/&#13;$/,"\n").gsub(/&#([0-9]*);$/," ").squeeze(" ").gsub(%r{( )*(\r)+}, "").squeeze("\n").strip
     end
     ""
   end
@@ -41,7 +43,8 @@ class OrtSanitize
                     'colgroup', 'dd', 'dl', 'dt', 'em', 'h1', 'h2', 'h3', 'h4', 'h5', 'h6',
                     'i', 'img', 'li', 'ol', 'p', 'pre', 'q', 'small', 'strike', 'strong',
                     'sub', 'sup', 'table', 'tbody', 'td', 'tfoot', 'th', 'thead', 'tr', 'u',
-                    'ul', 'span', 'em'],
+                    'ul', 'span', 'em'
+            ],
 
             :attributes => {
                     'a'          => ['href', 'title', 'target'],
@@ -69,16 +72,14 @@ class OrtSanitize
             }
     }
     PRAWN = {
-      :elements => [
-        'a', 'b', 'h1','i', 'u', 'strong'],
+      :elements => ['a', 'b', 'h1','i', 'u', 'strong'],
 
       :attributes => {
         'a'          => ['href', 'title', 'target']
       },
 
       :protocols => {
-        'a'          => {'href' => ['ftp', 'http', 'https', 'mailto',
-                                    :relative]}
+        'a'          => {'href' => ['ftp', 'http', 'https', 'mailto', :relative]}
       },
       :allowed_entities => ['amp']
     }

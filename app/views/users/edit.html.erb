@@ -101,25 +101,19 @@
                     </tbody>
                   </table>
               <% end -%>
-
-                <div class="clear">
-                  <div class="page-header">
-                    <h3><%= t("user_edit.roles") %></h3>
-                  </div>
-                  <ul>
-                    <%= hidden_field_tag "user[role_ids][]", "" %>
-                    <% for role in Role.all %>
-                        <li><label><%=h role.name.titleize %></label><%= check_box_tag "user[role_ids][]", role.id, (@user.role? role.name.to_sym), {:id => "user_#{role.id}" } %></li>
-                    <% end -%>
-                  </ul>
-                </div>
+              <%= render "roles" %>
             <% else -%>
-                <% role = current_user.role?(:respondent) ? Role.find_by_name('respondent') : Role.find_by_name('delegate') -%>
                 <div>
-                  <li><label>Role</label> <%= role.name.titleize %></li>
-                  <%= f.hidden_field :role_ids, :value => role.id %>
+                  <label>Roles</label>
+                  <div>
+                    <% current_user.roles.each do |role| %>
+                      <li><%= role.name.titleize %></li>
+                    <% end %>
+                  </div>
+                  <%#= f.hidden_field :role_ids, :value => role.id %>
                 </div>
             <% end -%>
+
         </fieldset>
         <p><%= f.submit t("generic.update") %></p>
     <% end -%>

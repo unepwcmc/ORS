@@ -110,6 +110,7 @@ function saveDirtyAnswers() {
   vals += '&save_from_button='+$('#save_from_button').val();
   vals += '&timed_save='+$('#timed_save').val();
   vals += '&auto_save='+$('#auto_save').val();
+  vals += '&respondent_id='+$('#questionnaire_submission').data('respondent_id')
 
   $('input.dirty, textarea.dirty, select.dirty').removeClass('dirty');
 
@@ -290,7 +291,7 @@ function set_state_identifier(id, state, altText) {
   var icons = {
     newSection: "<i class='fa fa-asterisk background inverse info obj_tooltip' title='New Section'></i>",
     completeSection: "<i class='fa fa-check-circle background inverse success obj_tooltip' title='Section has been completed'></i>",
-    someQuestionsUnanswered: "<i class='fa fa-exclamation-triangle background inverse warning obj_tooltip' title='Some questions unanswered'></i>",
+    someQuestionsUnanswered: "<i class='fa fa-plus-circle background inverse success obj_tooltip' title='Some questions unanswered'></i>",
     mandatoryQuestionsUnanswered: "<i class='fa fa-exclamation-triangle background inverse warning obj_tooltip' title='Some questions unanswered'></i>",
     allQuestionsUnanswered: "<i class='fa fa-times-circle background inverse info obj_tooltip' title='All questions unanswered'></i>",
     findIcon: function(n){

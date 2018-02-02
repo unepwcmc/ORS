@@ -1,22 +1,24 @@
 <% content_for :subnav do %>
-  <ul>
-    <li title="<%= t('administration_help.manage_q')%>">
-      <%= sub_nav_link_with_class "Manage Questionnaires", questionnaires_path %>
-    </li>
-    <li title="<%= t('administration_help.new_q') %>">
-      <%= sub_nav_link_with_class "New Questionnaire", new_questionnaire_path %>
-    </li>
-    <li title="<%= t('administration_help.duplicate_q') %>">
-      <%= sub_nav_link_with_class "Duplicate Questionnaire", duplicate_questionnaires_path %>
-    </li>
-    <li title="<%= t('administration_help.manage_u') %>">
-      <%= sub_nav_link_with_class "Manage Users", users_path %>
-    </li>
-    <li title="<%= t('administration_help.q_answers')%>">
-      <%= sub_nav_link_with_class "Search Responses", search_questionnaires_path %>
-    </li>
-    <li title="<%= t('administration_help.q_answers')%>">
-      <%= sub_nav_link_with_class "Manage Reminders", reminders_path %>
-    </li>
-  </ul>
+  <% if current_user.role?(:admin) %>
+    <ul>
+      <li title="<%= t('administration_help.manage_q')%>">
+        <%= sub_nav_link_with_class "Manage Questionnaires", questionnaires_path %>
+      </li>
+      <li title="<%= t('administration_help.new_q') %>">
+        <%= sub_nav_link_with_class "New Questionnaire", new_questionnaire_path %>
+      </li>
+      <li title="<%= t('administration_help.duplicate_q') %>">
+        <%= sub_nav_link_with_class "Duplicate Questionnaire", duplicate_questionnaires_path %>
+      </li>
+      <li title="<%= t('administration_help.manage_u') %>">
+        <%= sub_nav_link_with_class "Manage Users", users_path %>
+      </li>
+      <li title="<%= t('administration_help.q_answers')%>">
+        <%= sub_nav_link_with_class "Search Responses", search_questionnaires_path %>
+      </li>
+      <li title="<%= t('administration_help.q_answers')%>">
+        <%= sub_nav_link_with_class "Manage Reminders", reminders_path %>
+      </li>
+    </ul>
+  <% end %>
 <% end %>

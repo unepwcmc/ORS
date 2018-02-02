@@ -8,6 +8,8 @@ class Role < ActiveRecord::Base
 
   has_many :users, :through => :assignments
   has_many :assignments, :dependent => :destroy
+
+  scope :order_by_index, -> { order(:order_index) }
 end
 
 # == Schema Information

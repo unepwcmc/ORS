@@ -70,13 +70,20 @@ class DelegationSectionsController < ApplicationController
     @section = @delegation_section.section
     loop_item_names = @delegation_section.delegated_loop_item_names.map(&:loop_item_name_id)
     if @delegation.from_submission? && @delegation.delegation_sections.count == 1
+      @user_delegate_id = @delegation.user_delegate_id
       @delegation.destroy
     else
       @delegation_section.destroy
     end
     flash[:notice] = t('delegate_section.removed_success')
     respond_to do |format|
-      format.html { redirect_to delegation_path(@delegation) }
+      format.html {
+        if @user_delegate_id.present?
+          redirect_to user_delegate_path(@user_delegate_id)
+        else
+          redirect_to delegation_path(@delegation)
+        end
+      }
       format.js { render js: "location.reload()" }
     end
   end

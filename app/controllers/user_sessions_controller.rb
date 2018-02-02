@@ -10,6 +10,8 @@ class UserSessionsController < ApplicationController
       flash[:notice] = t('flash_messages.logged_successfully')
       if @user_session.user.role?(:admin)
         redirect_to administration_path
+      elsif @user_session.user.role?(:respondent_admin)
+        redirect_to respondent_admin_path
       else
         redirect_to_target_or_default(root_url)
       end

@@ -105,6 +105,7 @@ en:
     root_section_th: 'Main Section'
     loop_th: 'Loop items'
     whole_q: "You have been delegated with the whole questionnaire."
+    no_questionnaires_available: 'There are no questionnaires available for this respondent'
   delegate_section:
     delegate_section: "Delegate section"
     delegate_this_section: "Delegate this section:"
@@ -139,12 +140,25 @@ en:
       If a delegation does not have any sections associated with it it will mean that the delegate will be able to answer every question of the questionnaire. You can limit the delegate's
       access by adding a set of sections to that delegation. Delegating a section of a questionnaire will give access to that section and to that section's descendant sections."
     delegate_details: "Delegate name"
+    select_delegate: "Select an existing delegate"
+    create_delegate: "Create a new delegate"
+    already_a_delegate: "This user is already in your list of delegates."
+    email_already_a_delegate: "The user with that email is already in your list of delegates."
+    allow_super_delegate: "Allow this delegate to overwrite text answers."
   manage_delegates:
+    manage_my_delegations: "Manage my Delegations"
     manage_delegates: 'Manage Delegates'
     title: "Delegates"
-    u_have_delegates: "You have the following delegates"
-    u_are_delegate: "You are a delegate of"
-    delegate_q: "Delegate questionnaire"
+    admin_title: "Manage Delegates of"
+    admin_delegate_title: "Manage Delegators of"
+    manage_your_delegates: "Manage your delegates"
+    manage_your_delegators: "Manage your delegators"
+    u_have_delegates: "You have the following Delegates"
+    u_are_delegate: "You are a Delegate of"
+    u_are_delegator: "You are a Delegator of"
+    user_has_delegates: "has the following Delegates"
+    user_is_a_delegate: "is a Delegate of"
+    delegate_q: "Delegate new questionnaire"
     delegate_details: "Delegate details"
     delegator_details: "Delegator details"
     delegated_q_t: "Delegated Questionnaires"
@@ -157,6 +171,7 @@ en:
     help_line: "<p>A delegate is a user that can help you fill your questionnaires. A delegate can be assigned with all the sections of your questionnaires or a subset of sections.You can add a delegate by clicking on the 'Add delegate' button.</p><p>For each of your delegates, listed in the table below, you have two available options: <strong>Show</strong>, and <strong>Remove</strong>. The <strong>Remove</strong> option will remove that delegate and all the delegations that were associated with it. The <strong>Show</strong> option will take you to a page with the details of the delegate, including the questionnaires that you have delegated it to.<p/><p>You can associate a delegate with a questionnaire directly from the questionnaire's submission page. Bare in mind that not all questionnaires have the delegation feature enabled.</p>"
     delegate_show_help: "You will be able to answer questionnaires on his behalf. See below a list of the questionnaires that you are authorised to answer."
     can_view_all_questionnaire: "When delegate is assigned limited sections, still allow delegate to view (but not edit) entire questionnaire."
+    no_delegations: "No current delegations"
   flash_messages:
     nothing_to_save: "Nothing to save"
     saved_successfully: "answers were successfully saved"
@@ -164,6 +179,7 @@ en:
     logged_out: "You have been logged out."
     sign_up_success: "Thank you for signing up! You are now logged in."
     delegate_success: "Delegate successfully added to the system."
+    user_success: "User successfully added to the system."
     update_profile_s: "Successfully updated the user profile."
     not_authorized: "You are not authorized to access this page."
     questionnaire_submitted: "You can not access this page because you have already submitted this questionnaire."
@@ -206,9 +222,10 @@ en:
     rank_limit_word_p: "choices"
     rank_choices_t:  "Your choices, ordered from first to last preferred."
     rank_choices_info:  "Deselect by clicking on the values."
+    mark_question_as_answered: "Mark question as answered"
   s_help:
     submit_title: "Submit"
-    submit_text:  "<p>After filling the questionnaire you can submit it by clicking this link. You will then receive an e-mail confirming the submission.</p><p>After submitting the questionnaire you will still be able to visit the page, but you will not be able to make any changes to your answers.</p>"
+    submit_text:  "<p>After filling the questionnaire you can submit it by clicking the 'submit questionnaire' button. You will then receive an e-mail confirming the submission.</p><p>After submitting the questionnaire you will still be able to visit the page, but you will not be able to make any changes to your answers.</p>"
     lang_change_title:  "Change language"
     lang_change_text: "<p>Questionnaires can have more than one language available, in which case you can choose which language to see it in.</p><p>You can change language at any point without jeopardizing your answers. The language you choose will be defined as your default language for this questionnaire.</p>"
     s_guidance_title: "Filling the questionnaire"
@@ -234,6 +251,7 @@ en:
     manage_u: "Manage users - This page presents a list of all users registered in the system and some of their characteristics, like name, e-mail, roles, groups and authorized questionnaires. It also allows you to search through the list of users, add or remove a user from a group and also add new users."
     q_answers: "Questionnaire Answers - Allows an administrator to view the answers to each question of a questionnaire."
   user_dashboard:
+    edit_my_account: "Edit my Account"
     welcome_msg: "Welcome"
     table_title: "Questionnaires for submission"
     edit_u: "Edit User"
@@ -280,7 +298,9 @@ en:
     already_registered: "Already have an account?"
     login: "Log in"
     add_delegate: "Add delegate"
+    add_delegate_for: "Add delegate for"
     role: "Role"
+    redundant_roles: "Admin and Respondent Admin or Delegate and Super Delegate can't be selected at the same time."
   user_session_new:
     title: "Log in"
     no_account: "Don't have an account?"

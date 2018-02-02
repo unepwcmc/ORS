@@ -7,7 +7,7 @@ $(function(){
     $("#part_loop_source_id").change(function(){
         var selectVal = $(this).val();
         if(selectVal != "")
-            $.ajax({url: RAILS_ROOT+'/loop_sources/'+selectVal+'/item_types/<%= @section.nil? ? "0" : @section.id%>', type: 'get', dataType: 'script'});
+            $.ajax({url: RAILS_ROOT+'/loop_sources/'+selectVal+'/item_types/edit/<%= @section.nil? ? "0" : @section.id%>', type: 'get', dataType: 'script'});
         else
         {
             $("#looping_categories").empty();

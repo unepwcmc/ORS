@@ -503,6 +503,8 @@ hr {
 
 .ui-dialog {
   padding: 1.25em;
+  max-height: 550px;
+  top: 20% !important;
 
   .ui-dialog-titlebar-close {
     border:none;
@@ -512,6 +514,11 @@ hr {
   .ui-dialog-titlebar {
     padding: 0 0 0.5em 0;
     //color: $blue;
+  }
+
+  .ui-dialog-content {
+    max-height: 450px;
+    overflow-y: auto;
   }
 }
 
@@ -595,7 +602,6 @@ hr {
   background: $blue;
   height: 65px;
   box-shadow: 0 5px 5px $grey-18;
-  width: 873px;
   text-align: right;
   padding: 0 20px;
 
@@ -647,6 +653,7 @@ hr {
 .datatable-filters__left {
 }
 .datatable-filters__right {
+  float: right;
 }
 
 .page-header-with-buttons {
@@ -799,6 +806,12 @@ hr {
   overflow: scroll;
 }
 
+.grey-box {
+  padding: 1.5em;
+  background-color: $grey-5;
+  color: $warning-light;
+}
+
 //OVERRIDES
 
 div.ui-dynatree-container {
@@ -822,3 +835,28 @@ div.ui-dynatree-container {
 li#s_answer_type { overflow: visible !important; }
 
 .pivot-table-loading { display: none; }
+
+.respondents-list {
+  display: none;
+  .respondents-table-container {
+    height: 500px;
+    overflow-y: scroll;
+  }
+}
+
+.select-delegation-questionnaire {
+  width: 400px;
+}
+
+.form-section {
+  margin: 20px 0;
+}
+
+.subtitle {
+  margin: 20px 0;
+  font-size: 16px;
+}
+
+.select-delegate-dropdown {
+  padding: 0 40px;
+}

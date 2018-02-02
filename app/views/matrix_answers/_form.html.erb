@@ -71,34 +71,36 @@
 
         <% else -%>
             <% j = 0 %>
+                <% matrix_answer_queries =  type.matrix_answer_queries.order('id DESC') %>
                 var queriesData = [
-                    <% type.matrix_answer_queries.sort{ |a, b| a.created_at <=> b.created_at }.each_index do |i| %>
+                    <% matrix_answer_queries.each_index do |i| %>
                         {
                             id: "<%= j %>",
-                            <% query_fields = type.matrix_answer_queries[i].matrix_answer_query_fields.sort_by{|a| a.is_default_language? ? 0 : 1} %>
+                            <% query_fields = matrix_answer_queries[i].matrix_answer_query_fields.sort_by{|a| a.is_default_language? ? 0 : 1} %>
                             <% query_fields.each_with_index do |qf, n| %>
                               "<%= qf.language_english_name %>": "<%= escape_javascript(qf.title) %>"<%= "," if n < query_fields.size %>
                             <% end %>
-                            <%#= ", " + type.matrix_answer_queries[i].matrix_answer_query_fields.sort_by{ |a| a.is_default_language? ? 0 : 1 }.map{|a| "#{a.language_english_name} : '#{h(a.title)}'"}.join(', ') %>
+                            <%#= ", " + matrix_answer_queries[i].matrix_answer_query_fields.sort_by{ |a| a.is_default_language? ? 0 : 1 }.map{|a| "#{a.language_english_name} : '#{h(a.title)}'"}.join(', ') %>
                         }
-                        <% if i < type.matrix_answer_queries.size %>
+                        <% if i < matrix_answer_queries.size %>
                                 ,
                         <% end -%>
                         <% j += 1 %>
                     <% end -%>
                 ];
             <% j = 0 %>
+                <% matrix_answer_options =  type.matrix_answer_options.order('id DESC') %>
                 var optionsData = [
-                    <% type.matrix_answer_options.sort{|a,b| a.created_at <=> b.created_at }.each_index do |i| %>
+                    <% matrix_answer_options.each_index do |i| %>
                         {
                           id: "<%= j %>",
-                          <% option_fields = type.matrix_answer_options[i].matrix_answer_option_fields.sort_by{|a| a.is_default_language? ? 0 : 1} %>
+                          <% option_fields = matrix_answer_options[i].matrix_answer_option_fields.sort_by{|a| a.is_default_language? ? 0 : 1} %>
                           <% option_fields.each_with_index do |of, n| %>
                             "<%= of.language_english_name %>": "<%= escape_javascript(of.title) %>"<%= "," if n < option_fields.size %>
                           <% end %>
-                          <%#= ", " + type.matrix_answer_options[i].matrix_answer_option_fields.sort_by{ |a| a.is_default_language? ? 0 : 1 }.map{|a| "#{a.language_english_name} : '#{h(a.title)}'"}.join(', ') %>
+                          <%#= ", " + matrix_answer_options[i].matrix_answer_option_fields.sort_by{ |a| a.is_default_language? ? 0 : 1 }.map{|a| "#{a.language_english_name} : '#{h(a.title)}'"}.join(', ') %>
                         }
-                        <% if i < type.matrix_answer_options.size %>
+                        <% if i < matrix_answer_options.size %>
                             ,
                         <% end -%>
                         <% j += 1 %>
@@ -107,17 +109,18 @@
                 var dropOptionsData = [];
             <% if type.display_reply == 3 -%>
             <% j = 0 %>
+                <% matrix_answer_drop_options =  type.matrix_answer_drop_options.order('id DESC') %>
                 dropOptionsData = [
-                    <% type.matrix_answer_drop_options.sort{|a,b| a.created_at <=> b.created_at }.each_index do |i| %>
+                    <% matrix_answer_drop_options.each_index do |i| %>
                         {
                             id: "<%= j %>",
-                            <% drop_option_fields = type.matrix_answer_drop_options[i].matrix_answer_drop_option_fields.sort_by{|a| a.is_default_language? ? 0 : 1} %>
+                            <% drop_option_fields = matrix_answer_drop_options[i].matrix_answer_drop_option_fields.sort_by{|a| a.is_default_language? ? 0 : 1} %>
                             <% drop_option_fields.each_with_index do |dof, n| %>
                               "<%= dof.language_english_name %>": "<%= escape_javascript(dof.option_text) %>"<%= "," if n < drop_option_fields.size %>
                             <% end %>
-                            <%#= ", " + type.matrix_answer_drop_options[i].matrix_answer_drop_option_fields.sort_by{ |a| a.is_default_language? ? 0 : 1 }.map{|a| "#{a.language_english_name} : '#{h(a.option_text)}'"}.join(', ') %>
+                            <%#= ", " + matrix_answer_drop_options[i].matrix_answer_drop_option_fields.sort_by{ |a| a.is_default_language? ? 0 : 1 }.map{|a| "#{a.language_english_name} : '#{h(a.option_text)}'"}.join(', ') %>
                         }
-                        <% if i < type.matrix_answer_drop_options.size %>
+                        <% if i < matrix_answer_drop_options.size %>
                             ,
                         <% end -%>
                         <% j += 1 %>

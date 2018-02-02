@@ -40,6 +40,7 @@ gem 'axlsx', git: 'https://github.com/randym/axlsx', branch: 'release-3.0.0'
 gem 'nokogiri', '~> 1.7.1'
 
 gem 'redis'
+gem 'redis-session-store'
 gem 'sidekiq'
 gem 'sidekiq-status'
 gem 'sinatra', :require => nil
