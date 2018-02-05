@@ -30,7 +30,8 @@ class AnswersController < ApplicationController
     @authorization = current_user ? current_user.authorization_for(@question, @current_user_delegate.try(:id)) : false
     raise CanCan::AccessDenied.new(t("flash_messages.#{@authorization ? @authorization[:error_message] : "not_authorized"}")) if !@authorization || @authorization[:error_message]
     I18n.locale = @authorization[:language]
-    @answer = Answer.find_or_create_by_question_id_and_questionnaire_id_and_user_id_and_looping_identifier(@question.id, @question.section.root.questionnaire.id, @authorization[:user].id, params[:looping_identifier])
+    user_id = params[:respondent_id] || @authorization[:user].id
+    @answer = Answer.find_or_create_by_question_id_and_questionnaire_id_and_user_id_and_looping_identifier(@question.id, @question.section.root.questionnaire.id, user_id, params[:looping_identifier])
     @answer.documents.build
     respond_to do |format|
       format.js
@@ -42,7 +43,8 @@ class AnswersController < ApplicationController
     @authorization = current_user ? current_user.authorization_for(@question, @current_user_delegate.try(:id)) : false
     raise CanCan::AccessDenied.new(t("flash_messages.#{@authorization ? @authorization[:error_message] : "not_authorized"}")) if !@authorization || @authorization[:error_message]
     I18n.locale = @authorization[:language]
-    @answer = Answer.find_or_create_by_question_id_and_questionnaire_id_and_user_id_and_looping_identifier(@question.id, @question.section.root.questionnaire.id, @authorization[:user].id, params[:looping_identifier])
+    user_id = params[:respondent_id] || @authorization[:user].id
+    @answer = Answer.find_or_create_by_question_id_and_questionnaire_id_and_user_id_and_looping_identifier(@question.id, @question.section.root.questionnaire.id, user_id, params[:looping_identifier])
     @answer.answer_links.build
     respond_to do |format|
       format.js

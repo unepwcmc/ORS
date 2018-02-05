@@ -3,9 +3,9 @@
     <% if answer_type_help_text -%>
       <%= tooltip((field_to_use && field_to_use.short_title ? field_to_use.short_title : ""), answer_type_help_text) %> <% end -%>
     <% if question.allow_attachments? -%>
-      <%= link_to fa_icon('paperclip', alt: 't("submission_pages.attach_files")) + " " + t("submission_pages.attach_files")', class: 'background inverse info'), add_document_answer_path(question, :looping_identifier => looping_identifier, :user_delegate => @current_user_delegate.try(:id)), :class => "get" %>
+      <%= link_to fa_icon('paperclip', alt: 't("submission_pages.attach_files")) + " " + t("submission_pages.attach_files")', class: 'background inverse info'), add_document_answer_path(question, looping_identifier: looping_identifier, user_delegate: @current_user_delegate.try(:id), respondent_id: params[:respondent_id]), :class => "get" %>
 
-      <%= link_to fa_icon('link', alt: "t('submission_pages.attach_links')", class: 'background inverse info'), add_links_answer_path(question, :looping_identifier => looping_identifier, :user_delegate => @current_user_delegate.try(:id)), :class => "get" %>
+      <%= link_to fa_icon('link', alt: "t('submission_pages.attach_links')", class: 'background inverse info'), add_links_answer_path(question, looping_identifier: looping_identifier, user_delegate: @current_user_delegate.try(:id), respondent_id: params[:respondent_id]), :class => "get" %>
     <% end -%>
   </div>
 
