@@ -243,7 +243,17 @@ module PivotTables
       multi_answers.each do |ma|
         idx = index_hash[[ma.question_id.to_i, 'code', ma.looping_identifier]]
         result[idx] = ma.option_code if idx.present?
-        result[index_hash[[ma.question_id.to_i, nil, ma.looping_identifier]]] = ma.details_text
+        if idx.present?
+          result[idx] = ma.option_code
+          result[index_hash[[ma.question_id.to_i, nil, ma.looping_identifier]]] = ma.details_text
+        else
+          #TODO The real fix here is just to leave this line in the each block
+          # The bug of the multiple answers per user is also causing a bug here
+          # having code displayed in the wrong column or both
+          # That's probably also because question 2.6 for example has some answers which
+          # accept details field and others don't
+          result[index_hash[[ma.question_id.to_i, nil, ma.looping_identifier]]] = ma.option_code
+        end
       end
 
       numeric_answers = numeric_answer_answers_rel(questions_rel).where(user_id: respondent.user_id)
