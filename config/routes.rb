@@ -96,6 +96,8 @@ OnlineReportingTool::Application.routes.draw do
       put :open
       get :to_csv
       get :download_csv
+      get :generate_pivot_tables
+      get :download_pivot_tables
       get :structure_ordering
       get :jstree
       put :move_questionnaire_part

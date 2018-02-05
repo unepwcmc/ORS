@@ -47,4 +47,12 @@ class ApplicationProfile < ActiveRecord::Base
     ApplicationProfile.first.try(:show_sign_up)
   end
 
+  # Since the pivot tables output is a specialised one created for Ramsar,
+  # with requirements on data presence and structure unlikely to be found
+  # elsewhere, enable this only for the Ramsar instance.
+  def self.pivot_tables_download_enabled?
+    !!(title =~ /ramsar/i) ||
+    !!(short_title =~ /ramsar/i) ||
+    !!(sub_title =~ /ramsar/i)
+  end
 end

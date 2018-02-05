@@ -384,6 +384,23 @@ class QuestionnairesController < ApplicationController
     end
   end
 
+  def generate_pivot_tables
+    PivotTables::Generator.new(@questionnaire).run
+    flash[:notice] = "Pivot Table has been generated."
+    respond_to do |format|
+      format.js { render inline: 'location.reload();' }
+    end
+  end
+
+  def download_pivot_tables
+    if PivotTables.available_for_download?(@questionnaire)
+      send_file PivotTables.last_generated_file_path(@questionnaire), type: 'xls'
+    else
+      flash[:error] = "It was not possible to download the requested file. Please generate the file again. Thank you."
+      redirect_to questionnaires_path
+    end
+  end
+
   def send_deadline_warning
     @questionnaire = Questionnaire.find(params[:questionnaire_id])
     user = User.find(params[:user_id])
