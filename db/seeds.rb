@@ -38,12 +38,12 @@ user_created = false
 user =  User.where(email: "admin@unep-wcmc.org").first_or_create do |u|
           u.first_name            = "My"
           u.last_name             = "Admin"
-          u.password              = "admin"
-          u.password_confirmation = "admin"
+          u.password              = Rails.application.secrets[:admin_pwd]
+          u.password_confirmation = Rails.application.secrets[:admin_pwd]
 
           user_created = true
 
-          puts "Admin user created with... \n\t Email: #{u.email} \n\t Password: admin"
+          puts "Admin user created with... \n\t Email: #{u.email}"
         end
 
 # Assign roles to admin user if it was just created
