@@ -20,6 +20,7 @@ module SectionsAndQuestionsShared
 
       private
       def destroy_answer_type
+        return true unless self.answer_type
         #return true without deleting the answer type if the answer_type is associated
         #with other objects (be it questions or sections)
         return true if self.is_a?(Question) &&
