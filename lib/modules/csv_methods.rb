@@ -41,7 +41,7 @@ class CsvMethods
       end
       csv << next_row
     end
-    the_section.questions.each do |q|
+    the_section.questions.order(:uidentifier).each do |q|
       q.to_csv(csv, submitters_ids, loop_sources, loop_item, looping_identifier)
     end
     the_section.children.each do |s|
