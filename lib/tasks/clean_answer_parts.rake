@@ -16,8 +16,6 @@ namespace :clean do
 
     answers = Answer.find_by_sql(sql)
 
-    cleaned_answer_ids = []
-
     puts "Nothing to clean!" unless answers.present?
 
 
@@ -30,18 +28,13 @@ namespace :clean do
       puts "Answer ID: #{answer.id}\n\n"
 
       old_answer_parts = aps.where("id <> ?", most_recent)
-      cleaned_answer_ids << old_answer_parts.map(&:answer_id)
-
       old_answer_parts.destroy_all
 
       puts "Other answer_parts destroyed!"
       puts "====================\n"
     end
 
-    if cleaned_answer_ids.present?
-      puts "List of cleaned answers:\n"
-      puts cleaned_answer_ids.join("\n")
-    end
+    puts "List of cleaned answers:\n #{answers.join('\n')}" if answers
 
   end
 end
