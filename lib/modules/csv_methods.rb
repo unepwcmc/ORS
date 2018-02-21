@@ -5,9 +5,17 @@ class CsvMethods
     puts "Opened file: #{file_location}"
     CSV.open(file_location, "w", {:col_sep => separator}) do |csv|
       #first row has the id's of the users that are authorized to fill a questionnaire.
-      submitters_ids = submitters.sort{ |a,b| a.first_name <=> b.first_name }.map(&:id)
-      submitters_head_line = submitters.sort{ |a,b| a.first_name <=> b.first_name }.map{ |a| "#{a.full_name} - #{a.email}" }
+      sorted_submitters = submitters.sort { |a,b| a.first_name <=> b.first_name }
+      submitters_ids = sorted_submitters.map(&:id)
+      submitters_head_line = sorted_submitters.map(&:full_name)
       csv << ["Section", "Question", "ID"] + submitters_head_line
+
+      #Add submitters info as rows at the top of the file
+      #Skip two rows as those are related to the Question title and uidentifer columns
+      csv << ["Region", '', ''] + sorted_submitters.map(&:region)
+      csv << ["Country", '', ''] + sorted_submitters.map(&:country)
+      csv << ["e-mail", '', ''] + sorted_submitters.map(&:email)
+
       Array(sections).each do |section|
         loop_sources = {}
         if section.looping? && !section.loop_item_type.filtering_field_id.present?
