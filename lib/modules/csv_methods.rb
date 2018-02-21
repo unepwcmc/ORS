@@ -79,6 +79,7 @@ class CsvMethods
         answer.answer_parts.each do |ap|
           if ap.field_type_type.present? && ["MultiAnswerOption", "RangeAnswerOption"].include?(ap.field_type_type)
             answer_text << ap.field_type.try(:option_text)
+            answer_text << ap.details_text if ap.field_type_type == "MultiAnswerOption"
           else
             answer_text << (ap.answer_text_in_english.present? ? "en: #{ap.answer_text_in_english} ||\n ol: ": "") + "#{ap.try(:answer_text)||""}"
           end
