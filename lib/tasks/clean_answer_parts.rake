@@ -34,7 +34,7 @@ namespace :clean do
       puts "====================\n"
     end
 
-    puts "List of cleaned answers:\n #{answers.map(&:id)}" if answers
+    puts "List of cleaned answers:\n #{answers.map(&:id)}" if answers.present?
 
   end
 end
