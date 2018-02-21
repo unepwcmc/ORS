@@ -7,7 +7,7 @@ class CsvMethods
       #first row has the id's of the users that are authorized to fill a questionnaire.
       submitters_ids = submitters.sort{ |a,b| a.first_name <=> b.first_name }.map(&:id)
       submitters_head_line = submitters.sort{ |a,b| a.first_name <=> b.first_name }.map{ |a| "#{a.full_name} - #{a.email}" }
-      csv << ["Section", "Question"] + submitters_head_line
+      csv << ["Section", "Question", "ID"] + submitters_head_line
       Array(sections).each do |section|
         loop_sources = {}
         if section.looping? && !section.loop_item_type.filtering_field_id.present?
@@ -29,7 +29,7 @@ class CsvMethods
   def self.export csv, the_section, submitters_ids, loop_sources, loop_item=nil, looping_identifier=nil
     #puts "Dealing with section #{the_section.id} for item: #{item.try(:item_name)}"
     if !the_section.is_hidden? && !the_section.questions.any?
-      next_row = Array.new(submitters_ids.size + 2)
+      next_row = Array.new(submitters_ids.size + 3)
       if loop_item
         next_row[0] = "." + "--"*the_section.level + OrtSanitize.white_space_cleanse(the_section.section_fields.find_by_is_default_language(true).loop_title(nil, loop_item))
       else
@@ -59,10 +59,11 @@ class CsvMethods
     end
   end
 
-  def self.answers_to_csv s_title, q_title, submitters_ids, answers
-    row = Array.new(submitters_ids.size + 2)
+  def self.answers_to_csv s_title, q_title, q_identifier, submitters_ids, answers
+    row = Array.new(submitters_ids.size + 3)
     row[0] = s_title
     row[1] = q_title
+    row[2] = q_identifier
     submitters_ids.each_with_index do |val, i|
       answer = answers[val.to_s]
       if answer
@@ -84,7 +85,7 @@ class CsvMethods
           answer_text << "Doc: #{document.doc.url.split('?')[0]}"
         end
         timestamp = " [[timestamp: #{answer.updated_at}]]"
-        row[i+2] = answer_text.join(" # ") << timestamp
+        row[i+3] = answer_text.join(" # ") << timestamp
       end
     end
     row

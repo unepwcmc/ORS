@@ -84,12 +84,13 @@ class MatrixAnswer < ActiveRecord::Base
     [saved, result]
   end
 
-  def self.to_csv csv, answer_type, s_title, q_title, submitters_ids, answers
+  def self.to_csv csv, answer_type, s_title, q_title, q_identifier, submitters_ids, answers
     answer_type.matrix_answer_queries.each do |maq|
 
-      row = Array.new(submitters_ids.size + 2)
+      row = Array.new(submitters_ids.size + 3)
       row[0] = s_title
       row[1] = q_title + "[#{maq.title}]"
+      row[2] = q_identifier
       submitters_ids.each_with_index do |val, i|
         answer_results = {}
         answer_from_submitter = answers[val.to_s]
@@ -109,7 +110,7 @@ class MatrixAnswer < ActiveRecord::Base
 
         result = answer_results.map{ |k,v| "#{k}=[#{v}]" }.join('&')
         result += " [[timestamp: #{answer_from_submitter.updated_at}]]" if answer_from_submitter
-        row[i+2] = result
+        row[i+3] = result
       end
       csv << row
     end
