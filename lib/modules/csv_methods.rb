@@ -45,7 +45,7 @@ class CsvMethods
       q.to_csv(csv, submitters_ids, loop_sources, loop_item, looping_identifier)
     end
     the_section.children.each do |s|
-      if s.looping? && !s.loop_item_type.filtering_field_id.present?
+      if s.looping? && s.loop_item_type && !s.loop_item_type.filtering_field_id.present?
         #item_names = s.loop_item_type.loop_item_names
         items = s.next_loop_items loop_item, loop_sources
         items.each do |item|
