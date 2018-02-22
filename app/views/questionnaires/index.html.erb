@@ -14,6 +14,12 @@
       </div>
   </div>
 
+  <div class='downloads'>
+    <%= link_to 'Download empty text answers report (CSV)', empty_text_answers_report_path %>
+    <% info_tip_text = 'Download a CSV file containing a list of questions with empty text answer and at least a delegate answer' %>
+    <%= info_tip('Empty text answers download', info_tip_text) %>
+  </div>
+
   <table id="questionnaires_index" class="tablesorter">
     <thead>
     <tr>

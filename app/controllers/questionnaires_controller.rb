@@ -375,6 +375,11 @@ class QuestionnairesController < ApplicationController
     end
   end
 
+  def empty_text_answers_report
+    filename = 'empty_text_answers_report.csv'
+    send_data Answer.empty_text_answers_to_csv, filename: filename, type: "text/csv"
+  end
+
   def download_csv
     if @questionnaire.csv_file.present? && File.exist?(@questionnaire.csv_file.location)
       send_file @questionnaire.csv_file.location, :type => "csv"
