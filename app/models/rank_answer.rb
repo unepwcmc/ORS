@@ -49,19 +49,21 @@ class RankAnswer < ActiveRecord::Base
       row[1] = q_title + "[Ranking Answer ##{option+1}]"
       row[2] = q_identifier
       submitters_ids.each_with_index do |val, i|
+        details_gap = i > 0 ? 1 : 0
+        index = i + details_gap + 3
         answer = answers[val.to_s]
         ap = ( answer ? answer.answer_parts.sort[option] : nil )
 
         timestamp = answer ? " [[timestamp: #{answer.updated_at}]]" : ""
         answer_text = ap ? ap.field_type.option_text : ""
-        row[i+3] = answer_text << timestamp
+        row[index] = answer_text << timestamp
 
         if answer
           answer.answer_links.each do |link|
-            row[i+3] << "#URL: #{link.url}"
+            row[index] << "#URL: #{link.url}"
           end
           answer.documents.each do |document|
-            row[i+3] << "#Doc: #{document.doc.url.split('?')[0]}"
+            row[index] << "#Doc: #{document.doc.url.split('?')[0]}"
           end
         end
       end
