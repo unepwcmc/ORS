@@ -49,8 +49,7 @@ class RankAnswer < ActiveRecord::Base
       row[1] = q_title + "[Ranking Answer ##{option+1}]"
       row[2] = q_identifier
       submitters_ids.each_with_index do |val, i|
-        details_gap = i > 0 ? 1 : 0
-        index = i + details_gap + 3
+        index = (i*2) + 3
         answer = answers[val.to_s]
         ap = ( answer ? answer.answer_parts.sort[option] : nil )
 

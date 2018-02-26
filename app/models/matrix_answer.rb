@@ -92,8 +92,7 @@ class MatrixAnswer < ActiveRecord::Base
       row[1] = q_title + "[#{maq.title}]"
       row[2] = q_identifier
       submitters_ids.each_with_index do |val, i|
-        details_gap = i > 0 ? 1 : 0
-        index = i + details_gap + 3
+        index = (i*2) + 3
         answer_results = {}
         answer_from_submitter = answers[val.to_s]
         answer_part = answer_from_submitter.answer_parts.find_by_field_type_id(maq.id) if answer_from_submitter

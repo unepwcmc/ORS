@@ -74,14 +74,14 @@ class CsvMethods
     row[1] = q_title
     row[2] = q_identifier
     submitters_ids.each_with_index do |val, i|
-      gap = i > 0 ? 1 : 0
       answer = answers[val.to_s]
       if answer
         answer_text = []
+        answer_details = ''
         answer.answer_parts.each do |ap|
           if ap.field_type_type.present? && ["MultiAnswerOption", "RangeAnswerOption"].include?(ap.field_type_type)
             answer_text << ap.field_type.try(:option_text)
-            row[i+gap+4] = ap.details_text if ap.field_type_type == "MultiAnswerOption"
+            answer_details = ap.details_text if ap.field_type_type == "MultiAnswerOption"
             #answer_text << ap.details_text if ap.field_type_type == "MultiAnswerOption"
           else
             answer_text << (ap.answer_text_in_english.present? ? "en: #{ap.answer_text_in_english} ||\n ol: ": "") + "#{ap.try(:answer_text)||""}"
@@ -97,7 +97,8 @@ class CsvMethods
           answer_text << "Doc: #{document.doc.url.split('?')[0]}"
         end
         timestamp = " [[timestamp: #{answer.updated_at}]]"
-        row[i+gap+3] = answer_text.join(" # ") << timestamp
+        row[(i*2)+3] = answer_text.join(" # ") << timestamp
+        row[(i*2)+4] = answer_details
       end
     end
     row
