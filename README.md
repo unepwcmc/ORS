@@ -29,7 +29,7 @@ and is used in this application to store background jobs
 3 Go into the application folder and switch to Ruby 2.0 branch
 
 ````
-    cd online_reporting_tool
+    cd ORS
     git checkout master
 ````
 
