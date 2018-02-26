@@ -23,13 +23,13 @@ and is used in this application to store background jobs
 2 Clone Github Repository into your desired directory
 
 ````
-    git clone git@github.com:unepwcmc/online_reporting_tool.git
+    git clone https://github.com/unepwcmc/ORS
 ````
 
 3 Go into the application folder and switch to Ruby 2.0 branch
 
 ````
-    cd online_reporting_tool
+    cd ORS
     git checkout master
 ````
 
@@ -52,13 +52,13 @@ After installing this software run "bundle install" again.
     rake db:migrate
     rake db:seed
 ````
-    
+
 7 Fire up your server
 
 ````
     rails server
 ````    
-    
+
 8 And visit the home page in:
 
 ````
