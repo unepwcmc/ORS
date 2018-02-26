@@ -202,10 +202,11 @@ class Question < ActiveRecord::Base
       s_title += " - This section depends on the option #{self.section.depends_on_option.multi_answer_option_fields.find_by_is_default_language(true).option_text}
                        being #{self.section.depends_on_option_value? ? "selected" : "not selected"}, for question #{self.section.depends_on_question.title} of #{self.section.depends_on_question.section.title}"
     end
+    q_identifier = self.uidentifier
     if [MultiAnswer, NumericAnswer, RangeAnswer, TextAnswer].include?(self.answer_type.class)
-      csv << CsvMethods.answers_to_csv(s_title, q_title, submitters_ids, answers)
+      csv << CsvMethods.answers_to_csv(s_title, q_title, q_identifier, submitters_ids, answers)
     else
-      self.answer_type.class.to_csv(csv, self.answer_type, s_title, q_title, submitters_ids, answers)
+      self.answer_type.class.to_csv(csv, self.answer_type, s_title, q_title, q_identifier, submitters_ids, answers)
     end
   end
 

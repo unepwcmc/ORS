@@ -9,6 +9,7 @@ OnlineReportingTool::Application.routes.draw do
   match 'loop_sources/:id/item_types/edit/:section_id' => 'loop_sources#item_types', :as => :loop_source_item_types
   match 'questionnaires/:questionnaire_id/authorized_submitters/add/:users' => 'authorized_submitters#add', :as => :authorize_submitter, :method => 'post'
   match 'questionnaires/:questionnaire_id/authorized_submitters/remove/:user_id' => 'authorized_submitters#remove', :as => :remove_authorized_submitter, :method => 'post'
+  match 'questionnaires/empty_text_answers_report' => 'questionnaires#empty_text_answers_report', as: :empty_text_answers_report
 
   mount Sidekiq::Web => '/sidekiq'
 
@@ -109,8 +110,8 @@ OnlineReportingTool::Application.routes.draw do
       get :sections
     end
 
-    match 'send_deadline_warning/:user_id' => 'questionnaires#send_deadline_warning', :as => :send_deadline_warning
-    match 'download_user_pdf/:user_id' => 'questionnaires#download_user_pdf', :as => :download_user_pdf
+    match 'send_deadline_warning/:user_id' => 'questionnaires#send_deadline_warning', as: :send_deadline_warning
+    match 'download_user_pdf/:user_id' => 'questionnaires#download_user_pdf', as: :download_user_pdf
   end
 
   resources :questionnaire_parts do
