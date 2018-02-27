@@ -47,7 +47,6 @@
       <% end %>
     <% end %>
   <% end %>
-  debugger
   $("#delegate_section").empty().append("<%= escape_javascript( render :partial => "delegation_sections/delegate_section") %>").dialog("open");
   FormValidator.initialize($('#generator_form'));
   $("#select_all_items").click(function(e){
