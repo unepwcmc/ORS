@@ -375,9 +375,31 @@ class QuestionnairesController < ApplicationController
     end
   end
 
+  def empty_text_answers_report
+    filename = 'empty_text_answers_report.csv'
+    send_data Answer.empty_text_answers_to_csv, filename: filename, type: "text/csv"
+  end
+
   def download_csv
     if @questionnaire.csv_file.present? && File.exist?(@questionnaire.csv_file.location)
       send_file @questionnaire.csv_file.location, :type => "csv"
+    else
+      flash[:error] = "It was not possible to download the requested file. Please generate the file again. Thank you."
+      redirect_to questionnaires_path
+    end
+  end
+
+  def generate_pivot_tables
+    PivotTables::Generator.new(@questionnaire).run
+    flash[:notice] = "Pivot Table has been generated."
+    respond_to do |format|
+      format.js { render inline: 'location.reload();' }
+    end
+  end
+
+  def download_pivot_tables
+    if PivotTables.available_for_download?(@questionnaire)
+      send_file PivotTables.last_generated_file_path(@questionnaire), type: 'xls'
     else
       flash[:error] = "It was not possible to download the requested file. Please generate the file again. Thank you."
       redirect_to questionnaires_path

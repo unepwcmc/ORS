@@ -191,6 +191,32 @@ class Answer < ActiveRecord::Base
     self.updated_at < self.question.created_at
   end
 
+  def self.empty_text_answers_to_csv
+    where_statement =
+      """
+        questions.answer_type_type = 'TextAnswer' AND
+        delegate_text_answers.answer_text IS NOT NULL
+        AND answers.id NOT IN ( SELECT answer_id FROM answer_parts)
+      """
+    empty_answers = Answer.includes(:questionnaire, :question, :user, :delegate_text_answers)
+                          .where(where_statement)
+    headers =  ["Questionnaire", "Question", "Email", "First name", "Last name"]
+
+    CSV.generate do |csv|
+      csv << headers
+      empty_answers.each do |answer|
+        questionnaire = answer.questionnaire.title
+        question = answer.question.title
+        user = answer.user
+        email = user.email
+        first_name = user.first_name
+        last_name = user.last_name
+
+        csv << [questionnaire, question, email, first_name, last_name]
+      end
+    end
+  end
+
 end
 
 # == Schema Information

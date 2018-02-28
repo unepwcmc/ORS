@@ -187,6 +187,24 @@
         <%= fa_icon 'file-pdf-o' %> <%= link_to "PDF Preview", to_pdf_questionnaire_path(questionnaire, :params => {:preview => true}) %>
       </div>
     </div>
+    <% if ApplicationProfile.pivot_tables_download_enabled? %>
+      <div class="row padded">
+        <div class="col col-5">
+          <% info_tip_text = "<p>This engine allows you to obtain a specialised pivot table XLS file.</p>"-%>
+          <strong>Pivot tables downloads <%= info_tip("XLS File", info_tip_text) %></strong>
+        </div>
+        <div class="col col-7 border-left">
+          <% if PivotTables.available_for_download?(@questionnaire) %>
+            <%= fa_icon 'file-excel-o' %> <%= link_to "Get file", download_pivot_tables_questionnaire_path(@questionnaire) %>
+            (Last generated on: <%= PivotTables.last_generated_on(questionnaire).strftime('%H:%M %b %d, %Y') %>)<br>
+          <% end %>
+          <div class='pivot-table-loading'>
+            <%= fa_icon 'spinner spin' %>
+            Pivot table is being generated and it can take some minutes.
+          </div>
+          <%= fa_icon 'refresh' %> <%= link_to "Regenerate", generate_pivot_tables_questionnaire_path(@questionnaire), :class => "get pivot-table-regenerate" %>
+        </div>
+    <% end %>
   </div>
 </div>
 

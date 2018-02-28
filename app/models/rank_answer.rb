@@ -41,26 +41,28 @@ class RankAnswer < ActiveRecord::Base
     [saved, result]
   end
 
-  def self.to_csv csv, answer_type, s_title, q_title, submitters_ids, answers
+  def self.to_csv csv, answer_type, s_title, q_title, q_identifier, submitters_ids, answers
     maximum_choices = answer_type.maximum_choices == -1 ? answer_type.rank_answer_options.size : answer_type.maximum_choices
     (0..maximum_choices).each do |option|
-      row = Array.new(submitters_ids.size + 2)
+      row = Array.new(submitters_ids.size + 3)
       row[0] = s_title
       row[1] = q_title + "[Ranking Answer ##{option+1}]"
+      row[2] = q_identifier
       submitters_ids.each_with_index do |val, i|
+        index = i + 3
         answer = answers[val.to_s]
         ap = ( answer ? answer.answer_parts.sort[option] : nil )
 
         timestamp = answer ? " [[timestamp: #{answer.updated_at}]]" : ""
         answer_text = ap ? ap.field_type.option_text : ""
-        row[i+2] = answer_text << timestamp
+        row[index] = answer_text << timestamp
 
         if answer
           answer.answer_links.each do |link|
-            row[i+2] << "#URL: #{link.url}"
+            row[index] << "#URL: #{link.url}"
           end
           answer.documents.each do |document|
-            row[i+2] << "#Doc: #{document.doc.url.split('?')[0]}"
+            row[index] << "#Doc: #{document.doc.url.split('?')[0]}"
           end
         end
       end
