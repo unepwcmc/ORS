@@ -8,14 +8,14 @@ class CsvMethods
       sorted_submitters = submitters.sort { |a,b| a.first_name <=> b.first_name }
       submitters_ids = sorted_submitters.map(&:id)
       submitters_head_line = sorted_submitters.map(&:full_name)
-      csv << ["Section", "Question", "ID"] + submitters_head_line.map { |s| [s, "Answer Details"]}.flatten
+      csv << ["Section", "Question", "ID"] + submitters_head_line
 
       #Add submitters info as rows at the top of the file
       #Skip two columns as those are related to the Question title and uidentifer columns
       #Skip extra column related to answer details
-      csv << ["Region", '', ''] + sorted_submitters.map { |s| [s.region, ''] }.flatten
-      csv << ["Country", '', ''] + sorted_submitters.map { |s| [s.country, ''] }.flatten
-      csv << ["e-mail", '', ''] + sorted_submitters.map { |s| [s.email, ''] }.flatten
+      csv << ["Region", '', ''] + sorted_submitters.map(&:region)
+      csv << ["Country", '', ''] + sorted_submitters.map(&:country)
+      csv << ["e-mail", '', ''] + sorted_submitters.map(&:email)
 
       Array(sections).each do |section|
         loop_sources = {}
@@ -73,6 +73,7 @@ class CsvMethods
     row[0] = s_title
     row[1] = q_title
     row[2] = q_identifier
+    details_row = []
     submitters_ids.each_with_index do |val, i|
       answer = answers[val.to_s]
       if answer
@@ -81,7 +82,12 @@ class CsvMethods
         answer.answer_parts.each do |ap|
           if ap.field_type_type.present? && ["MultiAnswerOption", "RangeAnswerOption"].include?(ap.field_type_type)
             answer_text << ap.field_type.try(:option_text)
-            answer_details = ap.details_text if ap.field_type_type == "MultiAnswerOption"
+            if ap.field_type_type == "MultiAnswerOption" && ap.field_type.details_field
+              details_row[0] = s_title
+              details_row[1] = "#{q_title} #Text"
+              details_row[2] = "#{q_identifier} #Text"
+              details_row[i+3] = ap.details_text
+            end
             #answer_text << ap.details_text if ap.field_type_type == "MultiAnswerOption"
           else
             answer_text << (ap.answer_text_in_english.present? ? "en: #{ap.answer_text_in_english} ||\n ol: ": "") + "#{ap.try(:answer_text)||""}"
@@ -97,10 +103,9 @@ class CsvMethods
           answer_text << "Doc: #{document.doc.url.split('?')[0]}"
         end
         timestamp = " [[timestamp: #{answer.updated_at}]]"
-        row[(i*2)+3] = answer_text.join(" # ") << timestamp
-        row[(i*2)+4] = answer_details
+        row[i+3] = answer_text.join(" # ") << timestamp
       end
     end
-    row
+    details_row.empty? ? row : [row, details_row]
   end
 end

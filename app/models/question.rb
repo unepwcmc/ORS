@@ -204,7 +204,8 @@ class Question < ActiveRecord::Base
     end
     q_identifier = self.uidentifier
     if [MultiAnswer, NumericAnswer, RangeAnswer, TextAnswer].include?(self.answer_type.class)
-      csv << CsvMethods.answers_to_csv(s_title, q_title, q_identifier, submitters_ids, answers)
+      csv_answers = CsvMethods.answers_to_csv(s_title, q_title, q_identifier, submitters_ids, answers)
+      csv_answers[0].is_a?(Array) ? csv << csv_answers[0] && csv << csv_answers[1] : csv << csv_answers
     else
       self.answer_type.class.to_csv(csv, self.answer_type, s_title, q_title, q_identifier, submitters_ids, answers)
     end
