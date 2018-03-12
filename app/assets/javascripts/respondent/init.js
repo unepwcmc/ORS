@@ -128,8 +128,15 @@ function saveDirtyAnswers() {
 // Event handlers to flag fields as changed, that can then be saved.
 function dirtyFlagging() {
   $("input[type='text'], textarea").blur(function() {
-   $(this).addClass('dirty');
-   disableSubmit();
+    // If the following is false, don't flag as dirty
+    // The problem still here is that if the text is written before the readio button is clicked,
+    // it won't be marked as dirty and the text won't be passed in to the backend
+    // This is fixed a few lines later in the change listener for radio buttons.
+   is_radio_type = $(this).parent().parent().find("input[type='radio']")
+   if((is_radio_type.length > 0 && $(is_radio_type).is(':checked')) || is_radio_type.length == 0) {
+     $(this).addClass('dirty');
+     disableSubmit();
+   }
   });
 
   $("input[type='checkbox']").change(function() {
@@ -148,17 +155,32 @@ function dirtyFlagging() {
 
   $("input[type='radio']").change(function() {
     var $el = $(this);
+    //trigger a custom deselect event to remove dirty flag to other radio buttons and details text
+    $('input[name="' + $(this).attr('name') + '"][type="radio"]').not($(this)).trigger('deselect');
 
-    if(!$el.is(':checked')) {
-      $el.prev("input[type='hidden']").addClass('dirty');
-      $el.removeClass('dirty');
-    } else {
-      $el.prev("input[type='hidden']").removeClass('dirty');
-      $el.addClass('dirty');
+    $el.prev("input[type='hidden']").removeClass('dirty');
+    //add dirty flag also on details text box, if present
+    details_text = $el.parent().find('textarea');
+    if(details_text.length) {
+      $(details_text).addClass('dirty');
     }
+    $el.addClass('dirty');
 
     disableSubmit();
   });
+
+  $('input[type="radio"]').bind('deselect', function(){
+    var $el = $(this);
+    //Commented next line which was causing problems when selecting some radio without details text
+    // $el.prev("input[type='hidden']").addClass('dirty');
+    //remove dirty flag also on details text box, if present
+    details_text = $el.parent().find('textarea');
+    if(details_text.length) {
+      $(details_text).removeClass('dirty');
+    }
+    $el.removeClass('dirty');
+    console.log($(this));
+  })
 
   $('select').change(function() {
     var $el = $(this);
