@@ -44,16 +44,17 @@ namespace :clean do
     filename = 'deleted_answers.csv'
 
     if index == 0
-      columns = ['Answer', 'Text', 'Part ID', 'Answer ID', 'Question ID', 'User ID',
-                 'Is deleted', 'Question Title', 'First name', 'Last name',
-                 'Country', 'Region', 'Timestamp', 'Precise Timestamp']
+      columns = ['Answer', 'Text', 'Part ID', 'Answer ID', 'MAO ID', 'MA ID',
+                 'Question ID', 'User ID', 'Is deleted', 'Question Title',
+                 'First name', 'Last name','Country', 'Region', 'Timestamp', 'Precise Timestamp']
 
       CSV.open(filename, 'w') { |csv| csv << columns }
     end
 
     ans = answer_parts.map do |ap|
       user = ap.answer.user
-      [ap.field_type.multi_answer_option_fields.first.option_text, ap.details_text, ap.id, ap.answer.id, ap.answer.question.id,
+      [ap.field_type.multi_answer_option_fields.first.option_text, ap.details_text, ap.id,
+       ap.answer.id, ap.field_type_id, ap.field_type.multi_answer_id, ap.answer.question.id,
        user.id, ap.id != most_recent, ap.answer.question.title, user.first_name, user.last_name,
        user.country, user.region, ap.updated_at, ap.updated_at.to_f]
     end
