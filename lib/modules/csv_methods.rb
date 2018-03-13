@@ -82,7 +82,7 @@ class CsvMethods
         answer.answer_parts.each do |ap|
           if ap.field_type_type.present? && ["MultiAnswerOption", "RangeAnswerOption"].include?(ap.field_type_type)
             answer_text << ap.field_type.try(:option_text)
-            if ap.field_type_type == "MultiAnswerOption" && ap.field_type.details_field
+            if ap.field_type_type == "MultiAnswerOption" && ap.field_type && ap.field_type.details_field
               details_row[0] = s_title
               details_row[1] = "#{q_title} #Text"
               details_row[2] = "#{q_identifier} #Text"
