@@ -155,16 +155,24 @@ function dirtyFlagging() {
 
   $("input[type='radio']").change(function() {
     var $el = $(this);
-    //trigger a custom deselect event to remove dirty flag to other radio buttons and details text
-    $('input[name="' + $(this).attr('name') + '"][type="radio"]').not($(this)).trigger('deselect');
 
-    $el.prev("input[type='hidden']").removeClass('dirty');
-    //add dirty flag also on details text box, if present
-    details_text = $el.parent().find('textarea');
-    if(details_text.length) {
-      $(details_text).addClass('dirty');
+    //this if is needed for the clear answers functionality to work
+    if(!$el.is(':checked')){
+      $el.prev("input[type='hidden']").addClass('dirty');
+      $el.removeClass('dirty');
     }
-    $el.addClass('dirty');
+    else {
+      //trigger a custom deselect event to remove dirty flag to other radio buttons and details text
+      $('input[name="' + $(this).attr('name') + '"][type="radio"]').not($(this)).trigger('deselect');
+
+      $el.prev("input[type='hidden']").removeClass('dirty');
+      //add dirty flag also on details text box, if present
+      details_text = $el.parent().find('textarea');
+      if(details_text.length) {
+        $(details_text).addClass('dirty');
+      }
+      $el.addClass('dirty');
+    }
 
     disableSubmit();
   });
