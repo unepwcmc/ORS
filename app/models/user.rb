@@ -287,15 +287,15 @@ class User < ActiveRecord::Base
       status[:line] += 1
       row_as_a = row.to_a
 
-      first_name = row_as_a[0].squeeze(" ").strip || ""
-      last_name = row_as_a[1].squeeze(" ").strip || ""
-      email = row_as_a[2].squeeze(" ").strip || nil
-      country = row_as_a[3].squeeze(" ").strip || nil
-      region = row_as_a[4].squeeze(" ").strip || nil
-      the_password = row_as_a[5].squeeze(" ").strip || "new_user_password"
+      first_name = row_as_a[0].present? ? row_as_a[0].squeeze(" ").strip : ""
+      last_name = row_as_a[1].present? ? row_as_a[1].squeeze(" ").strip : ""
+      email = row_as_a[2].present? ? row_as_a[2].squeeze(" ").strip : nil
+      country = row_as_a[3].present? ? row_as_a[3].squeeze(" ").strip : nil
+      region = row_as_a[4].present? ? row_as_a[4].squeeze(" ").strip : nil
+      the_password = row_as_a[5].present? ? row_as_a[5].squeeze(" ").strip : "new_user_password"
       language = row_as_a[6].present? && languages.include?(row_as_a[6].squeeze(" ").strip) ?  row_as_a[6].squeeze(" ").strip : "en"
       category = row_as_a[7].present? && ["Scientific Authority", "Management Authority"].include?(row_as_a[7].squeeze(" ").strip) ? row_as_a[7].squeeze(" ").strip : "Other"
-      group = row_as_a[8] ? row_as_a[8].squeeze(" ").strip : nil
+      group = row_as_a[8].present? ? row_as_a[8].squeeze(" ").strip : nil
 
       if !email.nil? && !User.find_by_email(email)
         new_user = User.create(
