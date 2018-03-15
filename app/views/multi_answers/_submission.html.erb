@@ -34,7 +34,9 @@
       <% if details_fields.include?(id) -%>
         <br />
         <div class="row group padded">
-          <%= text_area_tag "answers[#{the_id}_#{id.to_s}_details]", selection.include?(id) ? h(answer.answer_parts.find_by_field_type_id(id).details_text) : '', :size => "30x1", :disabled => disabled %>
+          <% details_text =  answer.answer_parts.find_by_field_type_id(id).details_text rescue '' %>
+          <% details_disabled = (disabled || !selection.include?(id)) %>
+          <%= text_area_tag "answers[#{the_id}_#{id.to_s}_details]", selection.include?(id) ? h(details_text) : '', size: "30x1", disabled: details_disabled %>
         </div>
       <% end -%>
       </li>

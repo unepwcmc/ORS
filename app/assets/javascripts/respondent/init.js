@@ -170,6 +170,7 @@ function dirtyFlagging() {
       details_text = $el.parent().find('textarea');
       if(details_text.length) {
         $(details_text).addClass('dirty');
+        $(details_text).removeAttr('disabled');
       }
       $el.addClass('dirty');
     }
@@ -185,6 +186,7 @@ function dirtyFlagging() {
     details_text = $el.parent().find('textarea');
     if(details_text.length) {
       $(details_text).removeClass('dirty');
+      $(details_text).attr('disabled', 'disabled')
     }
     $el.removeClass('dirty');
     console.log($(this));
