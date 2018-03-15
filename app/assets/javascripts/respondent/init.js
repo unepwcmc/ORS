@@ -142,11 +142,18 @@ function dirtyFlagging() {
   $("input[type='checkbox']").change(function() {
     var $el = $(this);
 
+    details_text = $el.parent().find('textarea');
+
     if(!$el.is(':checked')){
+      $el.trigger('deselect');
       $el.prev("input[type='hidden']").addClass('dirty');
       $el.removeClass('dirty');
     } else {
       $el.prev("input[type='hidden']").removeClass('dirty');
+      if(details_text.length) {
+        $(details_text).addClass('dirty');
+        $(details_text).removeAttr('disabled');
+      }
       $el.addClass('dirty');
     }
 
@@ -158,6 +165,7 @@ function dirtyFlagging() {
 
     //this if is needed for the clear answers functionality to work
     if(!$el.is(':checked')){
+      $el.trigger('deselect');
       $el.prev("input[type='hidden']").addClass('dirty');
       $el.removeClass('dirty');
     }
@@ -178,7 +186,7 @@ function dirtyFlagging() {
     disableSubmit();
   });
 
-  $('input[type="radio"]').bind('deselect', function(){
+  $('input[type="radio"], input[type="checkbox"]').bind('deselect', function(){
     var $el = $(this);
     //Commented next line which was causing problems when selecting some radio without details text
     // $el.prev("input[type='hidden']").addClass('dirty');
@@ -189,7 +197,6 @@ function dirtyFlagging() {
       $(details_text).attr('disabled', 'disabled')
     }
     $el.removeClass('dirty');
-    console.log($(this));
   })
 
   $('select').change(function() {

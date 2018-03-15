@@ -52,7 +52,8 @@
       <%= label_tag "answers[#{the_id}_-1]", @fields[:other_text_fields][answer_type.id.to_s] %>
       <br />
       <div class="group row padded">
-        <%= text_area_tag "answers[#{the_id}_other]", (answer.present? && answer.other_text.present? ) ? h(answer.other_text) : '', :size => "75x1", :disabled => disabled %>
+        <% other_disabled = (disabled || (answer.present? && !answer.other_text.present?)) %>
+        <%= text_area_tag "answers[#{the_id}_other]", (answer.present? && answer.other_text.present? ) ? h(answer.other_text) : '', :size => "75x1", :disabled => other_disabled %>
       </div>
       </li>
     <% end -%>
