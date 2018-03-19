@@ -1,3 +1,10 @@
+### 0.2.0 (2018-02-28)
+
+* Add pivot table download for questionnaires
+* Fix bug related to documents attached to answers
+* Fix and improve questionnaires CSV export
+* Update api views with more details for respondents
+
 ### 0.1.1 (2018-01-15)
 
 * New roles: Super Delegate, Respondent Admin

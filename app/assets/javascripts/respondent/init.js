@@ -128,18 +128,32 @@ function saveDirtyAnswers() {
 // Event handlers to flag fields as changed, that can then be saved.
 function dirtyFlagging() {
   $("input[type='text'], textarea").blur(function() {
-   $(this).addClass('dirty');
-   disableSubmit();
+    // If the following is false, don't flag as dirty
+    // The problem still here is that if the text is written before the readio button is clicked,
+    // it won't be marked as dirty and the text won't be passed in to the backend
+    // This is fixed a few lines later in the change listener for radio buttons.
+   is_radio_type = $(this).parent().parent().find("input[type='radio']")
+   if((is_radio_type.length > 0 && $(is_radio_type).is(':checked')) || is_radio_type.length == 0) {
+     $(this).addClass('dirty');
+     disableSubmit();
+   }
   });
 
   $("input[type='checkbox']").change(function() {
     var $el = $(this);
 
+    details_text = $el.parent().find('textarea');
+
     if(!$el.is(':checked')){
+      $el.trigger('deselect');
       $el.prev("input[type='hidden']").addClass('dirty');
       $el.removeClass('dirty');
     } else {
       $el.prev("input[type='hidden']").removeClass('dirty');
+      if(details_text.length) {
+        $(details_text).addClass('dirty');
+        $(details_text).removeAttr('disabled');
+      }
       $el.addClass('dirty');
     }
 
@@ -149,16 +163,41 @@ function dirtyFlagging() {
   $("input[type='radio']").change(function() {
     var $el = $(this);
 
-    if(!$el.is(':checked')) {
+    //this if is needed for the clear answers functionality to work
+    if(!$el.is(':checked')){
+      $el.trigger('deselect');
       $el.prev("input[type='hidden']").addClass('dirty');
       $el.removeClass('dirty');
-    } else {
+    }
+    else {
+      //trigger a custom deselect event to remove dirty flag to other radio buttons and details text
+      $('input[name="' + $(this).attr('name') + '"][type="radio"]').not($(this)).trigger('deselect');
+
       $el.prev("input[type='hidden']").removeClass('dirty');
+      //add dirty flag also on details text box, if present
+      details_text = $el.parent().find('textarea');
+      if(details_text.length) {
+        $(details_text).addClass('dirty');
+        $(details_text).removeAttr('disabled');
+      }
       $el.addClass('dirty');
     }
 
     disableSubmit();
   });
+
+  $('input[type="radio"], input[type="checkbox"]').bind('deselect', function(){
+    var $el = $(this);
+    //Commented next line which was causing problems when selecting some radio without details text
+    // $el.prev("input[type='hidden']").addClass('dirty');
+    //remove dirty flag also on details text box, if present
+    details_text = $el.parent().find('textarea');
+    if(details_text.length) {
+      $(details_text).removeClass('dirty');
+      $(details_text).attr('disabled', 'disabled')
+    }
+    $el.removeClass('dirty');
+  })
 
   $('select').change(function() {
     var $el = $(this);
