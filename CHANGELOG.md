@@ -1,3 +1,8 @@
+### 0.2.1 (2018-03-19)
+* Bugfixing
+  - Fix for a major bug for radio button answers with details text; multiple answers were submitted.
+  - Fix for nested looping sources answers not exported correctly to CSV.
+
 ### 0.2.0 (2018-02-28)
 
 * Add pivot table download for questionnaires
