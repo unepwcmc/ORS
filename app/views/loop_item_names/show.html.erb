@@ -25,7 +25,7 @@
     <% if @loop_item_name.loop_item_type.is_filtering_field? -%>
       <div class="row padded group">
         <div class="col col-3">Associated filtering field</div>
-        <div class="col col-9 border-left"><%= link_to h(@loop_item_name.loop_item_type.filtering_field.name), filtering_field_path(@loop_item_name.loop_item_type.filtering_field) %></div>
+        <div class="col col-9 border-left"><%= link_to h(@loop_item_name.loop_item_type.filtering_field.name), questionnaire_filtering_field_path(@loop_item_name.loop_item_type.filtering_field) %></div>
       </div>
     <% end -%>
     <% @loop_item_name.loop_item_name_fields.each do |field| %>
