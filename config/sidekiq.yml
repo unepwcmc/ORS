@@ -3,6 +3,7 @@
 #   sidekiq -C config.yml
 ---
 :verbose: false
+:pidfile: /tmp/pids/sidekiq.pid
 staging:
   :concurrency: 2
 production:
