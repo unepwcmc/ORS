@@ -31,12 +31,12 @@ class UsersController < ApplicationController
       @user.add_or_update_filtering_fields(params[:filtering_field]) if params[:filtering_field]
       url = "http://#{request.host}/"
       if !current_user
-        UserMailer.registration_confirmation(@user, url).deliver
-        User.administrators.each do |admin|
-          UserMailer
-            .admin_notification_registration_confirmation(admin, @user)
-            .deliver
-        end
+        #UserMailer.registration_confirmation(@user, url).deliver
+        #User.administrators.each do |admin|
+        #  UserMailer
+        #    .admin_notification_registration_confirmation(admin, @user)
+        #    .deliver
+        #end
       else
         UserMailer
           .user_registration(@user, params[:user][:password], url)
