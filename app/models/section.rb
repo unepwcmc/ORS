@@ -561,7 +561,14 @@ class Section < ActiveRecord::Base
   end
 
   def any_answers_from? user, loop_sources_items, loop_item, looping_identifier=nil
-    answers = Answer.find(:all, :conditions => {:question_id => self.questions.map(&:id), :user_id => user.id, :looping_identifier => looping_identifier})
+    answers = Answer.where(question_id: self.questions.map(&:id), user_id: user.id)
+    # Necessary because of what looks like a bug,
+    # which is assigning either 0 or nil for empty looping_identifiers
+    if looping_identifier.present?
+      answers = answers.where(looping_identifier: looping_identifier)
+    else
+      answers = answers.where("looping_identifier = '0' OR looping_identifier IS NULL")
+    end
     return true if !answers.select(&:filled_answer?).empty?
     self.children.each do |s|
       next if s.depends_on_option && !s.dependency_condition_met?(user, looping_identifier)
