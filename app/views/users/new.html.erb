@@ -57,6 +57,7 @@
         <%= f.label :password_confirmation, t("generic.password_c") %><br />
         <%= f.password_field :password_confirmation %>
       </p>
+      <%= recaptcha_tags %>
       <p><%= f.submit t("user_new.sign_up") %></p>
   <% end %>
 </div>
