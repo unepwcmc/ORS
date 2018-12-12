@@ -27,7 +27,7 @@ class UsersController < ApplicationController
     # page, the correct fields needed for that questionnaire are present in the form
     @questionnaire = Questionnaire.find(params[:questionnaire_id], :include => :questionnaire_fields) if params[:questionnaire_id]
     @user.roles << Role.find_by_name("respondent") unless @user.roles.any?
-    if @user.save
+    if verify_recaptcha(model: @user) && @user.save
       @user.add_or_update_filtering_fields(params[:filtering_field]) if params[:filtering_field]
       url = "http://#{request.host}/"
       if !current_user

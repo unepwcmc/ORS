@@ -233,6 +233,8 @@ class QuestionnairePdf < Prawn::Document
         text "#{I18n.t('submission_pages.files_you_have')}"
         move_down 4
         answer.documents.each do |document|
+          document = document.doc.exists? ? document : document.original
+          next unless document
           #text "<color rgb='#104E8B'><u><a target='_blank' href='#{url_prefix + document.doc.url.split('?')[0]}'>#{document.doc_file_name}</a></u></color>  #{document.description.present? ? "- #{document.description}" : " "}", :inline_format => true
           text "<u><a target='_blank' href='#{url_prefix + document.doc.url.split('?')[0]}'>#{document.doc_file_name}</a></u>  #{document.description.present? ? "- #{document.description}" : ""}", :inline_format => true
           move_down 2

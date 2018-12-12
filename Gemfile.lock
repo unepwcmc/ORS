@@ -272,6 +272,8 @@ GEM
     rake (10.0.3)
     rdoc (3.12.2)
       json (~> 1.4)
+    recaptcha (4.9.0)
+      json
     redis (3.2.1)
     redis-namespace (1.5.2)
       redis (~> 3.0, >= 3.0.4)
@@ -405,6 +407,7 @@ DEPENDENCIES
   rails (= 3.2.22)
   rails-secrets
   rake (= 10.0.3)
+  recaptcha
   redis
   redis-session-store
   rubocop
