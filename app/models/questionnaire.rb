@@ -31,6 +31,7 @@ class Questionnaire < ActiveRecord::Base
   has_many :loop_sources, :include => :loop_item_type, :dependent => :destroy
   has_many :answers, :dependent => :destroy
   has_many :documents, :through => :answers #documents from the users answers
+  has_many :answer_links, :through => :answers #links from the users answes
   has_many :questionnaire_fields, :dependent => :destroy
   accepts_nested_attributes_for :questionnaire_fields, :reject_if => lambda { |a| a.values.all?(&:blank?) }, :allow_destroy => true #
   belongs_to :source_questionnaire, :foreign_key => :original_id, :class_name => "Questionnaire"

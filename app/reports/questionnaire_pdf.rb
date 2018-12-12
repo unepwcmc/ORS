@@ -120,7 +120,7 @@ class QuestionnairePdf < Prawn::Document
 
   def root_section_to_pdf language, section, user, fields, answers, url_prefix, short_version
     loop_sources_items = {}
-    multiplier = 1
+    #multiplier = 1
     if section.looping?
       loop_items = section.loop_item_type.loop_items
       loop_items.each do |loop_item|
@@ -146,8 +146,9 @@ class QuestionnairePdf < Prawn::Document
     return if short_version && (answers.empty? || !section.any_answers_from?(user, loop_sources_items, loop_item, looping_identifier))
     conditions_met_or_inexistent = section.depends_on_option.present? ? section.dependency_condition_met?(user, looping_identifier) : true
     #If section is hidden and is a looping section and the loop_item is present, print the loop_item name since there is no drop down list like in the Web Sumbission page
-    #if section.is_hidden? && section.looping? && loop_item.present?
-    #  text "#{loop_item.item_name(language)}", :size => 11, :style => :bold, :inline_format => true
+    if section.is_hidden? && section.looping? && loop_item.present?
+      text "#{loop_item.item_name(language)}", :size => 11, :style => :bold, :inline_format => true
+    end
     if !section.is_hidden?
       field_to_use = fields[:sections_field][section.id.to_s] && fields[:sections_field][section.id.to_s].title.present? ? fields[:sections_field][section.id.to_s] : fields[:sections_field_default][section.id.to_s]
       size_to_print = section.root? ? 14 : 11
@@ -232,6 +233,8 @@ class QuestionnairePdf < Prawn::Document
         text "#{I18n.t('submission_pages.files_you_have')}"
         move_down 4
         answer.documents.each do |document|
+          document = document.doc.exists? ? document : document.original
+          next unless document
           #text "<color rgb='#104E8B'><u><a target='_blank' href='#{url_prefix + document.doc.url.split('?')[0]}'>#{document.doc_file_name}</a></u></color>  #{document.description.present? ? "- #{document.description}" : " "}", :inline_format => true
           text "<u><a target='_blank' href='#{url_prefix + document.doc.url.split('?')[0]}'>#{document.doc_file_name}</a></u>  #{document.description.present? ? "- #{document.description}" : ""}", :inline_format => true
           move_down 2
