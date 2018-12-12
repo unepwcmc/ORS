@@ -1,3 +1,13 @@
+### 0.3.0 (2018-12-12)
+
+* Bugfixing
+  - Fix bug preventing to delete question from admin interface
+  - Fix wrong filtering fields path
+  - Add loop item name to PDF
+  - In the exported pdf, retrieve original document if copied one is not found
+
+* Add Google reCAPTCHA in sign up form to prevent spam emails
+
 ### 0.2.1 (2018-03-19)
 * Bugfixing
   - Fix for a major bug for radio button answers with details text; multiple answers were submitted.
