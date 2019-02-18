@@ -8,6 +8,9 @@
   <div id="content_header">
   <% info_tip_text = "<p>This page allows you to create new questionnaires from existing questionnaires. There is an option to copy not only the structure of the questionnaire, but its answers as well.</p>"-%>
   </div>
+  <p>
+    <%= fa_icon('info-circle', class: 'info-icon--blue') %> ORS does not currently support duplication of questionnaires that have already been duplicated. Please contact <a href="mailto:ORS_team@unep-wcmc.org">ORS_team@unep-wcmc.org</a> for more information.
+  </p>
   <div class="span-15 colborder" id="duplicate_questionnaire">
     <%= form_for( @questionnaire, :html => { :class => "formtastic normal", :id => "generator_form" }) do |f| -%>
         <fieldset>
