@@ -1,3 +1,7 @@
+### 0.3.1 (2019-02-21)
+
+* Disable duplicate questionnaire functionality for questionnaires which are already a result of a duplication.
+
 ### 0.3.0 (2018-12-12)
 
 * Bugfixing
