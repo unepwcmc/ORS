@@ -6,7 +6,11 @@ class CloneQuestionnaire
     user = User.find(user_id)
     questionnaire = Questionnaire.find(questionnaire_id)
 
-    return if !user || !questionnaire
+    # Temporarily disable questionnaire duplication for
+    # questionnaires which have already been created from another one.
+    has_source_questionnaire = questionnaire.original_id.present?
+
+    return if !user || !questionnaire || has_source_questionnaire
 
     logger = Logger.new("#{Rails.root}/log/sidekiq.log")
     logger.info("#{Time.now}: Started duplication of questionnaire with#{if !copy_answers || copy_answers != "1" then "out" end} answers: #{questionnaire.title}")

@@ -324,7 +324,9 @@ class QuestionnairesController < ApplicationController
   end
 
   def duplicate
-    @questionnaires = Questionnaire.find(:all, :include => [:questionnaire_fields, :user, :questionnaire_parts ])
+    # Temporarily disable questionnaire duplication for
+    # questionnaires which have already been created from another one.
+    @questionnaires = Questionnaire.includes(:questionnaire_fields, :user, :questionnaire_parts).where(original_id: nil)
     @questionnaire = Questionnaire.new
     respond_to do |format|
       format.html
