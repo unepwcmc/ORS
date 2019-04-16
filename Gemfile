@@ -72,13 +72,14 @@ group :development, :test do
 end
 
 group :development do
-  gem 'capistrano', '~> 3.4.0', require:false
-  gem 'capistrano-multiconfig', require:false
+  gem 'capistrano', '~> 3.11.0', require:false
+  gem 'capistrano-multiconfig', '~> 3.1.0',require:false
   gem 'capistrano-rails', require:false
   gem 'capistrano-bundler', require:false
   gem 'capistrano-rvm', require:false
   gem 'capistrano-sidekiq'
   gem 'capistrano-passenger'
+  gem 'capistrano-local-precompile', '~> 1.2.0', require: false
   gem 'annotate'
   gem 'sexy_relations', '~> 1.0.4'
   gem 'rubocop', require: false
