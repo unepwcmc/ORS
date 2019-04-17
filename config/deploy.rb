@@ -1,5 +1,5 @@
 # config valid only for current version of Capistrano
-lock '3.4.0'
+lock '3.11.0'
 
 set :application, proc { fetch(:stage).split(':').reverse[1] }
 
@@ -14,7 +14,7 @@ set :deploy_to, "/home/#{fetch(:deploy_user)}/#{fetch(:application)}"
 
 set :backup_path, "/home/#{fetch(:deploy_user)}/Backup"
 
-set :scm, :git
+#set :scm, :git
 set :scm_username, "unepwcmc-read"
 
 set :linked_dirs, fetch(:linked_dirs, []).push('bin', 'log', 'tmp/pids', 'tmp/cache', 'tmp/sockets', 'vendor/bundle', 'public/system', 'private')
