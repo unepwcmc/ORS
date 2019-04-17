@@ -1,5 +1,5 @@
 set :stage, :staging
-set :branch, "eutimber-master-compile-assets-locally"
+set :branch, "master"
 
 server "ort-staging.linode.unep-wcmc.org", user: "wcmc", roles: %w{app web db}
 
