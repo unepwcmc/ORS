@@ -317,6 +317,12 @@ class SectionsController < ApplicationController
   def mark_as_answered
     if params[:question_answered]
       params[:question_answered].each do |id, val|
+        # Skip if Answer with answer_id has been deleted earlier
+        # This won't prevent the mark as answered checkbox to show for dependant answers
+        # if a dependant section is destroyed and then recreated again.
+        # AJAX calls would need to be implement for those or the mark as answered
+        # system to be reworked
+        next unless Answer.find_by_id(id)
         answer = Answer.find(id)
         answer.update_attributes(question_answered: val)
         answered = val == "true" ? "answered" : "not answered"
