@@ -290,6 +290,8 @@ class SectionsController < ApplicationController
     params[:delegate_text_answers].each do |unique_id, inner_params|
       question_id, looping_id = unique_id.split("_")
       id = inner_params[:delegate_answer_id]
+      # Skip if Answer with answer_id has been deleted earlier
+      next if inner_params[:answer_id].present? && !Answer.find_by_id(inner_params[:answer_id])
       answer = inner_params[:answer_id] ? Answer.find(inner_params[:answer_id]) : nil
 #      looping_id = inner_params[:looping_id]
       value = inner_params[:value]
@@ -300,7 +302,8 @@ class SectionsController < ApplicationController
           answer = Answer.find_or_create_new_answer(question, @authorization[:user], @result[:section].questionnaire, from_dependent_section, looping_id)
         end
         return if answer && answer.question_answered
-        delegate_text_answer = id == 'new' ? DelegateTextAnswer.find_or_create_by_answer_id_and_user_id(answer.id, current_user.id) : DelegateTextAnswer.find(id)
+        delegate_text_answer = id == 'new' ? DelegateTextAnswer.find_or_create_by_answer_id_and_user_id(answer.id, current_user.id) : DelegateTextAnswer.find_by_id(id)
+        next unless delegate_text_answer
         if delegate_text_answer.user_id != current_user.id
           flash[:error] = "Not authorized to edit another delegate's answer"
         else
@@ -314,6 +317,12 @@ class SectionsController < ApplicationController
   def mark_as_answered
     if params[:question_answered]
       params[:question_answered].each do |id, val|
+        # Skip if Answer with answer_id has been deleted earlier
+        # This won't prevent the mark as answered checkbox to show for dependant answers
+        # if a dependant section is destroyed and then recreated again.
+        # AJAX calls would need to be implemented for those or the mark as answered
+        # system to be reworked
+        next unless Answer.find_by_id(id)
         answer = Answer.find(id)
         answer.update_attributes(question_answered: val)
         answered = val == "true" ? "answered" : "not answered"
