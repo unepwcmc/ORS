@@ -1,3 +1,8 @@
+### 0.3.3 (2019-04-17)
+
+* Fix answers not saving in some cases
+  - System failed to find previously destroyed answers
+
 ### 0.3.2 (2019-02-21)
 
 * Disable duplicate questionnaire functionality for questionnaires which are already a result of a duplication.
