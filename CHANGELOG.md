@@ -1,3 +1,9 @@
+### 0.3.4 (2019-04-17)
+
+**Updates**
+
+* Update deploy script to compile assets locally
+
 ### 0.3.3 (2019-04-17)
 
 **Bug fixes**
