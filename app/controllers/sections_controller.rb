@@ -290,7 +290,9 @@ class SectionsController < ApplicationController
     params[:delegate_text_answers].each do |unique_id, inner_params|
       question_id, looping_id = unique_id.split("_")
       id = inner_params[:delegate_answer_id]
-      answer = Answer.find_by_id(inner_params[:answer_id])
+      # Skip if Answer with answer_id has been deleted earlier
+      next if inner_params[:answer_id].present? && !Answer.find_by_id(inner_params[:answer_id])
+      answer = inner_params[:answer_id] ? Answer.find(inner_params[:answer_id]) : nil
 #      looping_id = inner_params[:looping_id]
       value = inner_params[:value]
       if value.present?
