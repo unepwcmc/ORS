@@ -302,7 +302,8 @@ class SectionsController < ApplicationController
           answer = Answer.find_or_create_new_answer(question, @authorization[:user], @result[:section].questionnaire, from_dependent_section, looping_id)
         end
         return if answer && answer.question_answered
-        delegate_text_answer = id == 'new' ? DelegateTextAnswer.find_or_create_by_answer_id_and_user_id(answer.id, current_user.id) : DelegateTextAnswer.find(id)
+        delegate_text_answer = id == 'new' ? DelegateTextAnswer.find_or_create_by_answer_id_and_user_id(answer.id, current_user.id) : DelegateTextAnswer.find_by_id(id)
+        next unless delegate_text_answer
         if delegate_text_answer.user_id != current_user.id
           flash[:error] = "Not authorized to edit another delegate's answer"
         else
