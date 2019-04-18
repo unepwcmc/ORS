@@ -138,6 +138,9 @@ function markQuestionsAsAnswered() {
     $("input[name='answers["+the_id+"]']:radio").attr("disabled", true)
     $("li.answer-option-"+the_id+" textarea").attr("disabled", true)
     $("li.answer-option-"+the_id+" input[type='checkbox']").attr("disabled", true)
+    // Disable also 'Other' option with text area
+    $("li.answer-option-"+the_id+"-other input[type='checkbox']").attr('disabled', true)
+    $("textarea.answer-option-"+the_id+"-other-text").attr('disabled', true)
     $("select#answers_"+the_id).attr("disabled", true)
     $(matrix_answer_field).find('select').attr("disabled", true)
     $(matrix_answer_field).find('input').attr("disabled", true)

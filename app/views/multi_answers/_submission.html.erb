@@ -42,18 +42,18 @@
       </li>
     <% end -%>
     <% if answer_type.other_required? -%>
-      <li>
+      <li class="answer-option-<%= the_id.to_s %>-other">
       <% if answer_type.single? -%>
         <%= radio_button_tag "answers[#{the_id}]", -1, (answer.present? && answer.other_text.present?) , :disabled => disabled %>
       <% else -%>
-        <%= hidden_field_tag "answers[#{the_id}_-1]", "" %>
-        <%= check_box_tag "answers[#{the_id}_-1]", -1, (answer.present? && answer.other_text.present?), :disabled => disabled %>
+        <%= hidden_field_tag "answers[#{the_id}_other]", "" %>
+        <%= check_box_tag "answers[#{the_id}_other]", -1, (answer.present? && answer.other_text.present?), :disabled => disabled %>
       <% end -%>
       <%= label_tag "answers[#{the_id}_-1]", @fields[:other_text_fields][answer_type.id.to_s] %>
       <br />
       <div class="group row padded">
         <% other_disabled = (disabled || (answer.present? && !answer.other_text.present?)) %>
-        <%= text_area_tag "answers[#{the_id}_other]", (answer.present? && answer.other_text.present? ) ? h(answer.other_text) : '', :size => "75x1", :disabled => other_disabled %>
+        <%= text_area_tag "answers[#{the_id}_other]", (answer.present? && answer.other_text.present? ) ? h(answer.other_text) : '', :size => "75x1", class: "answer-option-#{the_id}-other-text", :disabled => other_disabled %>
       </div>
       </li>
     <% end -%>
