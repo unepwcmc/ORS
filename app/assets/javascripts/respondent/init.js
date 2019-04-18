@@ -112,6 +112,8 @@ function saveDirtyAnswers() {
   vals += '&auto_save='+$('#auto_save').val();
   vals += '&respondent_id='+$('#questionnaire_submission').data('respondent_id')
 
+  markQuestionsAsAnswered();
+
   $('input.dirty, textarea.dirty, select.dirty').removeClass('dirty');
 
   if(!$('#questionnaire').hasClass('no_dialog')) {
@@ -125,6 +127,23 @@ function saveDirtyAnswers() {
     data: vals
   });
 }
+
+function markQuestionsAsAnswered() {
+  $('.question-answered-box:checked').each(function() {
+    the_id = $(this).data('the-id')
+    text_answer_field = $(this).closest('.text-answer').find('.text-answer-field')
+    matrix_answer_field = $(this).closest('.answer_fields_wrapper').find('.submission-matrix')
+    $(text_answer_field).attr("readonly", true)
+    $(text_answer_field).addClass("disabled")
+    $("input[name='answers["+the_id+"]']:radio").attr("disabled", true)
+    $("li.answer-option-"+the_id+" textarea").attr("disabled", true)
+    $("li.answer-option-"+the_id+" input[type='checkbox']").attr("disabled", true)
+    $("select#answers_"+the_id).attr("disabled", true)
+    $(matrix_answer_field).find('select').attr("disabled", true)
+    $(matrix_answer_field).find('input').attr("disabled", true)
+  });
+}
+
 // Event handlers to flag fields as changed, that can then be saved.
 function dirtyFlagging() {
   $("input[type='text'], textarea").blur(function() {
