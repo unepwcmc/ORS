@@ -8,8 +8,25 @@ $(document).ready(function() {
       $(text_answer_field).attr("readonly", false)
       $(text_answer_field).removeClass("disabled")
       $("input[name='answers["+the_id+"]']:radio").attr("disabled", false)
-      $("li.answer-option-"+the_id+" textarea").attr("disabled", false)
-      $("li.answer-option-"+the_id+" input[type='checkbox']").attr("disabled", false)
+      checkbox_radio_element = "li.answer-option-"+the_id;
+      checkbox_radio_inputs = $(checkbox_radio_element + " input[type='checkbox'], " + checkbox_radio_element + " input[type='radio']" )
+      // Enable text box only if option was checked
+      $(checkbox_radio_inputs).each(function() {
+        $(this).attr("disabled", false)
+        if($(this).prop('checked')) {
+          $(this).parent().find('textarea').attr("disabled", false)
+        }
+      });
+      // Enable also 'Other' option with text area
+      other_element = "li.answer-option-"+the_id+"-other";
+      other_input = $(other_element + " input[type='checkbox'], " + other_element + " input[type='radio']")
+      $(other_input).attr('disabled', false)
+      // Enable 'Other' text box only if 'Other' option is checked
+      // This is because the text box should only be available if the 'Other'
+      // option is selected.
+      if($(other_input).prop('checked')) {
+        $("textarea.answer-option-"+the_id+"-other-text").attr('disabled', false)
+      }
       $("select#answers_"+the_id).attr("disabled", false)
       $(matrix_answer_field).find('select').attr("disabled", false)
       $(matrix_answer_field).find('input').attr("disabled", false)
