@@ -88,6 +88,8 @@ class Answer < ActiveRecord::Base
     if looping_identifier.present?
       answer = Answer.find_or_create_by_question_id_and_user_id_and_questionnaire_id_and_looping_identifier(question.id, user.id, questionnaire.id, looping_identifier)
     else
+      # TODO Can add order: 'id ASC' to Answer.find... to always fetch the same answer
+      # if there are many. Won't work with Answer.find_or_create_by but only with Answer.find_by.
       answer = Answer.find_or_create_by_question_id_and_user_id_and_questionnaire_id(question.id, user.id, questionnaire.id)
     end
     if answer.from_dependent_section != from_dependent_section
