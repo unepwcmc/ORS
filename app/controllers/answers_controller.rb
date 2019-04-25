@@ -31,7 +31,10 @@ class AnswersController < ApplicationController
     raise CanCan::AccessDenied.new(t("flash_messages.#{@authorization ? @authorization[:error_message] : "not_authorized"}")) if !@authorization || @authorization[:error_message]
     I18n.locale = @authorization[:language]
     user_id = params[:respondent_id] || @authorization[:user].id
-    @answer = Answer.find_or_create_by_question_id_and_questionnaire_id_and_user_id_and_looping_identifier(@question.id, @question.section.root.questionnaire.id, user_id, params[:looping_identifier])
+    from_dependent_section, _ = @question.nested_under_dependent_section?
+    # Use custom find_or_create method to make sure to fetch the correct answer and
+    # not create new ones
+    @answer = Answer.find_or_create_new_answer(@question, User.find(user_id), @question.section.root.questionnaire, from_dependent_section, params[:looping_identifier])
     @answer.documents.build
     respond_to do |format|
       format.js
@@ -44,7 +47,10 @@ class AnswersController < ApplicationController
     raise CanCan::AccessDenied.new(t("flash_messages.#{@authorization ? @authorization[:error_message] : "not_authorized"}")) if !@authorization || @authorization[:error_message]
     I18n.locale = @authorization[:language]
     user_id = params[:respondent_id] || @authorization[:user].id
-    @answer = Answer.find_or_create_by_question_id_and_questionnaire_id_and_user_id_and_looping_identifier(@question.id, @question.section.root.questionnaire.id, user_id, params[:looping_identifier])
+    from_dependent_section, _ = @question.nested_under_dependent_section?
+    # Use custom find_or_create method to make sure to fetch the correct answer and
+    # not create new ones
+    @answer = Answer.find_or_create_new_answer(@question, User.find(user_id), @question.section.root.questionnaire, from_dependent_section, params[:looping_identifier])
     @answer.answer_links.build
     respond_to do |format|
       format.js
