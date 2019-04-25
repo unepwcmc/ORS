@@ -298,7 +298,7 @@ class SectionsController < ApplicationController
       if value.present?
         if id == 'new' && !answer
           question = Question.find(question_id)
-          from_dependent_section, dependent_section = question.nested_under_dependent_section?
+          from_dependent_section, _ = question.nested_under_dependent_section?
           answer = Answer.find_or_create_new_answer(question, @authorization[:user], @result[:section].questionnaire, from_dependent_section, looping_id)
         end
         return if answer && answer.question_answered
