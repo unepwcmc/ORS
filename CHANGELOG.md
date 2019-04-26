@@ -1,3 +1,14 @@
+### 0.3.5 (2019-04-26)
+
+**Bug fixes**
+
+* Disable marked as answered questions only after save
+  - Allows answers to be saved before disabling them
+* Fix 'Other' option not enabling/disabling correctly
+* Fix multiple answers bug fetching existing answer correctly
+* Fix add documents and links feature
+  - Allows to immediately see if a document/link has been attached successfully regardless of looping identifier being "0" or empty
+
 ### 0.3.4 (2019-04-17)
 
 **Updates**
