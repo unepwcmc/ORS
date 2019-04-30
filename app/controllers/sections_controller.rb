@@ -231,7 +231,16 @@ class SectionsController < ApplicationController
         flash[:error] = "Not authorized to edit respondent's answer"
       end
       if @result[:result]
-        @result[:section].update_root_submission_state!(@authorization[:user], (@result[:root_loop_item].present? ? @result[:root_loop_item] : nil))
+        @result[:section].update_root_submission_state!(
+          @authorization[:user], (@result[:root_loop_item].present? ? @result[:root_loop_item] : nil)
+        )
+        # Update submission state of the root section as well
+        # TODO Not tested properly with looping sources yet
+        unless @result[:section].id == @result[:section].root.id
+          @result[:section].root.update_root_submission_state!(
+            @authorization[:user], (@result[:root_loop_item].present? ? @result[:root_loop_item] : nil)
+          )
+        end
         flash[:notice] = "#{@result[:section].value_in((@result[:section].root? ? :tab_title : :title), @authorization[:language], @result[:root_loop_item])}: #{t("flash_messages.saved_successfully", {:locale => @authorization[:language]})}"
       elsif params[:auto_save] != "1" && params[:timed_save] != "1"
         flash[:notice] = t("flash_messages.nothing_to_save", {:locale => @authorization[:language]})

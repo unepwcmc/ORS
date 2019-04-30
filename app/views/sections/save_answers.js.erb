@@ -27,6 +27,11 @@ $(function(){
     <% if @result[:result] -%>
       <% state = UserSectionSubmissionState.submission_state_of(@authorization[:user].id, @result[:section].id, @result[:root_loop_item] ? @result[:root_loop_item].id : nil) %>
         set_state_identifier("<%=@result[:section].id.to_s + (@result[:root_loop_item] ? "_#{@result[:root_loop_item].id}" : "")%>","<%=state%>", "<%= escape_javascript( t("questionnaire_feedback.state#{state}") )%>");
+        // Update submission state of the root section as well
+        // TODO Not tested properly with looping sources yet
+        <% unless @result[:section].id == @result[:section].root.id %>
+          set_state_identifier("<%=@result[:section].root.id.to_s + (@result[:root_loop_item] ? "_#{@result[:root_loop_item].id}" : "")%>","<%=state%>", "<%= escape_javascript( t("questionnaire_feedback.state#{state}") )%>");
+        <% end %>
         //var value = "<%#= @section.root.questionnaire.percentage_of_completion_for( current_user ) %>";
         //$("#progressbar").progressbar("option", "value", value);
     <% end -%>
