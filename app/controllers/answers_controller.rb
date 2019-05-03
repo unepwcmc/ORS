@@ -21,7 +21,7 @@ class AnswersController < ApplicationController
       message = if error[0].match(/doc_file_size/).present?
                   # Improve paperclip's standard error message to show size in MB
                   size = error[1].match(/\d+/).to_s.to_i / 1000000
-                  "File's size must be less than #{size} MB."
+                  t('flash_messages.file_too_large', size: size)
                 else
                   "There was a problem when saving your changes, please try again."
                 end
