@@ -181,6 +181,7 @@ fr:
     questionnaire_submitted: "Vous ne pouvez pas accéder à cette page car vous avez déjà soumis ce questionnaire."
     questionnaire_closed: "Ce questionnaire a été clos par l'administrateur. Il n'est donc pas disponible pour le moment."
     questionnaire_not_available: "Ce questionnaire n'est pas disponible."
+    file_too_large: "La taille du fichier doit être inférieure à %{size} Mo. (La taille du fichier peut être réduite en comprimant (zippant) les fichiers avant de télécharger.)"
   translator_feat:
     show_translator: "Afficher le traducteur"
     hide_translator: "Masquer le traducteur"
@@ -398,3 +399,30 @@ fr:
     formats:
       default: "%d %B %Y"
       with_time: "%d %B %Y, %H:%M"
+  #Paperclip
+  errors:
+    messages:
+      in_between: "doit être compris entre %{min} et %{max}"
+      spoofed_media_type: "ne correspond pas à ce que cela devrait être"
+
+  number:
+    human:
+      storage_units:
+        format: "%n %u"
+        units:
+          byte:
+            one: "Octet"
+            other: "Octets"
+            kb: "ko"
+            mb: "Mo"
+            gb: "Go"
+            tb: "To"
+
+  activerecord:
+    errors:
+      models:
+        document:
+          attributes:
+            doc_file_size:
+              less_than: "La taille du fichier doit être inférieure à %{max}"
+  #end Paperclip

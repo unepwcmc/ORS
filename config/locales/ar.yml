@@ -1,4 +1,4 @@
-# Arabic translations for Ruby on Rails 
+# Arabic translations for Ruby on Rails
 # by Rida Al Barazi (me@rida.me)
 # updated by Ahmed Hazem (nardgo@gmail.com)
 
@@ -17,18 +17,18 @@ ar:
       - :day
       - :month
       - :year
-  
+
   time:
     formats:
       default: "%a %b %d %H:%M:%S %Z %Y"
       short: "%d %b %H:%M"
       long: "%B %d, %Y %H:%M"
       only_second: "%S"
-      
+
       datetime:
         formats:
           default: "%Y-%m-%dT%H:%M:%S%Z"
-          
+
     am: 'صباحا'
     pm: 'مساءا'
 
@@ -37,7 +37,7 @@ ar:
     array:
       sentence_connector: "و"
       skip_last_comma: false
-      
+
   datetime:
     distance_in_words:
       half_a_minute: 'نصف دقيقة'
@@ -71,7 +71,7 @@ ar:
       over_x_years:
         one: 'أكثر من سنة'
         other: '{{count}} سنوات'
-      
+
   number:
     format:
       separator: '.'
@@ -94,9 +94,16 @@ ar:
     precision:
       format:
         delimiter: ','
-        
+
   activerecord:
     errors:
+      #PaperClip
+      models:
+        document:
+          attributes:
+            doc_file_size:
+              less_than: "%{max}"
+      #end Paperclip
       template:
         header:
           one: "ليس بالامكان حفظ {{model}}: خطأ واحد."
@@ -122,3 +129,27 @@ ar:
         less_than_or_equal_to: "يجب أن يكون أصغر من أو يساوي {{count}}"
         odd: "يجب أن يكون فردي"
         even: "يجب أن يكون زوجي"
+
+  #Paperclip
+  errors:
+    messages:
+      in_between: "يجب أن يكون %{min} و %{max}"
+      spoofed_media_type: "يحتوي على محتوى غير مطابق عما هو مذكور"
+
+  number:
+    human:
+      storage_units:
+        format: "%n %u"
+        units:
+          byte:
+            zero: "بايت"
+            one: "واحد بايت"
+            two: "بايتين اثنين"
+            few: "بايت"
+            many: "بايتًا"
+            other: "بايتات"
+            kb: "كيلوبايت"
+            mb: "ميحابايت"
+            gb: "غيغابايت"
+            tb: "تيرابايت"
+  #end Paperclip
