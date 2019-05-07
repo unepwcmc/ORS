@@ -17,7 +17,15 @@ class AnswersController < ApplicationController
       flash[:notice] = "Changes successfully made."
       @success = true
     else
-      flash[:error] = "There was a problem when saving your changes, please try again."
+      error = @answer.errors.first #array[0] -> type, array[1] -> desc
+      message = if error[0].match(/doc_file_size/).present?
+                  # Improve paperclip's standard error message to show size in MB
+                  size = error[1].match(/\d+/).to_s.to_i / 1000000
+                  t('flash_messages.file_too_large', size: size)
+                else
+                  "There was a problem when saving your changes, please try again."
+                end
+      flash[:error] = message
       @success = false
     end
     respond_to do |format|

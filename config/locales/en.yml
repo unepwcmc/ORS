@@ -185,6 +185,7 @@ en:
     questionnaire_submitted: "You can not access this page because you have already submitted this questionnaire."
     questionnaire_closed: "This questionnaire has been closed by the administrator so it is currently unavailable."
     questionnaire_not_available: "This questionnaire is not available."
+    file_too_large: "File's size must be less than %{size} MB. (File size can be reduced by compressing (zipping) files prior to upload.)"
   translator_feat:
     show_translator: "Show translator"
     hide_translator: "Hide translator"
