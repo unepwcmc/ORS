@@ -1,3 +1,14 @@
+### 0.3.6 (2019-05-07)
+
+**Updates**
+
+* Increase attachments size limit to 10 MB
+* More precise error message when related to file uploaded too large
+
+**Bug fixes**
+
+* Fix Paperclip bug on translating file size error message
+
 ### 0.3.5 (2019-04-26)
 
 **Bug fixes**

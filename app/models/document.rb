@@ -21,7 +21,7 @@ class Document < ActiveRecord::Base
                     :path => ":rails_root/private/answer_docs/:questionnaire_id/answer_documents/:user_id/:id/:basename.:extension" #:id_partition
 
   validates_attachment_presence :doc
-  validates_attachment_size :doc, :less_than => 3.megabytes
+  validates_attachment_size :doc, :less_than => 10.megabytes
   do_not_validate_attachment_file_type :doc
 end
 
