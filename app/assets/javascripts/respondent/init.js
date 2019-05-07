@@ -133,8 +133,18 @@ function markQuestionsAsAnswered() {
     the_id = $(this).data('the-id')
     text_answer_field = $(this).closest('.text-answer').find('.text-answer-field')
     matrix_answer_field = $(this).closest('.answer_fields_wrapper').find('.submission-matrix')
-    $(text_answer_field).attr("readonly", true)
-    $(text_answer_field).addClass("disabled")
+    numeric_field = $(this).closest('.answer_fields_wrapper').find('input.numeric_type')
+    // Disable text answers if any
+    if(text_answer_field.length > 0) {
+      $(text_answer_field).attr("readonly", true)
+      $(text_answer_field).addClass("disabled")
+    }
+    // Disable numeric fields if any
+    if(numeric_field.length > 0) {
+      $(numeric_field).attr("readonly", true)
+      $(numeric_field).attr("disabled", true)
+    }
+
     $("input[name='answers["+the_id+"]']:radio").attr("disabled", true)
     $("li.answer-option-"+the_id+" textarea").attr("disabled", true)
     $("li.answer-option-"+the_id+" input[type='checkbox']").attr("disabled", true)
@@ -142,8 +152,12 @@ function markQuestionsAsAnswered() {
     $("li.answer-option-"+the_id+"-other input[type='checkbox']").attr('disabled', true)
     $("textarea.answer-option-"+the_id+"-other-text").attr('disabled', true)
     $("select#answers_"+the_id).attr("disabled", true)
-    $(matrix_answer_field).find('select').attr("disabled", true)
-    $(matrix_answer_field).find('input').attr("disabled", true)
+
+    // Disable matrix answer fields if any
+    if(matrix_answer_field.length > 0) {
+      $(matrix_answer_field).find('select').attr("disabled", true)
+      $(matrix_answer_field).find('input').attr("disabled", true)
+    }
   });
 }
 

@@ -3,10 +3,19 @@ $(document).ready(function() {
     the_id = $(this).data('the-id')
     text_answer_field = $(this).closest('.text-answer').find('.text-answer-field')
     matrix_answer_field = $(this).closest('.answer_fields_wrapper').find('.submission-matrix')
+    numeric_field = $(this).closest('.answer_fields_wrapper').find('input.numeric_type')
     if(!$(this).prop('checked')) {
-      $(text_answer_field).attr("disabled", false)
-      $(text_answer_field).attr("readonly", false)
-      $(text_answer_field).removeClass("disabled")
+      // Enable text answer fields if any
+      if(text_answer_field.length > 0) {
+        $(text_answer_field).attr("disabled", false)
+        $(text_answer_field).attr("readonly", false)
+        $(text_answer_field).removeClass("disabled")
+      }
+      // Enable numeric fields if any
+      if(numeric_field.length > 0) {
+        $(numeric_field).attr("disabled", false)
+        $(numeric_field).attr("readonly", false)
+      }
       $("input[name='answers["+the_id+"]']:radio").attr("disabled", false)
       checkbox_radio_element = "li.answer-option-"+the_id;
       checkbox_radio_inputs = $(checkbox_radio_element + " input[type='checkbox'], " + checkbox_radio_element + " input[type='radio']" )
@@ -28,8 +37,11 @@ $(document).ready(function() {
         $("textarea.answer-option-"+the_id+"-other-text").attr('disabled', false)
       }
       $("select#answers_"+the_id).attr("disabled", false)
-      $(matrix_answer_field).find('select').attr("disabled", false)
-      $(matrix_answer_field).find('input').attr("disabled", false)
+      // Enable matrix answer fields if any
+      if(matrix_answer_field.length > 0) {
+        $(matrix_answer_field).find('select').attr("disabled", false)
+        $(matrix_answer_field).find('input').attr("disabled", false)
+      }
       $('.sticky_save_all').click();
     }
   });
