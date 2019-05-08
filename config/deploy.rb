@@ -1,6 +1,11 @@
 # config valid only for current version of Capistrano
 lock '3.11.0'
 
+set :init_system, :systemd
+
+set :service_unit_name, "sidekiq_#{fetch(:application)}.service"
+
+
 set :application, proc { fetch(:stage).split(':').reverse[1] }
 
 set :repo_url, 'git@github.com:unepwcmc/ORS.git'
@@ -28,6 +33,30 @@ set :pty, true
 set :keep_releases, 5
 
 set :passenger_restart_with_touch, false
+
+
+
+
+namespace :sidekiq do
+
+task :quiet do
+ on roles(:app) do
+ puts capture("pgrep -f 'sidekiq.*#{fetch(:application)}' | xargs kill -TSTP")
+end
+end
+
+
+task :restart do
+  on roles(:app) do
+  execute :sudo, :systemctl, :restart, :'sidekiq_#{fetch(:application)}'
+end
+end
+end
+
+
+after 'deploy:starting', 'sidekiq:quiet'
+after 'deploy:reverted', 'sidekiq:restart'
+after 'deploy:published', 'sidekiq:restart'
 
 
 # Default branch is :master
