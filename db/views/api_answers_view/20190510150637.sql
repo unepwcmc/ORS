@@ -42,6 +42,6 @@ CREATE OR REPLACE VIEW api_answers_view AS
      LEFT JOIN api_multi_answer_options_view mao ON mao.id = ap.field_type_id AND ap.field_type_type::text = 'MultiAnswerOption'::text
      LEFT JOIN api_range_answer_options_view rao ON rao.id = ap.field_type_id AND ap.field_type_type::text = 'RangeAnswerOption'::text
      LEFT JOIN answer_part_matrix_options apmo ON apmo.answer_part_id = ap.id AND ap.field_type_type::text = 'MatrixAnswerQuery'::text
-     LEFT JOIN api_matrix_answer_drop_options_view mado ON mado.id = apmo.matrix_answer_drop_option_id
      LEFT JOIN api_matrix_answer_queries_view maq ON maq.id = ap.field_type_id
-     LEFT JOIN api_matrix_answer_options_view mxao ON apmo.matrix_answer_option_id = mxao.id;
+     LEFT JOIN api_matrix_answer_drop_options_view mado ON mado.id = apmo.matrix_answer_drop_option_id AND mado.language = maq.language
+     LEFT JOIN api_matrix_answer_options_view mxao ON apmo.matrix_answer_option_id = mxao.id AND mxao.language = maq.language;
