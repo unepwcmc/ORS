@@ -1,3 +1,10 @@
+### 0.4.0 (2019-06-12)
+
+**New features**
+
+* Add matrix answers in API related views
+  - This allows the ORS-API to fetch matrix answers as well
+
 ### 0.3.6 (2019-05-07)
 
 **Updates**
