@@ -30,6 +30,8 @@ class UsersController < ApplicationController
     if verify_recaptcha(model: @user) && @user.save
       @user.add_or_update_filtering_fields(params[:filtering_field]) if params[:filtering_field]
       url = "http://#{request.host}/"
+      # Revoke access to RAMSAR API by default
+      @user.update_attributes(has_api_access: false) if Rails.root.to_s.include?('ramsar')
       if !current_user
         UserMailer.registration_confirmation(@user, url).deliver
         User.administrators.each do |admin|

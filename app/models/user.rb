@@ -78,7 +78,8 @@ class User < ActiveRecord::Base
   attr_accessible :creator_id, :first_name, :last_name, :language, :email,
     :category, :password, :password_confirmation, :role_ids,
     :single_access_token, :region, :country, :perishable_token,
-    :user_delegates_attributes, :user_delegators_attributes
+    :user_delegates_attributes, :user_delegators_attributes,
+    :has_api_access
 
   accepts_nested_attributes_for :user_delegates, :user_delegators
 
