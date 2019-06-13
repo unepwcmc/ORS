@@ -1,3 +1,11 @@
+### 0.4.1 (2019-06-13)
+
+**Updates**
+
+* Add API access flag to users
+  - This is to better control API access
+  - Default to true
+
 ### 0.4.0 (2019-06-12)
 
 **New features**
