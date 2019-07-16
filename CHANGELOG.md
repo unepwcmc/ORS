@@ -1,3 +1,9 @@
+### 0.4.2 (2019-07-16)
+
+**Buf fixes**
+
+* Fix bug related to matrix answers API view which was fetching some answers multiple times
+
 ### 0.4.1 (2019-06-13)
 
 **Updates**
