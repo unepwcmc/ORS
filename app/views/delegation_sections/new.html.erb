@@ -14,7 +14,7 @@
         <ol>
           <li>
             <%= label_tag t('delegate_section.available_sections') %>
-            <%= select "delegation_section", "section_id", @available_sections.collect{|p| [('-'*p.level) + OrtSanitize.white_space_cleanse((p.tab_title(I18n.locale.to_s).present? ? p.tab_title(I18n.locale.to_s) : p.title(I18n.locale.to_s)))[0,55] , p.id] }, { :include_blank => t('delegate_dashboard.please_select_s') } %>
+            <%= select "delegation_section", "section_id", @available_sections.collect{|p| [('-'*p.level) + OrtSanitize.white_space_cleanse((p.tab_title(I18n.locale.to_s).present? ? strip_tags(p.tab_title(I18n.locale.to_s)) : strip_tags(p.title(I18n.locale.to_s))))[0,55] , p.id] }, { :include_blank => t('delegate_dashboard.please_select_s') } %>
           </li>
           <li id="item_names" style="display: none">
             <p style="color:blue"><%= t('delegate_section.looping_section_w') %></p>
