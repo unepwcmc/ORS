@@ -38,8 +38,8 @@
                 <tbody>
                   <% delegation.delegation_sections.each do |delegation_section| -%>
                     <tr>
-                      <td><%= OrtSanitize.white_space_cleanse(delegation_section.section.value_in((delegation_section.section.root? ? :tab_title : :title), current_user.language)) %></td>
-                      <td><%= OrtSanitize.white_space_cleanse(delegation_section.section.root.value_in(:tab_title, current_user.language))%></td>
+                      <td><%= strip_tags(OrtSanitize.white_space_cleanse(delegation_section.section.value_in((delegation_section.section.root? ? :tab_title : :title), current_user.language))) %></td>
+                      <td><%= strip_tags(OrtSanitize.white_space_cleanse(delegation_section.section.root.value_in(:tab_title, current_user.language)))%></td>
                       <td><%= delegation_section.loop_item_names.map{|loop_item_name| h(loop_item_name.item_name(current_user.language))}.join(', ') %></td>
                     </tr>
                   <% end -%>
