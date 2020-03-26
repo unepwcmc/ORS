@@ -1,6 +1,12 @@
+### 0.4.3 (2020-03-23)
+
+**Bug fixes**
+
+* Remove html tags from sections titles so that are not showing on the interface
+
 ### 0.4.2 (2019-07-16)
 
-**Buf fixes**
+**Bug fixes**
 
 * Fix bug related to matrix answers API view which was fetching some answers multiple times
 
