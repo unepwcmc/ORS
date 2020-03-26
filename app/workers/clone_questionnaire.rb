@@ -8,7 +8,7 @@ class CloneQuestionnaire
 
     # Temporarily disable questionnaire duplication for
     # questionnaires which have already been created from another one.
-    has_source_questionnaire = questionnaire.original_id.present?
+    has_source_questionnaire = false#questionnaire.original_id.present?
 
     return if !user || !questionnaire || has_source_questionnaire
 
