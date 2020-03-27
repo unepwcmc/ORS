@@ -269,7 +269,8 @@ class Section < ActiveRecord::Base
     state_tracker = UserSectionSubmissionState.find_or_initialize_by_section_id_and_user_id_and_looping_identifier(self.id, user.id, looping_identifier)
     #dont_care_descendants = dont_care_descendants || (self.depends_on_question.present? && !self.dependency_condition_met?(user, loop_item))
     if state_tracker.new_record?
-      if self.root?
+      # Refer also to the 'questions_answered_status' method
+      if self.root? && !self.questions.any?
         state_tracker.section_state = 4
       elsif self.questions.any?
         state_tracker.section_state = self.questions.find_by_is_mandatory(true) ? 1 : 0
