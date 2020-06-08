@@ -38,7 +38,7 @@ class AnswersController < ApplicationController
     @authorization = current_user ? current_user.authorization_for(@question, @current_user_delegate.try(:id)) : false
     raise CanCan::AccessDenied.new(t("flash_messages.#{@authorization ? @authorization[:error_message] : "not_authorized"}")) if !@authorization || @authorization[:error_message]
     I18n.locale = @authorization[:language]
-    user_id = params[:respondent_id] || @authorization[:user].id
+    user_id = params[:respondent_id].presence || @authorization[:user].id
     from_dependent_section, _ = @question.nested_under_dependent_section?
     # Use custom find_or_create method to make sure to fetch the correct answer and
     # not create new ones
@@ -54,7 +54,7 @@ class AnswersController < ApplicationController
     @authorization = current_user ? current_user.authorization_for(@question, @current_user_delegate.try(:id)) : false
     raise CanCan::AccessDenied.new(t("flash_messages.#{@authorization ? @authorization[:error_message] : "not_authorized"}")) if !@authorization || @authorization[:error_message]
     I18n.locale = @authorization[:language]
-    user_id = params[:respondent_id] || @authorization[:user].id
+    user_id = params[:respondent_id].presence || @authorization[:user].id
     from_dependent_section, _ = @question.nested_under_dependent_section?
     # Use custom find_or_create method to make sure to fetch the correct answer and
     # not create new ones
