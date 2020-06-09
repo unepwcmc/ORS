@@ -1,3 +1,9 @@
+### 0.4.4 (2020-05-12)
+
+**Bug fixes**
+
+* Fix save answers js script failing because of carriage returns in section title
+
 ### 0.4.3 (2020-03-23)
 
 **Bug fixes**
