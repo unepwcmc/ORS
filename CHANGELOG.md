@@ -1,3 +1,9 @@
+### 0.4.5 (2020-06-09)
+
+**Bug fixes**
+
+* Fix documents upload modal not opening up in looping questions 
+
 ### 0.4.4 (2020-05-12)
 
 **Bug fixes**
