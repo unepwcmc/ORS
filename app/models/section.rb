@@ -268,11 +268,9 @@ class Section < ActiveRecord::Base
   def initialise_tree_submission_states user, loop_sources_items, loop_item=nil, dont_care_descendants=false, looping_identifier=nil
     state_tracker = UserSectionSubmissionState.find_or_initialize_by_section_id_and_user_id_and_looping_identifier(self.id, user.id, looping_identifier)
     #dont_care_descendants = dont_care_descendants || (self.depends_on_question.present? && !self.dependency_condition_met?(user, loop_item))
-    if state_tracker.new_record?
+    if state_tracker.new_record? && !self.root?
       # Refer also to the 'questions_answered_status' method
-      if self.root? && !self.questions.any?
-        state_tracker.section_state = 4
-      elsif self.questions.any?
+      if self.questions.any?
         state_tracker.section_state = self.questions.find_by_is_mandatory(true) ? 1 : 0
       end
       #for new state_tracker: don't care if dont_care_descendants == true, or if it depends on a question's option being selected.
@@ -297,6 +295,7 @@ class Section < ActiveRecord::Base
        s.initialise_tree_submission_states user, loop_sources_items, loop_item, dont_care_descendants, looping_identifier
      end
     end
+    update_root_submission_state!(user, looping_identifier) if self.root?
   end
 
   # Update the submission state of the root of the section tree for this section and a specific user and looping_identifier (if it exists)
