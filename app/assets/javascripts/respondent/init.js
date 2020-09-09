@@ -351,6 +351,7 @@ function removeOption(element, theId, maximumAllowed) {
 }
 
 // TODO: camelCase this function name
+// Commented out icons are related to a change requested for the IACSeaTurtle instance only
 function set_state_identifier(id, state, altText) {
   var icons = {
     // newSection: "<i class='fa fa-asterisk background inverse info obj_tooltip' title='New Section'></i>",
