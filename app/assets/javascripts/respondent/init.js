@@ -351,29 +351,12 @@ function removeOption(element, theId, maximumAllowed) {
 // Commented out icons are related to a change requested for the IACSeaTurtle instance only
 function set_state_identifier(id, state, altText) {
   var icons = {
-    // newSection: "<i class='fa fa-asterisk background inverse info obj_tooltip' title='New Section'></i>",
-    // completeSection: "<i class='fa fa-check-circle background inverse success obj_tooltip' title='Section has been completed'></i>",
-    // someQuestionsUnanswered: "<i class='fa fa-plus-circle background inverse success obj_tooltip' title='Some questions unanswered'></i>",
     mandatoryQuestionsUnanswered: "<i class='fa fa-exclamation-triangle background inverse warning obj_tooltip' title='Some mandatory questions unanswered'></i>",
-    // allQuestionsUnanswered: "<i class='fa fa-times-circle background inverse info obj_tooltip' title='All questions unanswered'></i>",
     findIcon: function(n){
-      switch(n) {
-        case 0:
-          return ""; //this.allQuestionsUnanswered
-          break;
-        case 1:
-          return this.mandatoryQuestionsUnanswered;
-          break;
-        case 2:
-          return ""; //this.someQuestionsUnanswered;
-          break;
-        case 3:
-          return ""; //this.completeSection;
-          break;
-        case 4:
-          return ""; //this.newSection;
-          break;
+      if(n === 1) {
+        return this.mandatoryQuestionsUnanswered;
       }
+      return "";
     }
   };
   $("#img"+id).empty();
