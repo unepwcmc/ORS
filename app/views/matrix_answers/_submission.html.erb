@@ -1,6 +1,6 @@
 <% queries_as_rows = answer_type.matrix_orientation == 0 %>
-<% columns = queries_as_rows ? answer_type.matrix_answer_options.order('id DESC') : answer_type.matrix_answer_queries  -%>
-<% rows = queries_as_rows ? answer_type.matrix_answer_queries : answer_type.matrix_answer_options.order('id DESC')  -%>
+<% columns = queries_as_rows ? answer_type.matrix_answer_options : answer_type.matrix_answer_queries  -%>
+<% rows = queries_as_rows ? answer_type.matrix_answer_queries : answer_type.matrix_answer_options  -%>
 <% drop_down_options = answer_type.matrix_answer_drop_options.order('id DESC') %>
 <% selection = {} %>
 <% if answer
@@ -13,7 +13,7 @@ end %>
     <thead>
     <tr>
       <th></th>
-      <% columns.each do |column| -%>
+      <% columns.order('id DESC').each do |column| -%>
           <th>
             <%=h @fields[(column.class.to_s.underscore.downcase+"_field").to_sym][column.id.to_s] %>
           </th>
@@ -21,7 +21,7 @@ end %>
     </tr>
     </thead>
     <tbody>
-    <% rows.each do |row| %>
+    <% rows.order('id DESC').each do |row| %>
         <tr>
           <td class="matrix-queries"><%=h @fields[(row.class.to_s.underscore.downcase+"_field").to_sym][row.id.to_s] %></td>
           <%= render :partial => "matrix_answers/#{answer_type.display_reply_humanize.gsub(" ", "_").tableize}", :locals => { :columns => columns, :answer => answer, :the_id => the_id, :row_id => row.id.to_s, :queries_as_rows => queries_as_rows, :selection => selection, :drop_down_options => drop_down_options, :disabled => disabled } %>
