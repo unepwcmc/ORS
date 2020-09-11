@@ -29,6 +29,13 @@ class QuestionnairePdf < Prawn::Document
     #check_box = "\xE2\x98\x90"
     #filled_check_box = "\xE2\x98\x91"
 
+    current_instance = Rails.root.to_s.split('/')[3]
+    logo = Dir.glob("public/assets/logos/#{current_instance.split('-').first}*", File::FNM_CASEFOLD).first
+    image "#{Rails.root}/#{logo}", position: :right, width: 150 if logo
+    text "#{current_instance.upcase}", size: 14, style: :bold
+
+    move_down 10
+
     banner = questionnaire.header.path
     if banner.present? && File.exist?(banner)
       image banner, :position => :left, :width => 550
@@ -48,6 +55,8 @@ class QuestionnairePdf < Prawn::Document
 
     move_down 13
 
+    start_new_page
+
     fields = {}
 
     puts "#{Time.now} - Started generating #{short_version ? "short" : ""} PDF for - #{questionnaire_field.title} - for #{user.full_name}"
@@ -55,12 +64,11 @@ class QuestionnairePdf < Prawn::Document
 
     begin
       sections = questionnaire.sections
-      sections.each_index do |i|
+      sections.each_with_index do |section, i|
         fields.clear
-        #answers = []
-        sections[i].objects_fields_in authorization.language, fields
-        answers = sections[i].section_and_descendants_answers_for(user).select{ |ans| ans.filled_answer? }
-        root_section_to_pdf(authorization.language, sections[i], user, fields, answers, url_prefix, short_version)
+        section.objects_fields_in authorization.language, fields
+        answers = section.section_and_descendants_answers_for(user).select{ |ans| ans.filled_answer? }
+        root_section_to_pdf(authorization.language, section, user, fields, answers, url_prefix, short_version)
 
         # new page for every new root section (if we're doing a short_version pdf only add the new page if the answers aren't empty)
         # the last check on the if is related with checking if there is any content for the next page
@@ -72,7 +80,7 @@ class QuestionnairePdf < Prawn::Document
 
       #footer [ margin_box.left, margin_box.bottom + 25 ] do
       repeat(:all, :dynamic => true) do
-        draw_text "#{questionnaire_field.title} [#{user.full_name}]", :size => 7, :at => [0, -15]
+        draw_text "#{questionnaire_field.title} [#{user.full_name}, #{user.country}]", :size => 7, :at => [0, -15]
         draw_text "Page #{page_number} of #{page_count}", :size => 8, :at => [500, (questionnaire.title.size > 50 ? -6 : -15)]
       end
 
@@ -421,9 +429,9 @@ class QuestionnairePdf < Prawn::Document
     span(box_width) do
       if entered_text
         txt = @coder.decode(OrtSanitize.white_space_cleanse(entered_text, false))
-        text "› " + txt
+        text "››› " + txt
       else
-        text "›"
+        text "›››"
       end
     end
     #end
