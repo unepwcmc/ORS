@@ -71,7 +71,7 @@
 
         <% else -%>
             <% j = 0 %>
-                <% matrix_answer_queries =  type.matrix_answer_queries.order('id DESC') %>
+                <% matrix_answer_queries =  type.matrix_answer_queries.order('id ASC') %>
                 var queriesData = [
                     <% matrix_answer_queries.each_index do |i| %>
                         {
@@ -89,7 +89,7 @@
                     <% end -%>
                 ];
             <% j = 0 %>
-                <% matrix_answer_options =  type.matrix_answer_options.order('id DESC') %>
+                <% matrix_answer_options =  type.matrix_answer_options.order('id ASC') %>
                 var optionsData = [
                     <% matrix_answer_options.each_index do |i| %>
                         {

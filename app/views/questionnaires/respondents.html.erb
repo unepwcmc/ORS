@@ -130,7 +130,7 @@
            <td width="10%">
              <% pdf_file = @questionnaire.pdf_files.find_by_user_id_and_is_long(submitter.id, true) -%>
              <% if pdf_file.present? && File.file?(pdf_file.location) -%>
-               <%= link_to image_tag('icons/page_white_acrobat.png', :alt => t('user_dashboard.pdf_download'), :title => t('user_dashboard.pdf_download')), questionnaire_download_user_pdf_path(@questionnaire, submitter) %>
+               <%= link_to "#{image_tag('icons/page_white_acrobat.png', :alt => t('user_dashboard.pdf_download'), :title => t('user_dashboard.pdf_download'))} Download PDF".html_safe, questionnaire_download_user_pdf_path(@questionnaire, submitter) %>
                (<%= t("user_dashboard.pdf_last_g")%>: <%= l(File.mtime(pdf_file.location), :format => :with_time) %>)
                &nbsp;
                <%= link_to t("user_dashboard.pdf_regenerate"), to_pdf_questionnaire_path(@questionnaire, :params => {:preview => false, :user => submitter}), :class => "get" %>
@@ -141,7 +141,7 @@
            <td width="10%">
              <% short_pdf_file = @questionnaire.pdf_files.find_by_user_id_and_is_long(submitter.id, false) -%>
              <% if short_pdf_file.present? && File.file?(short_pdf_file.location) -%>
-               <%= link_to image_tag('icons/page_white_acrobat.png', :alt => t('user_dashboard.pdf_download'), :title => t('user_dashboard.pdf_download')), questionnaire_download_user_pdf_path(@questionnaire, submitter, :params => {:is_short => true}) %>
+               <%= link_to "#{image_tag('icons/page_white_acrobat.png', :alt => t('user_dashboard.pdf_download'), :title => t('user_dashboard.pdf_download'))} Download PDF".html_safe, questionnaire_download_user_pdf_path(@questionnaire, submitter, :params => {:is_short => true}) %>
                (<%= t("user_dashboard.pdf_last_g")%>: <%= l(File.mtime(short_pdf_file.location), :format => :with_time) %>)
                &nbsp;
                <%= link_to t("user_dashboard.pdf_regenerate"), to_pdf_questionnaire_path(@questionnaire, :params => {:preview => false, :user => submitter, :is_short => true}), :class => "get" %>

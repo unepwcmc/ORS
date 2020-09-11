@@ -9,7 +9,7 @@
 </p>
 <p>Queries</p>
 <ul>
-  <% answer_type.matrix_answer_queries.order('id DESC').each do |query| %>
+  <% answer_type.matrix_answer_queries.order('id ASC').each do |query| %>
       <li>
         <%= h query.title(language) %>
       </li>
@@ -17,7 +17,7 @@
 </ul>
 <p>Options</p>
 <ul>
-  <% answer_type.matrix_answer_options.order('id DESC').each do |option| %>
+  <% answer_type.matrix_answer_options.order('id ASC').each do |option| %>
       <li>
         <%= h option.title(language) %>
       </li>

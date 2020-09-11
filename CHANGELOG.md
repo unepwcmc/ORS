@@ -1,3 +1,35 @@
+### 0.4.6 (2020-09-09)
+
+**Bug fixes**
+
+* Make users editable even without questionnaire associated (spurious db data)
+* Add download PDF text next to the relative icon
+* Fix redirect of admin failed submissions on behalf of respondent
+
+### 0.4.5 (2020-06-09)
+
+**Bug fixes**
+
+* Fix documents upload modal not opening up in looping questions
+
+### 0.4.4 (2020-05-12)
+
+**Bug fixes**
+
+* Fix save answers js script failing because of carriage returns in section title
+
+### 0.4.3 (2020-03-23)
+
+**Bug fixes**
+
+* Remove html tags from sections titles so that are not showing on the interface
+
+### 0.4.2 (2019-07-16)
+
+**Bug fixes**
+
+* Fix bug related to matrix answers API view which was fetching some answers multiple times
+
 ### 0.4.1 (2019-06-13)
 
 **Updates**

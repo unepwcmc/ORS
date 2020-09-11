@@ -6,13 +6,13 @@ $(function(){
         <%# Check if the long pdf is done or underway%>
         <% pdf_file = questionnaire.pdf_files.find_by_user_id_and_is_long(current_user.id, true)  %>
         <% if pdf_file.present? && File.file?(pdf_file.location) && !File.directory?(base_dir +"generating_long_pdf") -%>
-          $("#pdf_for_<%= questionnaire.id %>").html("<%= raw(escape_javascript( "#{link_to image_tag('icons/page_white_acrobat.png', :alt => "Download pdf", :title => "Download pdf"), questionnaire_download_user_pdf_path(questionnaire, current_user)}" + "(#{t("user_dashboard.pdf_last_g")}: #{l(File.mtime(pdf_file.location), :format => :with_time) }) #{link_to "<span id='link_text_#{questionnaire.id}_'>#{t("user_dashboard.pdf_regenerate")}</span>".html_safe, to_pdf_questionnaire_path(questionnaire), :class => "get"}"))%>");
+          $("#pdf_for_<%= questionnaire.id %>").html("<%= raw(escape_javascript( "#{link_to image_tag('icons/page_white_acrobat.png', :alt => "Download pdf", :title => "Download pdf") + 'Download PDF', questionnaire_download_user_pdf_path(questionnaire, current_user)}" + "(#{t("user_dashboard.pdf_last_g")}: #{l(File.mtime(pdf_file.location), :format => :with_time) }) #{link_to "<span id='link_text_#{questionnaire.id}_'>#{t("user_dashboard.pdf_regenerate")}</span>".html_safe, to_pdf_questionnaire_path(questionnaire), :class => "get"}"))%>");
         <% end %>
         <%# Check if the short pdf is done or underway %>
         <% short_pdf_file = questionnaire.pdf_files.find_by_user_id_and_is_long(current_user.id, false) -%>
         <% if short_pdf_file.present? && File.file?(short_pdf_file.location) && !File.directory?(base_dir + "generating_short_pdf") -%>
             $("#short_pdf_for_<%= questionnaire.id %>")
-            .html("<%= raw(escape_javascript( "#{link_to image_tag('icons/page_white_acrobat.png', :alt => "Download pdf", :title => "Download pdf"), questionnaire_download_user_pdf_path(questionnaire, current_user, :params => {:is_short => true})}" + "(#{t("user_dashboard.pdf_last_g")}: #{l(File.mtime(short_pdf_file.location), :format => :with_time) }) #{link_to "<span id='link_text_#{questionnaire.id}_true'>#{t("user_dashboard.pdf_regenerate")}</span>".html_safe, to_pdf_questionnaire_path(questionnaire, :params => {:is_short => true }), :class => "get"}"))%>");
+            .html("<%= raw(escape_javascript( "#{link_to image_tag('icons/page_white_acrobat.png', :alt => "Download pdf", :title => "Download pdf") + 'Download PDF', questionnaire_download_user_pdf_path(questionnaire, current_user, :params => {:is_short => true})}" + "(#{t("user_dashboard.pdf_last_g")}: #{l(File.mtime(short_pdf_file.location), :format => :with_time) }) #{link_to "<span id='link_text_#{questionnaire.id}_true'>#{t("user_dashboard.pdf_regenerate")}</span>".html_safe, to_pdf_questionnaire_path(questionnaire, :params => {:is_short => true }), :class => "get"}"))%>");
         <% end %>
         <% if File.directory?(base_dir +"generating_short_pdf") || File.directory?(base_dir +"generating_long_pdf") %>
             <% set_update_page = true %>
@@ -21,6 +21,6 @@ $(function(){
     <% end -%>
 
     <% if !set_update_page -%>
-        $("#questionnaires_for_submission").removeClass("set_update_page");              
+        $("#questionnaires_for_submission").removeClass("set_update_page");
     <% end -%>
 });
