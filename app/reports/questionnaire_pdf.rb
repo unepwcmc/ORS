@@ -53,8 +53,6 @@ class QuestionnairePdf < Prawn::Document
 
     text "#{OrtSanitize.white_space_cleanse(questionnaire_field.introductory_remarks).gsub("\n", "\n\n")}", :inline_format => true
 
-    move_down 13
-
     start_new_page
 
     fields = {}
