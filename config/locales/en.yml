@@ -323,6 +323,7 @@ en:
     new_user_registered: 'New user registered in the system'
     admin_footer: "You have received this e-mail because you are an administrator of the Online Reporting System"
     for_the_user: "for the user"
+    password_reset: "Have you forgotten your credentials to login? Your username is your email. You could also reset your password using this link:"
     delegate_registration:
       subject: "You have been added as a delegate"
     user_registration:

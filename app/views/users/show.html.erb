@@ -47,61 +47,53 @@
       <% end %>
     </tbody>
   </table>
-  <!--
-    <%# @user.available_questionnaires.each do |questionnaire| -%>
-      <%# questionnaire.filtering_fields.each do |field| -%>
-        <p><strong><%#= "#{h(field.name)} #{info_tip "Questionnaire", questionnaire.title}"%>: </strong> <%#= @user.get_filtering_field_value(field) %></p>
-        <%# end -%>
-        <%# end -%>
 
-  -->
-  <div class="mt-1">
-    <a style="font-weight:600; font-size:14px" id="toggle_help" href="#">
-      Filtering fields
-    </a>
-    <div id="help_div" style="display: none" class="mt-1">
-      <table class="user_table">
-        <thead>
-          <tr>
-            <th><%= t("generic.questionnaire") %></th>
-            <th><%= t("generic.filtering_fields") %></th>
-            <th><%= t("generic.value") %></th>
-          </tr>
-        </thead>
-        <tbody>
-          <% @user.available_questionnaires.each do |questionnaire| -%>
-            <% questionnaire.filtering_fields.each do |field| -%>
-              <tr>
-                <td><%= questionnaire.title%></td>
-                <td><%= h(field.name)%></td>
-                <td><%= @user.get_filtering_field_value(field) %></td>
-              </tr>
-            <% end -%>
-          <% end -%>
-        </tbody>
-      </table>
+  <div class="respondents-list-delegations">
+    <div class="page-header">
+      <h2> Filtering fields </h2>
+    </div>
+    <div id="help_div" >
+        <table class="user_table">
+          <% unless @user.available_questionnaires.empty? %>
+          <thead>
+            <tr>
+              <th><%= t("generic.questionnaire") %></th>
+              <th><%= t("generic.filtering_fields") %></th>
+              <th><%= t("generic.value") %></th>
+            </tr>
+          </thead>
+          <tbody>
+              <% @user.available_questionnaires.each do |questionnaire| -%>
+                <% questionnaire.filtering_fields.each do |field| -%>
+                  <tr>
+                    <td><%= questionnaire.title%></td>
+                    <td><%= h(field.name)%></td>
+                    <td><%= @user.get_filtering_field_value(field) %></td>
+                  </tr>
+                <% end -%>
+              <% end -%>
+            <% else %>
+              <tr><%= "No available questionnaires" %></tr>
+          </tbody>
+          <% end %>
+        </table>
     </div>
   </div>
 
   <% unless @user.available_questionnaires.empty? %>
-    <hr />
     <div class="span-24 last" id="questionnaires">
       <%= render :partial => "home/submission", :locals => {
         :questionnaires => @user.available_questionnaires } %>
-  </div><!-- /questionnaires -->
-<% end %>
-
-<% if @user.is_delegate? %>
-  <div class='respondents-list-delegations'>
-    <div class="page-header">
-      <h2>Delegations</h2>
     </div>
-    <%= render 'existing_delegations' %>
-  </div>
-<% end %>
+  <% end %>
+
+  <% if @user.is_delegate? %>
+    <div class='respondents-list-delegations'>
+      <div class="page-header">
+        <h2>Delegations</h2>
+      </div>
+      <%= render 'existing_delegations' %>
+    </div>
+  <% end %>
 
 </div>
-
-
-
-</div><!-- /content -->

@@ -6,6 +6,7 @@
 
 <p><%= I18n.t('user_mailer.questionnaire_delegated.access') %>  <a href='<%=@url%>/questionnaires/<%=@delegation.questionnaire.id%>/submission'><%=@url%>/questionnaires/<%= @delegation.questionnaire.id %>/submission</a>.</p>
 <p><%= I18n.t('user_mailer.questionnaire_delegated.dashboard') %></p>
+<p><%= I18n.t('user_mailer.password_reset') %> <%= link_to "#{@url}#{new_password_reset_path}", "#{@url}#{new_password_reset_path}" %></p>
 <p>
   <%= I18n.t('user_mailer.greetings')%><br />
   <%= ApplicationProfile.title %>

@@ -318,6 +318,7 @@ fr:
     new_user_registered: 'Nouvel utilisateur enregistré sur le système'
     admin_footer: "Vous avez reçu cet e-mail car vous êtes administrateur du système de rapport en ligne"
     for_the_user: "pour l'utilisateur"
+    password_reset: "Avez-vous oublié vos identifiants pour vous connecter? Votre nom d’utilisateur est votre adresse e-mail. Vous pouvez réinitialiser votre mot de passe en suivant ce lien:"
     delegate_registration:
       subject: "Vous avez été ajouté en tant que délégué"
     user_registration:

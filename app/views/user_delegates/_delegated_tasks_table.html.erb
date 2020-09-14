@@ -9,7 +9,7 @@
   <tbody>
     <% @user_delegate.delegations.each do |delegation| %>
       <tr>
-        <td><%= link_to h(delegation.questionnaire.title), submission_questionnaire_path(delegation.questionnaire, user_delegate: @user_delegate.id) %></td>
+        <td><%= link_to h(delegation.questionnaire.title), submission_questionnaire_path(delegation.questionnaire, user_delegate: @user_delegate.id) if delegation.questionnaire.try(:title).present? %></td>
         <td><%=h delegation.remarks %></td>
         <td>
           <%= link_to "Edit", edit_delegation_path(delegation) %> | <%= link_to t('generic.manage'), delegation_path(delegation) %> | <%= link_to t('generic.remove'), delegation, :method => :delete, :confirm => t('generic.are_you_sure') %>
