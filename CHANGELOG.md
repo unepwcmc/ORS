@@ -16,6 +16,12 @@
 
 * Fix MEA title and logo not working in PDF generation
 
+### 0.5.0 (2020-09-18) - IACSeaTurtle instance
+
+**Ammendments**
+
+* Show only mandatory questions not yet answered icons
+
 ### 0.5.0 (2020-09-18)
 
 **Ammendments**
