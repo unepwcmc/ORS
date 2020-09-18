@@ -1,3 +1,15 @@
+### 0.5.0 (2020-09-18)
+
+**Ammendments**
+
+* Update questionnaire PDF download with MEA logo and name and other minor fixes
+* Add password reset link to some automated emails related to delegations
+
+**Bug fixes**
+
+* Fix matrix answers options and queries ordering (when creating and submitting questionnaire).
+
+
 ### 0.4.6 (2020-09-09)
 
 **Bug fixes**
