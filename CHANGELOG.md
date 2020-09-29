@@ -1,3 +1,9 @@
+### 0.5.1 (2020-09-29)
+
+**Bug fixes**
+
+* Fix MEA title and logo not working in PDF generation
+
 ### 0.5.0 (2020-09-18)
 
 **Ammendments**
