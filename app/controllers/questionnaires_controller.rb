@@ -370,7 +370,7 @@ class QuestionnairesController < ApplicationController
     if @questionnaire
       #Convert Questionnaire's submission side and existing answers to csv
       # default location: private/questionnaires/questionnaire_id/
-      QuestionnaireToCsv.perform_async(current_user.id, @questionnaire.id, separator, user.id)
+      QuestionnaireToCsv.perform_async(current_user.id, @questionnaire.id, separator, user.try(:id))
       flash[:notice] = "File is being generated. An email will be sent to you when it is ready for download from this page. Note that generating the file can take some minutes."
     end
     respond_to do |format|
@@ -511,11 +511,11 @@ class QuestionnairesController < ApplicationController
 
   def fill_index
     if params[:order]
-      @questionnaires = Questionnaire.find(:all, :order => "#{params[:order]} DESC", :include => [:questionnaire_fields, :user, :csv_file])
+      @questionnaires = Questionnaire.find(:all, :order => "#{params[:order]} DESC", :include => [:questionnaire_fields, :user, :csv_files])
     elsif params[:active]
       @questionnaires = Questionnaire.where(status: QuestionnaireStatus::ACTIVE).order("created_at DESC")
     else
-      @questionnaires = Questionnaire.order("created_at DESC").find(:all, :include => [:questionnaire_fields, :user, :csv_file])
+      @questionnaires = Questionnaire.order("created_at DESC").find(:all, :include => [:questionnaire_fields, :user, :csv_files])
     end
   end
 

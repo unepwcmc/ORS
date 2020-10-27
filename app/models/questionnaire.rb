@@ -360,6 +360,11 @@ class Questionnaire < ActiveRecord::Base
   def can_act_as_a_super_delegate?(user)
     enable_super_delegates && user.role?(:super_delegate)
   end
+
+  # Questionnaire full CSV (all users)
+  def csv_file
+    self.csv_files.find_by_user_id(nil)
+  end
 end
 
 # == Schema Information

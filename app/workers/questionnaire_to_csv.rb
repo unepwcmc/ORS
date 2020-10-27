@@ -5,7 +5,7 @@ class QuestionnaireToCsv
   def perform(user_id, questionnaire_id, separator, respondent_id=nil)
     user          = User.find(user_id)
     questionnaire = Questionnaire.find(questionnaire_id)
-    respondent    = User.find(respondent_id)
+    respondent    = User.find(respondent_id) if respondent_id
 
     return if !user || !questionnaire || (respondent_id && respondent.blank?)
 
@@ -29,8 +29,8 @@ class QuestionnaireToCsv
       CsvMethods.fill_csv file_location, submitters, questionnaire.sections, separator
 
       # move file to the final destination
-      csv_file = questionnaire.csv_files.find_by_user_id(respondent.id)
-      file_record = csv_file.present? || CsvFile.new(entity: questionnaire, user: respondent)
+      csv_file = respondent.present? ? questionnaire.csv_files.find_by_user_id(respondent.id) : questionnaire.csv_file
+      file_record = csv_file.presence || CsvFile.new(entity: questionnaire, user: respondent)
       if !file_record.new_record? && File.exist?(file_record.location)
         FileUtils.rm(file_record.location)
       end
