@@ -10,7 +10,12 @@ class CsvFile < ActiveRecord::Base
     "#{Rails.root}/#{read_attribute(:location)}"
   end
 
+  def file_exists?
+    File.exist?(location)
+  end
+
   private
+
   def remove_csv_file
     if File.exist?(location)
       FileUtils.rm(location)
