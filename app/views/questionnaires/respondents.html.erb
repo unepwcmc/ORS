@@ -150,16 +150,9 @@
                <%= link_to t("user_dashboard.pdf_generate"), to_pdf_questionnaire_path(@questionnaire, :params => {:preview => false, :user => submitter, :is_short => true}), :class => "get" %>
              <% end -%>
            </td>
-           <td width="10%">
-             <% csv_file = @questionnaire.csv_files.find_by_user_id(submitter.id) %>
-             <% if csv_file.present? && File.file?(csv_file.location) %>
-               <%= link_to "#{image_tag('icons/csv-file-icon.png', :alt => t('user_dashboard.csv_download'), :title => t('user_dashboard.csv_download'))} Download CSV".html_safe, questionnaire_download_user_csv_path(@questionnaire, submitter) %>
-               (<%= t("user_dashboard.pdf_last_g")%>: <%= l(File.mtime(csv_file.location), :format => :with_time) %>)
-               &nbsp;
-               <%= link_to t("user_dashboard.csv_regenerate"), to_csv_questionnaire_path(@questionnaire, params: {user: submitter}), class: 'get' %>
-             <% else %>
-               <%= link_to t("user_dashboard.csv_generate"), to_csv_questionnaire_path(@questionnaire, params: {user: submitter}), class: 'get' %>
-             <% end %>
+           <td width="12%">
+            <a href="#" class="information-tooltip-trigger"><%= fa_icon 'download' %> Download</a>
+            <%= render partial: 'csv_download_tooltip', locals: {questionnaire: @questionnaire, submitter: submitter} %>
            </td>
          </tr>
        <% end -%>
