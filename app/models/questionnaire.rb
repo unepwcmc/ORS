@@ -39,7 +39,7 @@ class Questionnaire < ActiveRecord::Base
   has_many :filtering_fields, :dependent => :destroy
   has_many :delegations, :dependent => :destroy
   has_many :user_delegates, :source => :user_delegate, :through => :delegations, :foreign_key => :delegate_id, :dependent => :destroy
-  has_one :csv_file, :dependent => :destroy, :as => :entity
+  has_many :csv_files, :dependent => :destroy, :as => :entity
   has_many :pdf_files, :dependent => :destroy
   has_many :deadlines, :dependent => :destroy
 

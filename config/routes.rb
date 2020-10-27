@@ -112,6 +112,7 @@ OnlineReportingTool::Application.routes.draw do
 
     match 'send_deadline_warning/:user_id' => 'questionnaires#send_deadline_warning', as: :send_deadline_warning
     match 'download_user_pdf/:user_id' => 'questionnaires#download_user_pdf', as: :download_user_pdf
+    match 'download_user_csv/:user_id' => 'questionnaires#download_user_csv', as: :download_user_csv
   end
 
   resources :questionnaire_parts do

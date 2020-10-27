@@ -1,9 +1,10 @@
 class CsvFile < ActiveRecord::Base
 
-  belongs_to :entity, :polymorphic => true
+  belongs_to :entity, polymorphic: true
+  belongs_to :user
   before_destroy :remove_csv_file
 
-  attr_accessible :entity
+  attr_accessible :entity, :user
 
   def location
     "#{Rails.root}/#{read_attribute(:location)}"
