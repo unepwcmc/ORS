@@ -101,6 +101,7 @@
          <th>Options</th>
          <th>PDF</th>
          <th>Short PDF</th>
+         <th>CSV</th>
        </tr>
      </thead>
      <tbody>
@@ -148,6 +149,10 @@
              <% else -%>
                <%= link_to t("user_dashboard.pdf_generate"), to_pdf_questionnaire_path(@questionnaire, :params => {:preview => false, :user => submitter, :is_short => true}), :class => "get" %>
              <% end -%>
+           </td>
+           <td width="12%">
+            <a href="#" class="information-tooltip-trigger"><%= fa_icon 'download' %> Download</a>
+            <%= render partial: 'csv_download_tooltip', locals: {questionnaire: @questionnaire, submitter: submitter} %>
            </td>
          </tr>
        <% end -%>

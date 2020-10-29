@@ -2,12 +2,18 @@ class QuestionnaireToCsv
   include Sidekiq::Worker
   sidekiq_options queue: "low"
 
-  def perform(user_id, questionnaire_id, separator)
+  def perform(user_id, questionnaire_id, separator, respondent_id=nil)
     user          = User.find(user_id)
     questionnaire = Questionnaire.find(questionnaire_id)
-    return if !user || !questionnaire
+    respondent    = User.find(respondent_id) if respondent_id
 
-    file_location = "#{Rails.root}/private/questionnaires/#{questionnaire.id.to_s}/"
+    return if !user || !questionnaire || (respondent_id && respondent.blank?)
+
+    submitters = respondent.present? ? [respondent] : questionnaire.submitters
+
+    relative_path = "private/questionnaires/#{questionnaire.id.to_s}/"
+    relative_path << "#{respondent.id.to_s}/" if respondent.present?
+    file_location = "#{Rails.root}/#{relative_path}"
     FileUtils.mkdir_p(file_location) if !File.directory?(file_location)
 
     file_location << "questionnaire_generating.csv"
@@ -20,16 +26,17 @@ class QuestionnaireToCsv
     end
 
     begin
-      CsvMethods.fill_csv file_location, questionnaire.submitters, questionnaire.sections, separator
+      CsvMethods.fill_csv file_location, submitters, questionnaire.sections, separator
 
       # move file to the final destination
-      file_record = questionnaire.csv_file || CsvFile.new(entity: questionnaire)
+      csv_file = respondent.present? ? questionnaire.csv_files.find_by_user_id(respondent.id) : questionnaire.csv_file
+      file_record = csv_file.presence || CsvFile.new(entity: questionnaire, user: respondent)
       if !file_record.new_record? && File.exist?(file_record.location)
         FileUtils.rm(file_record.location)
       end
 
       file_record.name = questionnaire.title[0,35].gsub(/[^a-z0-9\-]+/i, '_') + "_#{DateTime.now.strftime("%d%m%Y")}.csv"
-      file_record.location = "private/questionnaires/#{questionnaire.id.to_s}/" + file_record.name
+      file_record.location = relative_path + file_record.name
       file_record.save
 
       FileUtils.move(file_location, file_record.location)

@@ -175,4 +175,16 @@ module QuestionnairesHelper
       ''
     end
   end
+
+  def csv_file(questionnaire, submitter)
+    submitter ? questionnaire.csv_files.find_by_user_id(submitter.id) : questionnaire.csv_file
+  end
+
+  def get_download_csv_path(questionnaire, submitter=nil)
+    if submitter
+      questionnaire_download_user_csv_path(questionnaire, submitter)
+    else
+      download_csv_questionnaire_path(questionnaire)
+    end
+  end
 end

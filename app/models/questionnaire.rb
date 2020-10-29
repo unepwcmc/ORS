@@ -39,7 +39,7 @@ class Questionnaire < ActiveRecord::Base
   has_many :filtering_fields, :dependent => :destroy
   has_many :delegations, :dependent => :destroy
   has_many :user_delegates, :source => :user_delegate, :through => :delegations, :foreign_key => :delegate_id, :dependent => :destroy
-  has_one :csv_file, :dependent => :destroy, :as => :entity
+  has_many :csv_files, :dependent => :destroy, :as => :entity
   has_many :pdf_files, :dependent => :destroy
   has_many :deadlines, :dependent => :destroy
 
@@ -359,6 +359,11 @@ class Questionnaire < ActiveRecord::Base
 
   def can_act_as_a_super_delegate?(user)
     enable_super_delegates && user.role?(:super_delegate)
+  end
+
+  # Questionnaire full CSV (all users)
+  def csv_file
+    self.csv_files.find_by_user_id(nil)
   end
 end
 

@@ -65,19 +65,7 @@
           </td>
           <td>
             <a href="#" class="information-tooltip-trigger"><%= fa_icon 'download' %> Download</a>
-
-            <div class="information-tooltip hide">
-              <% if questionnaire.csv_file.present? && File.file?(questionnaire.csv_file.location) -%>
-                  <%= link_to download_csv_questionnaire_path(questionnaire) do %>
-                    <%= fa_icon 'download' %> Download file
-                  <% end %>
-                  <p>Last generated at <%= File.mtime(questionnaire.csv_file.location).strftime('%H:%M on %m/%d/%Y') %></p>
-              <% end -%>
-                <strong>Generate New</strong>
-                <hr class="grey">
-              <%= fa_icon 'file-text-o' %> <%= link_to "comma separated", to_csv_questionnaire_path(questionnaire, :separator => ','), :class => "get" %><br>
-              <%= fa_icon 'file-text-o' %> <%= link_to "semicolon separated", to_csv_questionnaire_path(questionnaire, :separator => ';'), :class => "get"   %>
-            </div>
+            <%= render partial: 'csv_download_tooltip', locals: {questionnaire: questionnaire, submitter: nil} %>
           </td>
         </tr>
     <% end %>

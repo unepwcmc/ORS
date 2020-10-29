@@ -54,6 +54,7 @@ class User < ActiveRecord::Base
   has_many :delegators, :through => :user_delegators, :source => :user
   has_many :delegated_tasks, :through => :user_delegators, :source => :delegations
   has_many :pdf_files, :dependent => :destroy
+  has_many :csv_files, dependent: :destroy
   #Errors
   has_many :persistent_errors, :dependent => :destroy
 

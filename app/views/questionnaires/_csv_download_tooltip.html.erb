@@ -1,0 +1,13 @@
+<div class="information-tooltip hide">
+  <% csv_file = csv_file(questionnaire, submitter) %>
+  <% if csv_file && csv_file.file_exists? -%>
+    <%= link_to get_download_csv_path(questionnaire, submitter) do %>
+      <%= fa_icon 'download' %> Download file
+    <% end %>
+    <p>Last generated at <%= File.mtime(csv_file.location).strftime('%H:%M on %m/%d/%Y') %></p>
+    <hr class="grey">
+  <% end -%>
+  <strong>Generate New</strong><br><br>
+  <%= fa_icon 'file-text-o' %> <%= link_to "comma separated", to_csv_questionnaire_path(questionnaire, separator: ',', user: submitter), class: "get" %><br>
+  <%= fa_icon 'file-text-o' %> <%= link_to "semicolon separated", to_csv_questionnaire_path(questionnaire, separator: ';', user: submitter), class: "get" %>
+</div>
