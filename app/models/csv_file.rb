@@ -34,4 +34,4 @@ end
 #  updated_at  :datetime         not null
 #  entity_type :string(255)
 #  entity_id   :integer
-#
+#  user_id     :integer

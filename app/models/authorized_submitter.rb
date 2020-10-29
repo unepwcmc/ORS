@@ -13,7 +13,6 @@ class AuthorizedSubmitter < ActiveRecord::Base
   ###
   belongs_to :user
   belongs_to :questionnaire
-  has_one :csv_file, :dependent => :destroy, :as => :entity
 
   ###
   ###   Validations
