@@ -1,3 +1,9 @@
+### 0.5.2 (2020-11-25)
+
+**Hotfix**
+
+* Fix create/update questions related to missing checks on sorted params
+
 ### 0.5.1 (2020-09-29)
 
 **Bug fixes**
