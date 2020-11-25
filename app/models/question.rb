@@ -256,10 +256,15 @@ class Question < ActiveRecord::Base
   def self.sorted_params(params)
     attrs = params[:answer_type]
 
-    attrs[:matrix_answer_queries_attributes] =
-      attrs[:matrix_answer_queries_attributes].sort_by { |k,_| k }.to_h
-    attrs[:matrix_answer_options_attributes] =
-      attrs[:matrix_answer_options_attributes].sort_by { |k,_| k }.to_h
+    if attrs[:matrix_answer_queries_attributes].present?
+      attrs[:matrix_answer_queries_attributes] =
+        attrs[:matrix_answer_queries_attributes].sort_by { |k,_| k }.to_h
+    end
+
+    if attrs[:matrix_answer_options_attributes].present?
+      attrs[:matrix_answer_options_attributes] =
+        attrs[:matrix_answer_options_attributes].sort_by { |k,_| k }.to_h
+    end
 
     attrs
   end
