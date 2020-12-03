@@ -7,9 +7,7 @@ class PdfGenerator
       user = User.find(user_id)
       questionnaire = Questionnaire.find(questionnaire_id)
       requester = requester_id == user_id ? user : User.find(requester_id)
-      if requester.role?(:admin) || questionnaire.status != QuestionnaireStatus::INACTIVE
-        QuestionnairePdf.new.to_pdf requester, user, questionnaire, url_prefix, short_version
-      end
+      QuestionnairePdf.new.to_pdf requester, user, questionnaire, url_prefix, short_version
     rescue => e
       Appsignal.add_exception(e)
     end
