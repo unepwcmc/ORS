@@ -34,7 +34,7 @@ class QuestionnairePdf < Prawn::Document
     ap_logo = ap && ap.logo && ap.logo.path
     fallback_logo = Dir.glob("public/assets/logos/#{current_instance.split('-').first}*", File::FNM_CASEFOLD).first
     logo = ap_logo || "#{Rails.root}/#{fallback_logo}"
-    image logo, position: :right, width: 150 if logo
+    image logo, position: :right, width: 150 if logo && File.exist?(logo)
     text "#{current_instance.upcase}", size: 14, style: :bold
 
     move_down 10
