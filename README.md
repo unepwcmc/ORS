@@ -1,5 +1,17 @@
 # Online Reporting Tool
 
+## Important branch info
+
+This branch contains changes related to the following release which was first launched only for the iacseaturtle instance:
+
+### 0.5.0 (2020-09-18) - IACSeaTurtle instance
+
+**Ammendments**
+
+* Show only mandatory questions not yet answered icons
+
+Apart from that, this branch needs to be up to date with master.
+
 ## User guide
 
 A user guide for the application is available from the repository's doc folder.
@@ -57,7 +69,7 @@ After installing this software run "bundle install" again.
 
 ````
     rails server
-````    
+````
 
 8 And visit the home page in:
 
