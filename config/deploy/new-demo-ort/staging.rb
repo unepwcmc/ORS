@@ -2,7 +2,7 @@ set :stage, :staging
 
 set :branch, "new_demo"
 
-server "new-demo-ort.ort-staging.linode.unep-wcmc.org", user: "wcmc", roles: %w{app web db}
+server "ort-staging.linode.unep-wcmc.org", user: "wcmc", roles: %w{app web db}
 
 set :domain, "new-demo-ort.ort-staging.linode.unep-wcmc.org"
 
