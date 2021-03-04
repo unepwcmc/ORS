@@ -1,3 +1,47 @@
+### 0.5.2 (2020-11-25)
+
+**Hotfix**
+
+* Fix create/update questions related to missing checks on sorted params
+
+### 0.5.1 (2020-09-29)
+
+**Bug fixes**
+
+* Fix MEA title and logo not working in PDF generation
+
+### 0.5.0 (2020-09-18)
+
+**Ammendments**
+
+* Update questionnaire PDF download with MEA logo and name and other minor fixes
+* Add password reset link to some automated emails related to delegations
+
+**Bug fixes**
+
+* Fix matrix answers options and queries ordering (when creating and submitting questionnaire).
+
+
+### 0.4.6 (2020-09-09)
+
+**Bug fixes**
+
+* Make users editable even without questionnaire associated (spurious db data)
+* Add download PDF text next to the relative icon
+* Fix redirect of admin failed submissions on behalf of respondent
+
+### 0.4.5 (2020-06-09)
+
+**Bug fixes**
+
+* Fix documents upload modal not opening up in looping questions
+
+### 0.4.4 (2020-05-12)
+
+**Bug fixes**
+
+* Fix save answers js script failing because of carriage returns in section title
+
 ### 0.4.3 (2020-03-23)
 
 **Bug fixes**

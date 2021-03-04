@@ -35,7 +35,7 @@
             <td id="pdf_for_<%= questionnaire.id %>">
               <% link_text = File.directory?("#{Rails.root}/private/questionnaires/#{questionnaire.id.to_s}/users/#{@user.id}/generating_long_pdf") ? t("user_dashboard.pdf_generating") : nil %>
               <% if pdf_file.present? && File.file?(pdf_file.location) -%>
-                <%= link_to image_tag('icons/page_white_acrobat.png', :alt => t('user_dashboard.pdf_download'), :title => t('user_dashboard.pdf_download')), questionnaire_download_user_pdf_path(questionnaire, current_user) %>
+                <%= link_to "#{image_tag('icons/page_white_acrobat.png', :alt => t('user_dashboard.pdf_download'), :title => t('user_dashboard.pdf_download'))} Download PDF".html_safe, questionnaire_download_user_pdf_path(questionnaire, current_user) %>
                 (<%= t("user_dashboard.pdf_last_g")%>: <%= l(File.mtime(pdf_file.location), :format => :with_time).html_safe %>)
                 &nbsp;
                 <%= link_to "<span id='link_text_#{questionnaire.id}_'>#{(link_text||t("user_dashboard.pdf_regenerate"))}</span>".html_safe, to_pdf_questionnaire_path(questionnaire), :class => "get" %>
@@ -46,7 +46,7 @@
             <td id="short_pdf_for_<%= questionnaire.id %>">
               <% link_text = File.directory?("#{Rails.root}/private/questionnaires/#{questionnaire.id.to_s}/users/#{@user.id}/generating_short_pdf") ? t("user_dashboard.pdf_generating") : nil %>
               <% if short_pdf_file.present? && File.file?(short_pdf_file.location) -%>
-                <%= link_to image_tag('icons/page_white_acrobat.png', :alt => t('user_dashboard.pdf_download'), :title => t('user_dashboard.pdf_download')), questionnaire_download_user_pdf_path(questionnaire, current_user, :params => {:is_short => true}) %>
+                <%= link_to "#{image_tag('icons/page_white_acrobat.png', :alt => t('user_dashboard.pdf_download'), :title => t('user_dashboard.pdf_download'))} Download PDF".html_safe, questionnaire_download_user_pdf_path(questionnaire, current_user, :params => {:is_short => true}) %>
                 (<%= t("user_dashboard.pdf_last_g")%>: <%= l(File.mtime(short_pdf_file.location), :format => :with_time) %>)
                 &nbsp;
                 <%= link_to "<span id='link_text_#{questionnaire.id}_true'>#{(link_text||t("user_dashboard.pdf_regenerate"))}</span>".html_safe, to_pdf_questionnaire_path(questionnaire, :params => {:is_short => true}), :class => "get" %>

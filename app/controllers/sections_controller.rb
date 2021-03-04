@@ -232,7 +232,7 @@ class SectionsController < ApplicationController
       end
       if @result[:result]
         @result[:section].update_root_submission_state!(@authorization[:user], (@result[:root_loop_item].present? ? @result[:root_loop_item] : nil))
-        flash[:notice] = "#{@result[:section].value_in((@result[:section].root? ? :tab_title : :title), @authorization[:language], @result[:root_loop_item])}: #{t("flash_messages.saved_successfully", {:locale => @authorization[:language]})}"
+        flash[:notice] = "#{@result[:section].value_in((@result[:section].root? ? :tab_title : :title), @authorization[:language], @result[:root_loop_item])}: #{t("flash_messages.saved_successfully", {:locale => @authorization[:language]})}".squish
       elsif params[:auto_save] != "1" && params[:timed_save] != "1"
         flash[:notice] = t("flash_messages.nothing_to_save", {:locale => @authorization[:language]})
       end

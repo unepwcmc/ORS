@@ -294,7 +294,7 @@ class QuestionnairesController < ApplicationController
       redirect_to user_path(current_user)
     else
       flash[:error] = t('s_details.submission_failure')
-      redirect_to submission_questionnaire_path(@questionnaire)
+      redirect_to submission_questionnaire_path(@questionnaire, respondent_id: params[:respondent_id])
     end
   end
 

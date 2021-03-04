@@ -316,6 +316,7 @@ es:
     new_user_registered: 'Nuevo usuario registrado en el sistema'
     admin_footer: "Ha recibido este correo electrónico porque figura como administrador del Sistema de presentación de informes en línea"
     for_the_user: "para el usuario"
+    password_reset: "¿Ha olvidado sus credenciales para iniciar sesión? Su nombre de usuario es su dirección de correo electrónico. También puede restablecer su contraseña utilizando este enlace:"
     delegate_registration:
       subject: "Se le ha añadido como delegado"
     user_registration:

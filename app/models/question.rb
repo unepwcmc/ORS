@@ -52,7 +52,7 @@ class Question < ActiveRecord::Base
   #create the question's answer_type or use the section answer type
   def self.create_question_answer_type params
     if params[:answer_type]
-      answer_type = params[:part][:answer_type_type].classify.constantize.new(params[:answer_type])
+      answer_type = params[:part][:answer_type_type].classify.constantize.new(sorted_params(params))
       if answer_type.save
         answer_type
       end
@@ -64,7 +64,7 @@ class Question < ActiveRecord::Base
   def update_answer_type params
     if params[:part][:answer_type_type] == self.answer_type_type
       #if the answer type is the same, just update the answer_type attributes
-      self.answer_type.update_attributes!(params[:answer_type])
+      self.answer_type.update_attributes!(self.class.sorted_params(params))
     else
       if self.answers.present? #changing a question's answer_type will cause any existing answers to that question to be removed
         self.remove_submission_elements!
@@ -75,7 +75,7 @@ class Question < ActiveRecord::Base
       end
       #create thew new answer type based on the params (if they exist. For questions of "same answer type" sections, it doesn't exist.
       if params[:part][:answer_type_type]
-        self.answer_type = params[:part][:answer_type_type].classify.constantize.new(params[:answer_type])
+        self.answer_type = params[:part][:answer_type_type].classify.constantize.new(self.class.sorted_params(params))
         self.answer_type.save!
       end
     end
@@ -251,6 +251,22 @@ class Question < ActiveRecord::Base
       reload
       self.question_extras_ids = nil
     end
+  end
+
+  def self.sorted_params(params)
+    attrs = params[:answer_type]
+
+    if attrs[:matrix_answer_queries_attributes].present?
+      attrs[:matrix_answer_queries_attributes] =
+        attrs[:matrix_answer_queries_attributes].sort_by { |k,_| k }.to_h
+    end
+
+    if attrs[:matrix_answer_options_attributes].present?
+      attrs[:matrix_answer_options_attributes] =
+        attrs[:matrix_answer_options_attributes].sort_by { |k,_| k }.to_h
+    end
+
+    attrs
   end
 end
 
