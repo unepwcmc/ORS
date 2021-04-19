@@ -351,7 +351,7 @@ function removeOption(element, theId, maximumAllowed) {
 }
 
 // TODO: camelCase this function name
-// Commented out icons are related to a change requested for the IACSeaTurtle instance only
+// Removed all icons but the mandatory question unanswered one for the IACSeaTurtle instance only
 function set_state_identifier(id, state, altText) {
   var icons = {
     mandatoryQuestionsUnanswered: "<i class='fa fa-exclamation-triangle background inverse warning obj_tooltip' title='Some mandatory questions unanswered'></i>",
