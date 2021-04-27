@@ -2,6 +2,10 @@ source 'https://rubygems.org'
 
 gem 'rails', '3.2.22'
 gem 'rake', '10.0.3'
+# The previous version of mimemagic was pulled on 20/03/21 
+# and licensing changed to GPL2.
+# 0.3.10 seems to hit issues with axlsx
+gem 'mimemagic', '0.3.9'
 
 gem 'pg'
 gem 'foreigner'
