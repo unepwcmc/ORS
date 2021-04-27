@@ -280,7 +280,7 @@ es:
     forgotten_password: "¿Ha olvidado su contraseña? Póngase en contacto con su administrador<br> o envíe un correo electrónico a <a href='#'>orsteam@unep-wcmc.org</a>"
     please_login: "Inicie sesión con su usuario"
     or_signup: "O regístrese"
-    signup_instructions1: "Para ello debe facilitar una dirección de correo electrónico, elegir una contraseña y proporcionar algunos datos personales."
+    signup_instructions1: "Consulte la información adicional sobre el <a href='http://fao.org/plant-treaty/areas-of-work/compliance/howtoreport/en/' target='blank'>proceso de presentación de informes en virtud del Tratado Internacional</a>. Si su país ha cambiado el punto focal nacional o el correo electrónico utilizado anteriormente en el proceso de presentación de informes, o si experimenta algún problema con el inicio de la sesión, comuníquese con la Secretaría TIRFAA: <a href='mailto:PGRFA-Treaty@fao.org'>PGRFA-Treaty@fao.org</a>"
     signup_instructions2: "Diríjase a la"
     signup_instructions3: "página de registro"
     developed_by: "Desarrollado y mantenido por"

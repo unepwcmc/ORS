@@ -27,8 +27,14 @@
       <div class="col col-6">
         <div class="panel">
           <h3 class="heading"><%= t("welcome_page.or_signup")%></h3>
-          <p><%= t("welcome_page.signup_instructions1")%></p><br>
-          <p><%= t("welcome_page.signup_instructions2")%> <%= link_to t("welcome_page.signup_instructions3"), signup_path(:lang => (params[:lang]||"en")) %>.</p>
+
+          <p><%= t("welcome_page.signup_instructions1").html_safe %></p>
+
+          <%
+=begin%>
+ <p><%= t("welcome_page.signup_instructions2")%> <%= link_to t("welcome_page.signup_instructions3"), signup_path(:lang => (params[:lang]||"en")) %>.</p> 
+<%
+=end%>
         </div>
       </div>
     <% end %>

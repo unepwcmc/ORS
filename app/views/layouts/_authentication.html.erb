@@ -4,8 +4,8 @@
       |
     <%= link_to t("login_menu.logout"), logout_path(:lang => current_user.language) %>
   <% else -%>
-    <%= link_to t("login_menu.sign_up"), new_user_path(:lang => (params[:lang]||"en")) %>
-    |
+    <%#= link_to t("login_menu.sign_up"), new_user_path(:lang => (params[:lang]||"en")) %>
+
     <%= link_to t("login_menu.login"), root_path(:lang => (params[:lang]||"en")) %>
   </p>
   <p style="float: right">

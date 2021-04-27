@@ -286,7 +286,7 @@ en:
     forgotten_password: "Forgotten your password?"
     please_login: "Please login"
     or_signup: "Or sign up"
-    signup_instructions1: "To do so you will need to provide an email address, choose a password and input some details about yourself."
+    signup_instructions1: "Please check additional information about the <a href='http://fao.org/plant-treaty/areas-of-work/compliance/howtoreport/en/' target='blank'>reporting process under the International Treaty</a>. If your country has changed the national focal point or the email used in the previous reporting process, or if you experience any login problem, please contact the ITPGRFA Secretariat: <a href='mailto:PGRFA-Treaty@fao.org'>PGRFA-Treaty@fao.org</a>"
     signup_instructions2: "Please go to the"
     signup_instructions3: "sign up page"
     developed_by: "Powered by"
