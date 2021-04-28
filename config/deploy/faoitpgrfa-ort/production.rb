@@ -1,5 +1,5 @@
 set :stage, :production
-set :branch, "master"
+set :branch, "faoitpgrfa-main"
 
 server "ort-production.linode.unep-wcmc.org", user: "wcmc", roles: %w{app web db}
 
