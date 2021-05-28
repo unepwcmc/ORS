@@ -8,7 +8,7 @@ gem 'foreigner'
 
 gem 'json'
 
-gem 'jquery-rails', '2.1.4'
+gem 'jquery-rails', '3.1.5'
 gem 'jquery-ui-rails', '2.0.1'
 gem 'jqgrid-jquery-rails', '~> 4.4.001'
 gem 'tinymce-rails', '4.0'
