@@ -1,3 +1,9 @@
+### 0.5.3 (2021-05-28)
+
+**Ammendments**
+
+* Remove all icons but mandatory questions one
+
 ### 0.5.2 (2020-11-25)
 
 **Hotfix**
