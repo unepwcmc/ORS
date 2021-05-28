@@ -1,7 +1,7 @@
 source 'https://rubygems.org'
 
 gem 'rails', '3.2.22'
-gem 'rake', '10.0.3'
+gem 'rake', '13.0.3'
 
 gem 'pg'
 gem 'foreigner'
