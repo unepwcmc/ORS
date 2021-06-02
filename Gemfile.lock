@@ -5,17 +5,6 @@ GIT
     jstree-rails (0.0.1)
       rails (>= 3.1)
 
-GIT
-  remote: https://github.com/randym/axlsx
-  revision: 64038e6af1db608daae2aad49874071070285eac
-  branch: release-3.0.0
-  specs:
-    axlsx (3.0.0.pre)
-      htmlentities (~> 4.3.4)
-      mimemagic (~> 0.3)
-      nokogiri (>= 1.7.1)
-      rubyzip (~> 1.2, >= 1.2.1)
-
 GEM
   remote: https://rubygems.org/
   specs:
@@ -69,6 +58,10 @@ GEM
       scrypt (>= 1.2, < 4.0)
     awesome_nested_set (2.1.6)
       activerecord (>= 3.0.0)
+    axlsx (2.0.1)
+      htmlentities (~> 4.3.1)
+      nokogiri (>= 1.4.1)
+      rubyzip (~> 1.0.0)
     builder (3.0.4)
     byebug (6.0.2)
     cancan (1.6.10)
@@ -205,7 +198,6 @@ GEM
       treetop (~> 1.4.8)
     metaclass (0.0.4)
     mime-types (1.25.1)
-    mimemagic (0.3.9)
     mini_portile2 (2.1.0)
     minitest (4.7.5)
     minitest-rails (1.0.1)
@@ -297,7 +289,7 @@ GEM
     ruby-prof (0.15.8)
     ruby-progressbar (1.7.5)
     ruby-rc4 (0.1.5)
-    rubyzip (1.2.1)
+    rubyzip (1.0.0)
     sanitize (4.6.0)
       crass (~> 1.0.2)
       nokogiri (>= 1.4.4)
@@ -370,7 +362,7 @@ DEPENDENCIES
   appsignal
   authlogic
   awesome_nested_set
-  axlsx!
+  axlsx
   byebug
   cancan
   capistrano (~> 3.11.0)
@@ -404,7 +396,6 @@ DEPENDENCIES
   minitest-rails (~> 1.0)
   mocha
   newrelic_rpm
-  nokogiri (~> 1.7.1)
   paperclip (~> 4.2.1)
   pg
   prawn
