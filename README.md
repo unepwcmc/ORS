@@ -12,8 +12,18 @@ A user guide for the application is available from the repository's doc folder.
 
 This branch uses the following software:
 
-* Ruby 2.2.3 install as system wide version or using one Ruby Version Manager like [rvm](https://rvm.io/)
-or [rbenv](https://github.com/sstephenson/rbenv).
+* Ruby 2.2.3 via [rbenv](https://github.com/rbenv/rbenv)
+
+There may be an issue when performing a local `rbenv install` of older versions of Ruby (older than ~v2.3) where the OpenSSL version required is no longer hosted resulting in a 404, in which case it's worth trying to install v2.4
+
+###### macOS
+TBC
+
+###### Ubuntu
+
+For Ubuntu you will need the libssl1.0-dev library: `sudo apt install libssl1.0-dev`
+If you have Rbenv installed, you can setup Ruby v2.2.3 with: `rbenv install 2.2.3`. Based on the `.ruby-version` file in the root of the project, it should then be using v2.2.3 within the project. 
+
 * [PostgreSQL](http://www.postgresql.org/) 9.4
 * [Redis](http://redis.io/): "Redis is an open source, BSD licensed, advanced key-value store",
 and is used in this application to store background jobs
