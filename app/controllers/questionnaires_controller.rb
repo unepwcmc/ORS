@@ -366,10 +366,11 @@ class QuestionnairesController < ApplicationController
   def to_csv
     @questionnaire = Questionnaire.find(params[:id])
     separator = params[:separator]
+    user = params[:user].present? ? User.find(params[:user]) : nil
     if @questionnaire
       #Convert Questionnaire's submission side and existing answers to csv
       # default location: private/questionnaires/questionnaire_id/
-      QuestionnaireToCsv.perform_async(current_user.id, @questionnaire.id, separator)
+      QuestionnaireToCsv.perform_async(current_user.id, @questionnaire.id, separator, user.try(:id))
       flash[:notice] = "File is being generated. An email will be sent to you when it is ready for download from this page. Note that generating the file can take some minutes."
     end
     respond_to do |format|
@@ -380,6 +381,19 @@ class QuestionnairesController < ApplicationController
   def empty_text_answers_report
     filename = 'empty_text_answers_report.csv'
     send_data Answer.empty_text_answers_to_csv, filename: filename, type: "text/csv"
+  end
+
+  def download_user_csv
+    @questionnaire = Questionnaire.find(params[:questionnaire_id])
+    user = User.find(params[:user_id])
+
+    csv_file = @questionnaire.csv_files.find_by_user_id(user)
+    if csv_file.present? && File.exist?(csv_file.location)
+      send_file csv_file.location, type: 'csv'
+    else
+      flash[:error] = "It was not possible to download the requested file. Please generate the file again. Thank you."
+      redirect_to questionnaires_path
+    end
   end
 
   def download_csv
@@ -497,11 +511,11 @@ class QuestionnairesController < ApplicationController
 
   def fill_index
     if params[:order]
-      @questionnaires = Questionnaire.find(:all, :order => "#{params[:order]} DESC", :include => [:questionnaire_fields, :user, :csv_file])
+      @questionnaires = Questionnaire.find(:all, :order => "#{params[:order]} DESC", :include => [:questionnaire_fields, :user, :csv_files])
     elsif params[:active]
       @questionnaires = Questionnaire.where(status: QuestionnaireStatus::ACTIVE).order("created_at DESC")
     else
-      @questionnaires = Questionnaire.order("created_at DESC").find(:all, :include => [:questionnaire_fields, :user, :csv_file])
+      @questionnaires = Questionnaire.order("created_at DESC").find(:all, :include => [:questionnaire_fields, :user, :csv_files])
     end
   end
 
