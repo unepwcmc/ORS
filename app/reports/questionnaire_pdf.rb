@@ -29,13 +29,13 @@ class QuestionnairePdf < Prawn::Document
     #check_box = "\xE2\x98\x90"
     #filled_check_box = "\xE2\x98\x91"
 
-    ap = ApplicationProfile.first
-    current_instance = (ap && ap.sub_title) || Rails.root.to_s.split('/')[3].split('-').first
-    ap_logo = ap && ap.logo && ap.logo.path
-    fallback_logo = Dir.glob("public/assets/logos/#{current_instance.split('-').first}*", File::FNM_CASEFOLD).first
-    logo = ap_logo || "#{Rails.root}/#{fallback_logo}"
-    image logo, position: :right, width: 150 if logo
-    text "#{current_instance.upcase}", size: 14, style: :bold
+    # ap = ApplicationProfile.first
+    # current_instance = (ap && ap.sub_title) || Rails.root.to_s.split('/')[3].split('-').first
+    # ap_logo = ap && ap.logo && ap.logo.path
+    # fallback_logo = Dir.glob("public/assets/logos/#{current_instance.split('-').first}*", File::FNM_CASEFOLD).first
+    # logo = ap_logo || "#{Rails.root}/#{fallback_logo}"
+    # image logo, position: :right, width: 150 if logo
+    # text "#{current_instance.upcase}", size: 14, style: :bold
 
     move_down 10
 
@@ -80,8 +80,9 @@ class QuestionnairePdf < Prawn::Document
       end
 
       #footer [ margin_box.left, margin_box.bottom + 25 ] do
+      user_details_footer = [user.full_name, user.country].reject(&:blank?).join(', ')
       repeat(:all, :dynamic => true) do
-        draw_text "#{questionnaire_field.title} [#{user.full_name}, #{user.country}]", :size => 7, :at => [0, -15]
+        draw_text "#{questionnaire_field.title} [#{user_details_footer}]", :size => 7, :at => [0, -15]
         draw_text "Page #{page_number} of #{page_count}", :size => 8, :at => [500, (questionnaire.title.size > 50 ? -6 : -15)]
       end
 
