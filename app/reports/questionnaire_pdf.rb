@@ -80,7 +80,12 @@ class QuestionnairePdf < Prawn::Document
       end
 
       #footer [ margin_box.left, margin_box.bottom + 25 ] do
-      user_details_footer = [user.full_name, user.country].reject(&:blank?).join(', ')
+      user_details_footer =
+        if user.first_name.match(/Party|Partie|Parte|State/).present?
+          user.full_name
+        else
+          [user.full_name, user.country].reject(&:blank?).join(', ')
+        end
       repeat(:all, :dynamic => true) do
         draw_text "#{questionnaire_field.title} [#{user_details_footer}]", :size => 7, :at => [0, -15]
         draw_text "Page #{page_number} of #{page_count}", :size => 8, :at => [500, (questionnaire.title.size > 50 ? -6 : -15)]
