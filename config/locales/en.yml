@@ -59,6 +59,7 @@ en:
     powered_by: "Powered By"
     ors: "Online Reporting System"
     admin: "Admin"
+    tree_text: "Template for reporting:"
   questionnaire_feedback:
     state0: "All questions unanswered"
     state1: "There are mandatory questions without an answer (questions with a red *)"

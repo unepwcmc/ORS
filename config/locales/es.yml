@@ -55,6 +55,7 @@ es:
     powered_by: "Creado por"
     ors: "Sistema de informes en línea"
     admin: "Administrador"
+    tree_text: "Template for reporting:"
   questionnaire_feedback:
     state0: "No se ha respondido ninguna pregunta"
     state1: "Algunas preguntas obligatorias no se han respondido (en rojo*)"

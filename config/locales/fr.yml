@@ -56,6 +56,7 @@ fr:
     powered_by: "Créé par"
     ors: "Système de présentation des rapports en ligne"
     admin: "Administrateur"
+    tree_text: "Template for reporting:"
   questionnaire_feedback:
     state0: "Toutes les questions sans réponse"
     state1: "Des questions obligatoires sont sans réponse (questions marquées d'un * rouge)"

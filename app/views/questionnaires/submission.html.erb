@@ -9,6 +9,7 @@
   </div>
   <div id="tabs-container">
     <ul>
+      <li><h4><%= t 'generic.tree_text' %></h4></li>
       <li><a class='questionnaire-introduction' href="#questionnaire"><%= t 'tab_details.q_details' %></a></li>
       <%= render :partial => 'section_tabs', :locals => { :the_sections => the_sections, :delegation => @delegation } %>
     </ul>
