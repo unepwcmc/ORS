@@ -9,7 +9,7 @@ class Question < ActiveRecord::Base
   attr_accessible :section_id, :answer_type_id, :answer_type_type,
     :question_fields_attributes, :is_mandatory, :answer_type,
     :loop_item_type_ids, :question_extras_ids, :other_text,
-    :allow_attachments, :uidentifier
+    :allow_attachments, :uidentifier, :allow_words_counting
   #attr_protected :id, :created_at, :updated_at, :last_edited, :answer_type
 
   before_destroy :destroy_answer_type
@@ -31,6 +31,8 @@ class Question < ActiveRecord::Base
   has_many :answers, dependent: :destroy
   has_many :question_extras, :dependent => :destroy
   has_many :extras, :through => :question_extras
+
+  # has_attached_file :table_doc
 
   attr_accessor :loop_item_type_ids, :question_extras_ids
   after_save :update_loop_item_types, :update_question_extras
