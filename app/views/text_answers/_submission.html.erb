@@ -12,7 +12,9 @@
           <%= text_area_tag "answers[#{the_id}_#{answer_field.id.to_s}]", answer_text, :rows => answer_field.rows.to_i, :cols => text_field_width, :disabled => disabled, :class => "#{disabled_class} text-answer-field" %>
         <% end -%>
         <% if question.allow_words_counting %>
-          <span id="body_count_<%= the_id %>_<%= answer_field.id.to_s %>">0 words</span>
+          <div>
+            <span id="body_count_<%= the_id %>_<%= answer_field.id.to_s %>">0 words</span>
+          </div>
         <% end %>
         <% if @authorization[:translator_visible] %>
           <% original_language = text_answer_values.present? ? text_answer_values[:original_language] : @authorization[:language] -%>
