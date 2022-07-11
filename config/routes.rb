@@ -193,6 +193,7 @@ OnlineReportingTool::Application.routes.draw do
   resources :user_sessions
 
   resources :password_resets, only: [:new, :create, :edit, :update ]
+  match '/password_resets' => 'password_resets#new'
 
   root to: "home#index"
   match '/' => 'home#index'
