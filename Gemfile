@@ -37,7 +37,7 @@ gem 'faker'
 gem 'prawn'
 gem 'htmlentities'
 gem 'axlsx', git: 'https://github.com/randym/axlsx', branch: 'release-3.0.0'
-gem 'nokogiri', '~> 1.7.1'
+gem 'nokogiri', '~> 1.13.6'
 
 gem 'redis'
 gem 'redis-session-store'
