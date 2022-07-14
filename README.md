@@ -144,3 +144,7 @@ So we can then do something like
 
 `cap bern-ort:staging deploy`
 `cap cms-ort:staging deploy`
+
+### Mail 
+
+Since :smtp has some issues with ruby 2.2.3 mail delivery method has been changed to :sendmail in config/environments/production.rb and staging.rb
