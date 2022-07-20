@@ -264,7 +264,10 @@ module PivotTables
 
       matrix_answers = matrix_answer_answers_rel(questions_rel).where(user_id: respondent.user_id)
       matrix_answers.each do |ma|
-        result[index_hash[[ma.question_id.to_i, ma.matrix_answer_query_id.to_i, ma.looping_identifier]]] = ma.option_code
+        # The below nil check on matrix_answer_query_id was added as we were getting nil.to_i error while generating pivot table report for Ramsar
+        unless ma.matrix_answer_query_id.nil?
+          result[index_hash[[ma.question_id.to_i, ma.matrix_answer_query_id.to_i, ma.looping_identifier]]] = ma.option_code
+        end
       end
       #Also consider the non-answered questions and put a dash instead of empty cell
       #This also affects the pivot tables in the goals sheets, but it also counts the empty answer in the total result
