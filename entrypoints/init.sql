@@ -1,0 +1,2 @@
+CREATE USER docker;
+ALTER USER docker WITH SUPERUSER;
