@@ -287,7 +287,7 @@ class QuestionnairesController < ApplicationController
       if @authorized_submitter.save!
         if Rails.env == 'production'
           UserMailer.questionnaire_submitted(current_user, @questionnaire).deliver
-          UserMailer.admin_notification_questionnaire_submitted(current_user, @questionnaire).deliver
+          notify_admins
         end
       end
       flash[:notice] = t('s_details.submission_success') if !flash[:error]
@@ -513,6 +513,13 @@ class QuestionnairesController < ApplicationController
   def check_delegate_authorisation
     if params[:user_delegate] && ( !UserDelegate.find_by_id(params[:user_delegate]) || !current_user.authorized_to_answer?(@questionnaire, params[:user_delegate]) )
       raise CanCan::AccessDenied.new(t('flash_messages.not_authorized'))
+    end
+  end
+
+  def notify_admins
+    admins = User.administrators
+    admins.each do |admin|
+      UserMailer.notify_admins_questionnaire_submitted(current_user, admin, @questionnaire).deliver
     end
   end
 end
