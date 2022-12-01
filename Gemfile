@@ -13,7 +13,7 @@ gem 'jquery-ui-rails', '2.0.1'
 gem 'jqgrid-jquery-rails', '~> 4.4.001'
 gem 'tinymce-rails', '4.0'
 gem 'tinymce-rails-langs', '~>4.2'
-gem 'jstree-rails', :git => 'https://github.com/tristanm/jstree-rails.git'
+gem 'jstree-rails', :git => 'git://github.com/tristanm/jstree-rails.git'
 gem "gritter", "1.1.0"
 gem 'tooltipster-rails', '~> 3.2.6'
 gem 'jquery-tablesorter', '~> 1.16.3'
