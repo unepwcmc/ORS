@@ -86,6 +86,9 @@ group :development do
   gem 'sexy_relations', '~> 1.0.4'
   gem 'rubocop', require: false
   gem 'quiet_assets'
+  gem 'rbnacl', '< 5.0', :require => false
+  gem 'rbnacl-libsodium', :require => false
+  gem 'bcrypt_pbkdf', '< 2.0', :require => false
 end
 
 group :test do
