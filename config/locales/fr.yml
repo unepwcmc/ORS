@@ -279,7 +279,7 @@ fr:
     sign_up: "S'enregistrer"
   welcome_page:
     restriction: "Cet outil est à la disposition des utilisateurs enregistrés."
-    forgotten_password: "Vous avez oublié votre mot de passe ? Veuillez contacter votre administrateur<br> ou envoyer un e-mail à l'adresse <a href='#'>orsteam@unep-wcmc.org</a>"
+    forgotten_password: "Vous avez oublié votre mot de passe ?"
     please_login: "Veuillez vous connecter"
     or_signup: "Ou vous enregistrer"
     signup_instructions1: "Seuls les points focaux nationaux officiels de la Convention de Berne sont autorisés à s'inscrire à l'ORS. Pour vous inscrire, veuillez contacter le Secrétariat à  <a href='mailto:Bern.convention@coe.int'>Bern.convention@coe.int</a>"
