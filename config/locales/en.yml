@@ -286,7 +286,7 @@ en:
     forgotten_password: "Forgotten your password?"
     please_login: "Please login"
     or_signup: "Or sign up"
-    signup_instructions1: "To do so you will need to provide an email address, choose a password and input some details about yourself."
+    signup_instructions1: "Only authorised Bern Convention national focal points are permitted to sign up to the ORS. To sign up, please contact the Secretariat at <a href='mailto:Bern.convention@coe.int'>Bern.convention@coe.int</a>"
     signup_instructions2: "Please go to the"
     signup_instructions3: "sign up page"
     developed_by: "Powered by"
