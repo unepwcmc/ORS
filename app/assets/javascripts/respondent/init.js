@@ -50,10 +50,13 @@ function ajaxRequestsUnderway() {
       $(this).dialog('open').prev('.ui-dialog-titlebar').hide();
     }
   }).livequery('ajaxComplete', function() {
-    console.log('close');
-    if($('div.no_dialog').length === 0) {
-      $(this).dialog('close');
-    }
+    livequeryThis=this;
+    $(document).ready(function () {
+      console.log('close');
+      if ($('div.no_dialog').length === 0) {
+        $(livequeryThis).dialog('close');
+      } 
+    });
   });
 }
 
