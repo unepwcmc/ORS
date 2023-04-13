@@ -55,7 +55,7 @@
               $("#from_lang_<%= the_id + "_" + answer_field.id.to_s %>").append(
               $("<option></option>").val("").html("<%=t('translator_feat.please_select')%>")
                       );
-              $.each(window.availableLanguages, function(val, text){
+              $.each(LANGUAGES, function(val, text){
                   $("#from_lang_<%= the_id + "_" + answer_field.id.to_s %>").append(
                           $("<option></option>").val(text).html(val));
               });

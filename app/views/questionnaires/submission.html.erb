@@ -149,8 +149,7 @@
 <% if @authorization[:translator_visible] %>
   <script type="text/javascript" src="http://www.google.com/jsapi"></script>
   <script type="text/javascript">
-      google.load("language","1");
-      window.availableLanguages = {
+      var LANGUAGES = {
         "<%=t('languages.arabic')%>" : 'ar',
         "<%=t('languages.chinese')%>" : 'zh',
         "<%=t('languages.english')%>" : 'en',
@@ -158,5 +157,6 @@
         "<%=t('languages.russian')%>" : 'ru',
         "<%=t('languages.spanish')%>" : 'es'
       };
+      google.load("language","1");
     </script>
 <% end %>
