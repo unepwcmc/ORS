@@ -1,3 +1,9 @@
+### 0.5.3
+
+**Bug Fix**
+
+* Fix loading spinner never closing, preventing users from accessing the questionnaire
+
 ### 0.5.2 (2020-11-25)
 
 **Hotfix**
