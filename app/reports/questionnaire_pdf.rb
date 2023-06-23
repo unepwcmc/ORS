@@ -362,10 +362,10 @@ class QuestionnairePdf < Prawn::Document
 
   def display_matrix_answer answer_type, answer, fields
     queries_as_rows = (answer_type.matrix_orientation == 0)
-    columns_source = queries_as_rows ? answer_type.matrix_answer_options : answer_type.matrix_answer_queries
+    columns_source = queries_as_rows ? answer_type.matrix_answer_options.order(:id) : answer_type.matrix_answer_queries.order(:id)
     header = [""] + columns_source.map{ |a| (queries_as_rows ? fields[:matrix_answer_option_field][a.id.to_s] : fields[:matrix_answer_query_field][a.id.to_s]) }
     data = []
-    rows_source = queries_as_rows ? answer_type.matrix_answer_queries : answer_type.matrix_answer_options
+    rows_source = queries_as_rows ? answer_type.matrix_answer_queries.order(:id) : answer_type.matrix_answer_options.order(:id)
     selection = {}
     if answer
       #get the existing responses for each cell of the matrix
@@ -512,10 +512,10 @@ class QuestionnairePdf < Prawn::Document
 
   def preview_matrix_display answer_type
     queries_as_rows = (answer_type.matrix_orientation == 0)
-    columns_source = queries_as_rows ? answer_type.matrix_answer_options.map{ |a| a.title } : answer_type.matrix_answer_queries.map{ |a| a.title }
+    columns_source = queries_as_rows ? answer_type.matrix_answer_options.order(:id).map{ |a| a.title } : answer_type.matrix_answer_queries.order(:id).map{ |a| a.title }
     header = [""] + columns_source
     data = []
-    rows_source = queries_as_rows ? answer_type.matrix_answer_queries.map{ |a| a.title } : answer_type.matrix_answer_options.map{ |a| a.title }
+    rows_source = queries_as_rows ? answer_type.matrix_answer_queries.order(:id).map{ |a| a.title } : answer_type.matrix_answer_options.order(:id).map{ |a| a.title }
     rows_source.each do |row|
       line = []
       line << row
