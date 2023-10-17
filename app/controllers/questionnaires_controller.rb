@@ -517,7 +517,13 @@ class QuestionnairesController < ApplicationController
   end
 
   def notify_admins
-    admins = User.administrators
+    admins =
+      if ENV['ORS_CLIENT_CODE'] == 'IAC'
+        admins = User.administrators
+      else
+        [@questionnaire.user]
+      end
+
     admins.each do |admin|
       UserMailer.notify_admins_questionnaire_submitted(current_user, admin, @questionnaire).deliver
     end
