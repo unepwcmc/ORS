@@ -93,7 +93,8 @@
           set_state_identifier(
             '<%= "#{section.id} #{(loop_item ? "_#{loop_item.id}" : "")}" %>',
             '<%= submission_state %>',
-            '<%= escape_javascript(t("questionnaire_feedback.state#{submission_state}"))%>'
+            '<%= escape_javascript(t("questionnaire_feedback.state#{submission_state}"))%>',
+            '<%= ENV['ORS_CLIENT_CODE'] %>'
           );
         <% end %>
 
@@ -106,7 +107,7 @@
 
         <% the_sections.each do |section_id, loop_item|-%>
           <% the_state = UserSectionSubmissionState.submission_state_of(@authorization[:user].id, section_id, loop_item ? loop_item.id.to_s : nil) %>
-          set_state_identifier("<%= section_id + (loop_item ? "_#{loop_item.id}" : "") %>", "<%= the_state %>", '<%= escape_javascript(t("questionnaire_feedback.state#{the_state}"))%>');
+          set_state_identifier("<%= section_id + (loop_item ? "_#{loop_item.id}" : "") %>", "<%= the_state %>", '<%= escape_javascript(t("questionnaire_feedback.state#{the_state}"))%>', "<%= ENV['ORS_CLIENT_CODE'] %>");
         <% end -%>
 
         <% if @questionnaire.header.path.present? && File.exists?(@questionnaire.header.path) -%>

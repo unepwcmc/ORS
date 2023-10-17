@@ -1,5 +1,5 @@
 set :stage, :production
-set :branch, "iacseaturtle-master"
+set :branch, "master"
 
 server "ort-production.linode.unep-wcmc.org", user: "wcmc", roles: %w{app web db}
 

@@ -33,6 +33,7 @@ namespace :config do
     ask(:mailer_host, 'mailer_host')
     ask(:redis_url, 'redis_url')
     ask(:instiki_url, 'instiki_url')
+    ask(:ors_client_code, 'ors_client_code')
 env_config = <<-EOF
 SECRET_KEY_BASE=#{fetch(:secret_key_base)}
 EXCEPTION_NOTIFICATION_EMAIL=#{fetch(:exception_notification_email)}
@@ -47,6 +48,7 @@ MAILER_HOST_KEY=#{fetch(:mailer_host)}
 REDIS_NAMESPACE=ORS
 REDIS_URL=#{fetch(:redis_url)}
 INSTIKI_URL=#{fetch(:instiki_url)}
+ORS_CLIENT_CODE=#{fetch(:ors_client_code)}
 EOF
     on roles(:app) do
       execute "mkdir -p #{shared_path}"
