@@ -351,15 +351,15 @@ function removeOption(element, theId, maximumAllowed) {
 }
 
 // TODO: camelCase this function name
-function set_state_identifier(id, state, altText) {
+function set_state_identifier(id, state, altText, orsClientCode) {
   var icons = {
     newSection: "<i class='fa fa-asterisk background inverse info obj_tooltip' title='New Section'></i>",
     completeSection: "<i class='fa fa-check-circle background inverse success obj_tooltip' title='Section has been completed'></i>",
     someQuestionsUnanswered: "<i class='fa fa-plus-circle background inverse success obj_tooltip' title='Some questions unanswered'></i>",
     mandatoryQuestionsUnanswered: "<i class='fa fa-exclamation-triangle background inverse warning obj_tooltip' title='Some questions unanswered'></i>",
     allQuestionsUnanswered: "<i class='fa fa-times-circle background inverse info obj_tooltip' title='All questions unanswered'></i>",
-    findIcon: function(n){
-      switch(n) {
+    findIcon: function (n) {
+      switch (n) {
         case 0:
           return this.allQuestionsUnanswered;
           break;
@@ -378,6 +378,18 @@ function set_state_identifier(id, state, altText) {
       }
     }
   };
+  // Removed all icons but the mandatory question unanswered one for the IACSeaTurtle instance only
+  if (orsClientCode === 'IAC') {
+    icons = {
+      mandatoryQuestionsUnanswered: "<i class='fa fa-exclamation-triangle background inverse warning obj_tooltip' title='Some mandatory questions unanswered'></i>",
+      findIcon: function(n){
+        if(n === 1) {
+          return this.mandatoryQuestionsUnanswered;
+        }
+        return "";
+      }
+    };
+  }
   $("#img"+id).empty();
  // $("#img"+id).append("<img class='obj_tooltip' src='"+RAILS_ROOT+"/assets/submissionstate/fidelitybyagapeh/"+state+".png' alt='"+altText+"' title='"+altText+"' width='20px' height='20px'/>");
   $("#img"+id).append(icons.findIcon(parseInt(state)));

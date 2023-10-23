@@ -1,12 +1,12 @@
 <% queries_as_rows = answer_type.matrix_orientation == 0 %>
-<% columns = (queries_as_rows ? answer_type.matrix_answer_options : answer_type.matrix_answer_queries) -%>
-<% rows = (queries_as_rows ? answer_type.matrix_answer_queries : answer_type.matrix_answer_options) -%>
+<% columns = (queries_as_rows ? answer_type.matrix_answer_options.order('id ASC') : answer_type.matrix_answer_queries.order('id ASC')) -%>
+<% rows = (queries_as_rows ? answer_type.matrix_answer_queries.order('id ASC') : answer_type.matrix_answer_options.order('id ASC')) -%>
 <% the_id = "matrix_answer_#{answer_type.id}"-%>
 <table class="submission_matrix" style="width: 550px">
   <thead>
   <tr>
     <th></th>
-    <% columns.order('id ASC').each do |column| -%>
+    <% columns.each do |column| -%>
         <th>
           <%=h column.title %>
         </th>
@@ -14,7 +14,7 @@
   </tr>
   </thead>
   <tbody>
-  <% rows.order('id ASC').each do |row| %>
+  <% rows.each do |row| %>
       <tr>
         <td class="matrix_queries"><%=h row.title %></td>
         <% columns.each do |column| %>

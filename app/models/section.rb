@@ -265,7 +265,15 @@ class Section < ActiveRecord::Base
   # @param [Hash] loop_sources_items keeps track of the loop_item that was last used in this recursive method, for each loop_source
   # @param [LoopItem] loop_item
   # @param [Boolean] dont_care_descendants We want that sections that are under a dependent section are also disregarded when the dependency is not met. So we pass along the parent dont_care value.
-  def initialise_tree_submission_states user, loop_sources_items, loop_item=nil, dont_care_descendants=false, looping_identifier=nil
+  def initialise_tree_submission_states(user, loop_sources_items, loop_item=nil, dont_care_descendants=false, looping_identifier=nil)
+    if ENV['ORS_CLIENT_CODE'] == 'IAC'
+      initialise_tree_submission_states_iac_version(user, loop_sources_items, loop_item=nil, dont_care_descendants=false, looping_identifier=nil)
+    else
+      initialise_tree_submission_states_default_version(user, loop_sources_items, loop_item=nil, dont_care_descendants=false, looping_identifier=nil)
+    end
+  end
+
+  def initialise_tree_submission_states_default_version(user, loop_sources_items, loop_item=nil, dont_care_descendants=false, looping_identifier=nil)
     state_tracker = UserSectionSubmissionState.find_or_initialize_by_section_id_and_user_id_and_looping_identifier(self.id, user.id, looping_identifier)
     #dont_care_descendants = dont_care_descendants || (self.depends_on_question.present? && !self.dependency_condition_met?(user, loop_item))
     if state_tracker.new_record?
@@ -296,6 +304,39 @@ class Section < ActiveRecord::Base
        s.initialise_tree_submission_states user, loop_sources_items, loop_item, dont_care_descendants, looping_identifier
      end
     end
+  end
+
+  def initialise_tree_submission_states_iac_version(user, loop_sources_items, loop_item=nil, dont_care_descendants=false, looping_identifier=nil)
+    state_tracker = UserSectionSubmissionState.find_or_initialize_by_section_id_and_user_id_and_looping_identifier(self.id, user.id, looping_identifier)
+    #dont_care_descendants = dont_care_descendants || (self.depends_on_question.present? && !self.dependency_condition_met?(user, loop_item))
+    if state_tracker.new_record? && !self.root?
+      # Refer also to the 'questions_answered_status' method
+      if self.questions.any?
+        state_tracker.section_state = self.questions.find_by_is_mandatory(true) ? 1 : 0
+      end
+      #for new state_tracker: don't care if dont_care_descendants == true, or if it depends on a question's option being selected.
+      dont_care_descendants = dont_care_descendants || (self.depends_on_question.present? && self.depends_on_option_value?)
+    else
+      dont_care_descendants = dont_care_descendants || (self.depends_on_question.present? && !self.dependency_condition_met?(user, looping_identifier))
+      state_tracker.section_state = self.questions_answered_status(user, looping_identifier)
+    end
+    state_tracker.dont_care = dont_care_descendants
+    state_tracker.save if state_tracker.changed?
+    self.children.each do |s|
+     if s.looping?
+       items = s.next_loop_items(loop_item, loop_sources_items) || []
+       items.each do |item|
+         if s.available_for? user, item
+           loop_sources_items[s.loop_source.id.to_s] = item
+           new_looping_identifier = looping_identifier.present? ? "#{looping_identifier}#{LoopItem::LOOPING_ID_SEPARATOR}#{item.id}" : item.id.to_s
+           s.initialise_tree_submission_states user, loop_sources_items, item, dont_care_descendants, new_looping_identifier
+         end
+       end
+     else
+       s.initialise_tree_submission_states user, loop_sources_items, loop_item, dont_care_descendants, looping_identifier
+     end
+    end
+    update_root_submission_state!(user, looping_identifier) if self.root?
   end
 
   # Update the submission state of the root of the section tree for this section and a specific user and looping_identifier (if it exists)

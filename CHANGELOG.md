@@ -1,3 +1,13 @@
+### 0.5.4 (2023-10-17)
+
+* Merge IAC branch back to master, which bring bugs fix to master, easier to maintain.
+* Add new ENV `ORS_CLIENT_CODE` for client specific logic.
+* Ensure IAC only features, only apply to IAC instance only. (PR#84, PR#108).
+
+**Bug fixes**
+
+* Matrix table sorting issue (PR#114, PR#115)
+
 ### 0.5.3
 
 **Bug Fix**
@@ -15,6 +25,12 @@
 **Bug fixes**
 
 * Fix MEA title and logo not working in PDF generation
+
+### 0.5.0 (2020-09-18) - IACSeaTurtle instance
+
+**Ammendments**
+
+* Show only mandatory questions not yet answered icons
 
 ### 0.5.0 (2020-09-18)
 

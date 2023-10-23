@@ -54,8 +54,7 @@ class UserMailer < ActionMailer::Base
     )
   end
 
-  def admin_notification_questionnaire_submitted(user, questionnaire)
-    admin = questionnaire.user
+  def notify_admins_questionnaire_submitted(user, admin, questionnaire)
     I18n.locale = admin.language
     @user = user
     @questionnaire = questionnaire
