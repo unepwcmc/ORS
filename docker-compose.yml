@@ -4,7 +4,8 @@ services:
     container_name: ors-rails
     build:
       dockerfile: Dockerfile
-    command: rm -rf /railsapp/tmp/pids/server.pid && rails s -p 3000 -b '0.0.0.0'
+    # command: rm -rf /railsapp/tmp/pids/server.pid && rails s -p 3000 -b '0.0.0.0'
+    command: rails s -p 3000 -b '0.0.0.0'
     volumes:
       - '.:/railsapp'
       - ors_bundler_gems:/usr/local/bundle
@@ -19,8 +20,8 @@ services:
       - db
     environment:
       SUS_ORS_DATABASE_HOST: ors-db
-      SUS_ORS_SIDEKIQ_REDIS_URL: redis://ors-redis:6379/0
-      ALLOWED_HOST: ors-rails
+      # SUS_ORS_SIDEKIQ_REDIS_URL: redis://ors-redis:6379/0
+      # ALLOWED_HOST: ors-rails
 
   db:
     container_name: ors-db
