@@ -38,6 +38,7 @@ BEGIN
     FROM matrix_answer_options t
     JOIN tmp_matrix_answers
     ON tmp_matrix_answers.original_id = t.matrix_answer_id
+    ORDER BY t.id ASC
     RETURNING *
   )
   INSERT INTO tmp_matrix_answer_option_fields (
@@ -74,6 +75,7 @@ BEGIN
     FROM matrix_answer_drop_options t
     JOIN tmp_matrix_answers
     ON tmp_matrix_answers.original_id = t.matrix_answer_id
+    ORDER BY t.id ASC
     RETURNING *
   )
   INSERT INTO tmp_matrix_answer_drop_option_fields (
@@ -108,7 +110,8 @@ BEGIN
     t.id
   FROM matrix_answer_queries t
   JOIN tmp_matrix_answers
-  ON tmp_matrix_answers.original_id = t.matrix_answer_id;
+  ON tmp_matrix_answers.original_id = t.matrix_answer_id
+  ORDER BY t.id ASC;
 
   INSERT INTO tmp_matrix_answer_query_fields (
     matrix_answer_query_id,
