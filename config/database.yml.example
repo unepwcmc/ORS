@@ -10,6 +10,7 @@ development:
   username: postgres
   password: postgres
   timeout: 5000
+  host: ors-db # for docker
 
 # Warning: The database defined as "test" will be erased and
 # re-generated from your development database when you run "rake".
@@ -29,5 +30,5 @@ staging:
   username: postgres
   host: localhost
   port: 15432
-  password: 
+  password:
   template: template0
