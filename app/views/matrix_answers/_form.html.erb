@@ -108,7 +108,7 @@
                 ];
                 var dropOptionsData = [];
             <% if type.display_reply == 3 -%>
-            <% j = 0 %>
+            <% j = type.matrix_answer_drop_options.size - 1 %>
                 <% matrix_answer_drop_options =  type.matrix_answer_drop_options.order('id DESC') %>
                 dropOptionsData = [
                     <% matrix_answer_drop_options.each_index do |i| %>
@@ -123,7 +123,7 @@
                         <% if i < matrix_answer_drop_options.size %>
                             ,
                         <% end -%>
-                        <% j += 1 %>
+                        <% j -= 1 %>
                     <% end -%>
                 ];
             <% end -%>

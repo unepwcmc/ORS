@@ -1,3 +1,10 @@
+### 0.5.5 (2023-10-24)
+
+**Bug fixes**
+
+* Maintenance the ordering of MatrixAnswer's Queries/Options/DropDownOption, when clone questionnaire
+* Fix a bug that when adding additional langauge in matrix's dropdown option, the value save into wrong DB id.
+
 ### 0.5.4 (2023-10-17)
 
 * Merge IAC branch back to master, which bring bugs fix to master, easier to maintain.
