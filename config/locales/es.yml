@@ -220,7 +220,7 @@ es:
     mark_question_as_answered: "Marcar la pregunta como respondida"
   s_help:
     submit_title: "Enviar"
-    submit_text: "<p>Cuando haya completado el cuestionario, puede enviarlo haciendo clic en el 'enviar cuestionario' botón. Seguidamente recibirá un correo electrónico de confirmación de su presentación.</p><p>Una vez presentado el cuestionario podrá visitar la página, pero no podrá modificar sus respuestas.</p>"
+    submit_text: "<p>Cuando haya completado el cuestionario, puede enviarlo haciendo clic en el botón de “enviar cuestionario”.  Seguidamente recibirá un correo electrónico de confirmación de su envío.</p><p>Una vez enviado el enviado el cuestionario podrá visitar la página, pero no podrá modificar sus respuestas.</p>"
     lang_change_title: "Cambiar idioma"
     lang_change_text: "<p>Es posible que los cuestionarios estén disponibles en más de un idioma, en cuyo caso puede elegir el idioma en que desea ver el contenido. </p><p>Puede cambiar el idioma en cualquier momento sin que ello altere el contenido de sus respuestas. El idioma que elija se establecerá como su idioma por defecto para este cuestionario.</p>"
     s_guidance_title: "Cumplimentación del cuestionario"
