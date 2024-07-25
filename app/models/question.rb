@@ -43,6 +43,51 @@ class Question < ActiveRecord::Base
   ###   Methods
   ###
 
+  def self.leonardo_data_patching
+    result = []
+    Question.where(answer_type_type: 'MatrixAnswer').each do |question|
+      q_before = question.answer_type.matrix_answer_queries.map{|x| x.id }
+      q_after = question.answer_type.matrix_answer_queries.order('id ASC').map{|x| x.id }
+
+      o_before = question.answer_type.matrix_answer_options.map{|x| x.id }
+      o_after = question.answer_type.matrix_answer_options.order('id ASC').map{|x| x.id }
+
+      if q_before != q_after || o_before != o_after
+        result << "--===Question ID #{question.id}==="
+      end
+      if q_before != q_after
+        result << "--Queries:"
+        result << "--before fix #{q_before}"
+        result << "--after fix  #{q_after}"
+        q_before.each_with_index do |before_id, index|
+          after_id = q_after[index]
+          if before_id != after_id
+            affected_ids = AnswerPart.where(field_type_type: 'MatrixAnswerQuery', field_type_id: before_id).map{|x| x.id}
+            result << "--was #{before_id} to #{after_id} for AnswerPart IDs #{affected_ids}"
+            if affected_ids.present?
+              result << "UPDATE answer_parts SET field_type_id = #{after_id} WHERE id IN (#{affected_ids.join(',')});"
+            end
+          end
+        end
+      end
+      if o_before != o_after
+        result << "--Options:"
+        result << "--before fix #{o_before}"
+        result << "--after fix  #{o_after}"
+        o_before.each_with_index do |before_id, index|
+          after_id = o_after[index]
+          if before_id != after_id
+            result << "--was #{before_id} to #{after_id} for ?" # TODO
+          end
+        end
+      end
+      if q_before != q_after || o_before != o_after
+        result << ""
+      end
+    end
+    puts result
+  end
+
   def self.create_question_from params
     question = self.new(params[:part])
     question.answer_type = Question.create_question_answer_type params
