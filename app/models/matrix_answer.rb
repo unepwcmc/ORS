@@ -85,7 +85,7 @@ class MatrixAnswer < ActiveRecord::Base
   end
 
   def self.to_csv csv, answer_type, s_title, q_title, q_identifier, submitters_ids, answers
-    answer_type.matrix_answer_queries.each do |maq|
+    answer_type.matrix_answer_queries.order('id ASC').each do |maq|
 
       row = Array.new(submitters_ids.size + 3)
       row[0] = s_title
@@ -97,7 +97,7 @@ class MatrixAnswer < ActiveRecord::Base
         answer_from_submitter = answers[val.to_s]
         answer_part = answer_from_submitter.answer_parts.find_by_field_type_id(maq.id) if answer_from_submitter
         if answer_part
-          answer_part.answer_part_matrix_options.each do |o|
+          answer_part.answer_part_matrix_options.order('matrix_answer_option_id ASC').each do |o|
             answer = "x" # Assumes the answer is nil and from a checkbox
             if o.matrix_answer_drop_option
               answer = o.matrix_answer_drop_option.option_text
@@ -105,11 +105,16 @@ class MatrixAnswer < ActiveRecord::Base
               answer = o.answer_text
             end
             option = o.matrix_answer_option.try(:title)
-            answer_results[option] = answer if option
+            # Leonardo: When there are 2 or more row header having the same title (such as empty string), the 1 row
+            # answer is overrided by the later one, because title as the key of the hash.
+            # Change to use uniq ID as key.
+            # answer_results[option] = answer if option
+            answer_results[o.id] = "#{option}=[#{answer}]" if option
           end
         end
 
-        result = answer_results.map{ |k,v| "#{k}=[#{v}]" }.join('&')
+        # result = answer_results.map{ |k,v| "#{k}=[#{v}]" }.join('&')
+        result = answer_results.map{ |k,v| v }.join('&')
         result += " [[timestamp: #{answer_from_submitter.updated_at}]]" if answer_from_submitter
         row[index] = result
       end
