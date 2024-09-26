@@ -37,4 +37,7 @@ OnlineReportingTool::Application.configure do
 
   # Expands the lines which load the assets
   config.assets.debug = true
+
+  config.action_mailer.delivery_method = :smtp
+  config.action_mailer.smtp_settings = { address: ENV.fetch('ORS_SMTP_ADDRESS', 'localhost'), port: 1025 }
 end
