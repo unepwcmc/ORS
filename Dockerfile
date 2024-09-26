@@ -7,7 +7,7 @@ SHELL [ "/bin/bash", "-l", "-c" ]
 # https://stackoverflow.com/questions/66803517/rails-error-cant-find-freedesktop-org-xml
 # https://stackoverflow.com/questions/3116015/how-to-install-postgresqls-pg-gem-on-ubuntu
 RUN apt update && \
-    apt install -y wget curl git apt-transport-https ca-certificates shared-mime-info postgresql-client libpq5 libpq-dev && \
+    apt install -y wget curl git apt-transport-https ca-certificates shared-mime-info postgresql-client libpq5 libpq-dev libsodium-dev && \
     update-ca-certificates
 
 # NodeJS 0.10.25
@@ -24,7 +24,9 @@ RUN curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.1/install.sh | b
 RUN /bin/bash -c "source $NVM_DIR/nvm.sh && nvm install $NODE_VERSION && nvm use --delete-prefix $NODE_VERSION"
 ENV PATH=$NVM_DIR/versions/node/$NODE_VERSION/bin:$PATH
 
-RUN curl -sSLk https://get.rvm.io | bash
+# RUN curl -sSLk https://get.rvm.io | bash
+# Must install in /root/.rvm, otherwise cap deploy doesn't work.
+RUN curl -sSL https://get.rvm.io | bash -s -- --path /root/.rvm
 RUN rvm install 2.2.3
 
 RUN mkdir /railsapp

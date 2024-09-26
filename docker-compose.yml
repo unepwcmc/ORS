@@ -8,7 +8,7 @@ services:
     volumes:
       - '.:/railsapp'
       - ors_bundler_gems:/usr/local/bundle
-      # - ~/.ssh:/root/.ssh:ro
+      - ~/.ssh:/root/.ssh:ro
     ports:
       - '${ORS_CONTAINER_RAILS_PORT:-3000}:3000'
     networks:
@@ -66,6 +66,7 @@ services:
     volumes:
       - '.:/railsapp'
       - ors_bundler_gems:/usr/local/bundle
+      - ~/.ssh:/root/.ssh:ro
     environment:
       REDIS_URL: redis://ors-redis:6379/0
       ORS_SMTP_ADDRESS: ors-mailcatcher

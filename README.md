@@ -6,6 +6,9 @@ A user guide for the application is available from the repository's doc folder.
 
 ## Development
 
+### Docker
+`docker compose up -d`
+
 ### Installing locally
 
 1 Install necessary software
@@ -22,7 +25,7 @@ TBC
 ###### Ubuntu
 
 For Ubuntu you will need the libssl1.0-dev library: `sudo apt install libssl1.0-dev`
-If you have Rbenv installed, you can setup Ruby v2.2.3 with: `rbenv install 2.2.3`. Based on the `.ruby-version` file in the root of the project, it should then be using v2.2.3 within the project. 
+If you have Rbenv installed, you can setup Ruby v2.2.3 with: `rbenv install 2.2.3`. Based on the `.ruby-version` file in the root of the project, it should then be using v2.2.3 within the project.
 
 * [PostgreSQL](http://www.postgresql.org/) 9.4
 * [Redis](http://redis.io/): "Redis is an open source, BSD licensed, advanced key-value store",
@@ -67,7 +70,7 @@ After installing this software run "bundle install" again.
 
 ````
     rails server
-````    
+````
 
 8 And visit the home page in:
 
@@ -145,6 +148,16 @@ So we can then do something like
 `cap bern-ort:staging deploy`
 `cap cms-ort:staging deploy`
 
-### Mail 
+##### Step to deploy in docker container
+```
+bash
+source /etc/profile.d/rvm.sh
+eval $(ssh-agent -s)
+ssh-add ~/.ssh/id_ed25519
+
+cap demo-ort:production deploy
+```
+
+### Mail
 
 Since :smtp has some issues with ruby 2.2.3 mail delivery method has been changed to :sendmail in config/environments/production.rb and staging.rb

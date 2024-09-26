@@ -86,6 +86,10 @@ group :development do
   gem 'sexy_relations', '~> 1.0.4'
   gem 'rubocop', require: false
   gem 'quiet_assets'
+  # Need these to deploy in docker.
+  gem 'rbnacl'
+  gem 'bcrypt_pbkdf'
+  gem 'rbnacl-libsodium'
 end
 
 group :test do
