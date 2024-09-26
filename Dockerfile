@@ -11,10 +11,18 @@ RUN apt update && \
     update-ca-certificates
 
 # NodeJS 0.10.25
-RUN gpg --keyserver keyserver.ubuntu.com --recv-keys 409B6B1796C275462A1703113804BB82D39DC0E3 7D2BAF1CF37B13E2069D6956105BD0E739499BDB && \
-    wget https://nodejs.org/dist/v0.10.25/node-v0.10.25-linux-x64.tar.gz && \
-    cd /usr/local && \
-    tar --strip-components 1 -xzf /node-v0.10.25-linux-x64.tar.gz
+# RUN gpg --keyserver keyserver.ubuntu.com --recv-keys 409B6B1796C275462A1703113804BB82D39DC0E3 7D2BAF1CF37B13E2069D6956105BD0E739499BDB && \
+#     wget https://nodejs.org/dist/v0.10.25/node-v0.10.25-linux-x64.tar.gz && \
+#     cd /usr/local && \
+#     tar --strip-components 1 -xzf /node-v0.10.25-linux-x64.tar.gz
+# RUN apt install -y nodejs-legacy
+
+# NodeJS v14.21.3
+ENV NVM_DIR /root/.nvm
+ENV NODE_VERSION v14.21.3
+RUN curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.1/install.sh | bash
+RUN /bin/bash -c "source $NVM_DIR/nvm.sh && nvm install $NODE_VERSION && nvm use --delete-prefix $NODE_VERSION"
+ENV PATH=$NVM_DIR/versions/node/$NODE_VERSION/bin:$PATH
 
 RUN curl -sSLk https://get.rvm.io | bash
 RUN rvm install 2.2.3
