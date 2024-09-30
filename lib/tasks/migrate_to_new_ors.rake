@@ -40,6 +40,12 @@ task :migrate_to_new_ors, [:url_prefix, :questionnaire_id] => :environment do |t
       # Create questionnaire directory.
       questionnaire_dir = FileUtils.mkdir_p("questionnaire_#{questionnaire.id}").first
       Dir.chdir(questionnaire_dir) do
+
+        # Questionnaire banner
+        if questionnaire.header.present? && File.exist?(questionnaire.header.path)
+          FileUtils.cp(questionnaire.header.path, File.join(working_dir, questionnaire_dir))
+        end
+
         # Questionnaire CSV, with all answers, for Secretariat.
         # both , and ; separator
         if export_csv
