@@ -129,9 +129,11 @@ task :migrate_to_new_ors, [:url_prefix, :questionnaire_id] => :environment do |t
                       # Copy the export file to our directory.
                       FileUtils.cp(document.doc.path, respondent_doc_dir)
                     end
-                  end
-                end
-              end
+                    system("zip -r documents.zip documents")
+                    FileUtils.rm_rf("documents")
+                  end # respondent_dir
+                end # if documents.count > 0
+              end # if export_document
             end # respodnents loop
           end # users dir
         end
