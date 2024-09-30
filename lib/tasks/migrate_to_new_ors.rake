@@ -7,6 +7,9 @@
 task :migrate_to_new_ors, [:url_prefix, :questionnaire_id] => :environment do |t, args|
   puts "Environment: #{Rails.env}"
 
+  # Prefer not regenerate PDF. Reason please refer to `OldSystemDataMigration.md` in the new ORS project.
+  regen_pdf = false
+
   # Boolean for debugging.
   export_csv = true
   export_pdf = true
@@ -102,11 +105,15 @@ task :migrate_to_new_ors, [:url_prefix, :questionnaire_id] => :environment do |t
                   short_version = long_or_short == 'short'
 
                   # Export it using original way.
-                  QuestionnairePdf.new.to_pdf(export_user, respondent, questionnaire, url_prefix, short_version)
+                  if regen_pdf
+                    QuestionnairePdf.new.to_pdf(export_user, respondent, questionnaire, url_prefix, short_version)
+                  end
                   pdf_file = questionnaire.pdf_files.find_by_user_id_and_is_long(respondent.id, !short_version)
 
                   # Copy the export file to our directory.
-                  FileUtils.cp(pdf_file.location, respondent_dir)
+                  if pdf_file.present? && File.exist?(pdf_file.location)
+                    FileUtils.cp(pdf_file.location, respondent_dir)
+                  end
                 end
               end
 
