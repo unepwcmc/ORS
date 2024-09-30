@@ -16,3 +16,4 @@ nbproject/private/
 .sass-cache/
 .vagrant
 .env
+public/assets

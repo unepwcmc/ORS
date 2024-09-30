@@ -30,7 +30,7 @@ class QuestionnairePdf < Prawn::Document
     #filled_check_box = "\xE2\x98\x91"
 
     ap = ApplicationProfile.first
-    current_instance = (ap && ap.sub_title) || Rails.root.to_s.split('/')[3].split('-').first
+    current_instance = (ap && ap.sub_title) || Rails.root.to_s.split('/')[3].split('-').first rescue ENV['ORS_CLIENT_CODE']
     ap_logo = ap && ap.logo && ap.logo.path
     fallback_logo = Dir.glob("public/assets/logos/#{current_instance.split('-').first}*", File::FNM_CASEFOLD).first
     logo = ap_logo || "#{Rails.root}/#{fallback_logo}"
