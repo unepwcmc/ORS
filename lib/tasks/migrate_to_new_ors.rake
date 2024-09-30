@@ -10,6 +10,7 @@ task :migrate_to_new_ors, [:url_prefix, :questionnaire_id] => :environment do |t
   # Boolean for debugging.
   export_csv = true
   export_pdf = true
+  export_loop_source = true
   export_document = true
 
   scope =
@@ -64,47 +65,63 @@ task :migrate_to_new_ors, [:url_prefix, :questionnaire_id] => :environment do |t
           end
         end
 
+        # LoopSource source files
+        if export_loop_source && questionnaire.loop_sources.count > 0
+          puts "..Export LoopSource source files"
+          questionnaire.loop_sources.each do |loop_source|
+            loop_source.source_files.each do |source_file|
+              source_file_path = source_file.source.path
+              if File.exist?(source_file_path)
+                loop_source_dir = FileUtils.mkdir_p("loop_sources/#{loop_source.id}").first
+                new_filename = "#{source_file.id}_#{source_file.source.original_filename}"
+                FileUtils.cp(source_file_path, File.join(working_dir, questionnaire_dir, loop_source_dir, new_filename))
+              end
+            end
+          end
+        end
+
         # For Respondent
+        if export_pdf || export_document
         users_dir = FileUtils.mkdir_p("users").first
         Dir.chdir(users_dir) do
           questionnaire.submitters.find_each do |respondent|
-            puts "..Export respondent #{respondent.id}"
-            # Create user dir.
-            respondent_dir = FileUtils.mkdir_p(respondent.id.to_s).first
+              puts "..Export respondent #{respondent.id}"
+              # Create user dir.
+              respondent_dir = FileUtils.mkdir_p(respondent.id.to_s).first
 
-            # Both long and short PDF.
-            if export_pdf
-              ['short', 'long'].each do |long_or_short|
-                puts "....Export answer PDF #{long_or_short}"
-                short_version = long_or_short == 'short'
+              # Both long and short PDF.
+              if export_pdf
+                ['short', 'long'].each do |long_or_short|
+                  puts "....Export answer PDF #{long_or_short}"
+                  short_version = long_or_short == 'short'
 
-                # Export it using original way.
-                QuestionnairePdf.new.to_pdf(export_user, respondent, questionnaire, url_prefix, short_version)
-                pdf_file = questionnaire.pdf_files.find_by_user_id_and_is_long(respondent.id, !short_version)
+                  # Export it using original way.
+                  QuestionnairePdf.new.to_pdf(export_user, respondent, questionnaire, url_prefix, short_version)
+                  pdf_file = questionnaire.pdf_files.find_by_user_id_and_is_long(respondent.id, !short_version)
 
-                # Copy the export file to our directory.
-                FileUtils.cp(pdf_file.location, respondent_dir)
+                  # Copy the export file to our directory.
+                  FileUtils.cp(pdf_file.location, respondent_dir)
+                end
               end
-            end
 
-            # All attachments of this questionnaire x respondent
-            if export_document
-              documents = Document.where(answer_id: questionnaire.answers.where(user_id: respondent.id).select(:id))
-              if documents.count > 0
-                puts "....Export documents"
-                Dir.chdir(respondent_dir) do
-                  # Create respondent's 'documents' dir.
-                  respondent_doc_dir = FileUtils.mkdir_p("documents").first
-                  documents.each do |document|
-                    # Copy the export file to our directory.
-                    FileUtils.cp(document.doc.path, respondent_doc_dir)
+              # All attachments of this questionnaire x respondent
+              if export_document
+                documents = Document.where(answer_id: questionnaire.answers.where(user_id: respondent.id).select(:id))
+                if documents.count > 0
+                  puts "....Export documents"
+                  Dir.chdir(respondent_dir) do
+                    # Create respondent's 'documents' dir.
+                    respondent_doc_dir = FileUtils.mkdir_p("documents").first
+                    documents.each do |document|
+                      # Copy the export file to our directory.
+                      FileUtils.cp(document.doc.path, respondent_doc_dir)
+                    end
                   end
                 end
               end
-            end
-          end # respodnents loop
-        end # users dir
-
+            end # respodnents loop
+          end # users dir
+        end
 
       end # Questionnaire working dir
       puts "Questionnaire #{questionnaire.id}.............................END"
