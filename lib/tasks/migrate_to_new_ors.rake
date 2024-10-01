@@ -74,6 +74,11 @@ task :migrate_to_new_ors, [:url_prefix, :questionnaire_id] => :environment do |t
           end
         end
 
+        # Pivot table xls. (Ramsar only)
+        Dir["private/questionnaires/#{questionnaire.id}/RAMSAR_Report_*.xls"].each do |path|
+          FileUtils.cp(Rails.root.join(path), File.join(working_dir, questionnaire_dir))
+        end
+
         # LoopSource source files
         if export_loop_source && questionnaire.loop_sources.count > 0
           puts "..Export LoopSource source files"
